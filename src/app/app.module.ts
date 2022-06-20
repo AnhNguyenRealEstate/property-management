@@ -4,17 +4,85 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivitiesViewComponent } from './activities-view/activities.component';
+import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
+import { PropertiesViewComponent } from './properties-view/properties-view.component';
+import { PropertyCardComponent } from './property-card/property-card.component';
+import { PropertyDetailsComponent } from './property-details/property-details.component';
+import { SummaryViewComponent } from './summary-view/summary-view.component';
+import { LayoutComponent } from './layout/layout.component';
+import { SharedModule } from './shared/shared.module';
+import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
+import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
+import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
+import { provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
+import { provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
+import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
+import { firebaseConfig } from './shared/globals';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PropertyDetailsComponent,
+    PropertyCardComponent,
+    ActivityUploadComponent,
+    PropertiesViewComponent,
+    ActivitiesViewComponent,
+    SummaryViewComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    NgIdleKeepaliveModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    provideFirebaseApp(() => {
+      const app = initializeApp(firebaseConfig);
+      return app;
+    }),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      if (!environment.production) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+      return firestore;
+    }),
+    provideStorage(() => {
+      const storage = getStorage();
+      if (!environment.production) {
+        connectStorageEmulator(storage, 'localhost', 9199);
+      }
+      return storage;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (!environment.production) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+      }
+      return auth;
+    }),
+    provideAnalytics(() => getAnalytics(getApp()))
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

@@ -1,0 +1,82 @@
+{
+    "app_title": "BĐS Anh Nguyễn - Quản lý tài sản",
+    "generics.any": "Bất kỳ",
+    "property_category": {
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Mặt bằng"
+    },
+    "layout": {
+        "listings": "Sản phẩm",
+        "upload_new": "Đăng sản phẩm",
+        "property_management": "Quản lý tài sản",
+        "about_us": "Giới thiệu",
+        "view_all": "Xem toàn bộ",
+        "by_category": "Phân loại",
+        "sign_in": "Đăng nhập",
+        "sign_out": "Đăng xuất",
+        "english": "Tiếng Anh 🇬🇧",
+        "vietnamese": "Tiếng Việt 🇻🇳",
+        "purpose": "Mục đích",
+        "for_rent": "Thuê",
+        "for_sale": "Mua"
+    },
+    "login": {
+        "page_title": "Đăng nhập",
+        "username": "Tên đăng nhập",
+        "password": "Mật khẩu",
+        "login": "Đăng nhập",
+        "wrong_email_pw": "Sai tên hoặc mật khẩu"
+    },
+    "session_timeout": {
+        "title": "Thông báo đăng xuất",
+        "warning": "Nếu không tiếp tục sử dụng, hệ thống sẽ tự động đăng xuất trong vòng 5 phút"
+    },
+    "property_management": {
+        "title": "Quản lý tài sản",
+        "register": "Đăng ký mới",
+        "summary": "Tóm tắt",
+        "properties": "Danh sách tài sản",
+        "activities": "Danh sách hoạt động"
+    },
+    "property_upload": {
+        "register_new": "Đăng ký tài sản",
+        "edit_property": "Sửa thông tin tài sản",
+        "property_info": "Thông tin tài sản",
+        "owner": "Tài khoản của chủ nhà",
+        "property_name": "Tên tài sản",
+        "category": "Phân loại",
+        "subcategory": "Phân loại phụ",
+        "address": "Địa chỉ",
+        "management_info": "Thông tin quản lý",
+        "start_date": "Ngày bắt đầu",
+        "end_date": "Ngày hết hạn hợp đồng",
+        "monthly_rent": "Giá cho thuê mỗi tháng (USD)",
+        "activities": "Hoạt động",
+        "upload_files": "Đính kèm file",
+        "upload": "Đăng ký",
+        "save": "Lưu thay đổi",
+        "upload_successful": "Nhà đã được đưa vào hệ thống 🎉",
+        "edit_successful": "Đã lưu thay đổi ✅",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Shop thương mại",
+        "description": "Ghi chú"
+    },
+    "property_card": {
+        "activity_added": "Đã thêm hoạt động 🎉",
+        "delete_confirmation_msg": "Bạn chắc chắn muốn xoá tài sản này?",
+        "yes_msg": "Xoá",
+        "no_msg": "Huỷ",
+        "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
+        "dismiss_msg": "Tắt"
+    },
+    "activities_tree_view": {
+        "no_doc": "Không có tài liệu đính kèm",
+        "no_activity": "Không có hoạt động",
+        "activity": "hoạt động",
+        "activities": "hoạt động"
+    }
+}

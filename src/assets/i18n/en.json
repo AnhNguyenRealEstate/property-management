@@ -1,0 +1,82 @@
+{
+    "app_title": "Anh Nguyen Real Estate",
+    "generics.any": "Any",
+    "property_category": {
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial"
+    },
+    "layout": {
+        "listings": "Listings",
+        "upload_new": "Upload listing",
+        "property_management": "Manage properties",
+        "about_us": "About us",
+        "view_all": "All listings",
+        "by_category": "Categories",
+        "sign_in": "Sign in",
+        "sign_out": "Sign out",
+        "english": "English 🇬🇧",
+        "vietnamese": "Vietnamese 🇻🇳",
+        "purpose": "Purpose",
+        "for_rent": "For rent",
+        "for_sale": "For sale"
+    },
+    "login": {
+        "page_title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "login": "Login",
+        "wrong_email_pw": "Please enter valid username/password'"
+    },
+    "session_timeout": {
+        "title": "Inactivity warning",
+        "warning": "You have been inactive and will be signed out in 5 minutes"
+    },
+    "property_management": {
+        "title": "Property management overview",
+        "register": "Register",
+        "summary": "Summary",
+        "properties": "Properties",
+        "activities": "Activities"
+    },
+    "property_upload": {
+        "register_new": "Register a new property",
+        "edit_property": "Edit property information",
+        "property_info": "Property information",
+        "owner": "Owner's account",
+        "property_name": "Property name",
+        "category": "Category",
+        "subcategory": "Subcategory",
+        "address": "Address",
+        "management_info": "Management information",
+        "start_date": "Start date",
+        "end_date": "End date",
+        "monthly_rent": "Monthly rental price (USD)",
+        "activities": "Activities",
+        "upload_files": "Upload files",
+        "upload": "Upload",
+        "save": "Save",
+        "upload_successful": "Property successfully added 🎉",
+        "edit_successful": "Changes saved ✅",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial",
+        "description": "Description"
+    },
+    "property_card": {
+        "activity_added": "Activity added 🎉",
+        "delete_confirmation_msg": "Are you sure you want to delete this property from the system?",
+        "yes_msg": "Delete",
+        "no_msg": "Cancel",
+        "delete_msg": "Property removed from system 🗑",
+        "dismiss_msg": "Dismiss"
+    },
+    "activities_tree_view": {
+        "no_doc": "No documents to display",
+        "no_activity": "No activity",
+        "activity": "activity",
+        "activities": "activities"
+    }
+}

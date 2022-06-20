@@ -1,0 +1,63 @@
+@use "src/app/styles/colors" as colors;
+
+.home-icon-wrapper {
+    font-size: x-large;
+}
+
+.navbar {
+    background: colors.$alt-primary;
+}
+
+.sidenav-container {
+    flex: 1;
+}
+
+.sidenav {
+    background: colors.$alt-primary;
+    min-width: 240px;
+    a {
+        display: block;
+        padding: 6px 24px;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.menu-button {
+    margin-right: 24px;
+    min-width: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+::ng-deep .employee-actions-menu {
+    background: colors.$alt-primary;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    overflow: initial !important; //allowing position sticky on criteria panel
+}
+
+.language-toggle {
+    font-size: 10px;
+    width: 80px;
+}
+
+.language-toggle-mobile {
+    mat-form-field {
+        width: 30vw !important;
+    }
+}
+
+::ng-deep .listings-menu {
+    .menu-heading {
+
+        color: colors.$accent;
+        text-align: center;
+    }
+
+    .mat-button-wrapper {
+        font-weight: 400 !important;
+    }
+}

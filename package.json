@@ -4,9 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "bundle-report": "webpack-bundle-analyzer dist/listing-portal/stats.json",
+    "build": "ng build --stats-json",
+    "build-functions": "npm run --prefix functions build",
+    "build-all-prod": "ng build --stats-json --configuration production --aot --output-hashing=all && npm run build-functions",
+    "deploy-functions": "npm run --prefix functions deploy",
+    "deploy-hosting": "npm run build-all-prod && firebase deploy --only hosting",
+    "deploy-full": "npm run deploy-hosting && npm run deploy-functions",
     "start-db": "firebase emulators:start --import=./offline-db --export-on-exit",
     "clean-db": "lsof -t -i:9199 -i:8080 -i:9099 -i:5001 -i:9000 -i:5050 -i:8085 -i:4000 | xargs kill -9"
   },
