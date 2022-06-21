@@ -1,0 +1,23 @@
+@use "src/app/styles/colors" as colors;
+
+.document-container:hover {
+    transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.property-details-title {
+    color: colors.$accent-300;
+}
+
+.property-details-section-heading {
+    font-size: 18px;
+}
+
+.related-document-date {
+    text-decoration: none !important;
+    font-size: 0.75rem;
+    color: gray;
+
+    @media screen and (min-width: 600px) {
+        padding-right: 10vw;
+    }
+}

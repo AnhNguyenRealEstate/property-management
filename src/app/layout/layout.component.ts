@@ -1,9 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { Router } from "@angular/router";
-import { Property } from "../property-management.data";
-import { PropertyUploadComponent } from "../property-upload/property-upload.component";
-import { RolesService } from "../shared/roles.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { RolesService } from 'src/app/shared/roles.service';
+import { LoginComponent } from '../login/login-dialog.component';
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'app-layout',
@@ -11,40 +14,46 @@ import { RolesService } from "../shared/roles.service";
     styleUrls: ['./layout.component.scss']
 })
 
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
+    loggedIn: boolean = false;
+    lang!: string;
+    sub = new Subscription();
+
     constructor(
-        private dialog: MatDialog,
+        private router: Router,
+        public auth: Auth,
+        private loginService: LoginService,
         public roles: RolesService,
-        private router: Router) {
+        private dialog: MatDialog,
+        public translate: TranslateService) {
+        this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
     }
 
     ngOnInit(): void {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:summary-view)');
+        const sessionLang = localStorage.getItem('lang');
+        this.lang = sessionLang || this.translate.getDefaultLang();
     }
 
-    viewSummary() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:summary-view)');
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
-    viewProperties() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
-    }
-
-    viewActivities() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
-    }
-
-    async addProperty() {
+    showLoginModal() {
         const config = {
-            height: '90%',
-            width: '100%',
-            autoFocus: false,
-            data: {
-                property: {} as Property,
-                isEditMode: false
-            }
+            height: 'auto',
+            width: '90%'
         } as MatDialogConfig;
+        this.dialog.open(LoginComponent, config);
+    }
 
-        this.dialog.open(PropertyUploadComponent, config);
+    useLanguage(event: any) {
+        this.translate.use(this.lang);
+        localStorage.setItem('lang', this.lang);
+    }
+
+    logout() {
+        this.auth.signOut().then(() => {
+            this.router.navigateByUrl('');
+        });
     }
 }

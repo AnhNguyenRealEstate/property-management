@@ -1,42 +1,131 @@
-<section>
-    <h1 class="page-title ps-3">{{ 'property_management.title' | translate | titlecase }}</h1>
-    <mat-divider></mat-divider>
+<mat-toolbar class="navbar">
+    <a class="navbar-brand" [routerLink]="['/']">
+        <span class="home-icon-wrapper">
+            <img width="22rem" height="22rem" src="/assets/images/logo.png">
+        </span>
+    </a>
 
-    <mat-drawer-container class="container-flex" style="height: 90vh;">
-        <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
-            <div class="row pt-2 pt-sm-4">
-                <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
-                    <button class="col-12 pb-1 d-flex" mat-button (click)="addProperty()">
-                        <span class="ps-3 ps-ms-4"></span>
-                        <mat-icon color="accent">add_business</mat-icon>
-                        <span class="ps-3 d-none d-sm-inline">{{ 'property_management.register' | translate }}</span>
-                    </button>
-                    <div class="col-12 pb-1">
-                        <mat-divider></mat-divider>
+    <div class="d-none d-md-flex">
+        <a mat-button [matMenuTriggerFor]="listingsMenu">{{ 'layout.listings' | translate }}</a>
+        <mat-menu #listingsMenu [xPosition]="'before'">
+            <ng-template matMenuContent>
+                <div class="listings-menu">
+                    <div class="row">
+                        <a class="col-12" style="text-align: center;" mat-button [routerLink]="['/listings']">
+                            {{ 'layout.view_all' | translate }}
+                        </a>
                     </div>
-                </ng-container>
+                    <mat-divider class="ms-3 me-3"></mat-divider>
+                    <div class="row">
+                        <div class="col-12 pt-2 menu-heading">{{ 'layout.purpose' | translate }}</div>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
+                            class="col-6">{{ 'layout.for_rent' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}" class="col-6">
+                            {{ 'layout.for_sale' | translate }}
+                        </a>
+                    </div>
+                    <mat-divider class="ms-3 me-3"></mat-divider>
+                    <div class="row">
+                        <div class="col-12 pt-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
+                            class="col-6">{{ 'property_category.apartment' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-6">{{
+                            'property_category.villa' |
+                            translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
+                            class="col-6">{{ 'property_category.townhouse' |
+                            translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
+                            class="col-6">{{ 'property_category.commercial' |
+                            translate }}</a>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-menu>
 
-                <button class="col-12 pb-1 d-flex" mat-button (click)="viewSummary()">
-                    <span class="ps-3 ps-ms-4"></span>
-                    <mat-icon color="accent">dashboard</mat-icon>
-                    <span class="ps-3 d-none d-sm-inline">{{ 'property_management.summary' | translate }}</span>
-                </button>
-                <button class="col-12 pb-1 d-flex" mat-button (click)="viewProperties()">
-                    <span class="ps-3 ps-ms-4"></span>
-                    <mat-icon color="accent">holiday_village</mat-icon>
-                    <span class="ps-3 d-none d-sm-inline">{{ 'property_management.properties' | translate }}</span>
-                </button>
-                <button class="col-12 pb-1 d-flex" mat-button (click)="viewActivities()">
-                    <span class="ps-3 ps-ms-4"></span>
-                    <mat-icon color="accent">view_list</mat-icon>
-                    <span class="ps-3 d-none d-sm-inline">{{ 'property_management.activities' | translate }}</span>
-                </button>
-            </div>
-        </mat-drawer>
+        <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
 
-        <mat-drawer-content>
-            <router-outlet></router-outlet>
-        </mat-drawer-content>
+        <div class="language-toggle ms-2 me-4">
+            <mat-icon>language</mat-icon>
+            <span class="pe-1"></span>
+            <mat-form-field color="accent">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
+                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-    </mat-drawer-container>
-</section>
+        <ng-container *ngIf="loggedIn">
+            <a mat-button [matMenuTriggerFor]="menu" [matTooltip]="auth.currentUser?.email || ' '">
+                <mat-icon>account_circle</mat-icon>
+            </a>
+            <mat-menu #menu="matMenu" class="employee-actions-menu">
+                <a *ngIf="(roles.roles$ | async)?.includes('owner') || (roles.roles$ | async)?.includes('customer-service')" mat-menu-item
+                    [routerLink]="['/property-management']">
+                    <mat-icon>other_houses</mat-icon>
+                    {{ 'layout.property_management' | translate }}
+                </a>
+                <a mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
+                </a>
+            </mat-menu>
+        </ng-container>
+
+        <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()" [matTooltip]="'layout.sign_in' | translate">
+            <mat-icon>login</mat-icon>
+        </a>
+    </div>
+    <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav" (click)="sidenav.toggle()">
+        <div class="ps-4 language-toggle-mobile">
+            <mat-icon>language</mat-icon>
+            <mat-form-field class="ps-3" color="accent" (click)="$event.stopPropagation()">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
+                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <mat-divider inset="true"></mat-divider>
+
+        <a mat-button [routerLink]="['/listings']">
+            <mat-icon>view_list</mat-icon>
+            <span class="ps-3">{{ 'layout.listings' | translate }}</span>
+        </a>
+        <a mat-button [routerLink]="['/about-us']">
+            <mat-icon>real_estate_agent</mat-icon>
+            <span class="ps-3">{{ 'layout.about_us' | translate }}</span>
+        </a>
+
+        <mat-divider inset="true"></mat-divider>
+
+        <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
+            <mat-icon>login</mat-icon>
+            <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>
+        </a>
+
+        <ng-container *ngIf="loggedIn">
+
+            <a *ngIf="(roles.roles$ | async)?.includes('owner') || (roles.roles$ | async)?.includes('customer-service')" mat-button [routerLink]="['/property-management']">
+                <mat-icon>other_houses</mat-icon>
+                <span class="ps-3">{{ 'layout.property_management' | translate }}</span>
+            </a>
+
+            <a mat-button (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
+            </a>
+        </ng-container>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

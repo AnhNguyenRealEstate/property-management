@@ -1,0 +1,80 @@
+<mat-card>
+    <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
+        <ng-container *ngTemplateOutlet="cardControls"></ng-container>
+    </ng-container>
+    <mat-card-content>
+        <div class="pb-2 card-title">
+            <div class="pb-3 overrun-wrap" *ngIf="property.name">
+                {{property.name}}
+            </div>
+            <div class="card-subtitle overrun-wrap pb-1" *ngIf="property.rentalPrice">${{property.rentalPrice}}/month</div>
+            <div class="card-subtitle overrun-wrap" *ngIf="property.owner">{{property.owner}}</div>
+        </div>
+
+        <div class="pb-2">
+            <div class="content-label">Address</div>
+            <div class="overrun-wrap" *ngIf="property.address">{{property.address}}</div>
+        </div>
+
+        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
+            <div class="col-6">
+                <div class="content-label">Start date</div>
+                <div>{{property.managementStartDate.toDate() | date:'MMM dd, yyyy' }}</div>
+            </div>
+            <div class="col-6">
+                <div class="content-label">End date</div>
+                <div>{{property.managementEndDate.toDate() | date:'MMM dd, yyyy' }}</div>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="pt-2">
+            <div class="content-label">Most recent activity</div>
+            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
+                {{mostRecentActivity.description}} - {{timestampToDate(mostRecentActivity.date) | date:'MMM dd, yyyy'}}
+            </div>
+            <ng-template #noRecentActivity>
+                <div>No recent activity</div>
+            </ng-template>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #cardControls>
+    <button mat-icon-button class="controls-btn" [matMenuTriggerFor]="controlsMenu"
+        [matTooltip]="'listing_card.edit' | translate" (click)="$event.stopPropagation()">
+        <mat-icon color="accent">more_horiz</mat-icon>
+    </button>
+
+    <mat-menu #controlsMenu="matMenu">
+        <button mat-menu-item class="d-block" [matMenuTriggerFor]="newActivityMenu">
+            <mat-icon color="accent">add_box</mat-icon>
+            <span>New activity</span>
+        </button>
+        <mat-menu #newActivityMenu="matMenu">
+            <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
+        </mat-menu>
+
+        <button mat-menu-item class="d-block" (click)="editProperty($event)">
+            <mat-icon color="accent">edit</mat-icon>
+            <span>Edit information</span>
+        </button>
+        <button mat-menu-item class="d-block" (click)="deleteProperty($event)">
+            <mat-icon color="accent">delete</mat-icon>
+            <span>Remove from system</span>
+        </button>
+    </mat-menu>
+</ng-template>
+
+<ng-template #confirmationDialog>
+    <section class="container-flex justify-content-between">
+        <p class="pb-2">{{ 'property_card.delete_confirmation_msg' | translate }}</p>
+        <div class="d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">
+                {{ 'listing_edit.yes_msg' | translate }}
+            </button>
+            <button mat-button [mat-dialog-close]="false">{{ 'listing_edit.no_msg' | translate }}</button>
+        </div>
+    </section>
+</ng-template>

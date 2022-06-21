@@ -1,0 +1,15 @@
+<div class="row ps-2 pe-2">
+    <div class="col-12 search-bar">
+        <mat-form-field color="default">
+            <button matPrefix mat-icon-button disabled>
+                <mat-icon>search</mat-icon>
+            </button>
+            <input matInput type="text" [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
+        </mat-form-field>
+    </div>
+
+    <div *ngFor="let prop of properties; let i = index;" class="property-card-wrapper col-12 col-sm-4 col-xl-3 pb-2">
+        <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(prop)">
+        </property-card>
+    </div>
+</div>
