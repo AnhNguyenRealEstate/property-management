@@ -4,12 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivitiesViewComponent } from './activities-view/activities.component';
-import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
-import { PropertiesViewComponent } from './properties-view/properties-view.component';
-import { PropertyCardComponent } from './property-card/property-card.component';
-import { PropertyDetailsComponent } from './property-details/property-details.component';
-import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
@@ -23,17 +17,15 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { firebaseConfig } from './shared/globals';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TimeoutComponent } from './session-timeout/session-timeout.component';
+import { LoginComponent } from './login/login-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PropertyDetailsComponent,
-    PropertyCardComponent,
-    ActivityUploadComponent,
-    PropertiesViewComponent,
-    ActivitiesViewComponent,
-    SummaryViewComponent,
-    LayoutComponent
+    LayoutComponent,
+    TimeoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

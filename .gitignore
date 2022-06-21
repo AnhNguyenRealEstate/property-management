@@ -37,6 +37,7 @@ yarn-error.log
 testem.log
 /typings
 /offline-db
+*-debug.log
 
 # System files
 .DS_Store

@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@use "app/styles/text";
+@use "app/styles/colors";
+@use "app/styles/base";
+@import "~/node_modules/placeholder-loading/src/scss/placeholder-loading";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+}
+
+// Only works if it is put here.
+.price-input-group .mat-form-field-infix {
+    display: inherit !important;
+}
+
+mat-spinner {
+    margin: 0 auto;
+}
+
+.cdk-global-scrollblock {
+    // https://github.com/angular/components/issues/7390#issuecomment-486947151
+    position: static !important;
+    width: initial !important;
+    overflow-y: inherit !important;
+}

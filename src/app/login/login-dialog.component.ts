@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Auth, browserSessionPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -17,9 +17,9 @@ export class LoginComponent {
     inProgress: boolean = false;
 
     constructor(
-        public dialogRef: MatDialogRef<LoginComponent>,
         public auth: Auth,
-        private translateService: TranslateService) { }
+        private translateService: TranslateService,
+        private router: Router) { }
 
     async login() {
         this.successful = true;
@@ -46,7 +46,7 @@ export class LoginComponent {
         this.inProgress = false;
 
         if (this.successful) {
-            this.dialogRef.close(true);
+            this.router.navigateByUrl('/');
         }
     }
 }

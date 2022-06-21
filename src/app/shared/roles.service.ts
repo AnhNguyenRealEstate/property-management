@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoginService } from '../components/login/login.service';
+import { LoginService } from '../login/login.service';
 import { FirestoreCollections } from './globals';
 
 @Injectable({ providedIn: 'root' })

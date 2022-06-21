@@ -14,7 +14,7 @@ import { SessionTimeoutService } from './session-timeout/session-timeout.service
 export class AppComponent implements OnInit {
 
     appTitle = '';
-    defaultLang = 'vi';
+    defaultLang = 'vn';
 
     constructor(
         private timeoutService: SessionTimeoutService,

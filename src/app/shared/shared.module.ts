@@ -17,6 +17,9 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     exports: [
@@ -36,7 +39,11 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSidenavModule,
         MatMenuModule,
         NgxTrimDirectiveModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatTabsModule,
+        MatDatepickerModule,
+        MatProgressSpinnerModule,
+        DragDropModule
     ],
     providers: [
         CurrencyPipe,

@@ -1,0 +1,39 @@
+.page-title {
+    padding-top: 0.5em;
+    font-size: 20px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.ml-15 {
+    margin-left: 15vw;
+}
+
+.mr-15 {
+    margin-right: 15vw;
+}
+
+.pt-10 {
+    padding-top: 10vh;
+}
+
+.pb-10 {
+    padding-bottom: 10vh;
+}
+
+mat-icon {
+    vertical-align: middle;
+}
+
+mat-form-field {
+    width: 100%;
+}

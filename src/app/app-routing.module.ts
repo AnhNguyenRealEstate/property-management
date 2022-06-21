@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login-dialog.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
-    data: { title: 'app_title' }
+    component: LoginComponent,
+    data: {
+      title: 'app_title'
+    }
   }
 ];
 

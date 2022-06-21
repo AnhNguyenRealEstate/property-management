@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+@use 'src/custom-theme' as custom-theme;
+
+$primary: mat.get-color-from-palette(custom-theme.$app-primary, 300);
+$primary-light: mat.get-color-from-palette(custom-theme.$app-primary, 50);
+$primary-dark: mat.get-color-from-palette(custom-theme.$app-primary, 600);
+$off-white: rgb(255, 255, 245);
+$accent: mat.get-color-from-palette(custom-theme.$app-accent, 600);
+$accent-300: mat.get-color-from-palette(custom-theme.$app-accent, 300);
+$accent-100: mat.get-color-from-palette(custom-theme.$app-accent, 100);
+$warn: mat.get-color-from-palette(custom-theme.$app-warn);
+$alt-primary: rgb(231, 231, 231); 
