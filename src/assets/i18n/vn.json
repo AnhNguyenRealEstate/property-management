@@ -71,7 +71,8 @@
         "yes_msg": "Xoá",
         "no_msg": "Huỷ",
         "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
-        "dismiss_msg": "Tắt"
+        "dismiss_msg": "Tắt",
+        "edit": "Chỉnh sửa"
     },
     "activities_tree_view": {
         "no_doc": "Không có tài liệu đính kèm",

@@ -5,8 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
-    templateUrl: 'login-dialog.component.html',
-    styleUrls: ['./login-dialog.component.scss']
+    templateUrl: 'login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent {
@@ -46,7 +46,7 @@ export class LoginComponent {
         this.inProgress = false;
 
         if (this.successful) {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/property-management');
         }
     }
 }

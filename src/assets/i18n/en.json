@@ -71,7 +71,8 @@
         "yes_msg": "Delete",
         "no_msg": "Cancel",
         "delete_msg": "Property removed from system 🗑",
-        "dismiss_msg": "Dismiss"
+        "dismiss_msg": "Dismiss",
+        "edit": "Edit"
     },
     "activities_tree_view": {
         "no_doc": "No documents to display",

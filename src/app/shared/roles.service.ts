@@ -31,7 +31,7 @@ export class RolesService implements CanActivate {
         if (!userId) {
             return [];
         }
-
+        
         const userProfileDoc = await getDoc(doc(collection(this.firestore, FirestoreCollections.users), userId));
         const profile = userProfileDoc.data() as UserProfile;
         return profile.roles;

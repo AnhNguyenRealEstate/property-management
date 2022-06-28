@@ -43,7 +43,7 @@
 
 <ng-template #cardControls>
     <button mat-icon-button class="controls-btn" [matMenuTriggerFor]="controlsMenu"
-        [matTooltip]="'listing_card.edit' | translate" (click)="$event.stopPropagation()">
+        [matTooltip]="'property_card.edit' | translate" (click)="$event.stopPropagation()">
         <mat-icon color="accent">more_horiz</mat-icon>
     </button>
 
@@ -72,9 +72,9 @@
         <p class="pb-2">{{ 'property_card.delete_confirmation_msg' | translate }}</p>
         <div class="d-flex justify-content-end">
             <button mat-button color="accent" [mat-dialog-close]="true">
-                {{ 'listing_edit.yes_msg' | translate }}
+                {{ 'property_card.yes_msg' | translate }}
             </button>
-            <button mat-button [mat-dialog-close]="false">{{ 'listing_edit.no_msg' | translate }}</button>
+            <button mat-button [mat-dialog-close]="false">{{ 'property_card.no_msg' | translate }}</button>
         </div>
     </section>
 </ng-template>

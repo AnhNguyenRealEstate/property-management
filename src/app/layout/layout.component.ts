@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
-import { LoginComponent } from '../login/login-dialog.component';
+import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../login/login.service';
 
 @Component({

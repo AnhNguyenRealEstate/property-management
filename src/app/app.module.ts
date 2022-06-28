@@ -18,7 +18,12 @@ import { environment } from 'src/environments/environment';
 import { firebaseConfig } from './shared/globals';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TimeoutComponent } from './session-timeout/session-timeout.component';
-import { LoginComponent } from './login/login-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -34,6 +39,7 @@ import { LoginComponent } from './login/login-dialog.component';
     SharedModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    NgxMaskModule.forRoot(maskConfig),
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
