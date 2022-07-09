@@ -1,0 +1,5 @@
+@use "src/app/styles/colors" as colors;
+
+.footer {
+    background: colors.$alt-primary;
+}

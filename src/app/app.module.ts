@@ -20,6 +20,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TimeoutComponent } from './session-timeout/session-timeout.component';
 import { LoginComponent } from './login/login.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { FooterModule } from './footer/footer.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -37,6 +38,7 @@ const maskConfig: Partial<IConfig> = {
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    FooterModule,
     HttpClientModule,
     HttpClientJsonpModule,
     NgxMaskModule.forRoot(maskConfig),
