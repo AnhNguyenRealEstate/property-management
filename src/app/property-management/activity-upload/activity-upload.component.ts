@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
+import { HashingService } from 'src/app/shared/hashing.service';
 import { Activity, UploadedFile } from '../property-management.data';
 
 @Component({
@@ -20,7 +21,8 @@ export class ActivityUploadComponent implements OnInit {
     newFiles: File[] = [];
 
     constructor(
-        private auth: Auth
+        private auth: Auth,
+        private hash: HashingService
     ) { }
 
     ngOnInit() { }
@@ -51,7 +53,7 @@ export class ActivityUploadComponent implements OnInit {
         this.newActivityAttachments.unshift(...newFiles.map(file => {
             return {
                 displayName: file.name,
-                dbHashedName: this.generateHash(file.name)
+                dbHashedName: this.hash.generate16DigitHash(file.name)
             } as UploadedFile
         }));
 
@@ -78,26 +80,11 @@ export class ActivityUploadComponent implements OnInit {
         });
 
         file.displayName = newDisplayName;
-        file.dbHashedName = this.generateHash(newDisplayName);
+        file.dbHashedName = this.hash.generate16DigitHash(newDisplayName);
     }
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.newActivityAttachments!, event.previousIndex, event.currentIndex);
-    }
-
-    private generateHash(str: string, seed?: number) {
-        const date = new Date();
-        str = str + `-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
-
-        //https://www.codegrepper.com/code-examples/javascript/hash+a+string+angular
-        /*jshint bitwise:false */
-        let i, l, hval = (seed === undefined) ? 0x811c9dc5 : seed;
-        for (i = 0, l = str.length; i < l; i++) {
-            hval ^= str.charCodeAt(i);
-            hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
-        }
-        // Convert to 8 digit hex string
-        return ("0000000" + (hval >>> 0).toString(16)).substring(-8);
     }
 
     doesFileNameAlreadyExist(name: string) {

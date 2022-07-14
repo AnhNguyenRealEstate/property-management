@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
+import { HashingService } from 'src/app/shared/hashing.service';
 import { Activity, Property, UploadedFile } from '../property-management.data';
 import { PropertyUploadService } from './property-upload.service';
 
@@ -34,6 +35,7 @@ export class PropertyUploadComponent implements OnInit {
         private translate: TranslateService,
         private snackbar: MatSnackBar,
         private propertyUpload: PropertyUploadService,
+        private hash: HashingService,
         @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         this.property = this.data.property as Property;
@@ -83,7 +85,7 @@ export class PropertyUploadComponent implements OnInit {
         this.property.documents.unshift(...newFiles.map(file => {
             return {
                 displayName: file.name,
-                dbHashedName: this.generateHash(file.name)
+                dbHashedName: this.hash.generate16DigitHash(file.name)
             } as UploadedFile
         }))
 
@@ -112,7 +114,7 @@ export class PropertyUploadComponent implements OnInit {
         });
 
         file.displayName = newDisplayName;
-        file.dbHashedName = this.generateHash(newDisplayName);
+        file.dbHashedName = this.hash.generate16DigitHash(newDisplayName);
     }
 
     async upload() {
@@ -137,18 +139,6 @@ export class PropertyUploadComponent implements OnInit {
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.property.documents!, event.previousIndex, event.currentIndex);
-    }
-
-    private generateHash(str: string, seed?: number) {
-        //https://www.codegrepper.com/code-examples/javascript/hash+a+string+angular
-        /*jshint bitwise:false */
-        let i, l, hval = (seed === undefined) ? 0x811c9dc5 : seed;
-        for (i = 0, l = str.length; i < l; i++) {
-            hval ^= str.charCodeAt(i);
-            hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
-        }
-        // Convert to 8 digit hex string
-        return ("0000000" + (hval >>> 0).toString(16)).substring(-8);
     }
 
     doesFileNameAlreadyExist(name: string) {

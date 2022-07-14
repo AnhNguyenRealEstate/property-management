@@ -1,4 +1,4 @@
-<div class="pb-1" *ngFor="let activityByDate of activitiesByDates; let i = index;">
+<div class="pb-1" *ngFor="let activityByDate of activitiesByDates">
     <mat-expansion-panel class="mat-elevation-z0 activities-by-date-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -28,9 +28,7 @@
                             <div class="property-name">{{activity.propertyName}}</div>
                         </mat-panel-title>
                         <mat-panel-description>
-                            <div>
-                                <span>{{activity.description}}</span>
-                            </div>
+                            <div>{{activity.description}}</div>
                         </mat-panel-description>
                         <div style="display: none" #deleteBtn>
                             <button *ngIf="canDeleteActivities" mat-button

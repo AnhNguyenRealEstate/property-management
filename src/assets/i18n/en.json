@@ -1,5 +1,5 @@
 {
-    "app_title": "Anh Nguyen Real Estate",
+    "app_title": "Anh Nguyen Real Estate - Property Management Portal",
     "generics.any": "Any",
     "property_category": {
         "apartment": "Apartment",
@@ -8,7 +8,7 @@
         "commercial": "Commercial"
     },
     "layout": {
-        "listings": "Listings",
+        "listings": "Listings", 
         "upload_new": "Upload listing",
         "property_management": "Manage properties",
         "about_us": "About us",
