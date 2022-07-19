@@ -18,7 +18,7 @@
     font-size: 24px;
 
     .card-subtitle {
-        color: rgb(104, 104, 104);
+        color: colors.$accent-300;
         font-size: 14px;
     }
 }
@@ -26,6 +26,10 @@
 .content-label {
     font-size: 0.75rem;
     color: gray;
+}
+
+.activity {
+    color: colors.$primary-dark;
 }
 
 .overrun-wrap {

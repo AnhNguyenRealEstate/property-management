@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { Activity, Property, UploadedFile } from '../property-management.data';
+import { Activity, Owner, Property, UploadedFile } from '../property-management.data';
 import { PropertyUploadService } from './property-upload.service';
 
 @Component({
@@ -40,6 +40,10 @@ export class PropertyUploadComponent implements OnInit {
     ) {
         this.property = this.data.property as Property;
         this.isEditMode = this.data.isEditMode;
+
+        if (!this.isEditMode) {
+            this.property.owner = {} as Owner;
+        }
     }
 
     async ngOnInit() {

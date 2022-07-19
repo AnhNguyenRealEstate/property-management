@@ -8,7 +8,7 @@
         "commercial": "Commercial"
     },
     "layout": {
-        "listings": "Listings", 
+        "listings": "Listings",
         "upload_new": "Upload listing",
         "property_management": "Manage properties",
         "about_us": "About us",
@@ -48,7 +48,7 @@
         "property_name": "Property name",
         "category": "Category",
         "subcategory": "Subcategory",
-        "address": "Address",
+        "address": "Property address",
         "management_info": "Management information",
         "start_date": "Start date",
         "end_date": "End date",
@@ -63,7 +63,7 @@
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial",
-        "description": "Description"
+        "description": "Important details"
     },
     "property_card": {
         "activity_added": "Activity added 🎉",
@@ -72,7 +72,20 @@
         "no_msg": "Cancel",
         "delete_msg": "Property removed from system 🗑",
         "dismiss_msg": "Dismiss",
-        "edit": "Edit"
+        "edit": "Edit",
+        "address": "Property address",
+        "rental_price": "${{price}}/month",
+        "owner": "Owner information",
+        "start_date": "Start date",
+        "end_date": "End date",
+        "most_recent_activity": "Most recent activity",
+        "no_recent_activity": "No recent activity"
+    },
+    "property_details": {
+        "important_notes": "Important details",
+        "no_recent_activities": "No recent activity",
+        "view_more": "View more",
+        "no_docs": "No document to display"
     },
     "activities_tree_view": {
         "no_doc": "No documents to display",

@@ -44,11 +44,11 @@
         "register_new": "Đăng ký tài sản",
         "edit_property": "Sửa thông tin tài sản",
         "property_info": "Thông tin tài sản",
-        "owner": "Tài khoản của chủ nhà",
+        "owner": "Tài khoản chủ nhà",
         "property_name": "Tên tài sản",
         "category": "Phân loại",
         "subcategory": "Phân loại phụ",
-        "address": "Địa chỉ",
+        "address": "Địa chỉ tài sản",
         "management_info": "Thông tin quản lý",
         "start_date": "Ngày bắt đầu",
         "end_date": "Ngày hết hạn hợp đồng",
@@ -63,7 +63,7 @@
         "villa": "Biệt thự",
         "townhouse": "Song lập",
         "commercial": "Shop thương mại",
-        "description": "Ghi chú"
+        "description": "Thông tin cần biết"
     },
     "property_card": {
         "activity_added": "Đã thêm hoạt động 🎉",
@@ -72,7 +72,20 @@
         "no_msg": "Huỷ",
         "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
         "dismiss_msg": "Tắt",
-        "edit": "Chỉnh sửa"
+        "edit": "Chỉnh sửa",
+        "address": "Địa chỉ tài sản",
+        "rental_price": "${{price}}/tháng",
+        "owner": "Thông tin chủ nhà",
+        "start_date": "Ngày bắt đầu",
+        "end_date": "Ngày kết thúc",
+        "most_recent_activity": "Hoạt động mới nhất",
+        "no_recent_activity": "Chưa có hoạt động gần đây"
+    },
+    "property_details": {
+        "important_notes": "Thông tin cần biết",
+        "no_recent_activities": "No recent activity",
+        "view_more": "Xem thêm",
+        "no_docs": "Không có tài liệu đính kèm"
     },
     "activities_tree_view": {
         "no_doc": "Không có tài liệu đính kèm",

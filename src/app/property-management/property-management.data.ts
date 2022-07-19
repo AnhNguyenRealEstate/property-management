@@ -11,11 +11,21 @@ export interface Property {
     managementEndDate?: Timestamp
     fileStoragePath?: string
     documents?: UploadedFile[]
-    creationDate?: Timestamp,
-    owner?: string
+    creationDate?: Timestamp
+    owner?: Owner
     rentalPrice?: number
+    customerServiceReps?: CustomerServiceRep[]
 }
 
+export interface CustomerServiceRep {
+    username?: string
+}
+
+export interface Owner {
+    contactName?: string
+    contactInfo?: string
+    username?: string
+}
 export interface Activity {
     date?: Timestamp
     description?: string

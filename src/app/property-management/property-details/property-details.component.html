@@ -6,6 +6,7 @@
     <mat-divider></mat-divider>
 
     <div class="pt-3">
+        <div class="pb-2 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>
         <div [innerHtml]="property.description"></div>
     </div>
 
@@ -18,26 +19,28 @@
                     </activity-list>
                     <div *ngIf="showViewMore" class="row">
                         <button class="d-block pt-2" mat-button (click)="getMoreActivities()" color="accent">
-                            View more <mat-icon>keyboard_double_arrow_down_icon</mat-icon>
+                            {{ 'property_details.view_more' | translate }}
+                            <mat-icon>keyboard_double_arrow_down_icon</mat-icon>
                         </button>
                     </div>
                 </ng-container>
                 <ng-template #noActivity>
-                    <div class="pt-3">No recent activity</div>
+                    <div class="pt-3">{{ 'property_details.no_recent_activities' | translate }}</div>
                 </ng-template>
             </mat-tab>
 
             <mat-tab label="Related Documents">
                 <div class="row pt-2" *ngFor="let doc of property.documents">
                     <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">
-                        <span class="related-document-date">{{doc.date?.toDate() | date:'MMM dd, yyyy'}}</span>
+                        <span class="related-document-date">{{doc.date?.toDate() | date:'dd/MM/yyyy'}}</span>
                         <div class="d-inline">
-                            {{doc.displayName}} <mat-icon color="accent">download</mat-icon>
+                            {{doc.displayName}}
+                            <mat-icon color="accent">download</mat-icon>
                         </div>
                     </button>
                 </div>
                 <div class="pt-2" *ngIf="!property.documents?.length">
-                    No document to display
+                    {{ 'property_details.no_docs' | translate }}
                 </div>
             </mat-tab>
         </mat-tab-group>
