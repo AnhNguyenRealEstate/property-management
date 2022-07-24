@@ -4,16 +4,16 @@
     </ng-container>
     <mat-card-content>
         <div class="pb-2 card-title">
-            <div class="pb-3 overrun-wrap" *ngIf="property.name">
+            <div class="pb-2 overrun-wrap" *ngIf="property.name">
                 {{property.name}}
             </div>
-            <div class="card-subtitle overrun-wrap pb-1" *ngIf="property.rentalPrice">
+            <div class="card-subtitle overrun-wrap" *ngIf="property.rentalPrice">
                 {{ 'property_card.rental_price' | translate: {'price': property.rentalPrice} }}
             </div>
         </div>
 
         <div class="pb-2" *ngIf="property.owner?.username">
-            <div class="content-label">{{ 'property_card.owner' | translate | titlecase }}</div>
+            <div class="content-label">{{ 'property_card.owner' | translate }}</div>
             <div>
                 <div class="overrun-wrap">{{property.owner?.contactName}}</div>
                 <div class="overrun-wrap">{{property.owner?.contactInfo}}</div>
@@ -21,17 +21,17 @@
         </div>
 
         <div class="pb-2">
-            <div class="content-label">{{ 'property_card.address' | translate | titlecase }}</div>
+            <div class="content-label">{{ 'property_card.address' | translate }}</div>
             <div class="overrun-wrap" *ngIf="property.address">{{property.address}}</div>
         </div>
 
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
             <div class="col-6">
-                <div class="content-label">{{ 'property_card.start_date' | translate | titlecase }}</div>
+                <div class="content-label">{{ 'property_card.start_date' | translate }}</div>
                 <div>{{property.managementStartDate.toDate() | date:'dd/MM/yyyy' }}</div>
             </div>
             <div class="col-6">
-                <div class="content-label">{{ 'property_card.end_date' | translate | titlecase }}</div>
+                <div class="content-label">{{ 'property_card.end_date' | translate }}</div>
                 <div>{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}</div>
             </div>
         </div>
@@ -39,7 +39,7 @@
         <mat-divider></mat-divider>
 
         <div class="pt-2">
-            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate | titlecase }}</div>
+            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate }}</div>
             <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
                 {{mostRecentActivity.description}} - {{timestampToDate(mostRecentActivity.date) | date:'dd/MM/yyyy'}}
             </div>
@@ -59,7 +59,7 @@
     <mat-menu #controlsMenu="matMenu">
         <button mat-menu-item class="d-block" [matMenuTriggerFor]="newActivityMenu">
             <mat-icon color="accent">add_box</mat-icon>
-            <span>New activity</span>
+            <span>{{ 'property_card.new_activity' | translate }}</span>
         </button>
         <mat-menu #newActivityMenu="matMenu">
             <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
@@ -67,11 +67,11 @@
 
         <button mat-menu-item class="d-block" (click)="editProperty($event)">
             <mat-icon color="accent">edit</mat-icon>
-            <span>Edit information</span>
+            <span>{{ 'property_card.edit_info' | translate }}</span>
         </button>
         <button mat-menu-item class="d-block" (click)="deleteProperty($event)">
             <mat-icon color="accent">delete</mat-icon>
-            <span>Remove from system</span>
+            <span>{{ 'property_card.remove' | translate }}</span>
         </button>
     </mat-menu>
 </ng-template>

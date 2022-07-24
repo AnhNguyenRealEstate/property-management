@@ -1,3 +1,16 @@
 <section class="ps-2 pt-2 pe-2">
-    <activity-list [activities]="activities"></activity-list>
+    <div class="pb-2">
+        <mat-button-toggle-group name="viewToggle" (change)="view = $event.value">
+            <mat-button-toggle value="list">List View</mat-button-toggle>
+            <mat-button-toggle value="calendar">Calendar View</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <ng-container *ngIf="view === 'list'">
+        <activity-list [activities]="activities"></activity-list>
+    </ng-container>
+
+    <ng-container *ngIf="view === 'calendar'">
+        <activity-calendar [activities]="activities"></activity-calendar>
+    </ng-container>
 </section>

@@ -3,6 +3,7 @@
 @use "app/styles/colors";
 @use "app/styles/base";
 @import "~/node_modules/placeholder-loading/src/scss/placeholder-loading";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 html,
 body {

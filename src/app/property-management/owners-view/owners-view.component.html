@@ -1,0 +1,11 @@
+<section class="ps-2 pt-2 pe-2">
+    <div class="col-12 search-bar">
+        <mat-form-field color="default">
+            <button matPrefix mat-icon-button disabled>
+                <mat-icon>search</mat-icon>
+            </button>
+            <input matInput type="text" [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
+        </mat-form-field>
+    </div>
+    <owner-list *ngIf="owners?.length" [owners]="owners"></owner-list>
+</section>

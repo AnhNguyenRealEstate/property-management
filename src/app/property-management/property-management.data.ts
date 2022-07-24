@@ -12,6 +12,7 @@ export interface Property {
     fileStoragePath?: string
     documents?: UploadedFile[]
     creationDate?: Timestamp
+    ownerUsername?: string
     owner?: Owner
     rentalPrice?: number
     customerServiceReps?: CustomerServiceRep[]

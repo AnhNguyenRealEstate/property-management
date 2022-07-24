@@ -13,6 +13,7 @@ import { ActivitiesViewService } from './activities-view.service';
 export class ActivitiesViewComponent implements OnInit, OnDestroy {
     activities: Activity[] = [];
     subs: Subscription = new Subscription();
+    view: 'list' | 'calendar' = 'list';
 
     constructor(
         private activitiesView: ActivitiesViewService,

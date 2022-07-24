@@ -31,6 +31,11 @@
                     <mat-icon color="accent">view_list</mat-icon>
                     <span class="ps-3 d-none d-sm-inline">{{ 'property_management.activities' | translate }}</span>
                 </button>
+                <button *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="col-12 pb-1 d-flex" mat-button (click)="viewOwners()">
+                    <span class="ps-3 ps-ms-4"></span>
+                    <mat-icon color="accent">people_outline</mat-icon>
+                    <span class="ps-3 d-none d-sm-inline">Danh sách chủ nhà</span>
+                </button>
             </div>
         </mat-drawer>
 

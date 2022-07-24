@@ -16,7 +16,7 @@ export class PropertiesViewService {
         let q = query(collection(this.firestore, FirestoreCollections.underManagement), limit(this.quotaPerQuery));
 
         if (owner) {
-            q = query(q, (where("owner", "==", owner)));
+            q = query(q, (where("ownerUsername", "==", owner)));
         }
 
         const result = await getDocs(q);

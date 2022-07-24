@@ -19,7 +19,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { ActivitiesViewComponent } from './activities-view/activities.component';
 import { SummaryViewComponent } from './summary-view/summary-view.component';
-
+import { OwnersViewComponent } from './owners-view/owners-view.component';
+import { OwnerListModule } from './owner-list/owner-list.module';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ActivitiyCalendarComponent } from './activity-calendar/activity-calendar.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,9 @@ import { SummaryViewComponent } from './summary-view/summary-view.component';
     ActivityUploadComponent,
     PropertiesViewComponent,
     ActivitiesViewComponent,
-    SummaryViewComponent
+    ActivitiyCalendarComponent,
+    SummaryViewComponent,
+    OwnersViewComponent
   ],
   imports: [
     CommonModule,
@@ -45,8 +52,16 @@ import { SummaryViewComponent } from './summary-view/summary-view.component';
     MatNativeDateModule,
     DragDropModule,
     ActivityListModule,
+    OwnerListModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CalendarModule.forRoot(
+      {
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      }
+    ),
+    MatButtonToggleModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

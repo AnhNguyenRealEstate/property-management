@@ -39,6 +39,10 @@ export class PropertyManagementComponent implements OnInit {
         this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
     }
 
+    viewOwners() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
+    }
+
     async addProperty() {
         const config = {
             height: '90%',

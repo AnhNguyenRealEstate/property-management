@@ -79,7 +79,10 @@
         "start_date": "Start date",
         "end_date": "End date",
         "most_recent_activity": "Most recent activity",
-        "no_recent_activity": "No recent activity"
+        "no_recent_activity": "No recent activity",
+        "new_activity": "New activity",
+        "edit_info": "Edit information",
+        "remove": "Remove from system"
     },
     "property_details": {
         "important_notes": "Important details",

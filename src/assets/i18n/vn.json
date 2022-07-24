@@ -79,7 +79,10 @@
         "start_date": "Ngày bắt đầu",
         "end_date": "Ngày kết thúc",
         "most_recent_activity": "Hoạt động mới nhất",
-        "no_recent_activity": "Chưa có hoạt động gần đây"
+        "no_recent_activity": "Chưa có hoạt động gần đây",
+        "new_activity": "Hoạt động mới",
+        "edit_info": "Sửa thông tin tài sản",
+        "remove": "Xoá khỏi hệ thống"
     },
     "property_details": {
         "important_notes": "Thông tin cần biết",

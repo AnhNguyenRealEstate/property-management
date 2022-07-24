@@ -13,7 +13,7 @@
             <mat-form-field class="col-12 col-sm-6" color="accent">
                 <mat-label>{{ 'property_upload.owner' | translate }}</mat-label>
                 <input matInput trim="blur" required type="text" name="ownerUsername"
-                    [(ngModel)]="property.owner!.username">
+                    [(ngModel)]="property.owner!.username" (ngModelChange)="property.ownerUsername = $event">
             </mat-form-field>
             <mat-form-field class="col-12 col-sm-6" color="accent">
                 <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>

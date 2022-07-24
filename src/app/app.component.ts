@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { SessionTimeoutService } from './session-timeout/session-timeout.service';
 
 @Component({
@@ -30,7 +31,9 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.timeoutService.setTimeout();
+        if(environment.production){
+            this.timeoutService.setTimeout();
+        }
 
         this.appTitle = await lastValueFrom(this.translate.get('app_title'));
         this.titleService.setTitle(this.appTitle);
