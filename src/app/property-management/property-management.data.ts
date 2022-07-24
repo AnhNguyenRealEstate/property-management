@@ -26,6 +26,7 @@ export interface Owner {
     contactName?: string
     contactInfo?: string
     username?: string
+    dateOfLastContact?: Timestamp
 }
 export interface Activity {
     date?: Timestamp
