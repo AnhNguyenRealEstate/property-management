@@ -1,3 +1,20 @@
-<section>
-    <mwl-calendar-month-view [viewDate]="viewDate" [events]="calendarEvents"></mwl-calendar-month-view>
+<section class="pt-2 pb-2">
+    <button mat-button color="primary" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view"
+        (click)="getPreviousMonthActivities()">
+        <mat-icon>arrow_left</mat-icon> Previous
+    </button>
+    <button mat-button mwlCalendarToday [(viewDate)]="viewDate">Current</button>
+    <button mat-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
+        (click)="getNextMonthActivities()">
+        Next <mat-icon>arrow_right</mat-icon>
+    </button>
+
+    <mwl-calendar-month-view [viewDate]="viewDate" [events]="calendarEvents" (dayClicked)="dayClicked($event.day)"
+        [headerTemplate]="headerTemplate"
+        [activeDayIsOpen]="showEventsFromDay">
+    </mwl-calendar-month-view>
 </section>
+
+<ng-template #headerTemplate>
+    <div class="text-bold d-flex justify-content-center">{{ viewDate | date: 'MMM YYYY' }}</div>
+</ng-template>

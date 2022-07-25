@@ -90,7 +90,7 @@
         "view_more": "View more",
         "no_docs": "No document to display"
     },
-    "activities_tree_view": {
+    "activity_list": {
         "no_doc": "No documents to display",
         "no_activity": "No activity",
         "activity": "activity",
