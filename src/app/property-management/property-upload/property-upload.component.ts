@@ -31,10 +31,12 @@ export class PropertyUploadComponent implements OnInit {
     managementStartDate!: Date | undefined;
     managementEndDate!: Date | undefined;
 
+    ownerAlreadyExists = true;
+
     constructor(
         private translate: TranslateService,
         private snackbar: MatSnackBar,
-        private propertyUpload: PropertyUploadService,
+        public propertyUpload: PropertyUploadService,
         private hash: HashingService,
         @Inject(MAT_DIALOG_DATA) private data: any
     ) {
@@ -129,6 +131,8 @@ export class PropertyUploadComponent implements OnInit {
             undefined,
             { duration: 1500 }
         );
+
+        this.property = {} as Property;
     }
 
     async edit() {
@@ -161,5 +165,13 @@ export class PropertyUploadComponent implements OnInit {
         const index = this.activities.findIndex(activity => activity.id === activityToRemove.id);
         const removed = this.activities.splice(index, 1);
         this.deletedActivities.push(...removed);
+    }
+
+    async checkIfOwnerAlreadyExists(username: string) {
+        if (!username) {
+            return new Promise(_ => false);
+        }
+
+        this.ownerAlreadyExists = await this.propertyUpload.checkIfOwnerAlreadyExists(username);
     }
 }

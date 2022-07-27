@@ -44,7 +44,7 @@
         "register_new": "Register a new property",
         "edit_property": "Edit property information",
         "property_info": "Property information",
-        "owner": "Owner's account",
+        "owner_username": "Owner's account",
         "property_name": "Property name",
         "category": "Category",
         "subcategory": "Subcategory",
@@ -63,7 +63,11 @@
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial",
-        "description": "Important details"
+        "description": "Important details",
+        "owner_info": "Owner information",
+        "owner_not_exist": "Owner does not exist in the system",
+        "owner_contact_name": "Owner's name",
+        "owner_contact_info": "Contact information"
     },
     "property_card": {
         "activity_added": "Activity added 🎉",

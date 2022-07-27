@@ -27,6 +27,7 @@ export interface Owner {
     contactInfo?: string
     username?: string
     dateOfLastContact?: Timestamp
+    propertyIDs: string[] //Firebase IDs of properties under this owner
 }
 export interface Activity {
     date?: Timestamp

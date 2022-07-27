@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDoc, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property, UploadedFile } from '../property-management.data';
@@ -21,6 +21,7 @@ export class PropertyUploadService {
             return `${FirebaseStorageConsts.underManagement}/${folderName}`;
         }
 
+        debugger;
         property.fileStoragePath = createFileStoragePath(property);
         await this.storeFiles(uploadedFiles, property);
 
@@ -123,5 +124,14 @@ export class PropertyUploadService {
                 )
             );
         }
+    }
+
+    async checkIfOwnerAlreadyExists(username: string) {
+        const snapshot = await getDocs(query(
+            collection(this.firestore, FirestoreCollections.owners),
+            where('username', '==', username))
+        );
+
+        return snapshot.size === 1;
     }
 }

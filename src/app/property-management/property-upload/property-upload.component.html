@@ -5,19 +5,44 @@
     </h1>
 
     <form #uploadForm="ngForm">
+        <div class="row pb-4">
+            <div class="col-12 pb-2">
+                <div class="text-bold pb-2">{{ 'property_upload.owner_info' | translate }}</div>
+                <mat-divider></mat-divider>
+            </div>
+            <mat-form-field class="col-12 col-sm-6" color="accent">
+                <mat-label>{{ 'property_upload.owner_username' | translate }}</mat-label>
+                <input required matInput trim="blur" required type="text" name="ownerUsername"
+                    [(ngModel)]="property.owner!.username" (ngModelChange)="property.ownerUsername = $event"
+                    (blur)="checkIfOwnerAlreadyExists(property.ownerUsername?.trim() || '')">
+                <mat-hint *ngIf="!ownerAlreadyExists">{{ 'property_upload.owner_not_exist' | translate }}</mat-hint>
+            </mat-form-field>
+            <ng-container *ngIf="!ownerAlreadyExists">
+                <mat-form-field class="col-12 col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
+                    <input required matInput trim="blur" required type="text" name="ownerContactName"
+                        [(ngModel)]="property.owner!.contactName">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.owner_contact_info' | translate }}</mat-label>
+                    <input required matInput trim="blur" required type="text" name="ownerContactInfo"
+                        [(ngModel)]="property.owner!.contactInfo">
+                </mat-form-field>
+            </ng-container>
+        </div>
+
         <div class="row">
             <div class="col-12 pb-1">
                 <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
                 <mat-divider></mat-divider>
             </div>
             <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.owner' | translate }}</mat-label>
-                <input matInput trim="blur" required type="text" name="ownerUsername"
-                    [(ngModel)]="property.owner!.username" (ngModelChange)="property.ownerUsername = $event">
+                <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>
+                <input required matInput trim="blur" required type="text" name="name" [(ngModel)]="property.name">
             </mat-form-field>
             <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>
-                <input matInput trim="blur" required type="text" name="name" [(ngModel)]="property.name">
+                <mat-label>{{ 'property_upload.address' | translate }}</mat-label>
+                <input required matInput trim="blur" required type="text" name="address" [(ngModel)]="property.address">
             </mat-form-field>
         </div>
 
@@ -34,10 +59,6 @@
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>{{ 'property_upload.subcategory' | translate }}</mat-label>
                 <input matInput trim="blur" type="text" name="subcategory" [(ngModel)]="property.subcategory">
-            </mat-form-field>
-            <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.address' | translate }}</mat-label>
-                <input matInput trim="blur" required type="text" name="address" [(ngModel)]="property.address">
             </mat-form-field>
         </div>
 

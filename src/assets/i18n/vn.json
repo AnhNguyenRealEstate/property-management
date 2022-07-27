@@ -44,7 +44,7 @@
         "register_new": "Đăng ký tài sản",
         "edit_property": "Sửa thông tin tài sản",
         "property_info": "Thông tin tài sản",
-        "owner": "Tài khoản chủ nhà",
+        "owner_username": "Tài khoản chủ nhà",
         "property_name": "Tên tài sản",
         "category": "Phân loại",
         "subcategory": "Phân loại phụ",
@@ -63,7 +63,11 @@
         "villa": "Biệt thự",
         "townhouse": "Song lập",
         "commercial": "Shop thương mại",
-        "description": "Thông tin cần biết"
+        "description": "Thông tin cần biết",
+        "owner_info": "Thông tin chủ nhà",
+        "owner_not_exist": "Chủ nhà không có trong hệ thống",
+        "owner_contact_name": "Tên chủ nhà",
+        "owner_contact_info": "Thông tin liên lạc"
     },
     "property_card": {
         "activity_added": "Đã thêm hoạt động 🎉",
