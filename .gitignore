@@ -38,6 +38,7 @@ testem.log
 /typings
 /offline-db
 *-debug.log
+.firebase
 
 # System files
 .DS_Store
