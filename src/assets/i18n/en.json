@@ -38,7 +38,8 @@
         "register": "Register",
         "summary": "Summary",
         "properties": "Properties",
-        "activities": "Activities"
+        "activities": "Activities",
+        "owner_list": "Owners"
     },
     "property_upload": {
         "register_new": "Register a new property",
