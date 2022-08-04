@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        if(environment.production){
+        if (environment.production) {
             this.timeoutService.setTimeout();
         }
 
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
                 if (title) {
                     this.appTitle = this.translate.instant('app_title');
                     let fullTitle = `${this.appTitle}`;
-                    if(title !== 'app_title'){
+                    if (title !== 'app_title') {
                         const translatedTitle = this.translate.instant(title);
                         fullTitle += ` | ${translatedTitle}`
                     }

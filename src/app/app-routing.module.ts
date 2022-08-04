@@ -5,7 +5,7 @@ import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
     data: {
       title: 'app_title'
@@ -19,7 +19,7 @@ const routes: Routes = [
       title: 'layout.property_management',
       authGuardPipe: () => redirectUnauthorizedTo(['/'])
     }
-  },
+  }
 ];
 
 @NgModule({

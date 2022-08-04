@@ -187,7 +187,7 @@
         </div>
         <div class="row d-flex justify-content-end">
             <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button
-                (click)="upload(); uploadForm.form.markAsUntouched()"
+                (click)="upload(uploadForm); uploadForm.form.markAsUntouched()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">publish</mat-icon> {{ 'property_upload.upload' | translate }}
             </button>

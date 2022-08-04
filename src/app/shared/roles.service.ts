@@ -35,7 +35,7 @@ export class RolesService {
         const userProfileDoc = await getDoc(doc(collection(this.firestore, FirestoreCollections.users), userId));
         const profile = userProfileDoc.data() as UserProfile;
 
-        if(!profile){
+        if (!profile) {
             return [];
         }
 

@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
+import { Form, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -123,7 +124,7 @@ export class PropertyUploadComponent implements OnInit {
         file.dbHashedName = this.hash.generate16DigitHash(newDisplayName);
     }
 
-    async upload() {
+    async upload(uploadForm: NgForm) {
         await this.propertyUpload.uploadProperty(this.property, this.uploadedFiles);
 
         this.snackbar.open(
@@ -131,8 +132,9 @@ export class PropertyUploadComponent implements OnInit {
             undefined,
             { duration: 1500 }
         );
-
-        this.property = {} as Property;
+        
+        this.uploadedFiles = [];
+        uploadForm.resetForm();
     }
 
     async edit() {
