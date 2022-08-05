@@ -21,6 +21,7 @@ import { TimeoutComponent } from './session-timeout/session-timeout.component';
 import { LoginComponent } from './login/login.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { FooterModule } from './footer/footer.module';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -31,7 +32,8 @@ const maskConfig: Partial<IConfig> = {
     AppComponent,
     LayoutComponent,
     TimeoutComponent,
-    LoginComponent
+    LoginComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,

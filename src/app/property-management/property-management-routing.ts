@@ -33,7 +33,7 @@ const routes: Routes = [
             }
         ]
     },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '/property-management' }
 ];
 
 @NgModule({

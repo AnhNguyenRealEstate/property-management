@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth, browserSessionPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { LoginService } from './login.service';
 
 @Component({
     selector: 'app-login',
@@ -9,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     userName: string = '';
     password: string = '';
     hide: boolean = true;
@@ -17,9 +18,18 @@ export class LoginComponent {
     inProgress: boolean = false;
 
     constructor(
+        private loginService: LoginService,
         public auth: Auth,
         private translateService: TranslateService,
         private router: Router) { }
+
+    ngOnInit(): void {
+        this.loginService.loggedIn$.subscribe(loggedIn => {
+            if (loggedIn) {
+                this.router.navigateByUrl('/property-management');
+            }
+        })
+    }
 
     async login() {
         this.successful = true;

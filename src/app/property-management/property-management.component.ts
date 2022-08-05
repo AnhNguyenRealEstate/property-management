@@ -9,6 +9,7 @@ import { Property } from './property-management.data';
 import { PropertyManagementService } from './property-management.service';
 import { PropertyUploadComponent } from './property-upload/property-upload.component';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'property-management',
@@ -20,11 +21,19 @@ export class PropertyManagementComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
-        private router: Router) {
+        private router: Router,
+        private login: LoginService) {
     }
 
     ngOnInit(): void {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+        this.login.loggedIn$.subscribe(loggedIn => {
+            if (loggedIn) {
+                this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+            }
+            else {
+                this.router.navigateByUrl('/login');
+            }
+        })
     }
 
     viewSummary() {

@@ -1,9 +1,10 @@
 <mat-toolbar class="navbar">
-    <div class="navbar-brand">
+    <a class="navbar-brand" routerLink="/">
         <span class="home-icon-wrapper">
             <img width="22rem" height="22rem" src="/assets/images/logo.png">
         </span>
-    </div>
+        <span class="company-name ps-2">Anh Nguyen Real Estate</span>
+    </a>
 
     <div class="d-none d-md-flex">
         <div class="language-toggle ms-2 me-4">
@@ -27,7 +28,12 @@
                 </a>
             </mat-menu>
         </ng-container>
+
+        <a *ngIf="!loggedIn" mat-button [routerLink]="'/login'" [matTooltip]="'layout.sign_in' | translate">
+            <mat-icon>login</mat-icon>
+        </a>
     </div>
+
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>

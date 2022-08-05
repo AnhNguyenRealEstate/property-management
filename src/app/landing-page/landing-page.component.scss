@@ -1,0 +1,47 @@
+@use "src/app/styles/colors" as colors;
+
+.introduction-section {
+    background: linear-gradient(90deg, #f7797d, #fbd786);
+}
+
+.intro-picture {
+    background-image: url("/assets/images/intro-picture.jpg");
+    background-size: cover;
+    background-position: 0% 50%;
+    position: relative;
+    border-radius: 15px;
+}
+
+.intro-title {
+    font-size: 48px;
+    line-height: 3rem;
+}
+
+.intro-description {
+    font-size: 26px;
+    line-height: 2rem;
+}
+
+.get-started-btn {
+    padding: 14px 28px;
+    font-size: 18px;
+}
+
+.notable-features-text {
+    font-size: 26px;
+    line-height: 2rem;
+    text-align: center;
+}
+
+.feature-descriptive {
+    font-size: 14px;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+.mat-icon {
+    font-size: 100px;
+    height: 100px;
+    width: 100px;
+    color: colors.$primary;
+}

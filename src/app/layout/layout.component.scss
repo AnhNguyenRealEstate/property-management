@@ -1,5 +1,10 @@
 @use "src/app/styles/colors" as colors;
 
+.company-name {
+    color: black;
+    font: 16px/1 Lora;
+}
+
 .home-icon-wrapper {
     font-size: x-large;
 }

@@ -2,8 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: LandingPageComponent,
+    data: {
+      title: 'app_title'
+    }
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -19,7 +27,8 @@ const routes: Routes = [
       title: 'layout.property_management',
       authGuardPipe: () => redirectUnauthorizedTo(['/'])
     }
-  }
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

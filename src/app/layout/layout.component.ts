@@ -38,14 +38,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    showLoginModal() {
-        const config = {
-            height: 'auto',
-            width: '90%'
-        } as MatDialogConfig;
-        this.dialog.open(LoginComponent, config);
-    }
-
     useLanguage(event: any) {
         this.translate.use(this.lang);
         localStorage.setItem('lang', this.lang);
