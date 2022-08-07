@@ -1,15 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router, RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
-import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { Property } from './property-management.data';
-import { PropertyManagementService } from './property-management.service';
 import { PropertyUploadComponent } from './property-upload/property-upload.component';
-import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../login/login.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'property-management',
@@ -18,20 +14,28 @@ import { LoginService } from '../login/login.service';
 })
 
 export class PropertyManagementComponent implements OnInit {
+    isDesktop: boolean = true;
+
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
         private router: Router,
-        private login: LoginService) {
+        private login: LoginService,
+        @Inject(DOCUMENT) private document: Document
+    ) {
     }
 
     ngOnInit(): void {
+        const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
+        const mobileDevicesWidth = 600;
+        this.isDesktop = width > mobileDevicesWidth;
+
         this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
                 this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
             }
             else {
-                this.router.navigateByUrl('/login');
+                this.router.navigateByUrl('/');
             }
         })
     }

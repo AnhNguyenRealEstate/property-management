@@ -53,6 +53,11 @@
 
         <mat-divider inset="true"></mat-divider>
 
+        <a *ngIf="!loggedIn" mat-button [routerLink]="'/login'">
+            <mat-icon>login</mat-icon>
+            <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>
+        </a>
+
         <ng-container *ngIf="loggedIn">
             <a mat-button (click)="logout()">
                 <mat-icon>logout</mat-icon>
