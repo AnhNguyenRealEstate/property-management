@@ -1,5 +1,5 @@
-<section class="container-flex introduction-section ps-5 pe-5">
-    <div class="row pt-10">
+<section class="container-flex introduction-section ps-5 pe-5" @landingAnim>
+    <div class="row pt-10 top-level-intro">
         <div class="col-xs-12 col-sm-6">
             <h1 class="intro-title">
                 Property Management Portal
@@ -20,14 +20,14 @@
         </div>
     </div>
 
-    <div class="features-section pt-10">
+    <div class="features-section pt-10 pb-10">
         <mat-card>
             <mat-card-content>
                 <div class="row d-flex justify-content-center notable-features-text pt-2 pb-2">
                     We manage your properties effectively, efficiently, and give you visbility over your own assets
                 </div>
-                <div class="row pt-3 d-flex justify-content-between ms-3 me-3">
-                    <mat-card class="col-xs-12 col-sm-3 mb-2 mat-elevation-z3" id="feature-1">
+                <div class="row pt-3 d-flex justify-content-center ms-3 me-3">
+                    <mat-card class="col-xs-12 col-sm-3 mb-2 me-5 mat-elevation-z3" id="feature-1">
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center pt-2">
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-center h5 pt-2">Analytics</div>
                                 <div class="col-12 feature-descriptive pt-10">
-                                    Lorem ipsum dolor sit amet
+                                    Receive monthly reports on your properties
                                 </div>
                             </div>
                         </mat-card-content>
@@ -46,22 +46,22 @@
                                 <div class="col-12 d-flex justify-content-center pt-2">
                                     <mat-icon class="feature-icon">check_circle</mat-icon>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center h5 pt-2">Check Circle</div>
+                                <div class="col-12 d-flex justify-content-center h5 pt-2">Quality control</div>
                                 <div class="col-12 feature-descriptive pt-10">
-                                    Lorem ipsum dolor sit amet
+                                    Your properties always remain in top-notch conditions 
                                 </div>
                             </div>
                         </mat-card-content>
                     </mat-card>
-                    <mat-card class="col-xs-12 col-sm-3 mb-2 mat-elevation-z3" id="feature-3">
+                    <mat-card class="col-xs-12 col-sm-3 mb-2 ms-5 mat-elevation-z3" id="feature-3">
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center pt-2">
                                     <mat-icon class="feature-icon">support_agent</mat-icon>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center h5 pt-2">Support Agent</div>
+                                <div class="col-12 d-flex justify-content-center h5 pt-2">Dedicated support</div>
                                 <div class="col-12 feature-descriptive pt-10">
-                                    Lorem ipsum dolor sit amet
+                                    Support staff handles any problem speedily, with utmost care
                                 </div>
                             </div>
                         </mat-card-content>
@@ -70,8 +70,6 @@
             </mat-card-content>
         </mat-card>
     </div>
-
-    <div class="pt-10"></div>
 </section>
 
 <app-footer></app-footer>

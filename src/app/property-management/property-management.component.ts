@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
@@ -6,6 +6,7 @@ import { Property } from './property-management.data';
 import { PropertyUploadComponent } from './property-upload/property-upload.component';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'property-management',
@@ -13,8 +14,9 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: ['./property-management.component.scss']
 })
 
-export class PropertyManagementComponent implements OnInit {
+export class PropertyManagementComponent implements OnInit, OnDestroy {
     isDesktop: boolean = true;
+    subs: Subscription = new Subscription();
 
     constructor(
         private dialog: MatDialog,
@@ -30,14 +32,18 @@ export class PropertyManagementComponent implements OnInit {
         const mobileDevicesWidth = 600;
         this.isDesktop = width > mobileDevicesWidth;
 
-        this.login.loggedIn$.subscribe(loggedIn => {
+        this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
                 this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
             }
             else {
                 this.router.navigateByUrl('/');
             }
-        })
+        }));
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 
     viewSummary() {

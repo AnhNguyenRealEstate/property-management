@@ -33,7 +33,7 @@ const routes: Routes = [
             }
         ]
     },
-    { path: '**', redirectTo: '/property-management/(property-management-outlet:summary-view)' }
+    { path: '**', redirectTo: '/property-management' }
 ];
 
 @NgModule({

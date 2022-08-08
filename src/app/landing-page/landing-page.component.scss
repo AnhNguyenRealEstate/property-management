@@ -27,6 +27,12 @@
     font-size: 18px;
 }
 
+.features-section {
+    mat-card {
+        border-radius: 15px;
+    }
+}
+
 .notable-features-text {
     font-size: 26px;
     line-height: 2rem;
@@ -43,5 +49,5 @@
     font-size: 100px;
     height: 100px;
     width: 100px;
-    color: colors.$primary;
+    color: colors.$accent-300;
 }

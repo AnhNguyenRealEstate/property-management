@@ -28,7 +28,7 @@ const routes: Routes = [
       authGuardPipe: () => redirectUnauthorizedTo(['/'])
     }
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

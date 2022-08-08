@@ -1,9 +1,6 @@
 <section class="container-flex">
     <div *ngIf="isDesktop">
-        <h1 class="page-title ps-3">{{ 'property_management.title' | translate | titlecase }}</h1>
-        <mat-divider></mat-divider>
-
-        <mat-drawer-container style="height: 90vh;">
+        <mat-drawer-container style="height: 100vh;">
             <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
                 <div class="row pt-2 pt-sm-4">
                     <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
