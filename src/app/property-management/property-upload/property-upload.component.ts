@@ -34,8 +34,6 @@ export class PropertyUploadComponent implements OnInit {
 
     ownerAlreadyExists = true;
 
-    @ViewChild('filesInput', { static: false }) filesInput!: ElementRef<HTMLInputElement>;
-
     constructor(
         private translate: TranslateService,
         private snackbar: MatSnackBar,
@@ -181,6 +179,11 @@ export class PropertyUploadComponent implements OnInit {
             return new Promise(_ => false);
         }
 
-        this.ownerAlreadyExists = await this.propertyUpload.checkIfOwnerAlreadyExists(username);
+        const ownerInfo = await this.propertyUpload.getOwnerInformation(username);
+        this.ownerAlreadyExists = !!ownerInfo.username;
+
+        if (this.ownerAlreadyExists) {
+            this.property.owner = ownerInfo;
+        }
     }
 }

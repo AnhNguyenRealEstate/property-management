@@ -29,6 +29,16 @@
                         [(ngModel)]="property.owner!.contactInfo">
                 </mat-form-field>
             </ng-container>
+            <ng-container *ngIf="property.owner!.contactName && property.owner!.contactInfo">
+                <div class="col-12">
+                    <label class="custom-label">{{ 'property_upload.owner_contact_name' | translate }}:</label>
+                    <span class="ps-2">{{ property.owner!.contactName }}</span>
+                </div>
+                <div class="col-12">
+                    <label class="custom-label">{{ 'property_upload.owner_contact_info' | translate }}:</label>
+                    <span class="ps-2">{{ property.owner!.contactInfo }}</span>
+                </div>
+            </ng-container>
         </div>
 
         <div class="row">

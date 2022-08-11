@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="mat-elevation-z3">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>

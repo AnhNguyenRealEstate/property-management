@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDoc, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Activity, Property, UploadedFile } from '../property-management.data';
+import { Activity, Owner, Property, UploadedFile } from '../property-management.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyUploadService {
@@ -126,12 +126,16 @@ export class PropertyUploadService {
         }
     }
 
-    async checkIfOwnerAlreadyExists(username: string) {
+    async getOwnerInformation(username: string): Promise<Owner> {
         const snapshot = await getDocs(query(
             collection(this.firestore, FirestoreCollections.owners),
             where('username', '==', username))
         );
 
-        return snapshot.size === 1;
+        if (snapshot.docs.length === 1) {
+            return snapshot.docs[0].data() as Owner;
+        } else {
+            return {} as Owner
+        }
     }
 }
