@@ -117,7 +117,7 @@
         <div class="row pt-5 pb-4">
             <div class="col-12">
                 <mat-divider></mat-divider>
-                <input #filesInput multiple hidden="true" type="file" onclick="this.value=null"
+                <input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
                     (change)="onFileUpload($event); uploadForm.form.markAsTouched();" />
                 <button mat-button (click)="filesInput.click()">
                     <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' | translate }}
@@ -187,7 +187,7 @@
         </div>
         <div class="row d-flex justify-content-end">
             <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button
-                (click)="upload(uploadForm); uploadForm.form.markAsUntouched()"
+                (click)="upload(uploadForm); uploadForm.form.markAsUntouched();"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">publish</mat-icon> {{ 'property_upload.upload' | translate }}
             </button>

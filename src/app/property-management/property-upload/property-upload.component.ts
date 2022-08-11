@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { Form, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -33,6 +33,8 @@ export class PropertyUploadComponent implements OnInit {
     managementEndDate!: Date | undefined;
 
     ownerAlreadyExists = true;
+
+    @ViewChild('filesInput', { static: false }) filesInput!: ElementRef<HTMLInputElement>;
 
     constructor(
         private translate: TranslateService,
@@ -132,8 +134,13 @@ export class PropertyUploadComponent implements OnInit {
             undefined,
             { duration: 1500 }
         );
-        
+
         this.uploadedFiles = [];
+        this.property = {
+            documents: [],
+            description: ''
+        } as Property;
+
         uploadForm.resetForm();
     }
 

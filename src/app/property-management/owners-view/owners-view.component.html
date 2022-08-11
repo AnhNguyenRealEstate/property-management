@@ -4,7 +4,7 @@
             <button matPrefix mat-icon-button disabled>
                 <mat-icon>search</mat-icon>
             </button>
-            <input matInput type="text" [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
+            <input matInput placeholder="Search by owner name" type="text" [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
         </mat-form-field>
     </div>
     <owner-list *ngIf="owners?.length" [owners]="owners"></owner-list>

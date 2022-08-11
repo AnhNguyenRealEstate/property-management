@@ -5,7 +5,7 @@ import * as admin from "firebase-admin";
  * After a listing's creation
  * Update id and creation date for that listing
  */
-exports.postProcessCreation = functions.region('asia-southeast1').firestore
+exports.postProcessCreation = functions.region('asia-southeast2').firestore
     .document('under-management/{documentId}')
     .onCreate(async (snap, context) => {
 
@@ -22,6 +22,45 @@ exports.postProcessCreation = functions.region('asia-southeast1').firestore
         const propertyData = (await snap.ref.get()).data();
         await registerPropertyWithOwner(propertyData);
     });
+
+exports.postProcessDelete = functions.region('asia-southeast2').firestore
+    .document('under-management/{documentId}')
+    .onDelete(async (snap, context) => {
+
+        const id = context.params.documentId;
+
+        const collectionRef = admin.firestore().collection(`under-management/${id}/activities`);
+        const query = collectionRef.limit(10);
+
+        return new Promise((resolve, reject) => {
+            deleteQueryBatch(admin.firestore(), query, resolve).catch(reject);
+        });
+    });
+
+//https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
+async function deleteQueryBatch(db: admin.firestore.Firestore, query: admin.firestore.Query, resolve: any) {
+    const snapshot = await query.get();
+
+    const batchSize = snapshot.size;
+    if (batchSize === 0) {
+        // When there are no documents left, we are done
+        resolve();
+        return;
+    }
+
+    // Delete documents in a batch
+    const batch = db.batch();
+    snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+    });
+    await batch.commit();
+
+    // Recurse on the next process tick, to avoid
+    // exploding the stack.
+    process.nextTick(() => {
+        deleteQueryBatch(db, query, resolve);
+    });
+}
 
 async function registerPropertyWithOwner(propertyData: admin.firestore.DocumentData | undefined) {
     if (!propertyData) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, DocumentData, QuerySnapshot, startAfter, DocumentSnapshot, orderBy } from '@angular/fire/firestore';
+import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, DocumentData, QuerySnapshot, startAfter, DocumentSnapshot, orderBy, collectionGroup } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property } from '../property-management.data';
@@ -12,7 +12,7 @@ export class PropertyCardService {
     ) { }
 
     /**
-     * Remove the property and all files related to it
+     * Remove the property and all files/activities related to it
      * @param property The property to remove
      * @returns 
      */
