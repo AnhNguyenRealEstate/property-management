@@ -10,7 +10,13 @@ import { Owner } from '../property-management.data';
 export class OwnerListComponent implements OnInit {
     @Input() owners!: Owner[];
 
-    constructor() { }
+    constructor(
+    ) { }
 
     ngOnInit() { }
+
+    removeOwner(owner: Owner) {
+        const index = this.owners.findIndex(ownerToFind => ownerToFind.username === owner.username);
+        this.owners.splice(index, 1);
+    }
 }

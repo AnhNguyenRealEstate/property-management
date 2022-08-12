@@ -1,8 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { Form, NgForm } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -39,7 +39,8 @@ export class PropertyUploadComponent implements OnInit {
         private snackbar: MatSnackBar,
         public propertyUpload: PropertyUploadService,
         private hash: HashingService,
-        @Inject(MAT_DIALOG_DATA) private data: any
+        @Inject(MAT_DIALOG_DATA) private data: any,
+        @Optional() private dialogRef: MatDialogRef<PropertyUploadComponent>
     ) {
         this.property = this.data.property as Property;
         this.isEditMode = this.data.isEditMode;
@@ -140,6 +141,8 @@ export class PropertyUploadComponent implements OnInit {
         } as Property;
 
         uploadForm.resetForm();
+
+        this.dialogRef.close();
     }
 
     async edit() {
@@ -150,6 +153,8 @@ export class PropertyUploadComponent implements OnInit {
             undefined,
             { duration: 1500 }
         );
+
+        this.dialogRef.close();
     }
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {

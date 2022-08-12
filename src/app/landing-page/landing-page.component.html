@@ -2,18 +2,21 @@
     <div class="row pt-10 top-level-intro">
         <div class="col-xs-12 col-sm-6">
             <h1 class="intro-title">
-                Property Management Portal
+                {{ 'app_title' | translate | titlecase }}
             </h1>
             <div class="row pt-5">
                 <div class="col-12">
                     <h3 class="intro-description">
-                        Your properties are professionally managed by our proprietary, world-class system
+                        {{ 'landing_page.intro_description' | translate }}
                     </h3>
                 </div>
             </div>
             <div class="row pt-5">
-                <a class="get-started-btn col-xs-6 col-sm-3" color="primary" mat-raised-button [routerLink]="'/login'">Get started</a>
-                <a mat-button href="#" class="get-started-btn col-xs-6 col-sm-3">Contact us</a>
+                <a class="get-started-btn col-xs-6 col-sm-3" color="primary" mat-raised-button
+                    [routerLink]="'/login'">{{ 'landing_page.get_started' | translate }}</a>
+                <a mat-button href="#" class="get-started-btn col-xs-6 col-sm-3">
+                    {{ 'landing_page.contact_us' | translate }}
+                </a>
             </div>
         </div>
         <div class="d-xs-none d-sm-block col-sm-6 intro-picture">
@@ -24,7 +27,7 @@
         <mat-card>
             <mat-card-content>
                 <div class="row d-flex justify-content-center notable-features-text pt-2 pb-2">
-                    We manage your properties effectively, efficiently, and give you visbility over your own assets
+                    {{ 'landing_page.features_intro' | translate }}
                 </div>
                 <div class="row pt-3 d-flex justify-content-between ms-3 me-3">
                     <mat-card class="col-xs-12 col-sm-3 mb-2 mat-elevation-z3" id="feature-1">
@@ -48,7 +51,7 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-center h5 pt-2">Quality Control</div>
                                 <div class="col-12 feature-descriptive pt-10">
-                                    Your properties always remain in top-notch conditions 
+                                    Your properties always remain in top-notch conditions
                                 </div>
                             </div>
                         </mat-card-content>

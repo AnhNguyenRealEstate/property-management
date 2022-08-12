@@ -7,6 +7,12 @@
         "townhouse": "Song lập",
         "commercial": "Mặt bằng"
     },
+    "landing_page": {
+        "intro_description": "Hệ thống quản lý bất động sản chuyên nghiệp",
+        "get_started": "Đăng nhập",
+        "contact_us": "Liên hệ",
+        "features_intro": "Chuyên nghiệp và hiệu quả"
+    },
     "layout": {
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
@@ -58,7 +64,7 @@
         "upload_files": "Đính kèm file",
         "upload": "Đăng ký",
         "save": "Lưu thay đổi",
-        "upload_successful": "Nhà đã được đưa vào hệ thống 🎉",
+        "upload_successful": "Tài sản đã được đưa vào hệ thống 🎉",
         "edit_successful": "Đã lưu thay đổi ✅",
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
@@ -101,5 +107,33 @@
         "activity": "hoạt động",
         "activities": "hoạt động"
     },
-    "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved."
+    "activities_view": {
+        "list": "Danh sách",
+        "calendar": "Lịch"
+    },
+    "activity_calendar": {
+        "previous": "Previous",
+        "next": "Next",
+        "current": "Current"
+    },
+    "activity_upload": {
+        "new_activity": "Hoạt động mới",
+        "date": "Ngày",
+        "description": "Mô tả hoạt động",
+        "upload_files": "Đính kèm file",
+        "add": "Thêm hoạt động"
+    },
+    "owners_view": {
+        "search_placeholder": "Tên chủ nhà"
+    },
+    "owner_list_item": {
+        "prop_of_list": "Danh sách tài sản",
+        "no_properties": "Chủ nhà không có tài sản trong hệ thống",
+        "category_and_name": "Phân loại | Tên tài sản",
+        "description": "Thông tin cần biết"
+    },
+    "properties_view": {
+        "search_placeholder":"Tên tài sản"
+    },
+    "footer": "@ 2022 Anh Nguyen Real Estate"
 }

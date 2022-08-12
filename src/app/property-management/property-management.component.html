@@ -4,12 +4,14 @@
             <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
                 <div class="row pt-2 pt-sm-4">
                     <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
-                        <button class="col-12 pb-1 d-flex" mat-button (click)="addProperty()">
-                            <span class="ps-3 ps-ms-4"></span>
-                            <mat-icon color="accent">add_business</mat-icon>
-                            <span class="ps-3 d-none d-sm-inline">{{ 'property_management.register' | translate
-                                }}</span>
-                        </button>
+                        <div class="col-12 pb-1 d-flex justify-content-center">
+                            <button class="register-prop-btn" mat-raised-button (click)="addProperty()">
+                                <span class="ps-3 ps-ms-4"></span>
+                                <mat-icon color="accent">add_business</mat-icon>
+                                <span class="ps-3 d-none d-sm-inline">{{ 'property_management.register' | translate
+                                    }}</span>
+                            </button>
+                        </div>
                         <button *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="col-12 pb-1 d-flex"
                             mat-button (click)="viewOwners()">
                             <span class="ps-3 ps-ms-4"></span>

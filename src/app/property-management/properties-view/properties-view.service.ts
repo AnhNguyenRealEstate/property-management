@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, limit, where, getDocs, query } from '@angular/fire/firestore';
+import { Firestore, collection, limit, where, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Property } from '../property-management.data';
 
@@ -13,7 +13,10 @@ export class PropertiesViewService {
 
 
     async getProperties(owner?: string): Promise<Property[]> {
-        let q = query(collection(this.firestore, FirestoreCollections.underManagement), limit(this.quotaPerQuery));
+        let q = query(
+            collection(this.firestore, FirestoreCollections.underManagement), 
+            limit(this.quotaPerQuery),
+            orderBy('creationDate', 'desc'));
 
         if (owner) {
             q = query(q, (where("ownerUsername", "==", owner)));

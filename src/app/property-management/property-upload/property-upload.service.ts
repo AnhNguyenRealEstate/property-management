@@ -21,7 +21,6 @@ export class PropertyUploadService {
             return `${FirebaseStorageConsts.underManagement}/${folderName}`;
         }
 
-        debugger;
         property.fileStoragePath = createFileStoragePath(property);
         await this.storeFiles(uploadedFiles, property);
 

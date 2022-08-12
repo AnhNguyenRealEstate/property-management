@@ -1,8 +1,12 @@
 <section class="ps-2 pt-2 pe-2">
     <div class="pb-2">
         <mat-button-toggle-group name="viewToggle" value="list" (change)="view = $event.value">
-            <mat-button-toggle value="list"><mat-icon color="accent">list</mat-icon> List</mat-button-toggle>
-            <mat-button-toggle value="calendar"><mat-icon color="accent">calendar_month_icon</mat-icon> Calendar</mat-button-toggle>
+            <mat-button-toggle value="list">
+                <mat-icon color="accent">list</mat-icon> {{ 'activities_view.list' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="calendar">
+                <mat-icon color="accent">calendar_month_icon</mat-icon> {{ 'activities_view.calendar' | translate }}
+            </mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 

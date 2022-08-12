@@ -7,6 +7,12 @@
         "townhouse": "Townhouse",
         "commercial": "Commercial"
     },
+    "landing_page": {
+        "intro_description": "Your properties are professionally managed by our proprietary, world-class system",
+        "get_started": "Get started",
+        "contact_us": "Contact us",
+        "features_intro": "We manage your properties effectively, efficiently, and give you visbility over your own assets"
+    },
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
@@ -101,5 +107,33 @@
         "activity": "activity",
         "activities": "activities"
     },
-    "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved."
+    "activities_view": {
+        "list": "List",
+        "calendar": "Calendar"
+    },
+    "activity_calendar": {
+        "previous": "Previous",
+        "next": "Next",
+        "current": "Current"
+    },
+    "activity_upload": {
+        "new_activity": "New activity",
+        "date": "Date",
+        "description": "Description",
+        "upload_files": "Upload files",
+        "add": "Add activity"
+    },
+    "owners_view": {
+        "search_placeholder": "Search by owner name"
+    },
+    "owner_list_item": {
+        "prop_of_list": "List of properties",
+        "no_properties": "This user has no properties",
+        "category_and_name": "Category | Name",
+        "description": "Description"
+    },
+    "properties_view": {
+        "search_placeholder":"Search by property name"
+    },
+    "footer": "@ 2022 Anh Nguyen Real Estate"
 }

@@ -1,18 +1,18 @@
 <section>
     <div class="row ms-1 me-1" (click)="$event.stopPropagation()">
         <div class="col-12 pt-2 pb-2">
-            <div class="h5">New activity</div>
+            <div class="h5">{{ 'activity_upload.new_activity' | translate }}</div>
             <mat-divider></mat-divider>
         </div>
         <form #activityForm="ngForm">
             <mat-form-field class="col-12" color="accent">
-                <mat-label>Date</mat-label>
+                <mat-label>{{ 'activity_upload.date' | translate }}</mat-label>
                 <input matInput required name="activityDate" [matDatepicker]="activityDatePicker" [(ngModel)]="date" />
                 <mat-datepicker-toggle matSuffix [for]="activityDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #activityDatePicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-12" color="accent">
-                <mat-label>Description</mat-label>
+                <mat-label>{{ 'activity_upload.description' | translate }}</mat-label>
                 <input matInput trim="blur" required type="text" name="activityDesc" [(ngModel)]="description" />
             </mat-form-field>
             <div class="col-12 pb-2">
@@ -20,7 +20,7 @@
                 <input #filesInput multiple hidden="true" type="file" onclick="this.value=null"
                     (change)="onActivityFileUpload($event)" />
                 <button mat-button (click)="filesInput.click()">
-                    <mat-icon color="accent">upload_file</mat-icon> Upload files
+                    <mat-icon color="accent">upload_file</mat-icon> {{ 'activity_upload.upload_files' | translate }}
                 </button>
                 <div class="uploaded-files" cdkDropList
                     (cdkDropListDropped)="uploadedFileDrop($event); activityForm.form.markAsTouched();">
@@ -33,15 +33,13 @@
                                         (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
                                         [ngModelOptions]="{standalone: true}" style="height: 2rem">
                                     <div>
-                                        <button #checkBtn mat-button
-                                            [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
-                                     edit.hidden = true;
-                                     onFileNameChange(doc.displayName!, edit.value, doc);
-                                     activityForm.form.markAsTouched();">
+                                        <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
+                                            edit.hidden = true;
+                                            onFileNameChange(doc.displayName!, edit.value, doc);
+                                            activityForm.form.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>
-                                        <button #editBtn mat-button
-                                            [style.display]="edit.hidden ? '': 'none'"
+                                        <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
                                             (click)="display.hidden = true; edit.hidden = false;">
                                             <mat-icon color="accent">edit</mat-icon>
                                         </button>
@@ -63,7 +61,7 @@
             </div>
             <button mat-button color="accent" class="col-12 pt-1" (click)="addActivity(activityForm)"
                 [disabled]="activityForm.untouched || !activityForm.valid">
-                <mat-icon>upload</mat-icon> Add
+                <mat-icon>upload</mat-icon> {{ 'activity_upload.add' | translate }}
             </button>
         </form>
     </div>

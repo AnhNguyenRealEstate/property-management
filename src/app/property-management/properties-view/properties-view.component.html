@@ -4,7 +4,8 @@
             <button matPrefix mat-icon-button disabled>
                 <mat-icon>search</mat-icon>
             </button>
-            <input matInput placeholder="Search by property name" type="text" [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
+            <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
+                [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
         </mat-form-field>
     </div>
 

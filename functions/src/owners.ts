@@ -1,17 +1,17 @@
 import * as functions from "firebase-functions";
 
 /**
- * After an activity's creation
- * Update id for that activity
+ * After an owner's creation
+ * Update id for that owner
  */
 exports.postProcessCreation = functions.region('asia-southeast2').firestore
-    .document('under-management/{propertyId}/activities/{activityId}')
+    .document('owners/{ownerId}')
     .onCreate((snap, context) => {
-        const activityId = context.params.activityId;
+        const ownerId = context.params.ownerId;
 
         return snap.ref.update(
             {
-                'id': activityId
+                'id': ownerId
             }
         );
     });

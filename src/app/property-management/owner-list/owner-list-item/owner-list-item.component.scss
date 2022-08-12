@@ -1,0 +1,21 @@
+@use "src/app/styles/colors" as colors;
+
+.mat-expansion-panel-header-title {
+    width: 20vw;
+    margin-right: 0 !important;
+    align-items: center;
+}
+
+.property-description {
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.owner-name {
+    color: colors.$accent;
+}
+
+.property-title {
+    color: colors.$primary-dark;
+    font-size: 0.8rem;
+}

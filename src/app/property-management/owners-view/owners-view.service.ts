@@ -13,7 +13,6 @@ export class OwnersViewService {
 
 
     async getOwners(): Promise<Owner[]> {
-
         const snapshot = await getDocs(
             query(
                 collection(this.firestore, FirestoreCollections.owners),
@@ -34,4 +33,7 @@ export class OwnersViewService {
         return [];
     }
 
+    async deleteOwners(ownerUsername: string) {
+        //TODO:
+    }
 }
