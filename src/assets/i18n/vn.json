@@ -105,11 +105,12 @@
         "no_doc": "Không có tài liệu đính kèm",
         "no_activity": "Không có hoạt động",
         "activity": "hoạt động",
-        "activities": "hoạt động"
+        "activities": "hoạt động",
+        "activities_on_this_date": "Các hoạt động trong ngày"
     },
     "activities_view": {
-        "list": "Danh sách",
-        "calendar": "Lịch"
+        "list": "Danh sách ngày",
+        "calendar": "Lịch tháng"
     },
     "activity_calendar": {
         "previous": "Previous",
@@ -130,7 +131,10 @@
         "prop_of_list": "Danh sách tài sản",
         "no_properties": "Chủ nhà không có tài sản trong hệ thống",
         "category_and_name": "Phân loại | Tên tài sản",
-        "description": "Thông tin cần biết"
+        "description": "Thông tin cần biết",
+        "confirmation_msg": "Bạn có chắc bạn muốn xoá thông tin chủ nhà này?",
+        "delete": "Xoá",
+        "cancel": "Huỷ"
     },
     "properties_view": {
         "search_placeholder":"Tên tài sản"

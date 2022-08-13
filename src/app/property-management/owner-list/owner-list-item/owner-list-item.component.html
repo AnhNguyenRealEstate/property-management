@@ -1,5 +1,6 @@
 <mat-expansion-panel class="mat-elevation-z1 owner-panel" (afterExpand)="getProperties(owner)"
-    (mouseenter)="showDeleteBtn(deleteBtn)" (mouseleave)="hideDeleteBtn(deleteBtn)">
+    (mouseenter)="showDeleteBtn(deleteBtn); showEditBtn(editBtn)"
+    (mouseleave)="hideDeleteBtn(deleteBtn); hideEditBtn(editBtn)">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <div class="owner-name">{{owner.contactName}} </div>
@@ -9,6 +10,11 @@
                 {{owner.contactInfo}}
             </div>
         </mat-panel-description>
+        <div style="display: none" #editBtn>
+            <button *ngIf="canEditOwner" mat-button (click)="$event.stopPropagation(); editOwner(owner)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
         <div style="display: none" #deleteBtn>
             <button *ngIf="canRemoveOwner" mat-button (click)="$event.stopPropagation(); deleteOwner(owner)">
                 <mat-icon>delete</mat-icon>
@@ -19,13 +25,18 @@
         <div class="pb-2 text-bold">{{ 'owner_list_item.prop_of_list' | translate }}</div>
         <mat-divider></mat-divider>
         <div class="row pt-2 pb-1 ps-2">
-            <div class="col-6 col-sm-4 property-title-header text-bold">{{ 'owner_list_item.category_and_name' | translate }}</div>
-            <div class="col-6 col-sm-8 property-description-header text-bold">{{ 'owner_list_item.description' | translate }}</div>
+            <div class="col-6 col-sm-4 property-title-header text-bold">{{ 'owner_list_item.category_and_name' |
+                translate }}</div>
+            <div class="col-6 col-sm-8 property-description-header text-bold">{{ 'owner_list_item.description' |
+                translate }}</div>
         </div>
         <ng-container *ngIf="properties.length; else noProperties">
-            <div *ngFor="let property of properties" class="row pt-1 ps-2">
-                <div class="col-6 col-sm-4 property-title"> {{property.category}} | {{property.name}}</div>
-                <div class="col-6 col-sm-8 property-description" [innerHtml]="property.description"></div>
+            <div *ngFor="let property of properties; let i = index">
+                <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
+                <div class="row ps-2 pt-2">
+                    <div class="col-6 col-sm-4 property-title"> {{property.category}} | {{property.name}}</div>
+                    <div class="col-6 col-sm-8 property-description" [innerHtml]="property.description"></div>
+                </div>
             </div>
         </ng-container>
         <ng-template #noProperties>
@@ -33,3 +44,14 @@
         </ng-template>
     </ng-template>
 </mat-expansion-panel>
+
+<ng-template #deleteConfirmation>
+    <div class="row">
+        <div class="col-12">{{ 'owner_list_item.confirmation_msg' | translate }}</div>
+        <div class="col-12 d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">{{ 'owner_list_item.delete' | translate
+                }}</button>
+            <button mat-button [mat-dialog-close]="false">{{ 'owner_list_item.cancel' | translate }}</button>
+        </div>
+    </div>
+</ng-template>

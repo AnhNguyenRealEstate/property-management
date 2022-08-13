@@ -18,6 +18,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
+            <div class="text-bold pb-1">{{ 'activity_list.activities_on_this_date' | translate }}</div>
             <mat-divider></mat-divider>
             <div *ngFor="let activity of activityByDate.activities; let i = index;">
                 <mat-divider *ngIf="i > 0" inset="true"></mat-divider>

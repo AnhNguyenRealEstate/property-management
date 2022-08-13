@@ -105,7 +105,8 @@
         "no_doc": "No documents to display",
         "no_activity": "No activity",
         "activity": "activity",
-        "activities": "activities"
+        "activities": "activities",
+        "activities_on_this_date": "Activities on this date"
     },
     "activities_view": {
         "list": "List",
@@ -130,7 +131,10 @@
         "prop_of_list": "List of properties",
         "no_properties": "This user has no properties",
         "category_and_name": "Category | Name",
-        "description": "Description"
+        "description": "Description",
+        "confirmation_msg": "Are you sure you want to delete this owner from the system?",
+        "delete": "Delete",
+        "cancel": "Cancel"
     },
     "properties_view": {
         "search_placeholder":"Search by property name"
