@@ -16,13 +16,12 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
     view: 'list' | 'calendar' = 'list';
 
     constructor(
-        private activitiesView: ActivitiesViewService,
+        public activitiesView: ActivitiesViewService,
         private auth: Auth,
         private roles: RolesService
     ) { }
 
     async ngOnInit() {
-
         this.subs.add(this.roles.roles$.subscribe(async roles => {
             if (roles.includes('customer-service')) {
                 const snapshot = await this.activitiesView.getActivities();

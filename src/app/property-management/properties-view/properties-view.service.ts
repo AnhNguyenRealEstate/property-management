@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, limit, where, getDocs, query, orderBy } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Property } from '../property-management.data';
 
@@ -7,12 +8,17 @@ import { Property } from '../property-management.data';
 export class PropertiesViewService {
     private quotaPerQuery = 6;
 
+    private gettingProperties$$ = new BehaviorSubject<boolean>(false);
+    gettingProperties$ = this.gettingProperties$$.asObservable();
+
     constructor(
         private firestore: Firestore
     ) { }
 
 
     async getProperties(owner?: string): Promise<Property[]> {
+        this.gettingProperties$$.next(true);
+
         let q = query(
             collection(this.firestore, FirestoreCollections.underManagement), 
             limit(this.quotaPerQuery),
@@ -24,9 +30,12 @@ export class PropertiesViewService {
 
         const result = await getDocs(q);
 
+        this.gettingProperties$$.next(false);
+
         return result.docs.map(doc => {
             return doc.data() as Property;
         });
+        
     }
 
 }

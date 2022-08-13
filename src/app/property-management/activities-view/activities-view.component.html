@@ -12,6 +12,10 @@
         </mat-button-toggle-group>
     </div>
 
+    <div class="d-flex justify-content-center" *ngIf="!activities.length && (activitiesView.gettingActivities$ | async)">
+        <mat-spinner color="primary" [diameter]="35"></mat-spinner>
+    </div>
+
     <ng-container *ngIf="view === 'list'">
         <activity-list [activities]="activities"></activity-list>
     </ng-container>

@@ -23,7 +23,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
-        private propertiesView: PropertiesViewService,
+        public propertiesView: PropertiesViewService,
         private auth: Auth
     ) { }
 

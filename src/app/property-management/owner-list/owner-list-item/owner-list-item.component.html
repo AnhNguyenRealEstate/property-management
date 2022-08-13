@@ -24,13 +24,14 @@
     <ng-template matExpansionPanelContent>
         <div class="pb-2 text-bold">{{ 'owner_list_item.prop_of_list' | translate }}</div>
         <mat-divider></mat-divider>
-        <div class="row pt-2 pb-1 ps-2">
-            <div class="col-6 col-sm-4 property-title-header text-bold">{{ 'owner_list_item.category_and_name' |
-                translate }}</div>
-            <div class="col-6 col-sm-8 property-description-header text-bold">{{ 'owner_list_item.description' |
-                translate }}</div>
-        </div>
         <ng-container *ngIf="properties.length; else noProperties">
+            <div class="row pt-2 pb-1 ps-2">
+                <div class="col-6 col-sm-4 property-title-header text-bold">{{ 'owner_list_item.category_and_name' |
+                    translate }}</div>
+                <div class="col-6 col-sm-8 property-description-header text-bold">{{ 'owner_list_item.description' |
+                    translate }}</div>
+            </div>
+            
             <div *ngFor="let property of properties; let i = index">
                 <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
                 <div class="row ps-2 pt-2">

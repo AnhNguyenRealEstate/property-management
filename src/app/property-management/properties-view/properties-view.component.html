@@ -13,4 +13,8 @@
         <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(prop)">
         </property-card>
     </div>
+
+    <div class="d-flex justify-content-center" *ngIf="!properties?.length && (propertiesView.gettingProperties$ | async)">
+        <mat-spinner color="primary" [diameter]="35"></mat-spinner>
+    </div>
 </div>

@@ -13,7 +13,7 @@ export class OwnersViewComponent implements OnInit {
     algoliaQuery = '';
 
     constructor(
-        private ownersView: OwnersViewService
+        public ownersView: OwnersViewService
     ) {
     }
 
