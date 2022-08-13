@@ -23,7 +23,7 @@ export class OwnerListItemComponent implements OnInit {
     @ViewChild('deleteConfirmation') confirmationDialogTemplate!: TemplateRef<string>;
 
     constructor(
-        private ownerListItem: OwnerListItemService,
+        public ownerListItem: OwnerListItemService,
         private roles: RolesService,
         private renderer: Renderer2,
         private dialog: MatDialog,

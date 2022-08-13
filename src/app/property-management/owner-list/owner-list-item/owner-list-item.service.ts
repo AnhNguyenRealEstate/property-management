@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { collection, deleteDoc, doc, Firestore, getDocs, orderBy, query, where } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Owner, Property } from '../../property-management.data';
 
 @Injectable({ providedIn: 'any' })
 export class OwnerListItemService {
+    private gettingProperties$$ = new BehaviorSubject<boolean>(false);
+    gettingProperties$ = this.gettingProperties$$.asObservable();
+
     constructor(
         private firestore: Firestore
     ) {
     }
 
     async getPropertiesFrom(ownerUsername: string): Promise<Property[]> {
+        this.gettingProperties$$.next(true);
+
         const snapshot = await getDocs(query(
             collection(this.firestore, FirestoreCollections.underManagement),
             where('ownerUsername', '==', ownerUsername),
@@ -18,6 +24,8 @@ export class OwnerListItemService {
         ));
 
         const properties = snapshot.docs.map(doc => doc.data() as Property);
+        this.gettingProperties$$.next(false);
+
         return properties;
     }
 
