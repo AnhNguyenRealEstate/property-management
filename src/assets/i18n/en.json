@@ -106,7 +106,9 @@
         "no_activity": "No activity",
         "activity": "activity",
         "activities": "activities",
-        "activities_on_this_date": "Activities on this date"
+        "activities_on_this_date": "Activities on this date",
+        "property_name": "Property name",
+        "activity_description": "Activity description"
     },
     "activities_view": {
         "list": "List",

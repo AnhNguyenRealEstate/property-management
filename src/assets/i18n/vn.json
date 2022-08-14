@@ -106,7 +106,9 @@
         "no_activity": "Không có hoạt động",
         "activity": "hoạt động",
         "activities": "hoạt động",
-        "activities_on_this_date": "Các hoạt động trong ngày"
+        "activities_on_this_date": "Các hoạt động trong ngày",
+        "property_name": "Tên tài sản",
+        "activity_description": "Mô tả hoạt động"
     },
     "activities_view": {
         "list": "Danh sách ngày",

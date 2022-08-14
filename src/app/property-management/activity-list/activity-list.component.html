@@ -18,8 +18,16 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-            <div class="text-bold pb-1">{{ 'activity_list.activities_on_this_date' | translate }}</div>
+            <div class="text-bold pb-2">{{ 'activity_list.activities_on_this_date' | translate }}</div>
             <mat-divider></mat-divider>
+            <div *ngIf="activityByDate.activities.length" class="row ps-2 pt-2 pb-1">
+                <div class="col-5 text-bold">
+                    {{ 'activity_list.property_name' | translate }}
+                </div>
+                <div class="col-7 text-bold">
+                    {{ 'activity_list.activity_description' | translate }}
+                </div>
+            </div>
             <div *ngFor="let activity of activityByDate.activities; let i = index;">
                 <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
                 <mat-expansion-panel class="mat-elevation-z0 activity-panel" (mouseenter)="showDeleteBtn(deleteBtn)"
@@ -29,7 +37,7 @@
                             <div class="property-name">{{activity.propertyName}}</div>
                         </mat-panel-title>
                         <mat-panel-description>
-                            <div>{{activity.description}}</div>
+                            <div class="property-description">{{activity.description}}</div>
                         </mat-panel-description>
                         <div style="display: none" #deleteBtn>
                             <button *ngIf="canDeleteActivities" mat-button
