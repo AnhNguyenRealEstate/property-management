@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Owner, Property } from '../../property-management.data';
 import { OwnerListItemService } from './owner-list-item.service';
@@ -12,13 +13,16 @@ import { OwnerListItemService } from './owner-list-item.service';
     styleUrls: ['./owner-list-item.component.scss']
 })
 
-export class OwnerListItemComponent implements OnInit {
+export class OwnerListItemComponent implements OnInit, OnDestroy {
     @Input() owner!: Owner;
     @Output() ownerDeleted: EventEmitter<void> = new EventEmitter<void>();
+
     properties: Property[] = [];
 
     canRemoveOwner: boolean = false;
     canEditOwner: boolean = false;
+    
+    subs: Subscription = new Subscription();
 
     @ViewChild('deleteConfirmation') confirmationDialogTemplate!: TemplateRef<string>;
 
@@ -32,16 +36,24 @@ export class OwnerListItemComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.roles.roles$.subscribe(roles => {
+        this.subs.add(this.roles.roles$.subscribe(roles => {
             if (roles.includes('customer-service')) {
                 this.canRemoveOwner = true;
                 this.canEditOwner = true;
             }
-        })
+        }));
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 
     async getProperties(owner: Owner) {
         if (!owner.username) {
+            return;
+        }
+
+        if(this.properties.length){
             return;
         }
 
@@ -66,8 +78,6 @@ export class OwnerListItemComponent implements OnInit {
                 );
             }
         });
-
-
     }
 
     async editOwner(owner: Owner) {

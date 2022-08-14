@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Owner, Property } from '../../property-management.data';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class OwnerListItemService {
     private gettingProperties$$ = new BehaviorSubject<boolean>(false);
     gettingProperties$ = this.gettingProperties$$.asObservable();

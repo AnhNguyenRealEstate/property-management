@@ -89,7 +89,9 @@ export class PropertyCardComponent implements OnInit {
             }
         )
 
-        if (this.mostRecentActivity?.date?.toDate()! < activity.date?.toDate()!) {
+        const newActivityIsMostRecent = !this.mostRecentActivity?.date
+            || (this.mostRecentActivity?.date?.toDate() < activity.date?.toDate()!);
+        if (newActivityIsMostRecent) {
             this.mostRecentActivity = activity;
         }
     }
