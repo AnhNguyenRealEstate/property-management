@@ -15,3 +15,10 @@
 
     <owner-list *ngIf="owners?.length" [owners]="owners"></owner-list>
 </section>
+
+<div class="float-controls-mobile d-sm-none">
+    <button mat-raised-button class="mat-elevation-z4" (click)="registerOwner()">
+        <mat-icon color="accent">person_add</mat-icon>
+        <span class="ps-2">Register</span>
+    </button>
+</div>

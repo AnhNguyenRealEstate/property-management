@@ -27,7 +27,7 @@ export class ActivitiyCalendarComponent implements OnInit, OnDestroy {
     constructor(
         private roles: RolesService,
         private auth: Auth,
-        private activityCalendar: ActivityCalendarService
+        public activityCalendar: ActivityCalendarService
     ) { }
 
     ngOnInit() {

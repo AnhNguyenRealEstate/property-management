@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { OwnerUploadComponent } from '../owner-upload/owner-upload.component';
 import { Owner } from '../property-management.data';
 import { OwnersViewService } from './owners-view.service';
 
@@ -13,7 +15,8 @@ export class OwnersViewComponent implements OnInit {
     algoliaQuery = '';
 
     constructor(
-        public ownersView: OwnersViewService
+        public ownersView: OwnersViewService,
+        private dialog: MatDialog
     ) {
     }
 
@@ -24,5 +27,19 @@ export class OwnersViewComponent implements OnInit {
     async searchWithAlgolia() {
         this.owners = (await this.ownersView.getOwners())
             .filter(owner => owner.contactName?.toLowerCase().includes(this.algoliaQuery.toLowerCase().trim()));
+    }
+
+    registerOwner() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                owner: {} as Owner,
+                isEditMode: false
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(OwnerUploadComponent, config);
     }
 }

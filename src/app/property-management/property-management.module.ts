@@ -25,6 +25,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ActivitiyCalendarComponent } from './activity-calendar/activity-calendar.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { OwnerUploadModule } from './owner-upload/owner-upload.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     DragDropModule,
     ActivityListModule,
     OwnerListModule,
+    OwnerUploadModule,
     MatTabsModule,
     MatSidenavModule,
     CalendarModule.forRoot(

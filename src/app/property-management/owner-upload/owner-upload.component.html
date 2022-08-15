@@ -1,3 +1,38 @@
 <section>
-    
+    <div>
+        <h1 class="h5">
+            <span *ngIf="owner.username">{{ 'owner_upload.register_new' | translate }}</span>
+            <span *ngIf="!owner.username">{{ 'owner_upload.edit_owner' | translate }}</span>
+        </h1>
+    </div>
+
+    <form #ownerUploadForm="ngForm">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>{{ 'owner_upload.owner_name' | translate }}</mat-label>
+                    <input matInput required type="text" name="ownerName" [(ngModel)]="owner.contactName">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>{{ 'owner_upload.owner_contact' | translate }}</mat-label>
+                    <input matInput required type="text" name="contactInfo" [(ngModel)]="owner.contactInfo">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+            <button *ngIf="!isEditMode" class="col-6 col-sm-2" mat-button
+                (click)="upload(ownerUploadForm); ownerUploadForm.form.markAsUntouched();"
+                [disabled]="ownerUploadForm.untouched || !ownerUploadForm.valid">
+                <mat-icon color="accent">publish</mat-icon> {{ 'owner_upload.upload' | translate }}
+            </button>
+            <button *ngIf="isEditMode" class="col-6 col-sm-2" mat-button
+                (click)="edit(); ownerUploadForm.form.markAsUntouched()"
+                [disabled]="ownerUploadForm.untouched || !ownerUploadForm.valid">
+                <mat-icon color="accent">save</mat-icon> {{ 'owner_upload.save' | translate }}
+            </button>
+        </div>
+    </form>
 </section>

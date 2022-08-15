@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { collectionGroup, Firestore, getDocs, orderBy, query, Timestamp, where } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../property-management.data';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityCalendarService {
+    private gettingActivities$$ = new BehaviorSubject<boolean>(false);
+    gettingActivities$ = this.gettingActivities$$.asObservable();
 
     constructor(
         private firestore: Firestore,
     ) { }
 
     async getActivities(ownerUsername?: string, currentDate?: Date) {
+        this.gettingActivities$$.next(true);
+
         let q = query(
             collectionGroup(this.firestore, FirestoreCollections.activities),
             orderBy('date', 'desc')
@@ -32,10 +37,14 @@ export class ActivityCalendarService {
         }
 
         const snapshot = await getDocs(q);
+        this.gettingActivities$$.next(false);
+
         return snapshot.docs.map(doc => doc.data() as Activity);
     }
 
     async getActivitiesFrom(ownerUsername?: string, date?: Date) {
+        this.gettingActivities$$.next(true);
+
         let q = query(
             collectionGroup(this.firestore, FirestoreCollections.activities)
         );
@@ -58,6 +67,9 @@ export class ActivityCalendarService {
 
         const snapshot = await getDocs(q);
         const activities = snapshot.docs.map(doc => doc.data() as Activity);
+
+        this.gettingActivities$$.next(false);
+
         return activities;
     }
 }

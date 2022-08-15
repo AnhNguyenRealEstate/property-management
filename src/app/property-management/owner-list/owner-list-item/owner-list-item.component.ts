@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
+import { OwnerUploadComponent } from '../../owner-upload/owner-upload.component';
 import { Owner, Property } from '../../property-management.data';
 import { OwnerListItemService } from './owner-list-item.service';
 
@@ -21,7 +22,7 @@ export class OwnerListItemComponent implements OnInit, OnDestroy {
 
     canRemoveOwner: boolean = false;
     canEditOwner: boolean = false;
-    
+
     subs: Subscription = new Subscription();
 
     @ViewChild('deleteConfirmation') confirmationDialogTemplate!: TemplateRef<string>;
@@ -53,7 +54,7 @@ export class OwnerListItemComponent implements OnInit, OnDestroy {
             return;
         }
 
-        if(this.properties.length){
+        if (this.properties.length) {
             return;
         }
 
@@ -81,7 +82,17 @@ export class OwnerListItemComponent implements OnInit, OnDestroy {
     }
 
     async editOwner(owner: Owner) {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                owner: this.owner,
+                isEditMode: true
+            }
+        } as MatDialogConfig;
 
+        this.dialog.open(OwnerUploadComponent, config);
     }
 
     showDeleteBtn(deleteBtn: HTMLDivElement) {

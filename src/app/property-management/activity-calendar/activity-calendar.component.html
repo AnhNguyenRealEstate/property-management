@@ -4,18 +4,23 @@
         <mat-icon>arrow_left</mat-icon>
         {{ 'activity_calendar.previous' | translate }}
     </button>
-    <button mat-stroked-button color="accent" mwlCalendarToday [(viewDate)]="viewDate">
+    <button mat-stroked-button color="accent" mwlCalendarToday [(viewDate)]="viewDate"
+        (viewDateChange)="getMonthActivities($event)">
         {{ 'activity_calendar.current' | translate }}
     </button>
-    <button mat-stroked-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
-        (viewDateChange)="getMonthActivities($event)">
+    <button mat-stroked-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view">
         {{ 'activity_calendar.next' | translate }}
         <mat-icon>arrow_right</mat-icon>
     </button>
 </section>
 
-<mwl-calendar-month-view [viewDate]="viewDate" [events]="calendarEvents" (dayClicked)="dayClicked($event.day)"
-    [headerTemplate]="headerTemplate" [activeDayIsOpen]="showEventsFromDay">
+<div class="d-flex justify-content-center" *ngIf="activityCalendar.gettingActivities$ | async">
+    <mat-spinner color="primary" [diameter]="35"></mat-spinner>
+</div>
+
+<mwl-calendar-month-view *ngIf="!(activityCalendar.gettingActivities$ | async)" [viewDate]="viewDate"
+    [events]="calendarEvents" (dayClicked)="dayClicked($event.day)" [headerTemplate]="headerTemplate"
+    [activeDayIsOpen]="showEventsFromDay">
 </mwl-calendar-month-view>
 
 <ng-template #headerTemplate>
