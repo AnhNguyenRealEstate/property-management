@@ -43,9 +43,9 @@
         "title": "Quản lý tài sản",
         "register": "Đăng ký mới",
         "summary": "Tóm tắt",
-        "properties": "Danh sách tài sản",
-        "activities": "Danh sách hoạt động",
-        "owner_list": "Danh sách chủ nhà"
+        "properties": "Tài sản",
+        "activities": "Hoạt động",
+        "owner_list": "Chủ nhà"
     },
     "property_upload": {
         "register_new": "Đăng ký tài sản",

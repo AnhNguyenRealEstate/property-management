@@ -1,13 +1,13 @@
 <section class="pt-2 pb-2 d-flex justify-content-between">
-    <button mat-button color="primary" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view"
+    <button mat-stroked-button color="primary" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view"
         (viewDateChange)="getMonthActivities($event)">
         <mat-icon>arrow_left</mat-icon>
         {{ 'activity_calendar.previous' | translate }}
     </button>
-    <button mat-button color="accent" mwlCalendarToday [(viewDate)]="viewDate">
+    <button mat-stroked-button color="accent" mwlCalendarToday [(viewDate)]="viewDate">
         {{ 'activity_calendar.current' | translate }}
     </button>
-    <button mat-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
+    <button mat-stroked-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
         (viewDateChange)="getMonthActivities($event)">
         {{ 'activity_calendar.next' | translate }}
         <mat-icon>arrow_right</mat-icon>

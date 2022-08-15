@@ -1,64 +1,66 @@
-<div class="pb-1" *ngFor="let activityByDate of activitiesByDates">
-    <mat-expansion-panel class="mat-elevation-z1 activities-by-date-panel">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <div class="title-date">{{activityByDate.date | date}} </div>
-            </mat-panel-title>
-            <mat-panel-description>
-                <div class="title-description">
-                    <span class="pe-1"
-                        *ngIf="activityByDate.activities?.length">{{activityByDate.activities.length}}</span>
-                    <span *ngIf="activityByDate.activities?.length == 0">{{ 'activity_list.no_activity' |
-                        translate }}</span>
-                    <span *ngIf="activityByDate.activities?.length == 1">{{ 'activity_list.activity' | translate
-                        }}</span>
-                    <span *ngIf="activityByDate.activities?.length! > 1">{{ 'activity_list.activities' |
-                        translate }}</span>
+<section>
+    <div class="pb-1" *ngFor="let activityByDate of activitiesByDates">
+        <mat-expansion-panel class="mat-elevation-z1 activities-by-date-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="title-date">{{activityByDate.date | date}} </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div class="title-description">
+                        <span class="pe-1"
+                            *ngIf="activityByDate.activities?.length">{{activityByDate.activities.length}}</span>
+                        <span *ngIf="activityByDate.activities?.length == 0">{{ 'activity_list.no_activity' |
+                            translate }}</span>
+                        <span *ngIf="activityByDate.activities?.length == 1">{{ 'activity_list.activity' | translate
+                            }}</span>
+                        <span *ngIf="activityByDate.activities?.length! > 1">{{ 'activity_list.activities' |
+                            translate }}</span>
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="text-bold pb-2">{{ 'activity_list.activities_on_this_date' | translate }}</div>
+                <mat-divider></mat-divider>
+                <div *ngIf="activityByDate.activities.length" class="row ps-2 pt-2 pb-1">
+                    <div class="col-5 text-bold">
+                        {{ 'activity_list.property_name' | translate }}
+                    </div>
+                    <div class="col-7 text-bold">
+                        {{ 'activity_list.activity_description' | translate }}
+                    </div>
                 </div>
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-            <div class="text-bold pb-2">{{ 'activity_list.activities_on_this_date' | translate }}</div>
-            <mat-divider></mat-divider>
-            <div *ngIf="activityByDate.activities.length" class="row ps-2 pt-2 pb-1">
-                <div class="col-5 text-bold">
-                    {{ 'activity_list.property_name' | translate }}
-                </div>
-                <div class="col-7 text-bold">
-                    {{ 'activity_list.activity_description' | translate }}
-                </div>
-            </div>
-            <div *ngFor="let activity of activityByDate.activities; let i = index;">
-                <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
-                <mat-expansion-panel class="mat-elevation-z0 activity-panel" (mouseenter)="showDeleteBtn(deleteBtn)"
-                    (mouseleave)="hideDeleteBtn(deleteBtn)">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <div class="property-name">{{activity.propertyName}}</div>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <div class="property-description">{{activity.description}}</div>
-                        </mat-panel-description>
-                        <div style="display: none" #deleteBtn>
-                            <button *ngIf="canDeleteActivities" mat-button
-                                (click)="$event.stopPropagation(); removeActivity(activity)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
-                    </mat-expansion-panel-header>
-
-                    <ng-template matExpansionPanelContent>
-                        <div *ngIf="!activity.documents?.length">{{ 'activity_list.no_doc' | translate }}</div>
-                        <div *ngIf="activity.documents?.length" class="row">
-                            <div class="col-12 col-sm-3" *ngFor="let doc of activity.documents">
-                                <button mat-raised-button (click)="$event.stopPropagation(); downloadFile(doc)">
-                                    <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
+                <div *ngFor="let activity of activityByDate.activities; let i = index;">
+                    <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
+                    <mat-expansion-panel class="mat-elevation-z0 activity-panel" (mouseenter)="showDeleteBtn(deleteBtn)"
+                        (mouseleave)="hideDeleteBtn(deleteBtn)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="property-name">{{activity.propertyName}}</div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                <div class="property-description">{{activity.description}}</div>
+                            </mat-panel-description>
+                            <div style="display: none" #deleteBtn>
+                                <button *ngIf="canDeleteActivities" mat-button
+                                    (click)="$event.stopPropagation(); removeActivity(activity)">
+                                    <mat-icon>delete</mat-icon>
                                 </button>
                             </div>
-                        </div>
-                    </ng-template>
-                </mat-expansion-panel>
-            </div>
-        </ng-template>
-    </mat-expansion-panel>
-</div>
+                        </mat-expansion-panel-header>
+
+                        <ng-template matExpansionPanelContent>
+                            <div *ngIf="!activity.documents?.length">{{ 'activity_list.no_doc' | translate }}</div>
+                            <div *ngIf="activity.documents?.length" class="row">
+                                <div class="col-12 col-sm-3" *ngFor="let doc of activity.documents">
+                                    <button mat-raised-button (click)="$event.stopPropagation(); downloadFile(doc)">
+                                        <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                </div>
+            </ng-template>
+        </mat-expansion-panel>
+    </div>
+</section>

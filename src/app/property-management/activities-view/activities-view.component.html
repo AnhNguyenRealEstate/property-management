@@ -1,18 +1,34 @@
-<section class="ps-2 pt-2 pe-2">
-    <div class="pb-3">
-        <mat-button-toggle-group class="mat-elevation-z2" name="viewToggle" value="list" (change)="view = $event.value">
-            <mat-button-toggle value="list">
-                <mat-icon color="accent">list</mat-icon>
-                <span class="ps-2">{{ 'activities_view.list' | translate }}</span>
-            </mat-button-toggle>
-            <mat-button-toggle value="calendar">
-                <mat-icon color="accent">calendar_month_icon</mat-icon>
-                <span class="ps-2">{{ 'activities_view.calendar' | translate }}</span>
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
+<div class="d-none d-sm-block pb-3">
+    <mat-button-toggle-group class="mat-elevation-z2" name="viewToggleDesktop" value="calendar"
+        (change)="view = $event.value">
+        <mat-button-toggle value="calendar">
+            <mat-icon color="accent">calendar_month_icon</mat-icon>
+            <span class="ps-2">{{ 'activities_view.calendar' | translate }}</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="list">
+            <mat-icon color="accent">list</mat-icon>
+            <span class="ps-2">{{ 'activities_view.list' | translate }}</span>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
 
-    <div class="d-flex justify-content-center" *ngIf="!activities.length && (activitiesView.gettingActivities$ | async)">
+<div class="d-sm-none pb-2 view-toggle-mobile">
+    <mat-button-toggle-group class="mat-elevation-z0" name="viewToggleMobile" value="calendar"
+        (change)="view = $event.value">
+        <mat-button-toggle value="calendar">
+            <mat-icon color="accent">calendar_month_icon</mat-icon>
+            <span class="ps-2">{{ 'activities_view.calendar' | translate }}</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="list">
+            <mat-icon color="accent">list</mat-icon>
+            <span class="ps-2">{{ 'activities_view.list' | translate }}</span>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<section class="ps-2 pt-2 pe-2">
+    <div class="d-flex justify-content-center"
+        *ngIf="!activities.length && (activitiesView.gettingActivities$ | async)">
         <mat-spinner color="primary" [diameter]="35"></mat-spinner>
     </div>
 

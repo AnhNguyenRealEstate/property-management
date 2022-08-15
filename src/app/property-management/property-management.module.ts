@@ -17,7 +17,7 @@ import { ActivityListModule } from './activity-list/activity-list.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
-import { ActivitiesViewComponent } from './activities-view/activities.component';
+import { ActivitiesViewComponent } from './activities-view/activities-view.component';
 import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { OwnersViewComponent } from './owners-view/owners-view.component';
 import { OwnerListModule } from './owner-list/owner-list.module';

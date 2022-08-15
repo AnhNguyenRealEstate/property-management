@@ -66,4 +66,18 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         this.properties = (await this.propertiesView.getProperties())
             .filter(property => property.name?.toLowerCase().includes(this.algoliaQuery.toLowerCase()));
     }
+
+    registerProperty() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                property: {} as Property,
+                isEditMode: false
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(PropertyUploadComponent, config);
+    }
 }

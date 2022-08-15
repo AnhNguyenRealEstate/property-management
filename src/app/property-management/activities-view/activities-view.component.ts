@@ -7,13 +7,14 @@ import { ActivitiesViewService } from './activities-view.service';
 
 @Component({
     selector: 'activities-view',
-    templateUrl: 'activities-view.component.html'
+    templateUrl: 'activities-view.component.html',
+    styleUrls: ['./activities-view.component.scss']
 })
 
 export class ActivitiesViewComponent implements OnInit, OnDestroy {
     activities: Activity[] = [];
     subs: Subscription = new Subscription();
-    view: 'list' | 'calendar' = 'list';
+    view: 'list' | 'calendar' = 'calendar';
 
     constructor(
         public activitiesView: ActivitiesViewService,

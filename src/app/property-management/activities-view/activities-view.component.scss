@@ -1,0 +1,9 @@
+.view-toggle-mobile {
+    mat-button-toggle-group {
+        display: flex;
+
+        mat-button-toggle {
+            width: 50vw;
+        }
+    }
+}
