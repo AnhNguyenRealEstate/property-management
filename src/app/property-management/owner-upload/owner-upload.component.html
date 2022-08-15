@@ -1,8 +1,8 @@
 <section>
     <div>
         <h1 class="h5">
-            <span *ngIf="owner.username">{{ 'owner_upload.register_new' | translate }}</span>
-            <span *ngIf="!owner.username">{{ 'owner_upload.edit_owner' | translate }}</span>
+            <span *ngIf="!isEditMode">{{ 'owner_upload.register_new' | translate }}</span>
+            <span *ngIf="isEditMode">{{ 'owner_upload.edit_owner' | translate }}</span>
         </h1>
     </div>
 
