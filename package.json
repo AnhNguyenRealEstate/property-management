@@ -28,7 +28,7 @@
     "@angular/material": "^14.1.0",
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
-    "@angular/router": "^14.0.0",
+    "@angular/router": "^14.1.2",
     "@ng-idle/core": "*",
     "@ng-idle/keepalive": "*",
     "@ngx-translate/core": "^14.0.0",
