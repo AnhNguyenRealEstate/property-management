@@ -5,7 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { OwnerUploadComponent } from '../../owner-upload/owner-upload.component';
-import { Owner, Property } from '../../property-management.data';
+import { Owner } from "../../owners-view/owner.data";
+import { Property } from "../../property-card/property.data";
 import { OwnerListItemService } from './owner-list-item.service';
 
 @Component({

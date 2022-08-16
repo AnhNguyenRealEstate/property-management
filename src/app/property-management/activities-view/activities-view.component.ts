@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
-import { Activity } from '../property-management.data';
+import { Activity } from "./activity.data";
 import { ActivitiesViewService } from './activities-view.service';
 
 @Component({

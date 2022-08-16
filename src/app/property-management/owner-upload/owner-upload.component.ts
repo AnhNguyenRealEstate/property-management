@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { Owner } from '../property-management.data';
+import { Owner } from "../owners-view/owner.data";
 import { OwnerUploadService } from './owner-upload.service';
 
 @Component({

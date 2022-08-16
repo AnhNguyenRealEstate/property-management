@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, DocumentData, QuerySnapshot, startAfter, DocumentSnapshot, orderBy, collectionGroup } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Activity, Property } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
+import { Property } from "./property.data";
 
 @Injectable({ providedIn: 'any' })
 export class PropertyCardService {

@@ -7,7 +7,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { Activity, Owner, Property, UploadedFile } from '../property-management.data';
+import { UploadedFile } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
+import { Owner } from "../owners-view/owner.data";
+import { Property } from "../property-card/property.data";
 import { PropertyUploadService } from './property-upload.service';
 
 @Component({

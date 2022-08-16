@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
-import { Property } from '../property-management.data';
+import { Property } from "../property-card/property.data";
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { PropertiesViewService } from './properties-view.service';
 

@@ -5,7 +5,7 @@ import { CalendarEvent } from 'calendar-utils'
 import { isSameDay, isSameMonth } from 'date-fns';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { Role, RolesService } from 'src/app/shared/roles.service';
-import { Activity } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
 import { ActivityCalendarService } from './activity-calendar.service';
 
 @Component({

@@ -4,7 +4,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { RolesService } from 'src/app/shared/roles.service';
-import { Activity, Property } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
+import { Property } from "./property.data";
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { PropertyCardService } from './property-card.service';
 

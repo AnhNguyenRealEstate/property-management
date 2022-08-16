@@ -4,7 +4,8 @@ import { Auth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { Activity, UploadedFile } from '../property-management.data';
+import { UploadedFile } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
 
 @Component({
     selector: 'activity-upload',

@@ -1,6 +1,7 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { Activity, UploadedFile } from '../property-management.data';
+import { UploadedFile } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
 
 export interface DayActivities {
     date?: Date,

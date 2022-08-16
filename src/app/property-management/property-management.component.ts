@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
-import { Property } from './property-management.data';
+import { Property } from "./property-card/property.data";
 import { PropertyUploadComponent } from './property-upload/property-upload.component';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';

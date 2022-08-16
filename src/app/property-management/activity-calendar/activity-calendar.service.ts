@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collectionGroup, Firestore, getDocs, orderBy, query, Timestamp, where } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Activity } from '../property-management.data';
+import { Activity } from "../activities-view/activity.data";
 
 @Injectable({ providedIn: 'root' })
 export class ActivityCalendarService {
