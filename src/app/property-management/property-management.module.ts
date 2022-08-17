@@ -26,11 +26,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ActivitiyCalendarComponent } from './activity-calendar/activity-calendar.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { OwnerUploadModule } from './owner-upload/owner-upload.module';
+import { PropertyDetailsModule } from './property-details/property-details.module';
 
 @NgModule({
   declarations: [
     PropertyManagementComponent,
-    PropertyDetailsComponent,
     PropertyCardComponent,
     ActivityUploadComponent,
     PropertiesViewComponent,
@@ -48,6 +48,7 @@ import { OwnerUploadModule } from './owner-upload/owner-upload.module';
       { extend: true }
     ),
     PropertyUploadModule,
+    PropertyDetailsModule,
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,

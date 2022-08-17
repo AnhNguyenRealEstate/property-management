@@ -12,12 +12,12 @@ const routes: Routes = [
         component: PropertyManagementComponent,
         children: [
             {
-                path: 'summary-view',
+                path: 'summary',
                 component: SummaryViewComponent,
                 outlet: 'property-management-outlet'
             },
             {
-                path: 'properties-view',
+                path: 'properties',
                 component: PropertiesViewComponent,
                 outlet: 'property-management-outlet'
             },

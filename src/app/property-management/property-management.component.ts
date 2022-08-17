@@ -34,7 +34,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
         this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+                this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
             }
             else {
                 this.router.navigateByUrl('/');
@@ -47,11 +47,11 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
     }
 
     viewSummary() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:summary-view)');
+        this.router.navigateByUrl('/property-management/(property-management-outlet:summary)');
     }
 
     viewProperties() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
     }
 
     viewActivities() {

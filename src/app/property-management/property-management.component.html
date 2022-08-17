@@ -50,7 +50,7 @@
     </div>
 
     <div *ngIf="!isDesktop">
-        <mat-tab-group dynamicHeight="true">
+        <mat-tab-group color="accent" dynamicHeight="true" mat-stretch-tabs>
             <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
                     <span (click)="viewSummary()">{{ 'property_management.summary' | translate }}</span>

@@ -7,6 +7,7 @@ import { RolesService } from 'src/app/shared/roles.service';
 import { OwnerUploadComponent } from '../../owner-upload/owner-upload.component';
 import { Owner } from "../../owners-view/owner.data";
 import { Property } from "../../property-card/property.data";
+import { PropertyDetailsComponent } from '../../property-details/property-details.component';
 import { OwnerListItemService } from './owner-list-item.service';
 
 @Component({
@@ -110,5 +111,18 @@ export class OwnerListItemComponent implements OnInit, OnDestroy {
 
     hideEditBtn(editBtn: HTMLDivElement) {
         this.renderer.setStyle(editBtn, 'display', 'none');
+    }
+
+    viewPropertyDetails(property: Property) {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                property: property
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(PropertyDetailsComponent, config);
     }
 }
