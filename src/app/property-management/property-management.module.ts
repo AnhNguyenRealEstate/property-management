@@ -27,6 +27,7 @@ import { ActivitiyCalendarComponent } from './activity-calendar/activity-calenda
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { OwnerUploadModule } from './owner-upload/owner-upload.module';
 import { PropertyDetailsModule } from './property-details/property-details.module';
+import { ContractExtractionModule } from './contract-extraction/contract-extraction.module';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { PropertyDetailsModule } from './property-details/property-details.modul
         useFactory: adapterFactory
       }
     ),
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    ContractExtractionModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

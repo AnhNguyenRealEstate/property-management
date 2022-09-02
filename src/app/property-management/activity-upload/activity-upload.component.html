@@ -18,7 +18,7 @@
             <div class="col-12 pb-2">
                 <mat-divider class="pt-2 pb-2"></mat-divider>
                 <input #filesInput multiple hidden="true" type="file" onclick="this.value=null"
-                    (change)="onActivityFileUpload($event)" />
+                    (change)="onActivityFileUpload($event); activityForm.form.markAsTouched();" />
                 <button mat-button (click)="filesInput.click()">
                     <mat-icon color="accent">upload_file</mat-icon> {{ 'activity_upload.upload_files' | translate }}
                 </button>

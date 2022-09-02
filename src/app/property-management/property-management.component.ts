@@ -7,6 +7,7 @@ import { PropertyUploadComponent } from './property-upload/property-upload.compo
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { ContractExtractionComponent } from './contract-extraction/contract-extraction.component';
 
 @Component({
     selector: 'property-management',
@@ -64,7 +65,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
     async addProperty() {
         const config = {
-            height: '90%',
+            height: '95%',
             width: '100%',
             autoFocus: false,
             data: {
@@ -74,5 +75,15 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         } as MatDialogConfig;
 
         this.dialog.open(PropertyUploadComponent, config);
+    }
+
+    async extractContract() {
+        const config = {
+            height: '95%',
+            width: '100%',
+            autoFocus: false
+        } as MatDialogConfig;
+
+        this.dialog.open(ContractExtractionComponent, config);
     }
 }

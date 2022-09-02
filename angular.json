@@ -78,7 +78,8 @@
               "browserTarget": "property-management:build:production"
             },
             "development": {
-              "browserTarget": "property-management:build:development"
+              "browserTarget": "property-management:build:development",
+              "proxyConfig": "src/proxy.config.json"
             }
           },
           "defaultConfiguration": "development"
