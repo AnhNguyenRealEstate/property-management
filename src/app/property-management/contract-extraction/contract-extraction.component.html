@@ -2,12 +2,10 @@
     <h1 class="h5">Extract information from a contract</h1>
     <mat-divider></mat-divider>
 
-    <mat-form-field class="col-12 pt-2">
+    <mat-form-field class="col-12 pt-2" color="accent">
         <mat-label>Choose contract type</mat-label>
         <mat-select [(ngModel)]="contractType" name="contract_type" required>
             <mat-option value="rental">Rental</mat-option>
-            <mat-option value="transaction">Transaction</mat-option>
-            <mat-option value="brokerage">Brokerage</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -16,9 +14,10 @@
             (change)="onContractUpload($event); contractExtractionForm.form.markAsTouched();">
         <div class="row">
             <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click()">
-                <mat-icon color="accent">upload_file</mat-icon> Upload contract
+                <mat-icon color="accent">upload_file</mat-icon> Upload
             </button>
-            <span class="col-12 col-sm-10 pt-2" *ngIf="contract">{{contract.name}}</span>
+            <span class="col-12 col-sm-8 pt-2 text-bold" *ngIf="contract">{{contract.name}}</span>
+            <button mat-button><mat-icon>eye</mat-icon></button>
         </div>
     </div>
 
@@ -26,7 +25,7 @@
             contractExtractionForm.untouched
             || !contractExtractionForm.valid || !contract || (contractExtractor.extracting$ | async)"
         (click)="submit()">
-        <span>Extract</span>
+        <mat-icon>transform</mat-icon> Extract
     </button>
 </form>
 

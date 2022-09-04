@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ContractExtractionService } from './contract-extraction.service';
 
 @Component({
@@ -26,8 +26,13 @@ export class ContractExtractionComponent implements OnInit {
         this.results = await this.contractExtractor.extract(data);
     }
 
-    onContractUpload(event: any){
+    onContractUpload(event: any) {
         const files = event.target.files as FileList;
         this.contract = files[0];
+    }
+
+    @HostListener('window:keyup.Enter', ['$event'])
+    onDialogClick(event: KeyboardEvent): void {
+        this.submit();
     }
 }

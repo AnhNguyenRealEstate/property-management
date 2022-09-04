@@ -17,6 +17,11 @@ const routes: Routes = [
                 outlet: 'property-management-outlet'
             },
             {
+                path: 'owners',
+                component: OwnersViewComponent,
+                outlet: 'property-management-outlet'
+            },
+            {
                 path: 'properties',
                 component: PropertiesViewComponent,
                 outlet: 'property-management-outlet'
@@ -24,11 +29,6 @@ const routes: Routes = [
             {
                 path: 'activities',
                 component: ActivitiesViewComponent,
-                outlet: 'property-management-outlet'
-            },
-            {
-                path: 'owners',
-                component: OwnersViewComponent,
                 outlet: 'property-management-outlet'
             }
         ]
