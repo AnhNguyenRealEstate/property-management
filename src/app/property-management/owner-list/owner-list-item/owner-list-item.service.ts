@@ -3,7 +3,7 @@ import { collection, deleteDoc, doc, Firestore, getDocs, orderBy, query, where }
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Owner } from "../../owners-view/owner.data";
-import { Property } from "../../property-card/property.data";
+import { Property } from "../../property-card/property-card.data";
 
 @Injectable({ providedIn: 'root' })
 export class OwnerListItemService {

@@ -20,6 +20,13 @@
     ],
     "rewrites": [
       {
+        "source": "/extract",
+        "run": {
+          "serviceId": "contract-extractor",
+          "region": "asia-southeast2"
+        }
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

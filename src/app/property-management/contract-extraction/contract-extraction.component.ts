@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ContractExtractionService } from './contract-extraction.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class ContractExtractionComponent implements OnInit {
 
     objectKeys = Object.keys
     results!: Object | undefined;
+
+    @ViewChild('docPreviewTemplate') docPreviewTemplate!: TemplateRef<string>;
 
     constructor(
         public contractExtractor: ContractExtractionService
@@ -35,4 +37,7 @@ export class ContractExtractionComponent implements OnInit {
     onDialogClick(event: KeyboardEvent): void {
         this.submit();
     }
+
+    // previewDoc() {
+    // }
 }

@@ -1,73 +1,143 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, Inject, OnInit, Optional, ViewChild } from '@angular/core';
-import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
-import { Form, NgForm } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { OwnerUploadComponent } from '../owner-upload/owner-upload.component';
+import { Owner } from '../owners-view/owner.data';
+import { Property } from '../property-card/property-card.data';
 import { UploadedFile } from '../property-management.data';
-import { Activity } from "../activities-view/activity.data";
-import { Owner } from "../owners-view/owner.data";
-import { Property } from "../property-card/property.data";
+import { ContractType, ContractData } from './property-upload.data';
 import { PropertyUploadService } from './property-upload.service';
 
 @Component({
     selector: 'property-upload',
-    templateUrl: 'property-upload.component.html',
-    styleUrls: ['./property-upload.component.scss']
+    templateUrl: './property-upload.component.html'
 })
 
-export class PropertyUploadComponent implements OnInit {
-    property: Property = {} as Property;
-    isEditMode: boolean = false;
+export class PropertyUploadComponent implements OnInit, OnDestroy {
+    property: Property = {
+        owner: {} as Owner,
+        documents: []
+    } as Property;
+    propertyPreview!: Object;
 
+    propertyDescription = '';
     uploadedFiles: File[] = [];
-    deletedFiles: UploadedFile[] = [];
 
-    deletedActivities: Activity[] = [];
-    activities: Activity[] = [];
-    lastActivity!: DocumentSnapshot;
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
 
-    showViewMore: boolean = false;
+    contract!: File;
+    contractData: ContractData | undefined;
 
-    managementStartDate!: Date | undefined;
-    managementEndDate!: Date | undefined;
+    sub: Subscription = new Subscription();
 
-    ownerAlreadyExists = true;
+    @ViewChild('stepper') stepper!: MatStepper;
+    stepsCanBeEdited = true;
 
     constructor(
-        private translate: TranslateService,
-        private snackbar: MatSnackBar,
-        public propertyUpload: PropertyUploadService,
+        private formBuilder: FormBuilder,
+        public upload: PropertyUploadService,
         private hash: HashingService,
-        @Inject(MAT_DIALOG_DATA) private data: any,
-        @Optional() private dialogRef: MatDialogRef<PropertyUploadComponent>
+        private snackbar: MatSnackBar,
+        private translate: TranslateService,
+        @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>
     ) {
-        this.property = this.data.property as Property;
-        this.isEditMode = this.data.isEditMode;
+        this.firstFormGroup = this.formBuilder.group({
+            contractType: new FormControl(ContractType.rental),
+            contract: new FormControl<File | undefined>(undefined)
+        });
 
-        if (!this.isEditMode) {
-            this.property.owner = {} as Owner;
+        this.secondFormGroup = this.formBuilder.group({
+            ownerName: new FormControl(''),
+            propertyName: new FormControl(''),
+            propertyAddress: new FormControl(''),
+            propertyCategory: new FormControl(''),
+            propertySubcategory: new FormControl(''),
+            startDate: new FormControl<Date | undefined>(undefined),
+            endDate: new FormControl<Date | undefined>(undefined),
+            rentalPrice: new FormControl('')
+        });
+    }
+
+    ngOnInit() {
+        this.sub.add(this.dialogRef.afterClosed().subscribe(() => {
+            this.resetForms();
+            this.reinitVariables();
+        }));
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
+
+    async onContractUpload(event: any) {
+        this.secondFormGroup.reset();
+        this.reinitVariables();
+
+        const files = event.target.files as FileList;
+        this.contract = files[0];
+        this.uploadedFiles.push(this.contract);
+
+        this.property.documents!.unshift({
+            displayName: this.contract.name,
+            dbHashedName: this.hash.generate16DigitHash(this.contract.name)
+        } as UploadedFile)
+
+        const data = new FormData();
+        data.append('contract_type', this.firstFormGroup.controls['contractType'].value as string);
+        data.append('contract', this.contract);
+        this.contractData = await this.upload.extractContractData(data);
+        if (this.contractData) {
+            this.bindExtractionResult(this.contractData);
+            this.stepper.next();
         }
     }
 
-    async ngOnInit() {
-        this.managementStartDate = this.property.managementStartDate?.toDate();
-        this.managementEndDate = this.property.managementEndDate?.toDate();
+    bindExtractionResult(contractData: ContractData) {
+        this.secondFormGroup.get('propertyName')?.setValue(contractData.PROPERTY_NAME);
+        this.secondFormGroup.get('ownerName')?.setValue(contractData.LANDLORD_NAME);
+        this.secondFormGroup.get('propertyAddress')?.setValue(contractData.PROPERTY_ADDR);
 
-        const activitiesSnap = await this.propertyUpload.getActivities(this.property);
-        this.activities = activitiesSnap.docs.map(doc => doc.data() as Activity);
-        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
-        this.showViewMore = this.activities.length === this.propertyUpload.initialNumOfActivities;
-    }
+        const startDateResult = contractData.START_DATE?.match(/[0-9]+/gm);
+        if (startDateResult && startDateResult.length >= 3) {
+            const year = Number(startDateResult[2]);
+            const month = Number(startDateResult[1]) - 1;
+            const date = Number(startDateResult[0]);
 
-    async getMoreActivities() {
-        const activitiesSnap = await this.propertyUpload.getMoreActivities(this.property, this.lastActivity);
-        this.activities.push(...activitiesSnap.docs.map(doc => doc.data() as Activity));
-        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
-        this.showViewMore = activitiesSnap.size === this.propertyUpload.initialNumOfActivities;
+            const startDate = new Date(year, month, date);
+            this.secondFormGroup.get('startDate')?.setValue(startDate);
+        }
+
+        const endDateResult = contractData.END_DATE.match(/[0-9]+/gm);
+        if (endDateResult && endDateResult?.length >= 3) {
+            const year = Number(endDateResult[2]);
+            const month = Number(endDateResult[1]) - 1;
+            const date = Number(endDateResult[0]);
+
+            const startDate = new Date(year, month, date);
+            this.secondFormGroup.get('endDate')?.setValue(startDate);
+        }
+
+        const priceResult = /[0-9,.]+[^\/]*/gm.exec(
+            contractData.RENTAL_PRICE
+        );
+        if (priceResult) {
+            const price = priceResult[0];
+            this.secondFormGroup.get('rentalPrice')?.setValue(price);
+        }
+
+        this.propertyDescription =
+            `${contractData.TENANT_NAME ? `<p>Bên thuê hiện tại: ${contractData.TENANT_NAME}</p>` : ''}
+            ${contractData.CONTRACT_NUM ? `Số HĐ: ${contractData.CONTRACT_NUM}` : ''}
+            ${contractData.PROPERTY_PURPOSE ? `<p>${contractData.PROPERTY_PURPOSE}</p>` : ''}`.trim()
     }
 
     onFileUpload(event: any) {
@@ -103,10 +173,7 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     onFileRemove(index: number) {
-        const deletedFile = this.property.documents!.splice(index, 1);
-        if (this.isEditMode) {
-            this.deletedFiles.push(deletedFile[0]);
-        }
+        this.property.documents!.splice(index, 1);
     }
 
     onFileNameChange(oldDisplayName: string, newDisplayName: string, file: UploadedFile) {
@@ -128,38 +195,6 @@ export class PropertyUploadComponent implements OnInit {
         file.dbHashedName = this.hash.generate16DigitHash(newDisplayName);
     }
 
-    async upload(uploadForm: NgForm) {
-        await this.propertyUpload.uploadProperty(this.property, this.uploadedFiles);
-
-        this.snackbar.open(
-            await lastValueFrom(this.translate.get('property_upload.upload_successful')),
-            undefined,
-            { duration: 1500 }
-        );
-
-        this.uploadedFiles = [];
-        this.property = {
-            documents: [],
-            description: ''
-        } as Property;
-
-        uploadForm.resetForm();
-
-        this.dialogRef.close();
-    }
-
-    async edit() {
-        await this.propertyUpload.editProperty(this.property, this.uploadedFiles, this.deletedFiles, this.deletedActivities);
-
-        this.snackbar.open(
-            await lastValueFrom(this.translate.get('property_upload.edit_successful')),
-            undefined,
-            { duration: 1500 }
-        );
-
-        this.dialogRef.close();
-    }
-
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.property.documents!, event.previousIndex, event.currentIndex);
     }
@@ -172,26 +207,38 @@ export class PropertyUploadComponent implements OnInit {
         return Timestamp.fromDate(date);
     }
 
-    onActivityRemove(activityToRemove: Activity) {
-        if (!this.activities?.length) {
-            return;
-        }
+    async submit(submitBtn: MatButton) {
+        this.property.description = this.propertyDescription;
+        this.propertyPreview = this.property as Object;
 
-        const index = this.activities.findIndex(activity => activity.id === activityToRemove.id);
-        const removed = this.activities.splice(index, 1);
-        this.deletedActivities.push(...removed);
+        this.stepsCanBeEdited = false;
+        submitBtn.disabled = true;
+
+        await this.upload.uploadProperty(this.property, this.uploadedFiles);
+
+        this.snackbar.open(
+            await lastValueFrom(this.translate.get('property_upload.upload_successful')),
+            undefined,
+            { duration: 1500 }
+        );
+
     }
 
-    async checkIfOwnerAlreadyExists(username: string) {
-        if (!username) {
-            return new Promise(_ => false);
-        }
+    resetForms() {
+        this.firstFormGroup.reset();
+        this.secondFormGroup.reset();
+    }
 
-        const ownerInfo = await this.propertyUpload.getOwnerInformation(username);
-        this.ownerAlreadyExists = !!ownerInfo.username;
+    reinitVariables() {
+        this.uploadedFiles = [];
 
-        if (this.ownerAlreadyExists) {
-            this.property.owner = ownerInfo;
-        }
+        this.property = {
+            documents: [],
+            description: '',
+            owner: {} as Owner
+        } as Property;
+        this.propertyPreview = {};
+
+        this.propertyDescription = '';
     }
 }

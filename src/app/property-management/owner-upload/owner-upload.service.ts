@@ -19,6 +19,10 @@ export class OwnerUploadService {
     }
 
     async edit(owner: Owner) {
+        if (!owner.id) {
+            return;
+        }
+        
         await updateDoc(doc(this.firestore, `${FirestoreCollections.owners}/${owner.id}`), { ...owner });
     }
 }

@@ -7,7 +7,7 @@ import { PropertyDetailsComponent } from './property-details/property-details.co
 import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { PropertyCardComponent } from './property-card/property-card.component';
-import { PropertyUploadModule } from './property-upload/property-upload.module';
+import { PropertyEditModule } from './property-edit/property-edit.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -28,6 +28,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { OwnerUploadModule } from './owner-upload/owner-upload.module';
 import { PropertyDetailsModule } from './property-details/property-details.module';
 import { ContractExtractionModule } from './contract-extraction/contract-extraction.module';
+import { PropertyUploadModule } from './property-upload/property-upload.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ContractExtractionModule } from './contract-extraction/contract-extract
     TranslateModule.forChild(
       { extend: true }
     ),
+    PropertyEditModule,
     PropertyUploadModule,
     PropertyDetailsModule,
     MatMenuModule,

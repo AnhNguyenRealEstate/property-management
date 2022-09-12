@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { UploadedFile } from '../property-management.data';
 import { Activity } from "../activities-view/activity.data";
-import { Property } from "../property-card/property.data";
+import { Property } from "../property-card/property-card.data";
 import { PropertyDetailsService } from './property-details.service';
 
 @Component({

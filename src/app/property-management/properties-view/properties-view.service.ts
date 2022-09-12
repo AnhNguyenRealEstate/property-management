@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, limit, where, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Property } from "../property-card/property.data";
+import { Property } from "../property-card/property-card.data";
 
 @Injectable({ providedIn: 'root' })
 export class PropertiesViewService {
-    private quotaPerQuery = 6;
+    private quotaPerQuery = 20;
 
     private gettingProperties$$ = new BehaviorSubject<boolean>(false);
     gettingProperties$ = this.gettingProperties$$.asObservable();

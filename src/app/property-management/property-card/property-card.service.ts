@@ -3,7 +3,7 @@ import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, D
 import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from "../activities-view/activity.data";
-import { Property } from "./property.data";
+import { Property } from "./property-card.data";
 
 @Injectable({ providedIn: 'any' })
 export class PropertyCardService {

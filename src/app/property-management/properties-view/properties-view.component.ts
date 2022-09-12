@@ -4,9 +4,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
-import { Property } from "../property-card/property.data";
-import { PropertyUploadComponent } from '../property-upload/property-upload.component';
+import { Property } from "../property-card/property-card.data";
+import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertiesViewService } from './properties-view.service';
+import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 
 @Component({
     selector: 'properties-view',

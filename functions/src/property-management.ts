@@ -19,8 +19,8 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
             }
         );
 
-        const propertyData = (await snap.ref.get()).data();
-        await registerPropertyWithOwner(propertyData);
+        //const propertyData = (await snap.ref.get()).data();
+        //await registerPropertyWithOwner(propertyData);
     });
 
 exports.postProcessDelete = functions.region('asia-southeast2').firestore
@@ -62,37 +62,37 @@ async function deleteQueryBatch(db: admin.firestore.Firestore, query: admin.fire
     });
 }
 
-async function registerPropertyWithOwner(propertyData: admin.firestore.DocumentData | undefined) {
-    if (!propertyData) {
-        return;
-    }
+// async function registerPropertyWithOwner(propertyData: admin.firestore.DocumentData | undefined) {
+//     if (!propertyData) {
+//         return;
+//     }
 
-    const ownerUsername = propertyData['ownerUsername'];
-    const owner = await admin.firestore().collection('owners').where('username', '==', ownerUsername).get();
-    const ownerExists = owner.size === 1;
-    if (ownerExists) {
-        const ownerRef = owner.docs[0].ref;
-        const ownerData = (await ownerRef.get()).data();
-        if (!ownerData) {
-            return;
-        }
+//     const ownerUsername = propertyData['ownerUsername'];
+//     const owner = await admin.firestore().collection('owners').where('username', '==', ownerUsername).get();
+//     const ownerExists = owner.size === 1;
+//     if (ownerExists) {
+//         const ownerRef = owner.docs[0].ref;
+//         const ownerData = (await ownerRef.get()).data();
+//         if (!ownerData) {
+//             return;
+//         }
 
-        const propertiesBelongingToOwner = ownerData['propertyIDs'] as string[];
-        propertiesBelongingToOwner.push(propertyData['id']);
+//         const propertiesBelongingToOwner = ownerData['propertyIDs'] as string[];
+//         propertiesBelongingToOwner.push(propertyData['id']);
 
-        await ownerRef.update({
-            'propertyIDs': propertiesBelongingToOwner
-        });
-    } else {
-        const propertiesIDs = [];
-        propertiesIDs.push(propertyData['id']);
+//         await ownerRef.update({
+//             'propertyIDs': propertiesBelongingToOwner
+//         });
+//     } else {
+//         const propertiesIDs = [];
+//         propertiesIDs.push(propertyData['id']);
 
-        await admin.firestore().collection('owners').add({
-            contactName: (propertyData['owner'] as any)['contactName'] || '',
-            contactInfo: (propertyData['owner'] as any)['contactInfo'] || '',
-            username: (propertyData['owner'] as any)['username'] || '',
-            dateOfLastContact: (propertyData['owner'] as any)['dateOfLastContact'] || admin.firestore.Timestamp.fromDate(new Date()),
-            propertyIDs: propertiesIDs
-        });
-    }
-}
+//         await admin.firestore().collection('owners').add({
+//             contactName: (propertyData['owner'] as any)['contactName'] || '',
+//             contactInfo: (propertyData['owner'] as any)['contactInfo'] || '',
+//             username: (propertyData['owner'] as any)['username'] || '',
+//             dateOfLastContact: (propertyData['owner'] as any)['dateOfLastContact'] || admin.firestore.Timestamp.fromDate(new Date()),
+//             propertyIDs: propertiesIDs
+//         });
+//     }
+// }

@@ -1,38 +1,52 @@
-<form #contractExtractionForm="ngForm" class="row pb-2">
-    <h1 class="h5">Extract information from a contract</h1>
-    <mat-divider></mat-divider>
+<form #contractExtractionForm="ngForm">
+    <div class="row pb-2">
+        <h1 class="h5">Extract information from a contract</h1>
+        <mat-divider></mat-divider>
 
-    <mat-form-field class="col-12 pt-2" color="accent">
-        <mat-label>Choose contract type</mat-label>
-        <mat-select [(ngModel)]="contractType" name="contract_type" required>
-            <mat-option value="rental">Rental</mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field class="col-12 pt-2" color="accent">
+            <mat-label>Choose contract type</mat-label>
+            <mat-select [(ngModel)]="contractType" name="contract_type" required>
+                <mat-option value="rental">Rental</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <div class="col-12 pt-2 pb-2">
-        <input #contractInput name="contract" hidden="true" type="file" onclick="this.value=null" accept=".doc, .docx"
-            (change)="onContractUpload($event); contractExtractionForm.form.markAsTouched();">
-        <div class="row">
-            <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click()">
-                <mat-icon color="accent">upload_file</mat-icon> Upload
-            </button>
-            <span class="col-12 col-sm-8 pt-2 text-bold" *ngIf="contract">{{contract.name}}</span>
-            <button mat-button><mat-icon>eye</mat-icon></button>
+        <div class="col-12 pt-2 pb-2">
+            <input #contractInput name="contract" hidden="true" type="file" onclick="this.value=null"
+                accept=".doc, .docx" (change)="onContractUpload($event); contractExtractionForm.form.markAsTouched();">
+            <div class="row">
+                <span class="col-12 col-sm-8 pt-2 text-bold" *ngIf="contract">{{contract.name}}
+                    <!-- <button mat-button color="accent" (click)="previewDoc()">
+                    <mat-icon>visibility_icon</mat-icon>
+                </button> -->
+                </span>
+
+            </div>
         </div>
     </div>
 
-    <button class="col-12 col-sm-2" type="submit" mat-raised-button color="accent" [disabled]="
-            contractExtractionForm.untouched
-            || !contractExtractionForm.valid || !contract || (contractExtractor.extracting$ | async)"
-        (click)="submit()">
-        <mat-icon>transform</mat-icon> Extract
-    </button>
+    <div class="row d-flex">
+        <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click()">
+            <mat-icon color="accent">upload_file</mat-icon> Upload
+        </button>
+    </div>
+
+
+    <mat-divider></mat-divider>
+
+    <div class="row pt-2">
+        <button class="col-12 col-sm-2" type="submit" mat-raised-button color="accent" [disabled]="
+                contractExtractionForm.untouched
+                || !contractExtractionForm.valid || !contract || (contractExtractor.extracting$ | async)"
+            (click)="submit()">
+            <mat-icon>developer_board_icon</mat-icon> Extract
+        </button>
+    </div>
 </form>
 
-<mat-divider></mat-divider>
-<div *ngIf="results" class="row pt-2">
-    <div class="col-12 pb-2 h5">Key information</div>
-    <div *ngFor="let item of results | keyvalue" class="col-12 pb-2">
-        <span class="text-bold">{{item.key}}</span>: <span>{{item.value}}</span>
-    </div>
+<div class="row pt-4">
+    <ng-container *ngFor="let item of results | keyvalue">
+        <div class="col-12 pb-2">
+            <label class="text-bold">{{item.key}}</label>: <span>{{item.value}}</span>
+        </div>
+    </ng-container>
 </div>

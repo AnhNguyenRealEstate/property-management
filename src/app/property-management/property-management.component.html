@@ -2,18 +2,11 @@
     <div *ngIf="isDesktop">
         <mat-drawer-container style="height: 100vh;">
             <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
-                <div class="row pt-2 pt-sm-4">
-                    <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
-                        <div class="col-12 pb-1 d-flex justify-content-center">
-                            <button class="register-prop-btn" mat-raised-button (click)="extractContract()">
-                                <span class="ps-3 ps-ms-4"></span>
-                                <mat-icon color="accent">scanner</mat-icon>
-                                <span class="ps-3 d-none d-sm-inline">New contract</span>
-                            </button>
-                        </div>
-                        <button *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="col-12 pb-1 d-flex"
-                            mat-button (click)="viewOwners()">
-                            <span class="ps-3 ps-ms-4"></span>
+                <div class="row mt-4">
+                    <!-- <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
+                        <button *ngIf="(roles.roles$ | async )?.includes('customer-service')"
+                            class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewOwners()">
+                            <span class="ps-4 ps-ms-4"></span>
                             <mat-icon color="accent">people_outline</mat-icon>
                             <span class="ps-3 d-none d-sm-inline">{{ 'property_management.owner_list' | translate
                                 }}</span>
@@ -21,20 +14,20 @@
                         <div class="col-12 pb-1">
                             <mat-divider inset="true"></mat-divider>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
 
                     <!-- <button class="col-12 pb-1 d-flex" mat-button (click)="viewSummary()">
                         <span class="ps-3 ps-ms-4"></span>
                         <mat-icon color="accent">dashboard</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.summary' | translate }}</span>
                     </button> -->
-                    <button class="col-12 pb-1 d-flex" mat-button (click)="viewProperties()">
-                        <span class="ps-3 ps-ms-4"></span>
+                    <button class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewProperties()">
+                        <span class="ps-4 ps-ms-4"></span>
                         <mat-icon color="accent">holiday_village</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.properties' | translate }}</span>
                     </button>
-                    <button class="col-12 pb-1 d-flex" mat-button (click)="viewActivities()">
-                        <span class="ps-3 ps-ms-4"></span>
+                    <button class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewActivities()">
+                        <span class="ps-4 ps-ms-4"></span>
                         <mat-icon color="accent">view_list</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.activities' | translate }}</span>
                     </button>
@@ -65,11 +58,11 @@
                     <span (click)="viewActivities()">{{ 'property_management.activities' | translate }}</span>
                 </ng-template>
             </mat-tab>
-            <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
+            <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
                     <span (click)="viewOwners()">{{ 'property_management.owner_list' | translate }}</span>
                 </ng-template>
-            </mat-tab>
+            </mat-tab> -->
         </mat-tab-group>
         <router-outlet name="property-management-outlet"></router-outlet>
     </div>

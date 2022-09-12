@@ -37,6 +37,9 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/mammoth/mammoth.browser.min.js"
             ],
+            "allowedCommonJsDependencies": [
+              "stream", "path", "mammoth"
+            ],
             "namedChunks": true
           },
           "configurations": {

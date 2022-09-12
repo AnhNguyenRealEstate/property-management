@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { OwnerUploadComponent } from '../../owner-upload/owner-upload.component';
 import { Owner } from "../../owners-view/owner.data";
-import { Property } from "../../property-card/property.data";
+import { Property } from "../../property-card/property-card.data";
 import { PropertyDetailsComponent } from '../../property-details/property-details.component';
 import { OwnerListItemService } from './owner-list-item.service';
 

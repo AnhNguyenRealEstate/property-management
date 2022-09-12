@@ -17,5 +17,6 @@ export interface Property {
     creationDate?: Timestamp;
     ownerUsername?: string;
     owner?: Owner;
-    rentalPrice?: number;
+    rentalPrice?: string;
+    lastModifiedBy?: string;
 }

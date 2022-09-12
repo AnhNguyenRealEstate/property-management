@@ -1,32 +1,24 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
-import { RTEditorModule } from 'src/app/rich-text-editor/rich-text-editor.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatStepperModule } from '@angular/material/stepper';
+
 import { PropertyUploadComponent } from './property-upload.component';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ActivityListModule } from '../activity-list/activity-list.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { RTEditorModule } from 'src/app/rich-text-editor/rich-text-editor.module';
+import { AutoFocusDirective } from './auto-focus-on-error.directive';
 
 @NgModule({
-    declarations: [PropertyUploadComponent],
+    declarations: [PropertyUploadComponent, AutoFocusDirective],
     imports: [
         CommonModule,
-        RTEditorModule,
         SharedModule,
-        TranslateModule.forChild({
-            extend: true
-        }),
-        NgxMaskModule.forChild(),
-        DragDropModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ActivityListModule
+        ReactiveFormsModule,
+        MatStepperModule,
+        RTEditorModule,
+        TranslateModule.forChild({ extend: true })
     ],
-    exports: [PropertyUploadComponent],
-    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
+    exports: [PropertyUploadComponent]
 })
-export class PropertyUploadModule {
-}
+export class PropertyUploadModule { }

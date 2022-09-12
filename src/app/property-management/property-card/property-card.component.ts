@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from "../activities-view/activity.data";
-import { Property } from "./property.data";
-import { PropertyUploadComponent } from '../property-upload/property-upload.component';
+import { Property } from "./property-card.data";
+import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertyCardService } from './property-card.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class PropertyCardComponent implements OnInit {
             }
         } as MatDialogConfig;
 
-        this.dialog.open(PropertyUploadComponent, config);
+        this.dialog.open(PropertyEditComponent, config);
     }
 
     async deleteProperty(event: Event) {

@@ -59,12 +59,12 @@
         "management_info": "Management information",
         "start_date": "Start date",
         "end_date": "End date",
-        "monthly_rent": "Monthly rental price (USD)",
+        "monthly_rent": "Monthly rental price",
         "activities": "Activities",
         "upload_files": "Upload files",
         "upload": "Upload",
         "save": "Save",
-        "upload_successful": "Property successfully added 🎉",
+        "upload_successful": "Property successfully added ✅",
         "edit_successful": "Changes saved ✅",
         "apartment": "Apartment",
         "villa": "Villa",
@@ -99,7 +99,11 @@
         "important_notes": "Important details",
         "no_recent_activities": "No recent activity",
         "view_more": "View more",
-        "no_docs": "No document to display"
+        "no_docs": "No document to display",
+        "related_documents": "Related Documents",
+        "activities": "Activities",
+        "category": "Category",
+        "address": "Property address"
     },
     "activity_list": {
         "no_doc": "No documents to display",
@@ -127,7 +131,8 @@
         "add": "Add activity"
     },
     "owners_view": {
-        "search_placeholder": "Search by owner name"
+        "search_placeholder": "Search by owner name",
+        "register": "Register"
     },
     "owner_list_item": {
         "prop_of_list": "List of properties",
@@ -139,7 +144,7 @@
         "cancel": "Cancel"
     },
     "properties_view": {
-        "search_placeholder":"Search by property name"
+        "search_placeholder": "Search by property name"
     },
     "owner_upload": {
         "register_new": "Register a new owner",

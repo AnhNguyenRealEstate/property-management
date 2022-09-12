@@ -1,20 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDoc, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc, where } from '@angular/fire/firestore';
-import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { addDoc, collection, Firestore, Timestamp } from '@angular/fire/firestore';
+import { ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { UploadedFile } from '../property-management.data';
-import { Activity } from "../activities-view/activity.data";
-import { Owner } from "../owners-view/owner.data";
-import { Property } from "../property-card/property.data";
+import { Property } from '../property-card/property-card.data';
+import { ContractData } from './property-upload.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyUploadService {
-    public initialNumOfActivities = 10;
+    private endpoint = 'http://127.0.0.1:5000/extract';
+
+    private extracting$$ = new BehaviorSubject<boolean>(false);
+    extracting$ = this.extracting$$.asObservable();
+
+    private uploading$$ = new BehaviorSubject<boolean>(false);
+    uploading$ = this.uploading$$.asObservable(); 
 
     constructor(
+        private httpClient: HttpClient,
         private firestore: Firestore,
         private storage: Storage
     ) { }
+
+    async extractContractData(data: FormData): Promise<ContractData | undefined> {
+        this.extracting$$.next(true);
+
+        try {
+            const dataIsValid = data.has('contract') && data.has('contract_type')
+            if (!dataIsValid) {
+                return;
+            }
+
+            return await firstValueFrom(this.httpClient.post(this.endpoint, data)) as ContractData
+        } finally {
+            this.extracting$$.next(false);
+        }
+    }
 
     async uploadProperty(property: Property, uploadedFiles: File[]): Promise<string> {
         function createFileStoragePath(property: Property) {
@@ -29,24 +51,6 @@ export class PropertyUploadService {
 
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.underManagement), property);
         return docRef.id;
-    }
-
-    async editProperty(property: Property, newFiles: File[], deletedFiles: UploadedFile[], deletedActivities: Activity[]) {
-        if (deletedFiles.length) {
-            deletedFiles.map((fileToDelete) => {
-                deleteObject(ref(this.storage, `${property.fileStoragePath}/${fileToDelete.dbHashedName}`));
-            });
-        }
-
-        if (deletedActivities.length) {
-            deletedActivities.map(activity => {
-                this.removeActivity(property, activity);
-            });
-        }
-
-        await this.storeFiles(newFiles, property);
-
-        await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property });
     }
 
     private async storeFiles(files: File[], property: Property) {
@@ -70,74 +74,5 @@ export class PropertyUploadService {
 
             docToUpload.date = Timestamp.now();
         }));
-    }
-
-    async getActivities(property: Property) {
-        const snapshot = await getDocs(
-            query(
-                collection(
-                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                    'activities'
-                ),
-                orderBy('date', 'desc'),
-                limit(this.initialNumOfActivities)
-            )
-        );
-        return snapshot;
-    }
-
-    async getMoreActivities(property: Property, lastResult: DocumentSnapshot) {
-        const snapshot = await getDocs(
-            query(
-                collection(
-                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                    'activities'
-                ),
-                orderBy('date', 'desc'),
-                startAfter(lastResult),
-                limit(this.initialNumOfActivities)
-            )
-        );
-
-        return snapshot;
-    }
-
-    async removeActivity(property: Property, activityToRemove: Activity) {
-        try {
-            if (activityToRemove.documents?.length) {
-                await Promise.all(activityToRemove.documents?.map(async docToRemove => {
-                    const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
-                    await deleteObject(
-                        ref(
-                            this.storage,
-                            `${fileStoragePath}`
-                        )
-                    ).catch();
-                }));
-            }
-        } finally {
-            await deleteDoc(
-                doc(
-                    collection(
-                        doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                        'activities'
-                    ),
-                    activityToRemove.id
-                )
-            );
-        }
-    }
-
-    async getOwnerInformation(username: string): Promise<Owner> {
-        const snapshot = await getDocs(query(
-            collection(this.firestore, FirestoreCollections.owners),
-            where('username', '==', username))
-        );
-
-        if (snapshot.docs.length === 1) {
-            return snapshot.docs[0].data() as Owner;
-        } else {
-            return {} as Owner
-        }
     }
 }

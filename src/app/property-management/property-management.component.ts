@@ -1,9 +1,9 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
-import { Property } from "./property-card/property.data";
-import { PropertyUploadComponent } from './property-upload/property-upload.component';
+import { Property } from "./property-card/property-card.data";
+import { PropertyEditComponent } from './property-edit/property-edit.component';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -24,6 +24,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         public roles: RolesService,
         private router: Router,
         private login: LoginService,
+        private renderer: Renderer2,
         @Inject(DOCUMENT) private document: Document
     ) {
     }
@@ -35,7 +36,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
         this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
+                this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
             }
             else {
                 this.router.navigateByUrl('/');
@@ -74,7 +75,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
             }
         } as MatDialogConfig;
 
-        this.dialog.open(PropertyUploadComponent, config);
+        this.dialog.open(PropertyEditComponent, config);
     }
 
     async extractContract() {
@@ -85,5 +86,24 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         } as MatDialogConfig;
 
         this.dialog.open(ContractExtractionComponent, config);
+    }
+
+    @HostListener('click', ['$event.target'])
+    raiseViewBtn(target: any) {
+        const classList = target.classList as DOMTokenList;
+        if (classList.contains('view-nav-btn')) {
+            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
+                this.renderer.removeClass(element, 'mat-elevation-z4');
+            });
+
+            this.renderer.addClass(target, 'mat-elevation-z4');
+        } else if ((target.offsetParent.classList as DOMTokenList).contains('view-nav-btn')) {
+            parent = target.offsetParent;
+            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
+                this.renderer.removeClass(element, 'mat-elevation-z4');
+            });
+
+            this.renderer.addClass(parent, 'mat-elevation-z4');
+        }
     }
 }

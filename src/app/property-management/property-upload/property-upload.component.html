@@ -1,153 +1,169 @@
-<section>
-    <h1 class="h1">
-        <div *ngIf="!isEditMode">{{ 'property_upload.register_new' | translate }}</div>
-        <div *ngIf="isEditMode">{{ 'property_upload.edit_property' | translate }}</div>
-    </h1>
+<mat-stepper [linear]="true" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
+    <mat-step [stepControl]="firstFormGroup" state="uploadContract" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>Upload contract</ng-template>
+        <form [formGroup]="firstFormGroup">
+            <div class="row pb-4">
+                <mat-form-field class="col-12" color="accent">
+                    <mat-label>Choose contract type</mat-label>
+                    <mat-select #contractTypeSelect formControlName="contractType" required>
+                        <mat-option value="rental">Rental</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-    <form #uploadForm="ngForm">
-        <div class="row pb-4">
-            <div class="col-12 pb-2">
-                <div class="text-bold pb-2">{{ 'property_upload.owner_info' | translate }}</div>
-                <mat-divider></mat-divider>
+                <input #contractInput required formControlName="contract" hidden="true" type="file"
+                    onclick="this.value=null" accept=".doc, .docx, .pdf"
+                    (change)="firstFormGroup.markAsTouched(); onContractUpload($event)">
+
+                <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click();"
+                    [disabled]="!contractTypeSelect.value || (upload.extracting$ | async)">
+                    <mat-icon color="accent">upload_file</mat-icon> Upload
+                </button>
+                <div *ngIf="contract" class="col-12 col-sm-10 pt-2 text-bold">
+                    <span>{{contract.name}}</span>
+                </div>
             </div>
-            <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.owner_username' | translate }}</mat-label>
-                <input required matInput trim="blur" required type="text" name="ownerUsername"
-                    [(ngModel)]="property.owner!.username" (ngModelChange)="property.ownerUsername = $event"
-                    (blur)="checkIfOwnerAlreadyExists(property.ownerUsername?.trim() || '')">
-                <mat-hint *ngIf="!ownerAlreadyExists">{{ 'property_upload.owner_not_exist' | translate }}</mat-hint>
-            </mat-form-field>
-            <ng-container *ngIf="!ownerAlreadyExists">
-                <mat-form-field class="col-12 col-sm-6" color="accent">
+
+            <mat-divider></mat-divider>
+
+            <ng-container *ngIf="contractData">
+                <div class="row pt-4 pb-4">
+                    <ng-container *ngFor="let item of contractData | keyvalue">
+                        <div class="col-12 pb-2">
+                            <label class="text-bold">{{item.key}}</label>: <span>{{item.value}}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="row pt-4">
+                    <button class="col-12 col-sm-2" mat-raised-button color="accent" matStepperNext>
+                        Next <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" state="previewData" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>Property information</ng-template>
+        <form [formGroup]="secondFormGroup" [formToFocus]="secondFormGroup" appAutoFocusOnError>
+            <div class="row pb-4">
+                <mat-form-field>
                     <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
-                    <input required matInput trim="blur" required type="text" name="ownerContactName"
+                    <input matInput formControlName="ownerName" type="text" required
                         [(ngModel)]="property.owner!.contactName">
                 </mat-form-field>
+            </div>
+
+            <div class="row pb-4">
+                <div class="col-12 pb-1">
+                    <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
+                    <mat-divider></mat-divider>
+                </div>
                 <mat-form-field class="col-12 col-sm-6" color="accent">
-                    <mat-label>{{ 'property_upload.owner_contact_info' | translate }}</mat-label>
-                    <input required matInput trim="blur" required type="text" name="ownerContactInfo"
-                        [(ngModel)]="property.owner!.contactInfo">
+                    <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>
+                    <input required matInput trim="blur" required type="text" formControlName="propertyName"
+                        [(ngModel)]="property.name">
                 </mat-form-field>
-            </ng-container>
-            <ng-container *ngIf="property.owner!.contactName && property.owner!.contactInfo">
-                <div class="col-12">
-                    <label class="custom-label">{{ 'property_upload.owner_contact_name' | translate }}:</label>
-                    <span class="ps-2">{{ property.owner!.contactName }}</span>
-                </div>
-                <div class="col-12">
-                    <label class="custom-label">{{ 'property_upload.owner_contact_info' | translate }}:</label>
-                    <span class="ps-2">{{ property.owner!.contactInfo }}</span>
-                </div>
-            </ng-container>
-        </div>
-
-        <div class="row">
-            <div class="col-12 pb-1">
-                <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
-                <mat-divider></mat-divider>
+                <mat-form-field class="col-12 col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.address' | translate }}</mat-label>
+                    <input required matInput trim="blur" required type="text" formControlName="propertyAddress"
+                        [(ngModel)]="property.address">
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.category' | translate }}</mat-label>
+                    <mat-select required formControlName="propertyCategory" [(ngModel)]="property.category">
+                        <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'property_upload.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'property_upload.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'property_upload.commercial' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.subcategory' | translate }}</mat-label>
+                    <input matInput trim="blur" type="text" formControlName="propertySubcategory"
+                        [(ngModel)]="property.subcategory">
+                </mat-form-field>
             </div>
-            <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>
-                <input required matInput trim="blur" required type="text" name="name" [(ngModel)]="property.name">
-            </mat-form-field>
-            <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.address' | translate }}</mat-label>
-                <input required matInput trim="blur" required type="text" name="address" [(ngModel)]="property.address">
-            </mat-form-field>
-        </div>
 
-        <div class="row">
-            <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>{{ 'property_upload.category' | translate }}</mat-label>
-                <mat-select required name="category" [(ngModel)]="property.category" [disabled]="isEditMode">
-                    <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
-                    <mat-option value="Villa">{{ 'property_upload.villa' | translate }}</mat-option>
-                    <mat-option value="Townhouse">{{ 'property_upload.townhouse' | translate }}</mat-option>
-                    <mat-option value="Commercial">{{ 'property_upload.commercial' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>{{ 'property_upload.subcategory' | translate }}</mat-label>
-                <input matInput trim="blur" type="text" name="subcategory" [(ngModel)]="property.subcategory">
-            </mat-form-field>
-        </div>
-
-        <div class="row pt-4">
-            <div class="col-12 pb-1">
-                <div class="text-bold pb-2">{{ 'property_upload.management_info' | translate }}</div>
-                <mat-divider></mat-divider>
+            <div class="row pb-4">
+                <div class="col-12 pb-1">
+                    <div class="text-bold pb-2">{{ 'property_upload.management_info' | translate }}</div>
+                    <mat-divider></mat-divider>
+                </div>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.start_date' | translate }}</mat-label>
+                    <input matInput required formControlName="startDate" #managementStartDate
+                        (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
+                        [matDatepicker]="startDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.end_date' | translate }}</mat-label>
+                    <input matInput required formControlName="endDate" #managementEndDate
+                        (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
+                        [matDatepicker]="endDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="col- col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.monthly_rent' | translate }}</mat-label>
+                    <input matInput trim="blur" required type="text" formControlName="rentalPrice"
+                        [(ngModel)]="property.rentalPrice">
+                </mat-form-field>
             </div>
-            <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>{{ 'property_upload.start_date' | translate }}</mat-label>
-                <input matInput required name="managementStartDate" [(ngModel)]="managementStartDate"
-                    (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
-                    [matDatepicker]="startDatePicker">
-                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>{{ 'property_upload.end_date' | translate }}</mat-label>
-                <input matInput required name="managementEndDate" [(ngModel)]="managementEndDate"
-                    (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
-                    [matDatepicker]="endDatePicker">
-                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field class="col- col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.monthly_rent' | translate }}</mat-label>
-                <input matInput trim="blur" required type="text" name="rentalPrice" [(ngModel)]="property.rentalPrice"
-                    mask="separator" thousandSeparator=",">
-            </mat-form-field>
-        </div>
-        <div class="row">
+
+            <div class="row pb-2">
+                <div class="col-12">
+                    <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
+                    <div class="mat-form-field-wrapper">
+                        <app-editor [text]="propertyDescription"
+                            (textChange)="propertyDescription = $event; secondFormGroup.markAsTouched()">
+                        </app-editor>
+                    </div>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="row pt-4 d-flex justify-content-between">
+                <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                    <mat-icon>arrow_back</mat-icon> Previous
+                </button>
+                <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
+                    Next <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step state="uploadAdditionalFiles" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>Additional files</ng-template>
+        <div class="row pb-4">
             <div class="col-12">
-                <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
-                <div class="mat-form-field-wrapper">
-                    <app-editor [text]="property.description!"
-                        (textChange)="property.description = $event; uploadForm.form.markAsTouched()">
-                    </app-editor>
-                </div>
-            </div>
-        </div>
-
-        <div *ngIf="activities?.length" class="row pt-4">
-            <div class="col-12 pb-1">
-                <div class="text-bold pb-2">{{ 'property_upload.activities' | translate }}</div>
-                <mat-divider></mat-divider>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <activity-list [activities]="activities" [canDeleteActivities]="true"
-                        (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()">
-                    </activity-list>
-                </div>
-            </div>
-        </div>
-
-        <div class="row pt-5 pb-4">
-            <div class="col-12">
-                <mat-divider></mat-divider>
                 <input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
-                    (change)="onFileUpload($event); uploadForm.form.markAsTouched();" />
-                <button mat-button (click)="filesInput.click()">
+                    (change)="onFileUpload($event); secondFormGroup.markAsTouched();" />
+                <button mat-raised-button (click)="filesInput.click()">
                     <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' | translate }}
                 </button>
-                <div class="uploaded-files" cdkDropList
-                    (cdkDropListDropped)="uploadedFileDrop($event); uploadForm.form.markAsTouched();">
-                    <mat-card *ngFor="let doc of property.documents; let i = index;" cdkDrag>
+                <div class="uploaded-files pt-2" cdkDropList
+                    (cdkDropListDropped)="uploadedFileDrop($event); secondFormGroup.markAsTouched();">
+                    <mat-card class="mat-elevation-z3" *ngFor="let doc of property.documents; let i = index;" cdkDrag>
                         <mat-card-content>
                             <div class="d-xs-block d-sm-none row">
                                 <div class="col-8">
                                     <span #displayMobile>{{doc.displayName}}</span>
                                     <input #editMobile trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
                                         (ngModelChange)="checkBtnMobile.disabled = doesFileNameAlreadyExist($event)"
-                                        [ngModelOptions]="{standalone: true}" style="height: 2rem">
+                                        [ngModelOptions]="{standalone: true}" style="height: 2rem;">
                                     <div>
                                         <button #checkBtnMobile mat-button
                                             [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
-                                             editMobile.hidden = true;
-                                             onFileNameChange(doc.displayName!, edit.value, doc);
-                                             uploadForm.form.markAsTouched();">
+                                         editMobile.hidden = true;
+                                         onFileNameChange(doc.displayName!, edit.value, doc);
+                                         secondFormGroup.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>
                                         <button #editBtnMobile mat-button
@@ -155,7 +171,7 @@
                                             (click)="displayMobile.hidden = true; editMobile.hidden = false;">
                                             <mat-icon color="accent">edit</mat-icon>
                                         </button>
-                                        <button mat-button (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
+                                        <button mat-button (click)="onFileRemove(i); secondFormGroup.markAsTouched();">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </div>
@@ -167,22 +183,22 @@
                                 </div>
                             </div>
                             <div class="d-none d-sm-flex justify-content-between">
-                                <span #display>{{doc.displayName}}</span>
+                                <span #display class="pt-2">{{doc.displayName}}</span>
                                 <input #edit trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
                                     (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
-                                    [ngModelOptions]="{standalone: true}">
+                                    [ngModelOptions]="{standalone: true}" style="width: 50vw">
                                 <div>
                                     <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
-                                        edit.hidden = true;
-                                        onFileNameChange(doc.displayName!, edit.value, doc);
-                                        uploadForm.form.markAsTouched();">
+                                    edit.hidden = true;
+                                    onFileNameChange(doc.displayName!, edit.value, doc);
+                                    secondFormGroup.markAsTouched();">
                                         <mat-icon color="accent">check</mat-icon>
                                     </button>
                                     <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
                                         (click)="display.hidden = true; edit.hidden = false;">
                                         <mat-icon color="accent">edit</mat-icon>
                                     </button>
-                                    <button mat-button (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
+                                    <button mat-button (click)="onFileRemove(i); secondFormGroup.markAsTouched();">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                     <button mat-button cdkDragHandle>
@@ -195,17 +211,115 @@
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-end">
-            <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button
-                (click)="upload(uploadForm); uploadForm.form.markAsUntouched();"
-                [disabled]="uploadForm.untouched || !uploadForm.valid">
-                <mat-icon color="accent">publish</mat-icon> {{ 'property_upload.upload' | translate }}
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> Previous
             </button>
-            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-button
-                (click)="edit(); uploadForm.form.markAsUntouched()"
-                [disabled]="uploadForm.untouched || !uploadForm.valid">
-                <mat-icon color="accent">save</mat-icon> {{ 'property_upload.save' | translate }}
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext>
+                Next <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
-    </form>
-</section>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Submission preview</ng-template>
+
+        <div class="row pb-4">
+            <div class="col-12">
+                <div class="row pb-4">
+                    <div *ngIf="property.owner!.contactName" class="col-12">
+                        <div class="text-bold pb-1">{{ 'property_upload.owner_contact_name' | translate }}</div>
+                        <div>{{property.owner!.contactName}}</div>
+                    </div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-12 pb-1">
+                        <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 col-sm-6" color="accent">
+                        <div class="text-bold">{{ 'property_upload.property_name' | translate }}</div>
+                        <div [innerHtml]="property.name"></div>
+                    </div>
+                    <div class="col-12 col-sm-6" color="accent">
+                        <div class="text-bold">{{ 'property_upload.address' | translate }}</div>
+                        <div [innerHtml]="property.address"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-4">
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.category' | translate }}</div>
+                        <div>
+                            <span *ngIf="property.category === 'Apartment'">{{ 'property_category.apartment' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Villa'">{{ 'property_category.villa' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Commercial'">{{ 'listing_details.commercial' | translate
+                                }}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="property.subcategory" class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.subcategory' | translate }}</div>
+                        <div [innerHtml]="property.subcategory"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-4">
+                    <div class="col-12 pb-1">
+                        <div class="text-bold pb-2">{{ 'property_upload.management_info' | translate }}</div>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.start_date' | translate }}</div>
+                        <div [innerHtml]="property.managementStartDate?.toDate() | date: 'dd/MM/YYYY'"></div>
+                    </div>
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.end_date' | translate }}</div>
+                        <div [innerHtml]="property.managementEndDate?.toDate() | date: 'dd/MM/YYYY'"></div>
+                    </div>
+                    <div class="col- col-sm-6" color="accent">
+                        <div class="text-bold">{{ 'property_upload.monthly_rent' | translate }}</div>
+                        <div [innerHtml]="property.rentalPrice"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-12">
+                        <div class="text-bold pt-1 pb-1">{{ 'property_upload.description' | translate }}</div>
+                        <mat-divider></mat-divider>
+                        <div class="pt-1" [innerHtml]="propertyDescription"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-4">
+            <div class="col-12 pb-1 text-bold">
+                Uploaded files
+            </div>
+            <mat-divider></mat-divider>
+            <div class="col-12 pt-1" *ngFor="let file of uploadedFiles">
+                {{file.name}}
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> Previous
+            </button>
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" #submitBtn (click)="submit(submitBtn)"
+                [disabled]="upload.uploading$ | async">
+                Submit <mat-icon>upload</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+</mat-stepper>

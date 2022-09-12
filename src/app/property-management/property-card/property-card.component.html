@@ -3,11 +3,10 @@
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
     <ng-container [ngTemplateOutlet]="desktopCardView"></ng-container>
-    <ng-container [ngTemplateOutlet]="mobileCardView"></ng-container>
 </mat-card>
 
 <ng-template #desktopCardView>
-    <mat-card-content class="d-none d-sm-block mb-0">
+    <mat-card-content class="mb-0">
         <div class="pb-2 card-title">
             <div class="pb-2 overrun-wrap" *ngIf="property.name">
                 {{property.name}}
@@ -17,17 +16,10 @@
             </div>
         </div>
 
-        <div class="pb-2" *ngIf="property.owner?.username">
+        <div class="pb-2" *ngIf="property.owner">
             <div class="content-label">{{ 'property_card.owner' | translate }}</div>
-            <div>
-                <div class="overrun-wrap">{{property.owner?.contactName}}</div>
-                <div class="overrun-wrap">{{property.owner?.contactInfo}}</div>
-            </div>
-        </div>
-
-        <div class="pb-2">
-            <div class="content-label">{{ 'property_card.address' | translate }}</div>
-            <div class="overrun-wrap" *ngIf="property.address">{{property.address}}</div>
+            <div *ngIf="property.owner.contactName" class="overrun-wrap">{{property.owner.contactName}}</div>
+            <div *ngIf="property.owner.contactInfo" class="overrun-wrap">{{property.owner.contactInfo}}</div>
         </div>
 
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
@@ -38,39 +30,6 @@
             <div class="col-6">
                 <div class="content-label">{{ 'property_card.end_date' | translate }}</div>
                 <div>{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}</div>
-            </div>
-        </div>
-
-        <mat-divider></mat-divider>
-
-        <div class="pt-2">
-            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate }}</div>
-            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
-                {{mostRecentActivity.description}} - {{timestampToDate(mostRecentActivity.date) | date:'dd/MM/yyyy'}}
-            </div>
-            <ng-template #noRecentActivity>
-                <div>{{ 'property_card.no_recent_activity' | translate }}</div>
-            </ng-template>
-        </div>
-    </mat-card-content>
-</ng-template>
-
-<ng-template #mobileCardView>
-    <mat-card-content class="d-sm-none">
-        <div class="pb-2 card-title">
-            <div class="pb-2 overrun-wrap" *ngIf="property.name">
-                {{property.name}}
-            </div>
-            <div class="card-subtitle overrun-wrap" *ngIf="property.rentalPrice">
-                {{ 'property_card.rental_price' | translate: {'price': property.rentalPrice} }}
-            </div>
-        </div>
-
-        <div class="pb-2" *ngIf="property.owner?.username">
-            <div class="content-label">{{ 'property_card.owner' | translate }}</div>
-            <div>
-                <div class="overrun-wrap">{{property.owner?.contactName}}</div>
-                <div class="overrun-wrap">{{property.owner?.contactInfo}}</div>
             </div>
         </div>
 

@@ -57,14 +57,14 @@
         "subcategory": "Phân loại phụ",
         "address": "Địa chỉ tài sản",
         "management_info": "Thông tin quản lý",
-        "start_date": "Ngày bắt đầu",
+        "start_date": "Ngày bắt đầu hợp đồng",
         "end_date": "Ngày hết hạn hợp đồng",
-        "monthly_rent": "Giá cho thuê mỗi tháng (USD)",
+        "monthly_rent": "Giá cho thuê mỗi tháng",
         "activities": "Hoạt động",
         "upload_files": "Đính kèm file",
         "upload": "Đăng ký",
         "save": "Lưu thay đổi",
-        "upload_successful": "Tài sản đã được đưa vào hệ thống 🎉",
+        "upload_successful": "Tài sản đã được đưa vào hệ thống ✅",
         "edit_successful": "Đã lưu thay đổi ✅",
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
@@ -99,7 +99,11 @@
         "important_notes": "Thông tin cần biết",
         "no_recent_activities": "No recent activity",
         "view_more": "Xem thêm",
-        "no_docs": "Không có tài liệu đính kèm"
+        "no_docs": "Không có tài liệu đính kèm",
+        "related_documents": "Tài liệu",
+        "activities": "Hoạt động",
+        "category": "Phân loại",
+        "address": "Địa chỉ"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",
@@ -127,7 +131,8 @@
         "add": "Thêm hoạt động"
     },
     "owners_view": {
-        "search_placeholder": "Tên chủ nhà"
+        "search_placeholder": "Tên chủ nhà",
+        "register": "Đăng ký mới"
     },
     "owner_list_item": {
         "prop_of_list": "Danh sách tài sản",
