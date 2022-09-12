@@ -4,12 +4,13 @@ import { addDoc, collection, Firestore, Timestamp } from '@angular/fire/firestor
 import { ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { environment } from 'src/environments/environment';
 import { Property } from '../property-card/property-card.data';
 import { ContractData } from './property-upload.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyUploadService {
-    private endpoint = 'http://127.0.0.1:5000/extract';
+    private endpoint = environment.contractExtractorEndpoint;
 
     private extracting$$ = new BehaviorSubject<boolean>(false);
     extracting$ = this.extracting$$.asObservable();

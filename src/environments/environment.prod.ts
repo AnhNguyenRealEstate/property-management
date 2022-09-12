@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  contractExtractorEndpoint: 'https://contract-extractor-xmdul234tq-et.a.run.app/extract'
 };
