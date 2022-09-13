@@ -57,7 +57,6 @@ mat-sidenav-content {
 
 ::ng-deep .listings-menu {
     .menu-heading {
-
         color: colors.$accent;
         text-align: center;
     }
@@ -65,4 +64,9 @@ mat-sidenav-content {
     .mat-button-wrapper {
         font-weight: 400 !important;
     }
+}
+
+.mat-toolbar {
+    position: relative;
+    z-index: 2;
 }

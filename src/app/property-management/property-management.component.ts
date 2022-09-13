@@ -93,17 +93,17 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         const classList = target.classList as DOMTokenList;
         if (classList.contains('view-nav-btn')) {
             this.document.querySelectorAll('.view-nav-btn').forEach(element => {
-                this.renderer.removeClass(element, 'mat-elevation-z4');
+                this.renderer.removeClass(element, 'active-nav-btn');
             });
 
-            this.renderer.addClass(target, 'mat-elevation-z4');
+            this.renderer.addClass(target, 'active-nav-btn');
         } else if ((target.offsetParent.classList as DOMTokenList).contains('view-nav-btn')) {
             parent = target.offsetParent;
             this.document.querySelectorAll('.view-nav-btn').forEach(element => {
-                this.renderer.removeClass(element, 'mat-elevation-z4');
+                this.renderer.removeClass(element, 'active-nav-btn');
             });
 
-            this.renderer.addClass(parent, 'mat-elevation-z4');
+            this.renderer.addClass(parent, 'active-nav-btn');
         }
     }
 }

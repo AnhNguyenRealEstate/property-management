@@ -11,3 +11,11 @@
         }
     }
 }
+
+.active-nav-btn {
+    background: colors.$accent-50;
+    color:  colors.$accent;
+    .mat-icon {
+        color: colors.$accent;
+    }
+}

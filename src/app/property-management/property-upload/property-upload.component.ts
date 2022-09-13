@@ -116,7 +116,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             this.secondFormGroup.get('startDate')?.setValue(startDate);
         }
 
-        const endDateResult = contractData.END_DATE.match(/[0-9]+/gm);
+        const endDateResult = contractData.END_DATE?.match(/[0-9]+/gm);
         if (endDateResult && endDateResult?.length >= 3) {
             const year = Number(endDateResult[2]);
             const month = Number(endDateResult[1]) - 1;
