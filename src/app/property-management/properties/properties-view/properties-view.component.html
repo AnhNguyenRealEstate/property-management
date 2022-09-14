@@ -1,18 +1,18 @@
 <div class="row ps-2 pe-2 pb-4">
     <div class="col-12 search-bar">
         <mat-form-field color="default">
-            <button matPrefix mat-icon-button disabled>
+            <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
+                [(ngModel)]="algoliaQuery">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="searchWithAlgolia()">
                 <mat-icon>search</mat-icon>
             </button>
-            <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
-                [(ngModel)]="algoliaQuery" (ngModelChange)="searchWithAlgolia()">
         </mat-form-field>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 ms-2">
         <div *ngIf="apartments.length" class="row pb-4">
             <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                Apartments
+                {{ 'property_category.apartment' | translate }}
             </div>
             <div *ngFor="let prop of apartments; let i = index;"
                 class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
@@ -24,7 +24,7 @@
 
         <div *ngIf="villas.length" class="row pb-4">
             <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                Villas
+                {{ 'property_category.villa' | translate }}
             </div>
             <div *ngFor="let prop of villas; let i = index;"
                 class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
@@ -35,7 +35,7 @@
 
         <div *ngIf="townhouses.length" class="row pb-4">
             <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                Townhouses
+                {{ 'property_category.townhouse' | translate }}
             </div>
             <div *ngFor="let prop of townhouses; let i = index;"
                 class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
@@ -47,7 +47,7 @@
 
         <div *ngIf="commercials.length" class="row">
             <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                Commercials
+                {{ 'property_category.commercial' | translate }}
             </div>
             <div *ngFor="let prop of commercials; let i = index;"
                 class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
@@ -58,8 +58,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center"
-        *ngIf="!properties?.length && (propertiesView.gettingProperties$ | async)">
+    <div class="d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">
         <mat-spinner color="primary" [diameter]="35"></mat-spinner>
     </div>
 </div>

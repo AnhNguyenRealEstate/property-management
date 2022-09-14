@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,6 @@ import { PropertyUploadComponent } from '../property-upload/property-upload.comp
 })
 
 export class PropertiesViewComponent implements OnInit, OnDestroy {
-    properties: Property[] = [];
     apartments: Property[] = [];
     townhouses: Property[] = [];
     villas: Property[] = [];
@@ -35,11 +34,11 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     async ngOnInit() {
         this.subs.add(this.roles.roles$.subscribe(async roles => {
             if (roles.includes('customer-service')) {
-                this.properties = await this.propertiesView.getProperties();
-                this.sortProperties(this.properties);
+                const properties = await this.propertiesView.getProperties();
+                this.sortProperties(properties);
             } else if (roles.includes('owner') && this.auth.currentUser?.email) {
-                this.properties = await this.propertiesView.getProperties(this.auth.currentUser.email);
-                this.sortProperties(this.properties);
+                const properties = await this.propertiesView.getProperties(this.auth.currentUser.email);
+                this.sortProperties(properties);
             }
         }));
     }
@@ -70,8 +69,10 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async searchWithAlgolia() {
-        this.properties = (await this.propertiesView.getProperties())
+        //TODO: replace with algolia search at some point
+        const properties = (await this.propertiesView.getProperties())
             .filter(property => property.name?.toLowerCase().includes(this.algoliaQuery.toLowerCase()));
+        this.sortProperties(properties);
     }
 
     registerProperty() {
@@ -111,5 +112,10 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         this.villas = properties.filter(prop => prop.category === 'Villa');
         this.townhouses = properties.filter(prop => prop.category === 'Townhouse');
         this.commercials = properties.filter(prop => prop.category === 'Commercial');
+    }
+
+    @HostListener('document:keydown.enter', ['$event'])
+    onKeydownHandler(event: KeyboardEvent) {
+        this.searchWithAlgolia();
     }
 }
