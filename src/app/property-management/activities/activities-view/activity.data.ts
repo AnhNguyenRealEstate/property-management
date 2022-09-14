@@ -1,5 +1,5 @@
 import { Timestamp } from "@angular/fire/firestore";
-import { UploadedFile } from "../property-management.data";
+import { UploadedFile } from "../../property-management.data";
 
 
 export interface Activity {

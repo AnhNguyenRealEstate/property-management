@@ -3,11 +3,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { Property } from 'src/app/property-management/properties/property-card/property-card.data';
+import { PropertyDetailsComponent } from 'src/app/property-management/properties/property-details/property-details.component';
 import { RolesService } from 'src/app/shared/roles.service';
 import { OwnerUploadComponent } from '../../owner-upload/owner-upload.component';
 import { Owner } from "../../owners-view/owner.data";
-import { Property } from "../../property-card/property-card.data";
-import { PropertyDetailsComponent } from '../../property-details/property-details.component';
 import { OwnerListItemService } from './owner-list-item.service';
 
 @Component({

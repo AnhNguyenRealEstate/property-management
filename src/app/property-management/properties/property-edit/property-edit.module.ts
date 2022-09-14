@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PropertyEditComponent } from './property-edit.component';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ActivityListModule } from '../activity-list/activity-list.module';
+import { ActivityListModule } from '../../activities/activity-list/activity-list.module';
 
 @NgModule({
     declarations: [PropertyEditComponent],

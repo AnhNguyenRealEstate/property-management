@@ -2,12 +2,12 @@ import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
-import { Property } from "./property-card/property-card.data";
-import { PropertyEditComponent } from './property-edit/property-edit.component';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ContractExtractionComponent } from './contract-extraction/contract-extraction.component';
+import { Property } from './properties/property-card/property-card.data';
+import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 
 @Component({
     selector: 'property-management',

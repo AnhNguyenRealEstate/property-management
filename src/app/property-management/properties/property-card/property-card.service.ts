@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, DocumentData, QuerySnapshot, startAfter, DocumentSnapshot, orderBy, collectionGroup } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Activity } from "../activities-view/activity.data";
+import { Activity } from '../../activities/activities-view/activity.data';
 import { Property } from "./property-card.data";
 
 @Injectable({ providedIn: 'any' })

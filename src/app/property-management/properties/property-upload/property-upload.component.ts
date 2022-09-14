@@ -9,10 +9,10 @@ import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { OwnerUploadComponent } from '../owner-upload/owner-upload.component';
-import { Owner } from '../owners-view/owner.data';
+import { OwnerUploadComponent } from '../../owners/owner-upload/owner-upload.component';
+import { Owner } from '../../owners/owners-view/owner.data';
+import { UploadedFile } from '../../property-management.data';
 import { Property } from '../property-card/property-card.data';
-import { UploadedFile } from '../property-management.data';
 import { ContractType, ContractData } from './property-upload.data';
 import { PropertyUploadService } from './property-upload.service';
 

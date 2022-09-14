@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivitiesViewComponent } from './activities-view/activities-view.component';
-import { OwnersViewComponent } from './owners-view/owners-view.component';
-import { PropertiesViewComponent } from './properties-view/properties-view.component';
+import { ActivitiesViewComponent } from './activities/activities-view/activities-view.component';
+import { OwnersViewComponent } from './owners/owners-view/owners-view.component';
+import { PropertiesViewComponent } from './properties/properties-view/properties-view.component';
 import { PropertyManagementComponent } from './property-management.component';
 import { SummaryViewComponent } from './summary-view/summary-view.component';
 

@@ -2,8 +2,8 @@ import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
-import { UploadedFile } from '../property-management.data';
-import { Activity } from "../activities-view/activity.data";
+import { Activity } from '../../activities/activities-view/activity.data';
+import { UploadedFile } from '../../property-management.data';
 import { Property } from "../property-card/property-card.data";
 import { PropertyDetailsService } from './property-details.service';
 

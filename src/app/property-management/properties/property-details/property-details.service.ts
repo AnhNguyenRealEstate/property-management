@@ -5,7 +5,6 @@ import { deleteObject, getBlob, ref, Storage } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Activity } from "../activities-view/activity.data";
 import { Property } from "../property-card/property-card.data";
 
 @Injectable({ providedIn: 'root' })

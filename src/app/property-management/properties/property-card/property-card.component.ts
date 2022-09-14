@@ -4,10 +4,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { RolesService } from 'src/app/shared/roles.service';
-import { Activity } from "../activities-view/activity.data";
 import { Property } from "./property-card.data";
 import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertyCardService } from './property-card.service';
+import { Activity } from '../../activities/activities-view/activity.data';
 
 @Component({
     selector: 'property-card',
