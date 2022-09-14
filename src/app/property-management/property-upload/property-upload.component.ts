@@ -222,6 +222,10 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             { duration: 1500 }
         );
 
+        this.dialogRef.close({
+            success: true,
+            data: this.property
+        });
     }
 
     resetForms() {

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
 import { Property } from "../property-card/property-card.data";
-import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 
@@ -17,6 +16,11 @@ import { PropertyUploadComponent } from '../property-upload/property-upload.comp
 
 export class PropertiesViewComponent implements OnInit, OnDestroy {
     properties: Property[] = [];
+    apartments: Property[] = [];
+    townhouses: Property[] = [];
+    villas: Property[] = [];
+    commercials: Property[] = [];
+
     subs: Subscription = new Subscription();
 
     algoliaQuery = '';
@@ -32,8 +36,10 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         this.subs.add(this.roles.roles$.subscribe(async roles => {
             if (roles.includes('customer-service')) {
                 this.properties = await this.propertiesView.getProperties();
+                this.sortProperties(this.properties);
             } else if (roles.includes('owner') && this.auth.currentUser?.email) {
                 this.properties = await this.propertiesView.getProperties(this.auth.currentUser.email);
+                this.sortProperties(this.properties);
             }
         }));
     }
@@ -54,13 +60,13 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         this.dialog.open(PropertyDetailsComponent, config);
     }
 
-    propertyRemoved(propToRemove: Property) {
-        const index = this.properties.findIndex(property => property.id === propToRemove.id);
+    propertyRemoved(properties: Property[], propToRemove: Property) {
+        const index = properties.findIndex(property => property.id === propToRemove.id);
         if (index === -1) {
             return;
         }
 
-        this.properties.splice(index, 1);
+        properties.splice(index, 1);
     }
 
     async searchWithAlgolia() {
@@ -79,6 +85,31 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
             }
         } as MatDialogConfig;
 
-        this.dialog.open(PropertyUploadComponent, config);
+        this.dialog.open(PropertyUploadComponent, config).afterClosed().subscribe(result => {
+            if (result.success) {
+                const prop = result.data as Property;
+                switch (prop.category) {
+                    case 'Apartment':
+                        this.apartments.unshift(prop);
+                        break;
+                    case 'Commercial':
+                        this.commercials.unshift(prop);
+                        break;
+                    case 'Townhouse':
+                        this.townhouses.unshift(prop);
+                        break;
+                    case 'Villa':
+                        this.villas.unshift(prop);
+                        break;
+                }
+            }
+        });
+    }
+
+    sortProperties(properties: Property[]) {
+        this.apartments = properties.filter(prop => prop.category === 'Apartment');
+        this.villas = properties.filter(prop => prop.category === 'Villa');
+        this.townhouses = properties.filter(prop => prop.category === 'Townhouse');
+        this.commercials = properties.filter(prop => prop.category === 'Commercial');
     }
 }

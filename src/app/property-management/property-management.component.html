@@ -21,7 +21,8 @@
                         <mat-icon color="accent">dashboard</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.summary' | translate }}</span>
                     </button> -->
-                    <button class="col-12 pb-1 d-flex view-nav-btn active-nav-btn" mat-button (click)="viewProperties()">
+                    <button class="col-12 pb-1 d-flex view-nav-btn active-nav-btn" mat-button
+                        (click)="viewProperties()">
                         <span class="ps-4 ps-ms-4"></span>
                         <mat-icon>holiday_village</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.properties' | translate }}</span>
@@ -50,12 +51,14 @@
             </mat-tab> -->
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <span (click)="viewProperties()">{{ 'property_management.properties' | translate }}</span>
+                    <span (click)="viewProperties()">{{ 'property_management.properties' |
+                        translate }}</span>
                 </ng-template>
             </mat-tab>
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <span (click)="viewActivities()">{{ 'property_management.activities' | translate }}</span>
+                    <span (click)="viewActivities()">{{ 'property_management.activities' |
+                        translate }}</span>
                 </ng-template>
             </mat-tab>
             <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">

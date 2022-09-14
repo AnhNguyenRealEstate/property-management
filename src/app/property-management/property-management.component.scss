@@ -12,10 +12,17 @@
     }
 }
 
-.active-nav-btn {
-    background: colors.$accent-50;
-    color:  colors.$accent;
+.view-nav-btn {
+    color: rgb(109, 103, 103);
     .mat-icon {
-        color: colors.$accent;
+        color: rgb(109, 103, 103);
+    }
+}
+
+.active-nav-btn {
+    background: colors.$accent-50 !important;
+    color: colors.$accent !important;
+    .mat-icon {
+        color: colors.$accent !important;
     }
 }
