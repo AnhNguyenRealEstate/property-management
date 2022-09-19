@@ -252,4 +252,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     addSchedule() {
         this.schedules.push({} as PaymentSchedule)
     }
+
+    removeEmptySchedules() {
+        this.schedules = this.schedules.filter(schedule => schedule.lineItems?.length);
+    }
 }

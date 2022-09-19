@@ -165,7 +165,7 @@
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
                 <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
             </button>
-            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit" (click)="removeEmptySchedules()">
                 {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
