@@ -38,7 +38,9 @@
               "node_modules/mammoth/mammoth.browser.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "stream", "path", "mammoth"
+              "stream",
+              "path",
+              "mammoth"
             ],
             "namedChunks": true
           },

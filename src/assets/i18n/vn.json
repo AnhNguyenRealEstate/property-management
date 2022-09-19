@@ -156,7 +156,7 @@
         "edit_owner": "Sửa thông tin chủ nhà",
         "owner_name": "Tên chủ nhà",
         "owner_contact": "Thông tin liên lạc",
-        "upload": "Đăng ký",
+        "upload": "Lưu trữ",
         "save": "Lưu thay đổi"
     },
     "payment_schedule": {
@@ -169,7 +169,7 @@
         "amount": "số tiền",
         "frequency": "số tháng",
         "first_due_date": "ngày bắt đầu hợp đồng",
-        "final_due_date": "ngày kết thúc hợp đồng"
+        "final_due_date": "ngày hết hợp đồng"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

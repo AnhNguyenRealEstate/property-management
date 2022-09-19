@@ -1,38 +1,42 @@
-<form #createForm="ngForm" class="row pb-2" *ngIf="edit">
+<div class="row pb-2" *ngIf="edit">
     <mat-form-field class="col-2 me-0 pe-0">
         <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
-        <input #amount matInput name="amount" type="text" required
-            [placeholder]="'payment_schedule.amount' | translate">
+        <input #amount matInput name="amount" type="text" required [placeholder]="'payment_schedule.amount' | translate"
+            value="200 USD">
     </mat-form-field>
     <mat-form-field class="col-2 ms-0 ps-0 me-0 pe-0">
         <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.every' | translate }}</span>
         <input #howOften matInput name="howOften" type="number" required
-            [placeholder]="'payment_schedule.frequency' | translate">
+            [placeholder]="'payment_schedule.frequency' | translate" value="2">
         <span matSuffix class="ps-2">{{ 'payment_schedule.month' | translate }},</span>
     </mat-form-field>
     <mat-form-field class="col-3 ms-0 ps-0 me-0 pe-0">
         <span matPrefix class="ps-1 pe-3">{{ 'payment_schedule.from' | translate }}</span>
         <input #beginDate matInput name="beginDate" [matDatepicker]="beginningDatePicker" required
-            [placeholder]="'payment_schedule.first_due_date' | translate" />
+            [placeholder]="'payment_schedule.first_due_date' | translate" value="2022-09-09" />
         <mat-datepicker-toggle matSuffix [for]="beginningDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #beginningDatePicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="col-3 ms-0 ps-0">
         <span matPrefix class="ps-3 pe-3">{{ 'payment_schedule.to' | translate }}</span>
         <input #endDate matInput name="endDate" [matDatepicker]="endDatePicker" required
-            [placeholder]="'payment_schedule.final_due_date' | translate" />
+            [placeholder]="'payment_schedule.final_due_date' | translate" value="2023-09-09" />
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
     </mat-form-field>
     <div class="col-2 d-flex justify-content-center py-2">
-        <button mat-raised-button [disabled]="!createForm.valid"
+        <button mat-raised-button
+            [disabled]="!(amount.value && howOften.valueAsNumber && beginDate.value && endDate.value)"
             (click)="createPaymentSchedule(amount.value, howOften.valueAsNumber, beginDate, endDate)">
             <mat-icon>add</mat-icon> {{ 'payment_schedule.create' | translate }}
         </button>
     </div>
-</form>
+</div>
 
 <div class="table" *ngIf="schedule?.lineItems?.length">
+    <button *ngIf="edit" mat-mini-fab style="position: absolute; right: 25px" color="accent" (click)="removeSchedule()">
+        X
+    </button>
     <div class="row header pb-1">
         <div *ngFor="let header of columnHeaders" [class]="headerCellClass">
             <ng-container *ngIf="header === 'name'">
@@ -41,24 +45,63 @@
             <ng-container *ngIf="header === 'amount'">
                 Amount
             </ng-container>
-            <ng-container *ngIf="header === 'beginDate'"></ng-container>
-            <ng-container *ngIf="header === 'dueDate'"></ng-container>
+            <ng-container *ngIf="header === 'beginDate'">
+                Begin date
+            </ng-container>
+            <ng-container *ngIf="header === 'dueDate'">
+                Due date
+            </ng-container>
             <ng-container *ngIf="header === 'paymentWindow'">
                 Payment window
             </ng-container>
-            <ng-container *ngIf="header === 'paymentDate'"></ng-container>
-            <ng-container *ngIf="header === 'payoutDate'"></ng-container>
-            <ng-container *ngIf="header === 'payer'"></ng-container>
-            <ng-container *ngIf="header === 'payee'"></ng-container>
-            <ng-container *ngIf="header === 'status'"></ng-container>
-            <ng-container *ngIf="header === 'description'"></ng-container>
+            <ng-container *ngIf="header === 'paymentDate'">
+                Payment date
+            </ng-container>
+            <ng-container *ngIf="header === 'payoutDate'">
+                Payout date
+            </ng-container>
+            <ng-container *ngIf="header === 'payer'">
+                Payer
+            </ng-container>
+            <ng-container *ngIf="header === 'payee'">
+                Payee
+            </ng-container>
+            <ng-container *ngIf="header === 'status'">
+                Payment status
+            </ng-container>
+            <ng-container *ngIf="header === 'description'">
+                Description
+            </ng-container>
         </div>
     </div>
     <mat-divider></mat-divider>
     <div class="pt-1">
         <div *ngFor="let lineItem of schedule.lineItems; let i = index" class="row line-item">
             <div *ngFor="let lineItemProperty of columnHeaders" [class]="lineItemCellClass">
-                {{lineItem[lineItemProperty]}}
+                <ng-template #genericTextLineItem>
+                    <span class="pt-2">{{lineItem[lineItemProperty]}}</span>
+                </ng-template>
+
+                <ng-container *ngIf="edit; else genericTextLineItem">
+                    <ng-container
+                        *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
+                        <span class="pt-2" #display>{{lineItem[lineItemProperty]}}</span>
+                        <input #edit trim="blur" hidden="true" type="text" [ngModel]="display.textContent"
+                            (ngModelChange)="lineItem[lineItemProperty] = $event" [ngModelOptions]="{standalone: true}"
+                            style="height: 2rem">
+
+                        <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
+                                                    edit.hidden = true;
+                                                    lineItem[lineItemProperty] = edit.value">
+                            <mat-icon color="accent">check</mat-icon>
+                        </button>
+                        <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
+                            (click)="display.hidden = true; edit.hidden = false;">
+                            <mat-icon color="accent">edit</mat-icon>
+                        </button>
+
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
     </div>

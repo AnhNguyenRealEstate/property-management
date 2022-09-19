@@ -43,7 +43,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     @ViewChild('stepper') stepper!: MatStepper;
     stepsCanBeEdited = true;
 
-    schedule: PaymentSchedule = {} as PaymentSchedule;
+    schedules: PaymentSchedule[] = [{} as PaymentSchedule];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -247,5 +247,9 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         this.propertyPreview = {};
 
         this.propertyDescription = '';
+    }
+
+    addSchedule() {
+        this.schedules.push({} as PaymentSchedule)
     }
 }

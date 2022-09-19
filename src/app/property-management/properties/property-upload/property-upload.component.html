@@ -141,20 +141,35 @@
 
     <mat-step state="paymentSchedule">
         <ng-template matStepLabel>{{ 'property_upload.payment_schedule' | translate }}</ng-template>
-        <form>
-            <payment-schedule [(schedule)]="schedule" [edit]="true" [columnHeaders]="['amount', 'paymentWindow']"></payment-schedule>
 
-            <mat-divider></mat-divider>
+        <ng-container *ngFor="let sched of schedules; let i = index">
+            <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
+            <div class="pt-2">
+                <payment-schedule [schedule]="sched" (scheduleChange)="schedules[i] = $event" [edit]="true"
+                    [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                </payment-schedule>
+            </div>
+        </ng-container>
 
-            <div class="row pt-4 d-flex justify-content-between">
-                <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                    <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
-                </button>
-                <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
-                    {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+        <div class="row pt-2 pb-2 ">
+            <div class="col-12">
+                <button mat-raised-button (click)="addSchedule()">
+                    <mat-icon>add</mat-icon> Add another schedule
                 </button>
             </div>
-        </form>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+            </button>
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
+                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+
     </mat-step>
 
     <mat-step state="uploadAdditionalFiles" [editable]="stepsCanBeEdited">
@@ -327,6 +342,20 @@
             <div class="col-12 pt-1" *ngFor="let file of uploadedFiles">
                 {{file.name}}
             </div>
+        </div>
+
+        <div class="row pb-4">
+            <div class="col-12 pb-1 text-bold">
+                {{ 'property_upload.payment_schedule' | translate }}
+            </div>
+            <ng-container *ngFor="let sched of schedules; let i = index">
+                <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
+                <div class="pt-2">
+                    <payment-schedule [schedule]="sched" [edit]="false"
+                        [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                    </payment-schedule>
+                </div>
+            </ng-container>
         </div>
 
         <mat-divider></mat-divider>
