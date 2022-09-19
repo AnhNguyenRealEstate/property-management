@@ -28,6 +28,7 @@ import { PropertyDetailsModule } from './properties/property-details/property-de
 import { PropertyEditModule } from './properties/property-edit/property-edit.module';
 import { PropertyUploadModule } from './properties/property-upload/property-upload.module';
 import { PropertyCardComponent } from './properties/property-card/property-card.component';
+import { InvoicesViewModule } from './invoices/invoices-view/invoices-view.module';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PropertyCardComponent } from './properties/property-card/property-card.
     MatButtonToggleModule,
     ContractExtractionModule,
     PropertyDetailsModule,
-    PropertyEditModule
+    PropertyEditModule,
+    InvoicesViewModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

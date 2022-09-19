@@ -23,14 +23,19 @@
                     </button> -->
                     <button class="col-12 pb-1 d-flex view-nav-btn active-nav-btn" mat-button
                         (click)="viewProperties()">
-                        <span class="ps-4 ps-ms-4"></span>
+                        <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>holiday_village</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.properties' | translate }}</span>
                     </button>
                     <button class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewActivities()">
-                        <span class="ps-4 ps-ms-4"></span>
+                        <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>view_list</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.activities' | translate }}</span>
+                    </button>
+                    <button class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewInvoices()">
+                        <span class="ps-2 ps-sm-4"></span>
+                        <mat-icon>request_quote</mat-icon>
+                        <span class="ps-3 d-none d-sm-inline">{{ 'property_management.invoices' | translate }}</span>
                     </button>
                 </div>
             </mat-drawer>
@@ -43,7 +48,7 @@
     </div>
 
     <div *ngIf="!isDesktop">
-        <mat-tab-group color="accent" dynamicHeight="true" mat-stretch-tabs>
+        <mat-tab-group color="accent" dynamicHeight="true" (selectedIndexChange)="changeView($event)" mat-stretch-tabs>
             <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
                     <span (click)="viewSummary()">{{ 'property_management.summary' | translate }}</span>
@@ -51,13 +56,13 @@
             </mat-tab> -->
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <span (click)="viewProperties()">{{ 'property_management.properties' |
+                    <span class="tab-label" (click)="viewProperties()">{{ 'property_management.properties' |
                         translate }}</span>
                 </ng-template>
             </mat-tab>
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <span (click)="viewActivities()">{{ 'property_management.activities' |
+                    <span class="tab-label" (click)="viewActivities()">{{ 'property_management.activities' |
                         translate }}</span>
                 </ng-template>
             </mat-tab>

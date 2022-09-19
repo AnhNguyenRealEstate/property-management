@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RTEditorModule } from 'src/app/rich-text-editor/rich-text-editor.module';
 import { AutoFocusDirective } from './auto-focus-on-error.directive';
+import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
 
 @NgModule({
     declarations: [PropertyUploadComponent, AutoFocusDirective],
@@ -17,7 +18,8 @@ import { AutoFocusDirective } from './auto-focus-on-error.directive';
         ReactiveFormsModule,
         MatStepperModule,
         RTEditorModule,
-        TranslateModule.forChild({ extend: true })
+        TranslateModule.forChild({ extend: true }),
+        PaymentScheduleModule
     ],
     exports: [PropertyUploadComponent]
 })

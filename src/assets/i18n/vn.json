@@ -17,16 +17,10 @@
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
         "property_management": "Quản lý tài sản",
-        "about_us": "Giới thiệu",
-        "view_all": "Xem toàn bộ",
-        "by_category": "Phân loại",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
-        "vietnamese": "Tiếng Việt 🇻🇳",
-        "purpose": "Mục đích",
-        "for_rent": "Thuê",
-        "for_sale": "Mua"
+        "vietnamese": "Tiếng Việt 🇻🇳"
     },
     "login": {
         "page_title": "Đăng nhập",
@@ -45,7 +39,8 @@
         "summary": "Tóm tắt",
         "properties": "Tài sản",
         "activities": "Hoạt động",
-        "owner_list": "Chủ nhà"
+        "owner_list": "Chủ nhà",
+        "invoices": "Biên nhận"
     },
     "property_upload": {
         "register_new": "Đăng ký tài sản",
@@ -53,6 +48,8 @@
         "property_info": "Thông tin tài sản",
         "owner_username": "Tài khoản chủ nhà",
         "property_name": "Tên tài sản",
+        "contract_type": "Loại hợp đồng",
+        "rental_contract": "Thuê",
         "category": "Phân loại",
         "subcategory": "Phân loại phụ",
         "address": "Địa chỉ tài sản",
@@ -61,6 +58,7 @@
         "end_date": "Ngày hết hạn hợp đồng",
         "monthly_rent": "Giá cho thuê mỗi tháng",
         "activities": "Hoạt động",
+        "upload_contract": "Hợp đồng thuê",
         "upload_files": "Đính kèm file",
         "upload": "Đăng ký",
         "save": "Lưu thay đổi",
@@ -74,7 +72,14 @@
         "owner_info": "Thông tin chủ nhà",
         "owner_not_exist": "Chủ nhà không có trong hệ thống",
         "owner_contact_name": "Tên chủ nhà",
-        "owner_contact_info": "Thông tin liên lạc"
+        "owner_contact_info": "Thông tin liên lạc",
+        "previous": "Quay lại",
+        "next": "Tiếp",
+        "additional_files": "Giấy tờ liên quan",
+        "submission_preview": "Xem lại",
+        "uploaded_files": "Danh sách file",
+        "submit": "Đăng ký",
+        "payment_schedule": "Lịch thanh toán"
     },
     "property_card": {
         "activity_added": "Đã thêm hoạt động 🎉",
@@ -153,6 +158,18 @@
         "owner_contact": "Thông tin liên lạc",
         "upload": "Đăng ký",
         "save": "Lưu thay đổi"
+    },
+    "payment_schedule": {
+        "pay": "Thu",
+        "every": "mỗi",
+        "month": "tháng",
+        "from": "từ ngày",
+        "to": "đến ngày",
+        "create": "Tạo lịch",
+        "amount": "số tiền",
+        "frequency": "số tháng",
+        "first_due_date": "ngày bắt đầu hợp đồng",
+        "final_due_date": "ngày kết thúc hợp đồng"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

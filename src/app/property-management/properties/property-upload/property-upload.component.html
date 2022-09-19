@@ -1,22 +1,22 @@
-<mat-stepper [linear]="true" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
-    <mat-step [stepControl]="firstFormGroup" state="uploadContract" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Upload contract</ng-template>
+<mat-stepper [linear]="false" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
+    <mat-step state="uploadContract" [stepControl]="firstFormGroup" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>{{ 'property_upload.upload_contract' | translate }}</ng-template>
         <form [formGroup]="firstFormGroup">
             <div class="row pb-4">
                 <mat-form-field class="col-12" color="accent">
-                    <mat-label>Choose contract type</mat-label>
+                    <mat-label>{{ 'property_upload.contract_type' | translate }}</mat-label>
                     <mat-select #contractTypeSelect formControlName="contractType" required>
-                        <mat-option value="rental">Rental</mat-option>
+                        <mat-option value="rental">{{ 'property_upload.rental_contract' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <input #contractInput required formControlName="contract" hidden="true" type="file"
-                    onclick="this.value=null" accept=".doc, .docx, .pdf"
+                    onclick="this.value=null" accept=".doc, .docx"
                     (change)="firstFormGroup.markAsTouched(); onContractUpload($event)">
 
                 <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click();"
                     [disabled]="!contractTypeSelect.value || (upload.extracting$ | async)">
-                    <mat-icon color="accent">upload_file</mat-icon> Upload
+                    <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_contract' | translate }}
                 </button>
                 <div *ngIf="contract" class="col-12 col-sm-10 pt-2 text-bold">
                     <span>{{contract.name}}</span>
@@ -38,15 +38,15 @@
 
                 <div class="row pt-4">
                     <button class="col-12 col-sm-2" mat-raised-button color="accent" matStepperNext>
-                        Next <mat-icon>arrow_forward</mat-icon>
+                        {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
                     </button>
                 </div>
             </ng-container>
         </form>
     </mat-step>
 
-    <mat-step [stepControl]="secondFormGroup" state="previewData" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Property information</ng-template>
+    <mat-step state="formInput" [stepControl]="secondFormGroup" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>{{ 'property_upload.property_info' | translate }}</ng-template>
         <form [formGroup]="secondFormGroup" [formToFocus]="secondFormGroup" appAutoFocusOnError>
             <div class="row pb-4">
                 <mat-form-field>
@@ -130,17 +130,35 @@
 
             <div class="row pt-4 d-flex justify-content-between">
                 <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                    <mat-icon>arrow_back</mat-icon> Previous
+                    <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
                 </button>
                 <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
-                    Next <mat-icon>arrow_forward</mat-icon>
+                    {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step state="paymentSchedule">
+        <ng-template matStepLabel>{{ 'property_upload.payment_schedule' | translate }}</ng-template>
+        <form>
+            <payment-schedule [(schedule)]="schedule" [edit]="true" [columnHeaders]="['amount', 'paymentWindow']"></payment-schedule>
+
+            <mat-divider></mat-divider>
+
+            <div class="row pt-4 d-flex justify-content-between">
+                <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                    <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+                </button>
+                <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
+                    {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
                 </button>
             </div>
         </form>
     </mat-step>
 
     <mat-step state="uploadAdditionalFiles" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Additional files</ng-template>
+        <ng-template matStepLabel>{{ 'property_upload.additional_files' | translate }}</ng-template>
         <div class="row pb-4">
             <div class="col-12">
                 <input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
@@ -216,16 +234,16 @@
 
         <div class="row pt-4 d-flex justify-content-between">
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                <mat-icon>arrow_back</mat-icon> Previous
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
             </button>
             <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext>
-                Next <mat-icon>arrow_forward</mat-icon>
+                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
     </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>Submission preview</ng-template>
+    <mat-step state="previewForUpload">
+        <ng-template matStepLabel>{{ 'property_upload.submission_preview' | translate }}</ng-template>
 
         <div class="row pb-4">
             <div class="col-12">
@@ -261,7 +279,8 @@
                                 }}</span>
                             <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
                                 }}</span>
-                            <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' | translate
+                            <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' |
+                                translate
                                 }}</span>
                         </div>
                     </div>
@@ -302,7 +321,7 @@
 
         <div class="row pb-4">
             <div class="col-12 pb-1 text-bold">
-                Uploaded files
+                {{ 'property_upload.uploaded_files' | translate }}
             </div>
             <mat-divider></mat-divider>
             <div class="col-12 pt-1" *ngFor="let file of uploadedFiles">
@@ -314,11 +333,11 @@
 
         <div class="row pt-4 d-flex justify-content-between">
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                <mat-icon>arrow_back</mat-icon> Previous
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
             </button>
             <button class="col-6 col-sm-2" mat-raised-button color="accent" #submitBtn (click)="submit(submitBtn)"
                 [disabled]="upload.uploading$ | async">
-                Submit <mat-icon>upload</mat-icon>
+                {{ 'property_upload.submit' | translate }} <mat-icon>upload</mat-icon>
             </button>
         </div>
     </mat-step>

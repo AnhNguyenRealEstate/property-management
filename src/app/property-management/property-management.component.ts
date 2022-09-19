@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ContractExtractionComponent } from './contract-extraction/contract-extraction.component';
 import { Property } from './properties/property-card/property-card.data';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
     selector: 'property-management',
@@ -60,8 +61,20 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
     }
 
+    viewInvoices() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
+    }
+
     viewOwners() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
+    }
+
+    changeView(event: number) {
+        if (event == 0) {
+            this.viewProperties();
+        } else if (event == 1) {
+            this.viewActivities();
+        }
     }
 
     async addProperty() {

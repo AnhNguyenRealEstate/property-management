@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivitiesViewComponent } from './activities/activities-view/activities-view.component';
+import { InvoicesViewComponent } from './invoices/invoices-view/invoices-view.component';
 import { OwnersViewComponent } from './owners/owners-view/owners-view.component';
 import { PropertiesViewComponent } from './properties/properties-view/properties-view.component';
 import { PropertyManagementComponent } from './property-management.component';
@@ -29,6 +30,11 @@ const routes: Routes = [
             {
                 path: 'activities',
                 component: ActivitiesViewComponent,
+                outlet: 'property-management-outlet'
+            },
+            {
+                path: 'invoices',
+                component: InvoicesViewComponent,
                 outlet: 'property-management-outlet'
             }
         ]

@@ -1,5 +1,6 @@
-<div class="p-1" *ngFor="let activityByDate of activitiesByDates">
-    <mat-expansion-panel class="mat-elevation-z1 activities-by-date-panel">
+<mat-accordion class="p-1">
+    <mat-expansion-panel *ngFor="let activityByDate of activitiesByDates"
+        class="mat-elevation-z1 activities-by-date-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <div class="title-date">{{activityByDate.date | date}} </div>
@@ -63,4 +64,4 @@
             </div>
         </ng-template>
     </mat-expansion-panel>
-</div>
+</mat-accordion>

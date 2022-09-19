@@ -1,0 +1,45 @@
+<div class="row px-2 py-4 pb-4 d-none d-sm-block">
+    <h1 class="col-12 text-bold h5 pb-2">Invoices for {{today.getMonth().toLocaleString()}},
+        {{today.getFullYear().toString()}}</h1>
+    <mat-accordion class="col-12">
+        <mat-expansion-panel *ngFor="let collection of invoiceCollections">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{collection.date | date}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{collection.invoices.length}} invoices
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="row">
+                <div class="col-3">
+                    Payer
+                </div>
+                <div class="col-3">
+                    Payee
+                </div>
+                <div class="col-3">
+                    Invoice Amount
+                </div>
+                <div class="col-3">
+                    Payment Status
+                </div>
+            </div>
+            <div class="row" *ngFor="let invoice of collection.invoices">
+                <div class="col-3">
+                    {{invoice.payer}}
+                </div>
+                <div class="col-3">
+                    {{invoice.payee}}
+                </div>
+                <div class="col-3">
+                    {{invoice.amount}}
+                </div>
+                <div class="col-3">
+                    {{invoice.status}}
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

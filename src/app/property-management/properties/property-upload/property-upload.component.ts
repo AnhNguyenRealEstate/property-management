@@ -11,6 +11,7 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
 import { OwnerUploadComponent } from '../../owners/owner-upload/owner-upload.component';
 import { Owner } from '../../owners/owners-view/owner.data';
+import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
 import { Property } from '../property-card/property-card.data';
 import { ContractType, ContractData } from './property-upload.data';
@@ -41,6 +42,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
     @ViewChild('stepper') stepper!: MatStepper;
     stepsCanBeEdited = true;
+
+    schedule: PaymentSchedule = {} as PaymentSchedule;
 
     constructor(
         private formBuilder: FormBuilder,
