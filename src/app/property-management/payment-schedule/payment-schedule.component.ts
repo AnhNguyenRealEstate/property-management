@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class PaymentScheduleComponent implements OnInit {
-    @Input() property!: Property;
+    @Input() property: Property | undefined;
     @Input() schedule!: PaymentSchedule;
     @Input() edit!: boolean;
     @Input() columnHeaders!: (keyof Invoice)[];

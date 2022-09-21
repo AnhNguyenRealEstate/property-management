@@ -4,7 +4,7 @@
 $primary: mat.get-color-from-palette(custom-theme.$app-primary, 300);
 $primary-light: mat.get-color-from-palette(custom-theme.$app-primary, 50);
 $primary-dark: mat.get-color-from-palette(custom-theme.$app-primary, 600);
-$off-white: rgb(255, 255, 245);
+$off-white: rgb(239, 239, 239);
 $accent: mat.get-color-from-palette(custom-theme.$app-accent, 600);
 $accent-300: mat.get-color-from-palette(custom-theme.$app-accent, 300);
 $accent-100: mat.get-color-from-palette(custom-theme.$app-accent, 100);

@@ -108,7 +108,8 @@
         "related_documents": "Tài liệu",
         "activities": "Hoạt động",
         "category": "Phân loại",
-        "address": "Địa chỉ"
+        "address": "Địa chỉ",
+        "payment_schedules": "Lịch thanh toán"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",
@@ -181,7 +182,10 @@
         "payer": "Người trả",
         "payee": "Người nhận",
         "status": "Trạng thái",
-        "invoice_description": "Mô tả"
+        "invoice_description": "Mô tả",
+        "paid": "Đã nhận",
+        "unpaid": "Chưa nhận",
+        "partiallyPaid": "Nhận một phần"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

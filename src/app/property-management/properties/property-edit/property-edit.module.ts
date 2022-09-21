@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PropertyEditComponent } from './property-edit.component';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivityListModule } from '../../activities/activity-list/activity-list.module';
+import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
 
 @NgModule({
     declarations: [PropertyEditComponent],

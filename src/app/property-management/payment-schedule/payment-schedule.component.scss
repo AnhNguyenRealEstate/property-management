@@ -1,3 +1,9 @@
+@use "src/app/styles/colors" as colors;
+
 .table .mat-icon {
     font-size: 1.25rem;
+}
+
+.line-item:nth-child(2n){
+    background: colors.$off-white ;
 }

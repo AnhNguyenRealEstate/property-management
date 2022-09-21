@@ -108,7 +108,8 @@
         "related_documents": "Related Documents",
         "activities": "Activities",
         "category": "Category",
-        "address": "Property address"
+        "address": "Property address",
+        "payment_schedules": "Payment schedules"
     },
     "activity_list": {
         "no_doc": "No documents to display",
@@ -181,7 +182,10 @@
         "payer": "Payer",
         "payee": "Payee",
         "status": "Payment status",
-        "invoice_description": "Description"
+        "invoice_description": "Description",
+        "paid": "Paid",
+        "unpaid": "Unpaid",
+        "partiallyPaid": "Partially paid"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

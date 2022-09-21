@@ -23,7 +23,6 @@ export class PropertyDetailsComponent implements OnInit {
     showViewMoreActivities: boolean = false;
 
     schedules: PaymentSchedule[] = [];
-    showViewMoreSchedules: boolean = false;
 
     constructor(
         private propertyDetails: PropertyDetailsService,
@@ -34,7 +33,8 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.getActivities();
+        await this.getActivities();
+        await this.getPaymentSchedules()
     }
 
     async getActivities() {
@@ -51,8 +51,12 @@ export class PropertyDetailsComponent implements OnInit {
         this.showViewMoreActivities = activitiesSnap.size === this.propertyDetails.initialNumOfActivities;
     }
 
-    getPaymentSchedules() {
-        throw new Error("Not implemented")
+    async getPaymentSchedules() {
+        if (!this.property.paymentScheduleIds) {
+            return;
+        }
+
+        this.schedules = await this.propertyDetails.getPaymentSchedules(this.property.paymentScheduleIds);
     }
 
     getMorePaymentSchedules() {

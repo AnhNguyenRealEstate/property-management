@@ -63,16 +63,16 @@
                 </div>
             </mat-tab>
 
-            <mat-tab label="Payment Schedules">
-                <ng-container *ngIf="schedules?.length; else noSchedules">
+            <mat-tab [label]="'property_details.payment_schedules' | translate">
 
-                    <div *ngIf="showViewMoreActivities" class="row">
-                        <button class="d-block pt-2" mat-button (click)="getMorePaymentSchedules()" color="accent">
-                            {{ 'property_details.view_more' | translate }}
-                            <mat-icon>keyboard_double_arrow_down_icon</mat-icon>
-                        </button>
+                <div class="row" *ngIf="schedules?.length; else noSchedules">
+                    <div class="col-12 p-3" *ngFor="let schedule of schedules">
+                        <payment-schedule [edit]="false" [schedule]="schedule"
+                            [columnHeaders]="['description', 'amount', 'paymentWindow', 'status']">
+                        </payment-schedule>
                     </div>
-                </ng-container>
+                </div>
+
                 <ng-template #noSchedules>
                     <div class="pt-3">No schedules to be shown</div>
                 </ng-template>

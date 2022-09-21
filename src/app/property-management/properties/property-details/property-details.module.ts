@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ActivityListModule } from '../../activities/activity-list/activity-list.module';
+import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
 
 import { PropertyDetailsComponent } from './property-details.component';
 
@@ -14,7 +15,8 @@ import { PropertyDetailsComponent } from './property-details.component';
         TranslateModule.forChild({
             extend: true
         }),
-        ActivityListModule
+        ActivityListModule,
+        PaymentScheduleModule
     ],
     exports: [PropertyDetailsComponent]
 })
