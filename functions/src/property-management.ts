@@ -29,12 +29,8 @@ exports.postProcessDelete = functions.region('asia-southeast2').firestore
 
         const id = context.params.documentId;
 
-        const collectionRef = admin.firestore().collection(`under-management/${id}/activities`);
-        const query = collectionRef.limit(10);
-
-        return new Promise((resolve, reject) => {
-            deleteQueryBatch(admin.firestore(), query, resolve).catch(reject);
-        });
+        removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
+        removeActivities(id);
     });
 
 //https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
@@ -60,6 +56,38 @@ async function deleteQueryBatch(db: admin.firestore.Firestore, query: admin.fire
     process.nextTick(() => {
         deleteQueryBatch(db, query, resolve);
     });
+}
+
+async function removeActivities(propertyId: string) {
+    const activitiesCollectionRef = admin.firestore().collection(`under-management/${propertyId}/activities`);
+    const activitiesQuery = activitiesCollectionRef.limit(10);
+
+    return new Promise((resolve, reject) => {
+        deleteQueryBatch(admin.firestore(), activitiesQuery, resolve).catch(reject);
+    });
+}
+
+async function removePaymentSchedulesAndInvoices(paymentScheduleIds: string[]) {
+    if (!paymentScheduleIds?.length) {
+        return;
+    }
+
+    const batch = admin.firestore().batch();
+
+    await Promise.all(paymentScheduleIds.map(async id => {
+        const paymentSchedule = await admin.firestore().doc(`payment-schedules/${id}`).get();
+
+        const invoiceCollection = admin.firestore().collection(`payment-schedules/${paymentSchedule.id}/invoices`);
+        const invoiceCollectionQuery = invoiceCollection.limit(10);
+
+        await new Promise((resolve, reject) => {
+            deleteQueryBatch(admin.firestore(), invoiceCollectionQuery, resolve).catch(reject);
+        });
+
+        batch.delete(paymentSchedule.ref);
+    }))
+
+    await batch.commit();
 }
 
 // async function registerPropertyWithOwner(propertyData: admin.firestore.DocumentData | undefined) {

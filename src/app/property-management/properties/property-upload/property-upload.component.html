@@ -94,17 +94,17 @@
                 </div>
                 <mat-form-field class="col-6 col-sm-3" color="accent">
                     <mat-label>{{ 'property_upload.start_date' | translate }}</mat-label>
-                    <input matInput required formControlName="startDate" #managementStartDate
+                    <input readonly matInput required formControlName="startDate" #managementStartDate
                         (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
-                        [matDatepicker]="startDatePicker">
+                        [matDatepicker]="startDatePicker" (click)="startDatePicker.open()">
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="col-6 col-sm-3" color="accent">
                     <mat-label>{{ 'property_upload.end_date' | translate }}</mat-label>
-                    <input matInput required formControlName="endDate" #managementEndDate
+                    <input readonly matInput required formControlName="endDate" #managementEndDate
                         (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
-                        [matDatepicker]="endDatePicker">
+                        [matDatepicker]="endDatePicker" (click)="endDatePicker.open()">
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
                 </mat-form-field>
@@ -143,8 +143,7 @@
         <ng-template matStepLabel>{{ 'property_upload.payment_schedule' | translate }}</ng-template>
 
         <ng-container *ngFor="let sched of schedules; let i = index">
-            <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
-            <div class="pt-2">
+            <div class="mt-2">
                 <payment-schedule [schedule]="sched" (scheduleChange)="schedules[i] = $event" [edit]="true"
                     [columnHeaders]="['description', 'amount', 'paymentWindow']">
                 </payment-schedule>
@@ -165,7 +164,8 @@
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
                 <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
             </button>
-            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit" (click)="removeEmptySchedules()">
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit"
+                (click)="removeEmptySchedules()">
                 {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>

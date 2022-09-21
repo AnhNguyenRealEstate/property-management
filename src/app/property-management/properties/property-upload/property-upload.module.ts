@@ -7,11 +7,11 @@ import { PropertyUploadComponent } from './property-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RTEditorModule } from 'src/app/rich-text-editor/rich-text-editor.module';
-import { AutoFocusDirective } from './auto-focus-on-error.directive';
+import { AutoFocusDirective } from '../../../shared/auto-focus-on-error.directive';
 import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
 
 @NgModule({
-    declarations: [PropertyUploadComponent, AutoFocusDirective],
+    declarations: [PropertyUploadComponent],
     imports: [
         CommonModule,
         SharedModule,

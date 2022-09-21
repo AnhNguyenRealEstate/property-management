@@ -9,7 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
-import { provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore, connectFirestoreEmulator, initializeFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
 import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
@@ -54,6 +54,9 @@ const maskConfig: Partial<IConfig> = {
     }),
     provideFirebaseApp(() => {
       const app = initializeApp(firebaseConfig);
+      initializeFirestore(app, {
+        ignoreUndefinedProperties: true
+      })
       return app;
     }),
     provideFirestore(() => {

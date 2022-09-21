@@ -9,6 +9,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { Invoice } from '../../invoices/invoices.data';
 import { OwnerUploadComponent } from '../../owners/owner-upload/owner-upload.component';
 import { Owner } from '../../owners/owners-view/owner.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -43,7 +44,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     @ViewChild('stepper') stepper!: MatStepper;
     stepsCanBeEdited = true;
 
-    schedules: PaymentSchedule[] = [{} as PaymentSchedule];
+    schedules: PaymentSchedule[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -217,7 +218,12 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         this.stepsCanBeEdited = false;
         submitBtn.disabled = true;
 
-        await this.upload.uploadProperty(this.property, this.uploadedFiles);
+        const invoices: Invoice[] = [];
+        for (let i = 0; i < this.schedules.length; i++) {
+            invoices.push(...this.schedules[i].lineItems);
+        }
+
+        await this.upload.uploadProperty(this.property, this.uploadedFiles, this.schedules);
 
         this.snackbar.open(
             await lastValueFrom(this.translate.get('property_upload.upload_successful')),
@@ -247,6 +253,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         this.propertyPreview = {};
 
         this.propertyDescription = '';
+
+        this.schedules = [];
     }
 
     addSchedule() {

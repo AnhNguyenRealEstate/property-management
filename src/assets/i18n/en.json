@@ -163,13 +163,25 @@
         "pay": "Pay",
         "every": "every",
         "month": "month(s)",
+        "with_in": "within",
+        "days": "day(s)",
         "from": "from",
         "to": "to",
         "create": "Create",
         "amount": "amount",
         "frequency": "number of months",
         "first_due_date": "contract start date",
-        "final_due_date": "contract end date"
+        "final_due_date": "contract end date",
+        "invoice_name": "Invoice name",
+        "begin_date": "Begin date",
+        "due_date": "Due date",
+        "payment_window": "Payment window",
+        "payment_date": "Payment date",
+        "payout_date": "Payout date",
+        "payer": "Payer",
+        "payee": "Payee",
+        "status": "Payment status",
+        "invoice_description": "Description"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

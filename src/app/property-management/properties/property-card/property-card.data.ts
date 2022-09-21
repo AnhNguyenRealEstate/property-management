@@ -21,5 +21,6 @@ export interface Property {
     tenantName?: string
     rentalPrice?: string
     lastModifiedBy?: string
+    paymentScheduleIds?: string[]
 }
 

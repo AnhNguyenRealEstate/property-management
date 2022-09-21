@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Invoice } from '../invoices/invoices.data';
 import { Property } from '../properties/property-card/property-card.data';
@@ -22,9 +22,12 @@ export class PaymentScheduleComponent implements OnInit {
     headerCellClass: string = '';
     lineItemCellClass: string = '';
 
+    @ViewChild('scheduleRef') scheduleRef!: ElementRef;
+
     constructor(
         private datePipe: DatePipe
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         if (this.columnHeaders?.length) {
@@ -35,7 +38,7 @@ export class PaymentScheduleComponent implements OnInit {
         }
     }
 
-    createPaymentSchedule(amount: string, collectionInterval: number, scheduleBeginInput: HTMLInputElement, scheduleEndInput: HTMLInputElement) {
+    createPaymentSchedule(amount: string, collectionInterval: number, within: number, scheduleBeginInput: HTMLInputElement, scheduleEndInput: HTMLInputElement) {
         const getDateFromInput = (input: HTMLInputElement) => {
             const strings = input.value.split('/').map(value => Number(value));
             const monthOffset = 1;
@@ -57,16 +60,13 @@ export class PaymentScheduleComponent implements OnInit {
                 propertyId: this.property?.id,
                 status: 'unpaid',
                 amount: amount,
-                description: ''
-            }
+                description: '',
+                payWithin: within
+            } as Invoice
         }
 
         const calculateDueDate = (beginDate: Date) => {
             let dueDateMonth = beginDate.getMonth() + collectionInterval;
-            const monthOffsetNeccessary = beginDate.getDate() == 1;
-            if (monthOffsetNeccessary) {
-                dueDateMonth += 1;
-            }
             const dueDate: Date = new Date(beginDate.getFullYear(), dueDateMonth, beginDate.getDate() - 1);
             return dueDate;
         }
@@ -88,7 +88,7 @@ export class PaymentScheduleComponent implements OnInit {
                     beginDate: Timestamp.fromDate(beginDate),
                     dueDate: Timestamp.fromDate(dueDate),
                     paymentWindow: generatePaymentWindowString(beginDate, dueDate),
-                    description: `Payment ${paymentCount} / Lần ${paymentCount}`
+                    description: `${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
                 }
             } as Invoice
             lineItems.push(lineItem);
@@ -108,7 +108,7 @@ export class PaymentScheduleComponent implements OnInit {
                         dueDate: Timestamp.fromDate(finalDueDate),
                         paymentWindow: generatePaymentWindowString(finalBeginDate, finalDueDate),
                         amount: '',
-                        description: `Payment ${paymentCount} / Lần ${paymentCount}`
+                        description: `${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
                     }
                 } as Invoice
 
@@ -118,11 +118,25 @@ export class PaymentScheduleComponent implements OnInit {
         }
 
         this.schedule.lineItems = lineItems;
+        this.schedule.beginDate = Timestamp.fromDate(scheduleBegin);
+        this.schedule.isActive = true;
+        
         this.scheduleChange.emit(this.schedule);
     }
 
     removeSchedule() {
         this.schedule = {} as PaymentSchedule;
         this.scheduleChange.emit(this.schedule);
+    }
+
+    focusFirstEditable() {
+        setTimeout(() => {
+            const formGroupInvalid = this.scheduleRef.nativeElement.querySelectorAll('input[class*="ng-invalid"]:not([hidden])');
+            const el = formGroupInvalid[0] as HTMLElement;
+            if (el) {
+                el.scrollIntoView({ block: 'center' });
+                el.focus();
+            }
+        })
     }
 }

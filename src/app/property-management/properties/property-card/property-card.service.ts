@@ -75,7 +75,7 @@ export class PropertyCardService {
             await addDoc(
                 collection(
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                    'activities'
+                    FirestoreCollections.activities
                 ),
                 activity
             );

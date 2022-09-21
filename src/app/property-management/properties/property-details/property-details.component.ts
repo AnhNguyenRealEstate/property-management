@@ -3,6 +3,8 @@ import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../../activities/activities-view/activity.data';
+import { Invoice } from '../../invoices/invoices.data';
+import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
 import { Property } from "../property-card/property-card.data";
 import { PropertyDetailsService } from './property-details.service';
@@ -15,11 +17,13 @@ import { PropertyDetailsService } from './property-details.service';
 
 export class PropertyDetailsComponent implements OnInit {
     property!: Property;
-    
+
     activities: Activity[] = [];
     lastActivity!: DocumentSnapshot;
+    showViewMoreActivities: boolean = false;
 
-    showViewMore: boolean = false;
+    schedules: PaymentSchedule[] = [];
+    showViewMoreSchedules: boolean = false;
 
     constructor(
         private propertyDetails: PropertyDetailsService,
@@ -30,17 +34,29 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     async ngOnInit() {
+        this.getActivities();
+    }
+
+    async getActivities() {
         const activitiesSnap = await this.propertyDetails.getActivities(this.property);
         this.activities = activitiesSnap.docs.map(doc => doc.data() as Activity);
         this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
-        this.showViewMore = this.activities.length === this.propertyDetails.initialNumOfActivities;
+        this.showViewMoreActivities = this.activities.length === this.propertyDetails.initialNumOfActivities;
     }
 
     async getMoreActivities() {
         const activitiesSnap = await this.propertyDetails.getMoreActivities(this.property, this.lastActivity);
         this.activities.push(...activitiesSnap.docs.map(doc => doc.data() as Activity));
         this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
-        this.showViewMore = activitiesSnap.size === this.propertyDetails.initialNumOfActivities;
+        this.showViewMoreActivities = activitiesSnap.size === this.propertyDetails.initialNumOfActivities;
+    }
+
+    getPaymentSchedules() {
+        throw new Error("Not implemented")
+    }
+
+    getMorePaymentSchedules() {
+        throw new Error("Not implemented")
     }
 
     async downloadDoc(doc: UploadedFile) {

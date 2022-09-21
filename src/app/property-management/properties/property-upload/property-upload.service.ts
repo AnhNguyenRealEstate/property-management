@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore, Timestamp } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
+import { Invoice } from '../../invoices/invoices.data';
+import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { Property } from '../property-card/property-card.data';
 import { ContractData } from './property-upload.data';
 
@@ -16,7 +18,7 @@ export class PropertyUploadService {
     extracting$ = this.extracting$$.asObservable();
 
     private uploading$$ = new BehaviorSubject<boolean>(false);
-    uploading$ = this.uploading$$.asObservable(); 
+    uploading$ = this.uploading$$.asObservable();
 
     constructor(
         private httpClient: HttpClient,
@@ -39,7 +41,7 @@ export class PropertyUploadService {
         }
     }
 
-    async uploadProperty(property: Property, uploadedFiles: File[]): Promise<string> {
+    async uploadProperty(property: Property, uploadedFiles: File[], schedules: PaymentSchedule[]): Promise<string> {
         function createFileStoragePath(property: Property) {
             const date = new Date();
             const folderName =
@@ -51,7 +53,12 @@ export class PropertyUploadService {
         await this.storeFiles(uploadedFiles, property);
 
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.underManagement), property);
-        return docRef.id;
+        const propertyId = docRef.id;
+
+        const scheduleRefIds: string[] = await this.uploadSchedules(schedules, propertyId);
+        await updateDoc(docRef, { paymentScheduleIds: scheduleRefIds });
+
+        return propertyId;
     }
 
     private async storeFiles(files: File[], property: Property) {
@@ -75,5 +82,37 @@ export class PropertyUploadService {
 
             docToUpload.date = Timestamp.now();
         }));
+    }
+
+    /**
+     * Store invoices into a property's Invoices subcollection
+     * @param invoices The invoices to be stored in the property's Invoices subcollection
+     * @param propertyId The firebase ID of the property
+     */
+    private async uploadSchedules(schedules: PaymentSchedule[], propertyId: string): Promise<string[]> {
+
+        const scheduleIds = await Promise.all(schedules.map(async schedule => {
+
+            const scheduleRef = await addDoc(collection(this.firestore, FirestoreCollections.paymentSchedules), {
+                isActive: schedule.isActive,
+                beginDate: schedule.beginDate
+            });
+
+            const invoices = schedule.lineItems;
+
+            await Promise.all(invoices.map(async (invoice) => {
+                await addDoc(
+                    collection(
+                        doc(this.firestore, `${FirestoreCollections.paymentSchedules}/${scheduleRef.id}`),
+                        FirestoreCollections.invoices
+                    ),
+                    { ...invoice, propertyId: propertyId }
+                );
+            }));
+
+            return scheduleRef.id;
+        }));
+
+        return scheduleIds;
     }
 }

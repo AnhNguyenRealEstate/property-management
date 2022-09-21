@@ -163,13 +163,25 @@
         "pay": "Thu",
         "every": "mỗi",
         "month": "tháng",
+        "with_in": "trong vòng",
+        "days": "ngày",
         "from": "từ ngày",
         "to": "đến ngày",
         "create": "Tạo lịch",
         "amount": "số tiền",
         "frequency": "số tháng",
         "first_due_date": "ngày bắt đầu hợp đồng",
-        "final_due_date": "ngày hết hợp đồng"
+        "final_due_date": "ngày hết hợp đồng",
+        "invoice_name": "Tên",
+        "begin_date": "Ngày bắt đầu",
+        "due_date": "Ngày hết hạn",
+        "payment_window": "Giai đoạn",
+        "payment_date": "Ngày nhận tiền từ khách",
+        "payout_date": "Ngày trả tiền cho chủ",
+        "payer": "Người trả",
+        "payee": "Người nhận",
+        "status": "Trạng thái",
+        "invoice_description": "Mô tả"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

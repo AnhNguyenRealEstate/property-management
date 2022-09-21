@@ -1,108 +1,133 @@
-<div class="row pb-2" *ngIf="edit">
-    <mat-form-field class="col-2 me-0 pe-0">
-        <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
-        <input #amount matInput name="amount" type="text" required [placeholder]="'payment_schedule.amount' | translate"
-            value="200 USD">
-    </mat-form-field>
-    <mat-form-field class="col-2 ms-0 ps-0 me-0 pe-0">
-        <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.every' | translate }}</span>
-        <input #howOften matInput name="howOften" type="number" required
-            [placeholder]="'payment_schedule.frequency' | translate" value="2">
-        <span matSuffix class="ps-2">{{ 'payment_schedule.month' | translate }},</span>
-    </mat-form-field>
-    <mat-form-field class="col-3 ms-0 ps-0 me-0 pe-0">
-        <span matPrefix class="ps-1 pe-3">{{ 'payment_schedule.from' | translate }}</span>
-        <input #beginDate matInput name="beginDate" [matDatepicker]="beginningDatePicker" required
-            [placeholder]="'payment_schedule.first_due_date' | translate" value="2022-09-09" />
-        <mat-datepicker-toggle matSuffix [for]="beginningDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #beginningDatePicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="col-3 ms-0 ps-0">
-        <span matPrefix class="ps-3 pe-3">{{ 'payment_schedule.to' | translate }}</span>
-        <input #endDate matInput name="endDate" [matDatepicker]="endDatePicker" required
-            [placeholder]="'payment_schedule.final_due_date' | translate" value="2023-09-09" />
-        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #endDatePicker></mat-datepicker>
-    </mat-form-field>
-    <div class="col-2 d-flex justify-content-center py-2">
-        <button mat-raised-button
-            [disabled]="!(amount.value && howOften.valueAsNumber && beginDate.value && endDate.value)"
-            (click)="createPaymentSchedule(amount.value, howOften.valueAsNumber, beginDate, endDate)">
-            <mat-icon>add</mat-icon> {{ 'payment_schedule.create' | translate }}
-        </button>
-    </div>
-</div>
-
-<div class="table" *ngIf="schedule?.lineItems?.length">
-    <button *ngIf="edit" mat-mini-fab style="position: absolute; right: 25px" color="accent" (click)="removeSchedule()">
-        X
-    </button>
-    <div class="row header pb-1">
-        <div *ngFor="let header of columnHeaders" [class]="headerCellClass">
-            <ng-container *ngIf="header === 'name'">
-                Invoice name
-            </ng-container>
-            <ng-container *ngIf="header === 'amount'">
-                Amount
-            </ng-container>
-            <ng-container *ngIf="header === 'beginDate'">
-                Begin date
-            </ng-container>
-            <ng-container *ngIf="header === 'dueDate'">
-                Due date
-            </ng-container>
-            <ng-container *ngIf="header === 'paymentWindow'">
-                Payment window
-            </ng-container>
-            <ng-container *ngIf="header === 'paymentDate'">
-                Payment date
-            </ng-container>
-            <ng-container *ngIf="header === 'payoutDate'">
-                Payout date
-            </ng-container>
-            <ng-container *ngIf="header === 'payer'">
-                Payer
-            </ng-container>
-            <ng-container *ngIf="header === 'payee'">
-                Payee
-            </ng-container>
-            <ng-container *ngIf="header === 'status'">
-                Payment status
-            </ng-container>
-            <ng-container *ngIf="header === 'description'">
-                Description
-            </ng-container>
-        </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="pt-1">
-        <div *ngFor="let lineItem of schedule.lineItems; let i = index" class="row line-item">
-            <div *ngFor="let lineItemProperty of columnHeaders" [class]="lineItemCellClass">
-                <ng-template #genericTextLineItem>
-                    <span class="pt-2">{{lineItem[lineItemProperty]}}</span>
-                </ng-template>
-
-                <ng-container *ngIf="edit; else genericTextLineItem">
-                    <ng-container
-                        *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
-                        <span class="pt-2" #display>{{lineItem[lineItemProperty]}}</span>
-                        <input #edit trim="blur" hidden="true" type="text" [ngModel]="display.textContent"
-                            (ngModelChange)="lineItem[lineItemProperty] = $event" [ngModelOptions]="{standalone: true}"
-                            style="height: 2rem">
-
-                        <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
-                                                    edit.hidden = true;
-                                                    lineItem[lineItemProperty] = edit.value">
-                            <mat-icon color="accent">check</mat-icon>
-                        </button>
-                        <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
-                            (click)="display.hidden = true; edit.hidden = false;">
-                            <mat-icon color="accent">edit</mat-icon>
-                        </button>
-
-                    </ng-container>
-                </ng-container>
+<mat-card class="mat-elevation-z2">
+    <form #scheduleRef>
+        <div class="row pb-4" *ngIf="edit">
+            <div class="col-10 py-2">
+                <div class="row">
+                    <mat-form-field class="col-4 me-0 pe-0">
+                        <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
+                        <input #amount matInput name="amount" type="text" required
+                            [placeholder]="'payment_schedule.amount' | translate" value="">
+                    </mat-form-field>
+                    <mat-form-field class="col-4 ms-0 ps-0 me-0 pe-0">
+                        <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.every' | translate }}</span>
+                        <input #howOften matInput name="howOften" type="number" required
+                            [placeholder]="'payment_schedule.frequency' | translate" value="2">
+                        <span matSuffix class="ps-2">{{ 'payment_schedule.month' | translate }},</span>
+                    </mat-form-field>
+                    <mat-form-field class="col-4 ms-0 ps-0">
+                        <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.with_in' | translate }}</span>
+                        <input #howUrgent matInput name="howUrgent" type="number" required
+                            [placeholder]="'payment_schedule.days' | translate" value="5">
+                        <span matSuffix class="ps-2">{{ 'payment_schedule.days' | translate }}</span>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-6 me-0 pe-0">
+                        <span matPrefix class="ps-1 pe-3">{{ 'payment_schedule.from' | translate }}</span>
+                        <input readonly #beginDate matInput name="beginDate" [matDatepicker]="beginningDatePicker"
+                            required [placeholder]="'payment_schedule.first_due_date' | translate"
+                            (click)="beginningDatePicker.open()" value="2022-09-20" />
+                        <mat-datepicker-toggle matSuffix [for]="beginningDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #beginningDatePicker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field class="col-6 ms-0 ps-0">
+                        <span matPrefix class="ps-3 pe-3">{{ 'payment_schedule.to' | translate }}</span>
+                        <input readonly #endDate matInput name="endDate" [matDatepicker]="endDatePicker" required
+                            [placeholder]="'payment_schedule.final_due_date' | translate" (click)="endDatePicker.open()"
+                            value="2023-09-20" />
+                        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-2 d-flex justify-content-center py-5">
+                <button mat-raised-button
+                    [disabled]="!(amount.value && howOften.valueAsNumber && beginDate.value && endDate.value)"
+                    (click)="createPaymentSchedule(amount.value, howOften.valueAsNumber, howUrgent.valueAsNumber , beginDate, endDate); focusFirstEditable()">
+                    <mat-icon color="accent">add</mat-icon> {{ 'payment_schedule.create' | translate }}
+                </button>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="table" *ngIf="schedule?.lineItems?.length">
+            <div style="position: absolute; right: 25px">
+                <button *ngIf="edit" mat-mini-fab (click)="removeSchedule()" color="default"
+                    matTooltip="Remove schedule">
+                    <mat-icon color="accent">remove</mat-icon>
+                </button>
+            </div>
+            <div class="row header pb-1">
+                <div *ngFor="let header of columnHeaders" [class]="headerCellClass">
+                    <ng-container *ngIf="header === 'name'">
+                        {{ 'payment_schedule.invoice_name' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'amount'">
+                        {{ 'payment_schedule.amount' | translate | titlecase}}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'beginDate'">
+                        {{ 'payment_schedule.begin_date' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'dueDate'">
+                        {{ 'payment_schedule.due_date' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'paymentWindow'">
+                        {{ 'payment_schedule.payment_window' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'paymentDate'">
+                        {{ 'payment_schedule.payment_date' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'payoutDate'">
+                        {{ 'payment_schedule.payout_date' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'payer'">
+                        {{ 'payment_schedule.payer' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'payee'">
+                        {{ 'payment_schedule.payee' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'status'">
+                        {{ 'payment_schedule.status' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="header === 'description'">
+                        {{ 'payment_schedule.invoice_description' | translate }}
+                    </ng-container>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="pt-1">
+                <div *ngFor="let lineItem of schedule.lineItems; let i = index" class="row line-item">
+                    <div *ngFor="let lineItemProperty of columnHeaders" [class]="lineItemCellClass">
+                        <ng-template #genericTextLineItem>
+                            <div class="pt-2">{{lineItem[lineItemProperty]}}</div>
+                        </ng-template>
+
+                        <ng-container *ngIf="edit; else genericTextLineItem">
+                            <ng-container
+                                *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
+                                <div class="pt-2" #display [hidden]="!lineItem[lineItemProperty]"
+                                    [id]="'lineItemDisplay-' + lineItemProperty + '-' + i">
+                                    {{lineItem[lineItemProperty]}}
+                                </div>
+                                <input required #edit trim="blur" [hidden]="!!lineItem[lineItemProperty]" type="text"
+                                    [ngModel]="display.textContent" style="height: 2rem"
+                                    [id]="'lineItemInput-' + lineItemProperty + '-' + i"
+                                    [name]="'lineItemInput-' + lineItemProperty + '-' + i">
+
+                                <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'"
+                                    matTooltip="Save" matTooltipPosition='right' (click)="display.hidden = false;
+                                                    edit.hidden = true;
+                                                    lineItem[lineItemProperty] = edit.value">
+                                    <mat-icon color="accent">check</mat-icon>
+                                </button>
+                                <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'" matTooltip="Edit"
+                                    matTooltipPosition='right' (click)="display.hidden = true; edit.hidden = false;">
+                                    <mat-icon color="accent">edit</mat-icon>
+                                </button>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-card>
