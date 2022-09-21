@@ -109,7 +109,8 @@
         "activities": "Hoạt động",
         "category": "Phân loại",
         "address": "Địa chỉ",
-        "payment_schedules": "Lịch thanh toán"
+        "payment_schedules": "Lịch thanh toán",
+        "no_schedules": "Không có lịch thanh toán"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",

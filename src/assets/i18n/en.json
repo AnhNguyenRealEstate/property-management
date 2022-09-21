@@ -109,7 +109,8 @@
         "activities": "Activities",
         "category": "Category",
         "address": "Property address",
-        "payment_schedules": "Payment schedules"
+        "payment_schedules": "Payment schedules",
+        "no_schedules": "No schedules to be shown"
     },
     "activity_list": {
         "no_doc": "No documents to display",
