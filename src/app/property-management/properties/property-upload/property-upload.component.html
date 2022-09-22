@@ -49,10 +49,15 @@
         <ng-template matStepLabel>{{ 'property_upload.property_info' | translate }}</ng-template>
         <form [formGroup]="secondFormGroup" [formToFocus]="secondFormGroup" appAutoFocusOnError>
             <div class="row pb-4">
-                <mat-form-field>
+                <mat-form-field class="col-12 col-sm-6">
                     <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
                     <input matInput formControlName="ownerName" type="text" required
                         [(ngModel)]="property.owner!.contactName">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6">
+                    <mat-label>{{ 'property_upload.tenant_name' | translate }}</mat-label>
+                    <input matInput formControlName="tenantName" type="text" required
+                        [(ngModel)]="property.tenantName">
                 </mat-form-field>
             </div>
 
@@ -145,7 +150,7 @@
         <ng-container *ngFor="let sched of schedules; let i = index">
             <div class="mt-2">
                 <payment-schedule [schedule]="sched" (scheduleChange)="schedules[i] = $event" [edit]="true"
-                    [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                    [property]="property" [columnHeaders]="['description', 'amount', 'paymentWindow']">
                 </payment-schedule>
             </div>
         </ng-container>

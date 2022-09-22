@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { Invoice } from '../invoices.data';
 import { InvoicesViewService } from './invoices-view.service';
-
-export interface InvoicesByDate {
-    date: Date
-    invoices: Invoice[]
-}
 
 @Component({
     selector: 'invoices-view',
@@ -13,49 +9,30 @@ export interface InvoicesByDate {
 })
 
 export class InvoicesViewComponent implements OnInit {
-    invoiceCollections: InvoicesByDate[] = [];
     today = new Date();
+    uncollectedInvoices: PaymentSchedule = {};
+    collectedInvoices: PaymentSchedule = {};
 
     constructor(
         private invoicesView: InvoicesViewService
     ) { }
 
     async ngOnInit() {
-        await this.categorizeInvoicesByDate();
+        this.getUnpaidInvoices();
+        this.getPaidInvoices();
     }
 
-    async categorizeInvoicesByDate() {
-        const invoices = await this.invoicesView.getInvoices(this.today);
-        if (!invoices.length) {
-            return;
-        }
-
-        let currentDate = invoices[0].beginDate?.toDate();
-        if (!currentDate) {
-            throw new Error(`Invoice ${invoices[0].name} has no begin date`);
-        }
-
-        let currentInvoiceCollection: Invoice[] = [];
+    async getUnpaidInvoices() {
+        const invoices = await this.invoicesView.getUnpaidInvoices(this.today);
         for (let i = 0; i < invoices.length; i++) {
-            const currentInvoice = invoices[i];
-
-            if (!currentInvoice.beginDate) {
-                continue;
-            }
-
-            const startNewCollection = currentDate != currentInvoice.beginDate.toDate();
-            if (startNewCollection) {
-                this.invoiceCollections.push({
-                    date: currentDate,
-                    invoices: currentInvoiceCollection
-                });
-
-                currentDate = currentInvoice.beginDate.toDate();
-                currentInvoiceCollection = [];
-
-            } else {
-                currentInvoiceCollection.push(currentInvoice);
-            }
+            const invoice = invoices[i];
+            invoice.description = `${invoice.propertyName}, thu trong vòng ${invoice.payWithin} ngày`
         }
+        this.uncollectedInvoices.lineItems = invoices;
+    }
+
+    async getPaidInvoices() {
+        const invoices = await this.invoicesView.getPaidInvoices(this.today);
+        this.collectedInvoices.lineItems = invoices;
     }
 }

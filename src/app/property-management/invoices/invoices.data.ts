@@ -16,6 +16,7 @@ export interface Invoice {
     paymentDate?: Timestamp // Date when the payment is received
     payoutDate?: Timestamp // Date when the payment is sent to the payee
     propertyId?: string
+    propertyName?: string
     status?: PaymentStatus
     proofOfPayment?: StoragePath[]
     amount?: string

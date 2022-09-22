@@ -79,7 +79,8 @@
         "submission_preview": "Submission preview",
         "uploaded_files": "Uploaded files",
         "submit": "Submit",
-        "payment_schedule": "Payment schedule"
+        "payment_schedule": "Payment schedule",
+        "tenant_name": "Tenant name"
     },
     "property_card": {
         "activity_added": "Activity added 🎉",
@@ -184,9 +185,14 @@
         "payee": "Payee",
         "status": "Payment status",
         "invoice_description": "Description",
-        "paid": "Paid",
-        "unpaid": "Unpaid",
+        "paid": "Paid ✅",
+        "unpaid": "Unpaid ",
         "partiallyPaid": "Partially paid"
+    },
+    "invoices": {
+        "uncollected_invoices": "Uncollected invoices",
+        "collected_invoices": "Collected invoices",
+        "no_invoices": "No invoices to show"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

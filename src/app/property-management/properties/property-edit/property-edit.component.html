@@ -107,20 +107,6 @@
             </div>
         </div>
 
-        <div *ngIf="activities?.length" class="row pt-4">
-            <div class="col-12 pb-1">
-                <div class="text-bold pb-2">{{ 'property_upload.activities' | translate }}</div>
-                <mat-divider></mat-divider>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <activity-list [activities]="activities" [canDeleteActivities]="true"
-                        (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()">
-                    </activity-list>
-                </div>
-            </div>
-        </div>
-
         <div class="row pt-5 pb-4">
             <div class="col-12">
                 <mat-divider></mat-divider>

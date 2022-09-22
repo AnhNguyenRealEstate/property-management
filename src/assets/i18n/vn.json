@@ -79,13 +79,14 @@
         "submission_preview": "Xem lại",
         "uploaded_files": "Danh sách file",
         "submit": "Đăng ký",
-        "payment_schedule": "Lịch thanh toán"
+        "payment_schedule": "Lịch thanh toán",
+        "tenant_name": "Bên thuê"
     },
     "property_card": {
         "activity_added": "Đã thêm hoạt động 🎉",
         "delete_confirmation_msg": "Bạn chắc chắn muốn xoá tài sản này?",
         "yes_msg": "Xoá",
-        "no_msg": "Huỷ",
+        "no_msg": "Không xoá",
         "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
         "dismiss_msg": "Tắt",
         "edit": "Chỉnh sửa",
@@ -102,7 +103,7 @@
     },
     "property_details": {
         "important_notes": "Thông tin cần biết",
-        "no_recent_activities": "No recent activity",
+        "no_recent_activities": "Không có hoạt động gần đây",
         "view_more": "Xem thêm",
         "no_docs": "Không có tài liệu đính kèm",
         "related_documents": "Tài liệu",
@@ -165,18 +166,18 @@
         "pay": "Thu",
         "every": "mỗi",
         "month": "tháng",
-        "with_in": "trong vòng",
+        "with_in": "thu trong vòng",
         "days": "ngày",
         "from": "từ ngày",
         "to": "đến ngày",
         "create": "Tạo lịch",
-        "amount": "số tiền",
+        "amount": "Số tiền",
         "frequency": "số tháng",
         "first_due_date": "ngày bắt đầu hợp đồng",
         "final_due_date": "ngày hết hợp đồng",
         "invoice_name": "Tên",
-        "begin_date": "Ngày bắt đầu",
-        "due_date": "Ngày hết hạn",
+        "begin_date": "Ngày bắt đầu thu",
+        "due_date": "Ngày hết hạn thanh toán",
         "payment_window": "Giai đoạn",
         "payment_date": "Ngày nhận tiền từ khách",
         "payout_date": "Ngày trả tiền cho chủ",
@@ -184,9 +185,14 @@
         "payee": "Người nhận",
         "status": "Trạng thái",
         "invoice_description": "Mô tả",
-        "paid": "Đã nhận",
+        "paid": "Đã nhận ✅",
         "unpaid": "Chưa nhận",
         "partiallyPaid": "Nhận một phần"
+    },
+    "invoices": {
+        "uncollected_invoices": "Chưa thu",
+        "collected_invoices": "Đã thu",
+        "no_invoices": "Chưa có biên nhận nào"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

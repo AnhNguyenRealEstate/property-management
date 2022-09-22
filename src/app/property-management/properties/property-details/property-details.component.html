@@ -1,31 +1,36 @@
-<section *ngIf="property">
+
+<mat-spinner *ngIf="loading" [diameter]="35"></mat-spinner>
+
+<section *ngIf="!loading">
     <h1 class="property-details-title">
         <span>{{property.name}}</span>
         <ng-container *ngIf="property.subcategory">({{property.subcategory}})</ng-container>
     </h1>
     <mat-divider></mat-divider>
 
-    <div *ngIf="property.category" class="pt-3">
-        <div class="pb-2 text-bold">{{ 'property_details.category' | translate }}</div>
-        <div>
-            <span *ngIf="property.category === 'Apartment'">{{ 'property_category.apartment' | translate
-                }}</span>
-            <span *ngIf="property.category === 'Villa'">{{ 'property_category.villa' | translate
-                }}</span>
-            <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
-                }}</span>
-            <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' | translate
-                }}</span>
+    <div class="row pt-3">
+        <div *ngIf="property.category" class="col-12 col-sm-6">
+            <div class="pb-1 text-bold">{{ 'property_details.category' | translate }}</div>
+            <div>
+                <span *ngIf="property.category === 'Apartment'">{{ 'property_category.apartment' | translate
+                    }}</span>
+                <span *ngIf="property.category === 'Villa'">{{ 'property_category.villa' | translate
+                    }}</span>
+                <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+                    }}</span>
+                <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' | translate
+                    }}</span>
+            </div>
+        </div>
+
+        <div *ngIf="property.address" class="col-12 col-sm-6">
+            <div class="pb-1 text-bold">{{ 'property_details.address' | translate }}</div>
+            <div>{{property.address}}</div>
         </div>
     </div>
 
-    <div *ngIf="property.address" class="pt-3">
-        <div class="pb-2 text-bold">{{ 'property_details.address' | translate }}</div>
-        <div>{{property.address}}</div>
-    </div>
-
     <div *ngIf="property.description" class="pt-3">
-        <div class="pb-2 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>
+        <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>
         <div [innerHtml]="property.description"></div>
     </div>
 
@@ -34,7 +39,9 @@
         <mat-tab-group color="accent">
             <mat-tab [label]="'property_details.activities' | translate">
                 <ng-container *ngIf="activities?.length; else noActivity">
-                    <activity-list [activities]="activities!" (download)="downloadDoc($event)">
+                    <activity-list [activities]="activities!"
+                        [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"
+                        (download)="downloadDoc($event)">
                     </activity-list>
                     <div *ngIf="showViewMoreActivities" class="row">
                         <button class="d-block pt-2" mat-button (click)="getMoreActivities()" color="accent">
@@ -45,6 +52,21 @@
                 </ng-container>
                 <ng-template #noActivity>
                     <div class="pt-3">{{ 'property_details.no_recent_activities' | translate }}</div>
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab [label]="'property_details.payment_schedules' | translate">
+
+                <div class="row" *ngIf="schedules?.length; else noSchedules">
+                    <div class="col-12 p-3" *ngFor="let schedule of schedules">
+                        <payment-schedule [edit]="false" [schedule]="schedule"
+                            [columnHeaders]="['description', 'amount', 'paymentWindow', 'status']">
+                        </payment-schedule>
+                    </div>
+                </div>
+
+                <ng-template #noSchedules>
+                    <div class="pt-3">{{ 'property_details.no_schedules' | translate }}</div>
                 </ng-template>
             </mat-tab>
 
@@ -61,21 +83,6 @@
                 <div class="pt-2" *ngIf="!property.documents?.length">
                     {{ 'property_details.no_docs' | translate }}
                 </div>
-            </mat-tab>
-
-            <mat-tab [label]="'property_details.payment_schedules' | translate">
-
-                <div class="row" *ngIf="schedules?.length; else noSchedules">
-                    <div class="col-12 p-3" *ngFor="let schedule of schedules">
-                        <payment-schedule [edit]="false" [schedule]="schedule"
-                            [columnHeaders]="['description', 'amount', 'paymentWindow', 'status']">
-                        </payment-schedule>
-                    </div>
-                </div>
-
-                <ng-template #noSchedules>
-                    <div class="pt-3">{{ 'property_details.no_schedules' | translate }}</div>
-                </ng-template>
             </mat-tab>
         </mat-tab-group>
     </div>

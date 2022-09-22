@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z3">
+<mat-card class="mat-elevation-z3" [matTooltip]="property.name || ''">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
@@ -6,15 +6,17 @@
 </mat-card>
 
 <ng-template #desktopCardView>
-    <mat-card-content class="mb-0">
-        <div class="pb-2 card-title">
-            <div class="pb-2 overrun-wrap" *ngIf="property.name">
-                {{property.name}}
-            </div>
-            <div class="card-subtitle overrun-wrap" *ngIf="property.rentalPrice">
-                {{ 'property_card.rental_price' | translate: {'price': property.rentalPrice} }}
-            </div>
+    <mat-card-title>
+        <div class="card-title overrun-wrap" *ngIf="property.name">
+            {{property.name}}
         </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+        <div class="card-subtitle overrun-wrap" *ngIf="property.rentalPrice">
+            {{ 'property_card.rental_price' | translate: {'price': property.rentalPrice} }}
+        </div>
+    </mat-card-subtitle>
+    <mat-card-content class="mb-0">
 
         <div class="pb-2" *ngIf="property.owner">
             <div class="content-label">{{ 'property_card.owner' | translate }}</div>
@@ -77,10 +79,11 @@
     <section class="container-flex justify-content-between">
         <p class="pb-2">{{ 'property_card.delete_confirmation_msg' | translate }}</p>
         <div class="d-flex justify-content-end">
-            <button mat-button color="accent" [mat-dialog-close]="true">
+            <button class="px-5 me-3" mat-raised-button [mat-dialog-close]="false">{{ 'property_card.no_msg' | translate
+                }}</button>
+            <button class="px-5" mat-raised-button color="accent" [mat-dialog-close]="true">
                 {{ 'property_card.yes_msg' | translate }}
             </button>
-            <button mat-button [mat-dialog-close]="false">{{ 'property_card.no_msg' | translate }}</button>
         </div>
     </section>
 </ng-template>

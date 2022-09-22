@@ -40,9 +40,9 @@ export class PaymentScheduleComponent implements OnInit {
 
     createPaymentSchedule(amount: string, collectionInterval: number, within: number, scheduleBeginInput: HTMLInputElement, scheduleEndInput: HTMLInputElement) {
         const getDateFromInput = (input: HTMLInputElement) => {
-            const strings = input.value.split('/').map(value => Number(value));
+            const dateNums = input.value.split('/').map(value => Number(value));
             const monthOffset = 1;
-            return new Date(strings[2], strings[1] - monthOffset, strings[0]);
+            return new Date(dateNums[2], dateNums[1] - monthOffset, dateNums[0]);
         }
 
         const generatePaymentWindowString = (beginDate: Date, dueDate: Date) => {
@@ -58,6 +58,7 @@ export class PaymentScheduleComponent implements OnInit {
                 paymentDate: undefined,
                 payoutDate: undefined,
                 propertyId: this.property?.id,
+                propertyName: this.property?.name,
                 status: 'unpaid',
                 amount: amount,
                 description: '',
@@ -88,7 +89,7 @@ export class PaymentScheduleComponent implements OnInit {
                     beginDate: Timestamp.fromDate(beginDate),
                     dueDate: Timestamp.fromDate(dueDate),
                     paymentWindow: generatePaymentWindowString(beginDate, dueDate),
-                    description: `${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
+                    description: `Lần ${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
                 }
             } as Invoice
             lineItems.push(lineItem);
@@ -99,7 +100,7 @@ export class PaymentScheduleComponent implements OnInit {
             const nextDueDate: Date = calculateDueDate(currentDate);
             const oddMonthsRemaining = (currentDate.getTime() < scheduleEnd.getTime()) && (nextDueDate.getTime() > scheduleEnd.getTime());
             if (oddMonthsRemaining) {
-                const finalBeginDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate() + 1);
+                const finalBeginDate = new Date(currentDate);
                 const finalDueDate = scheduleEnd;
                 const finalLineItem = {
                     ...createLineItem(),
@@ -108,7 +109,7 @@ export class PaymentScheduleComponent implements OnInit {
                         dueDate: Timestamp.fromDate(finalDueDate),
                         paymentWindow: generatePaymentWindowString(finalBeginDate, finalDueDate),
                         amount: '',
-                        description: `${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
+                        description: `Lần ${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
                     }
                 } as Invoice
 
@@ -119,6 +120,7 @@ export class PaymentScheduleComponent implements OnInit {
 
         this.schedule.lineItems = lineItems;
         this.schedule.beginDate = Timestamp.fromDate(scheduleBegin);
+        this.schedule.endDate = Timestamp.fromDate(scheduleEnd);
         this.schedule.isActive = true;
         
         this.scheduleChange.emit(this.schedule);

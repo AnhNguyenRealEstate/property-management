@@ -61,6 +61,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
         this.secondFormGroup = this.formBuilder.group({
             ownerName: new FormControl(''),
+            tenantName: new FormControl(''),
             propertyName: new FormControl(''),
             propertyAddress: new FormControl(''),
             propertyCategory: new FormControl(''),
@@ -108,6 +109,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     bindExtractionResult(contractData: ContractData) {
         this.secondFormGroup.get('propertyName')?.setValue(contractData.PROPERTY_NAME);
         this.secondFormGroup.get('ownerName')?.setValue(contractData.LANDLORD_NAME);
+        this.secondFormGroup.get('tenantName')?.setValue(contractData.TENANT_NAME);
         this.secondFormGroup.get('propertyAddress')?.setValue(contractData.PROPERTY_ADDR);
 
         const startDateResult = contractData.START_DATE?.match(/[0-9]+/gm);
@@ -220,7 +222,9 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
         const invoices: Invoice[] = [];
         for (let i = 0; i < this.schedules.length; i++) {
-            invoices.push(...this.schedules[i].lineItems);
+            if (this.schedules[i].lineItems?.length) {
+                invoices.push(...this.schedules[i].lineItems!);
+            }
         }
 
         await this.upload.uploadProperty(this.property, this.uploadedFiles, this.schedules);

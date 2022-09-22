@@ -57,6 +57,7 @@ export class PropertyUploadService {
 
         const scheduleRefIds: string[] = await this.uploadSchedules(schedules, propertyId);
         await updateDoc(docRef, { paymentScheduleIds: scheduleRefIds });
+        property.paymentScheduleIds = scheduleRefIds;
 
         return propertyId;
     }
@@ -100,6 +101,10 @@ export class PropertyUploadService {
 
             const invoices = schedule.lineItems;
 
+            if (!invoices?.length) {
+                return '';
+            }
+
             await Promise.all(invoices.map(async (invoice) => {
                 await addDoc(
                     collection(
@@ -113,6 +118,6 @@ export class PropertyUploadService {
             return scheduleRef.id;
         }));
 
-        return scheduleIds;
+        return scheduleIds.filter(id => !!id);
     }
 }

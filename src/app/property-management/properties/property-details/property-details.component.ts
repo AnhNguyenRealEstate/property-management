@@ -24,6 +24,8 @@ export class PropertyDetailsComponent implements OnInit {
 
     schedules: PaymentSchedule[] = [];
 
+    loading: boolean = true;
+
     constructor(
         private propertyDetails: PropertyDetailsService,
         public roles: RolesService,
@@ -34,7 +36,8 @@ export class PropertyDetailsComponent implements OnInit {
 
     async ngOnInit() {
         await this.getActivities();
-        await this.getPaymentSchedules()
+        await this.getPaymentSchedules();
+        this.loading = false;
     }
 
     async getActivities() {
@@ -52,6 +55,10 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     async getPaymentSchedules() {
+        if (this.schedules.length) {
+            return;
+        }
+
         if (!this.property.paymentScheduleIds) {
             return;
         }
