@@ -187,12 +187,14 @@
         "invoice_description": "Mô tả",
         "paid": "Đã nhận ✅",
         "unpaid": "Chưa nhận",
-        "partiallyPaid": "Nhận một phần"
+        "partiallyPaid": "Nhận một phần",
+        "property_name": "Tên tài sản"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",
-        "collected_invoices": "Đã thu",
-        "no_invoices": "Chưa có biên nhận nào"
+        "collected_invoices": "Đã thu trong tháng",
+        "no_invoices_to_collect": "Chưa có biên nhận cần thu",
+        "no_invoices_to_show": "Chưa thu biên nhận trong tháng"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

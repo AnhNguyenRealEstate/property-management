@@ -56,98 +56,120 @@
                     <mat-icon color="accent">remove</mat-icon>
                 </button>
             </div>
-            <div class="row header pb-1">
-                <div *ngFor="let header of columnHeaders" [class]="headerCellClass">
-                    <ng-container *ngIf="header === 'name'">
-                        {{ 'payment_schedule.invoice_name' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'amount'">
-                        {{ 'payment_schedule.amount' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'beginDate'">
-                        {{ 'payment_schedule.begin_date' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'dueDate'">
-                        {{ 'payment_schedule.due_date' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'paymentWindow'">
-                        {{ 'payment_schedule.payment_window' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'paymentDate'">
-                        {{ 'payment_schedule.payment_date' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'payoutDate'">
-                        {{ 'payment_schedule.payout_date' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'payer'">
-                        {{ 'payment_schedule.payer' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'payee'">
-                        {{ 'payment_schedule.payee' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'status'">
-                        {{ 'payment_schedule.status' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="header === 'description'">
-                        {{ 'payment_schedule.invoice_description' | translate }}
-                    </ng-container>
+            <div *ngIf="scheduleName" class="row pb-1 schedule-name">
+                <div class="col-12">
+                    {{scheduleName}}
                 </div>
             </div>
-            <mat-divider></mat-divider>
-            <div class="pt-1">
-                <div *ngFor="let lineItem of schedule.lineItems; let i = index" class="row line-item">
-                    <div *ngFor="let lineItemProperty of columnHeaders" [class]="lineItemCellClass">
-                        <ng-template #genericTextLineItem>
-                            <div class="pt-1">{{lineItem[lineItemProperty]}}</div>
-                        </ng-template>
-
-                        <ng-container *ngIf="!edit" [ngSwitch]="lineItemProperty">
-                            <ng-container *ngSwitchCase="'status'">
-                                <div class="pt-1">
-                                    {{ 'payment_schedule.' + lineItem[lineItemProperty] | translate}}
-                                </div>
-                            </ng-container>
-                            <ng-container *ngSwitchCase="'beginDate'">
-                                <div class="pt-1" *ngIf="lineItemProperty === 'beginDate'">
-                                    {{ lineItem[lineItemProperty]?.toDate() | date: 'dd/MM/yyyy'}}
-                                </div>
-                            </ng-container>
-                            <ng-container *ngSwitchCase="'dueDate'">
-                                <div class="pt-1" *ngIf="lineItemProperty === 'dueDate'">
-                                    {{ lineItem[lineItemProperty]?.toDate() | date: 'dd/MM/yyyy'}}
-                                </div>
-                            </ng-container>
-                            <ng-container *ngSwitchDefault [ngTemplateOutlet]="genericTextLineItem">
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-container *ngIf="edit">
-                            <ng-container
-                                *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
-                                <div class="pt-1" #display [hidden]="!lineItem[lineItemProperty]"
-                                    [id]="'lineItemDisplay-' + lineItemProperty + '-' + i">
-                                    {{lineItem[lineItemProperty]}}
-                                </div>
-                                <input required #edit trim="blur" [hidden]="!!lineItem[lineItemProperty]" type="text"
-                                    [ngModel]="display.textContent" style="height: 2rem"
-                                    [id]="'lineItemInput-' + lineItemProperty + '-' + i"
-                                    [name]="'lineItemInput-' + lineItemProperty + '-' + i">
-
-                                <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'"
-                                    matTooltip="Save" matTooltipPosition='right' (click)="display.hidden = false;
-                                                    edit.hidden = true;
-                                                    lineItem[lineItemProperty] = edit.value">
-                                    <mat-icon color="accent">check</mat-icon>
-                                </button>
-                                <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'" matTooltip="Edit"
-                                    matTooltipPosition='right' (click)="display.hidden = true; edit.hidden = false;">
-                                    <mat-icon color="accent">edit</mat-icon>
-                                </button>
-                            </ng-container>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+            <ng-container [ngTemplateOutlet]="paymentSchedule"></ng-container>
         </div>
     </form>
 </mat-card>
+
+<ng-template #paymentSchedule>
+    <div class="row header py-2">
+        <div *ngFor="let header of columnHeaders" [class]="headerCellClass">
+            <ng-container *ngIf="header === 'name'">
+                {{ 'payment_schedule.invoice_name' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'amount'">
+                {{ 'payment_schedule.amount' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'beginDate'">
+                {{ 'payment_schedule.begin_date' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'dueDate'">
+                {{ 'payment_schedule.due_date' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'paymentWindow'">
+                {{ 'payment_schedule.payment_window' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'paymentDate'">
+                {{ 'payment_schedule.payment_date' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'payoutDate'">
+                {{ 'payment_schedule.payout_date' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'payer'">
+                {{ 'payment_schedule.payer' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'payee'">
+                {{ 'payment_schedule.payee' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'status'">
+                {{ 'payment_schedule.status' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'description'">
+                {{ 'payment_schedule.invoice_description' | translate }}
+            </ng-container>
+            <ng-container *ngIf="header === 'propertyName'">
+                {{ 'payment_schedule.property_name' | translate }}
+            </ng-container>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div *ngFor="let lineItem of schedule.lineItems; let i = index" class="py-1 row line-item">
+        <div *ngFor="let lineItemProperty of columnHeaders" [class]="lineItemCellClass">
+            <ng-template #genericTextLineItem>
+                <div class="pt-1">{{lineItem[lineItemProperty]}}</div>
+            </ng-template>
+
+            <ng-container *ngIf="!edit" [ngSwitch]="lineItemProperty">
+                <ng-container *ngSwitchCase="'status'">
+                    <div class="pt-1">
+                        {{ 'payment_schedule.' + lineItem[lineItemProperty] | translate }}
+                    </div>
+
+                    <div class="pt-1" *ngIf="canChangeStatus" style="position: absolute; right: 25px">
+                        <button *ngIf="lineItem.status === 'unpaid'" mat-raised-button (click)="markAsPaid(lineItem);"
+                            matTooltip="Received payment">
+                            <mat-icon color="accent">check</mat-icon>
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'beginDate'">
+                    <div class="pt-1" *ngIf="lineItemProperty === 'beginDate'">
+                        {{ lineItem[lineItemProperty]?.toDate() | date: 'dd/MM/yyyy' }}
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'dueDate'">
+                    <div class="pt-1" *ngIf="lineItemProperty === 'dueDate'">
+                        {{ lineItem[lineItemProperty]?.toDate() | date: 'dd/MM/yyyy' }}
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'paymentDate'">
+                    <div class="pt-1" *ngIf="lineItemProperty === 'paymentDate'">
+                        {{ lineItem[lineItemProperty]?.toDate() | date: 'dd/MM/yyyy' }}
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchDefault [ngTemplateOutlet]="genericTextLineItem">
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="edit">
+                <ng-container
+                    *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
+                    <div class="pt-1" #display [hidden]="!lineItem[lineItemProperty]"
+                        [id]="'lineItemDisplay-' + lineItemProperty + '-' + i">
+                        {{lineItem[lineItemProperty]}}
+                    </div>
+                    <input required #edit trim="blur" [hidden]="!!lineItem[lineItemProperty]" type="text"
+                        [ngModel]="display.textContent" style="height: 2rem"
+                        [id]="'lineItemInput-' + lineItemProperty + '-' + i"
+                        [name]="'lineItemInput-' + lineItemProperty + '-' + i">
+
+                    <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" matTooltip="Save"
+                        matTooltipPosition='right' (click)="display.hidden = false;
+                                            edit.hidden = true;
+                                            lineItem[lineItemProperty] = edit.value">
+                        <mat-icon color="accent">check</mat-icon>
+                    </button>
+                    <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'" matTooltip="Edit"
+                        matTooltipPosition='right' (click)="display.hidden = true; edit.hidden = false;">
+                        <mat-icon color="accent">edit</mat-icon>
+                    </button>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>

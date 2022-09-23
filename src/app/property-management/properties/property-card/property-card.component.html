@@ -38,9 +38,13 @@
         <mat-divider></mat-divider>
 
         <div class="pt-2">
-            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate }}</div>
-            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
-                {{mostRecentActivity.description}} - {{timestampToDate(mostRecentActivity.date) | date:'dd/MM/yyyy'}}
+            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate }}
+                <span *ngIf="mostRecentActivity">- {{timestampToDate(mostRecentActivity.date) | date:'dd/MM/yyyy'}}
+                </span>
+            </div>
+
+            <div *ngIf="mostRecentActivity; else noRecentActivity">
+                {{mostRecentActivity.description}}
             </div>
             <ng-template #noRecentActivity>
                 <div>{{ 'property_card.no_recent_activity' | translate }}</div>

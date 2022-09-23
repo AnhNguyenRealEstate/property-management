@@ -8,7 +8,7 @@
     </h1>
     <mat-divider></mat-divider>
 
-    <div class="row pt-3">
+    <div class="row py-3">
         <div *ngIf="property.category" class="col-12 col-sm-6">
             <div class="pb-1 text-bold">{{ 'property_details.category' | translate }}</div>
             <div>
@@ -28,6 +28,8 @@
             <div>{{property.address}}</div>
         </div>
     </div>
+
+    <mat-divider></mat-divider>
 
     <div *ngIf="property.description" class="pt-3">
         <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>

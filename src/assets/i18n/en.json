@@ -187,12 +187,14 @@
         "invoice_description": "Description",
         "paid": "Paid ✅",
         "unpaid": "Unpaid ",
-        "partiallyPaid": "Partially paid"
+        "partiallyPaid": "Partially paid",
+        "property_name": "Property name"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",
         "collected_invoices": "Collected invoices",
-        "no_invoices": "No invoices to show"
+        "no_invoices_to_collect": "No invoices to collect",
+        "no_invoices_to_show": "No invoices to show"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

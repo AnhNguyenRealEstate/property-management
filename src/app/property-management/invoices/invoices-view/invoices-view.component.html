@@ -1,21 +1,17 @@
-<div class="row px-2 py-4 pb-4 d-none d-sm-block">
-    <h1 class="col-12 text-bold h5 pb-1">{{ 'invoices.uncollected_invoices' | translate }}</h1>
-    <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length; else noInvoicesToShow">
-        <payment-schedule [schedule]="uncollectedInvoices" [edit]="false"
-            [columnHeaders]="['beginDate', 'payer', 'amount', 'description']">
+<div class="row px-2 py-2 d-none d-sm-block">
+    <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
+        <payment-schedule [schedule]="uncollectedInvoices" [edit]="false" [canChangeStatus]="true"
+            [scheduleName]="'invoices.uncollected_invoices' | translate"
+            [columnHeaders]="['beginDate', 'payer', 'amount', 'description', 'status']">
         </payment-schedule>
     </div>
 </div>
 
-<div class="row px-2 py-4 pb-4 d-none d-sm-block">
-    <h1 class="col-12 text-bold h5 pb-1">{{ 'invoices.collected_invoices' | translate }}</h1>
-    <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length; else noInvoicesToShow">
+<div class="row px-2 py-2 d-none d-sm-block">
+    <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length">
         <payment-schedule [schedule]="collectedInvoices" [edit]="false"
-            [columnHeaders]="['beginDate', 'payer', 'amount', 'description']">
+            [scheduleName]="'invoices.collected_invoices' | translate"
+            [columnHeaders]="['paymentDate', 'payer', 'amount', 'propertyName']">
         </payment-schedule>
     </div>
 </div>
-
-<ng-template #noInvoicesToShow>
-    <div class="col-12">{{ 'invoices.no_invoices' | translate }}</div>
-</ng-template>

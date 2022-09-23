@@ -7,3 +7,9 @@
 .line-item:nth-child(2n){
     background: colors.$off-white ;
 }
+
+.schedule-name {
+    color: colors.$accent;
+    font-size: 1.5rem;
+    line-height: 2;
+}

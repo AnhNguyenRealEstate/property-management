@@ -21,4 +21,5 @@ export interface Invoice {
     proofOfPayment?: StoragePath[]
     amount?: string
     description?: string
+    scheduleId?: string
 }

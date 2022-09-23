@@ -4,6 +4,7 @@ import { Invoice } from '../invoices/invoices.data';
 import { Property } from '../properties/property-card/property-card.data';
 import { PaymentSchedule } from './payment-schedule.data';
 import { DatePipe } from '@angular/common';
+import { PaymentScheduleService } from './payment-schedule.service';
 
 @Component({
     selector: 'payment-schedule',
@@ -16,6 +17,8 @@ export class PaymentScheduleComponent implements OnInit {
     @Input() schedule!: PaymentSchedule;
     @Input() edit!: boolean;
     @Input() columnHeaders!: (keyof Invoice)[];
+    @Input() canChangeStatus: boolean = false;
+    @Input() scheduleName: string = '';
 
     @Output() scheduleChange: EventEmitter<PaymentSchedule> = new EventEmitter();
 
@@ -25,7 +28,8 @@ export class PaymentScheduleComponent implements OnInit {
     @ViewChild('scheduleRef') scheduleRef!: ElementRef;
 
     constructor(
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private paymentSchedule: PaymentScheduleService
     ) {
     }
 
@@ -62,7 +66,8 @@ export class PaymentScheduleComponent implements OnInit {
                 status: 'unpaid',
                 amount: amount,
                 description: '',
-                payWithin: within
+                payWithin: within,
+                scheduleId: this.schedule.id
             } as Invoice
         }
 
@@ -122,7 +127,7 @@ export class PaymentScheduleComponent implements OnInit {
         this.schedule.beginDate = Timestamp.fromDate(scheduleBegin);
         this.schedule.endDate = Timestamp.fromDate(scheduleEnd);
         this.schedule.isActive = true;
-        
+
         this.scheduleChange.emit(this.schedule);
     }
 
@@ -140,5 +145,10 @@ export class PaymentScheduleComponent implements OnInit {
                 el.focus();
             }
         })
+    }
+
+    async markAsPaid(invoice: Invoice) {
+        await this.paymentSchedule.markInvoiceAsPaid(invoice);
+        invoice.status = 'paid';
     }
 }
