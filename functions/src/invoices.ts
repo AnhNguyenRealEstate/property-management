@@ -29,15 +29,40 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
         batch.commit();
     });
 
-// exports.emailInvoicesToCollect = functions.region('asia-southeast2')
-//     .pubsub.schedule('At 08:30 on Monday').timeZone('Asia/Ho_Chi_Minh')
-//     .onRun(async () => {
-//         admin.firestore().collection('mail').add({
-//             to: 'nguyentrungtu1996@gmail.com',
-//             message: {
-//                 subject: 'Anh Nguyen Customer Service - Invoces to collect',
-//                 html: `TODO: implement list of invoices to collect
-//                 `,
-//             },
-//         });
-//     });
+exports.emailInvoicesToCollect = functions.region('asia-southeast2')
+    .pubsub.schedule('every monday 08:30').timeZone('Asia/Ho_Chi_Minh')
+    .onRun(async () => {
+
+        const monday = new Date();
+        const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
+
+        const mondayTimestamp = admin.firestore.Timestamp.fromDate(monday);
+        const endOfWeekTimestamp = admin.firestore.Timestamp.fromDate(endOfWeek);
+
+        const snap = await admin.firestore().collectionGroup('invoices')
+            .where('beginDate', '>=', mondayTimestamp)
+            .where('beginDate', '<=', endOfWeekTimestamp)
+            .get();
+        const invoicesToCollect = snap.docs.map(doc => doc.data());
+
+        const invoicesAsHtml = '';
+        invoicesToCollect.forEach(invoice => {
+            const invoiceHtml = `<p>Collect ${invoice['amount']} from ${invoice['payee']} on ${invoice['beginDate']} within ${invoice['payWithin']} days</p>`;
+            invoicesAsHtml.concat(invoiceHtml);
+        });
+
+        admin.firestore().collection('mail').add({
+            to: 'nguyentrungtu1996@gmail.com',
+            message: {
+                subject: 'Anh Nguyen RE Customer Service - Invoces to collect this week',
+                html: `
+                <p>Good morning,</p>
+                <br>
+                <p>Here is a list of invoices to be collected for this week:</p>
+                ${invoicesAsHtml}
+                <br>
+                <p>Have a good day!</p>
+                `,
+            },
+        });
+    });

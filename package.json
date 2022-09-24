@@ -15,7 +15,7 @@
     "deploy-extensions": "firebase deploy --only extensions",
     "deploy-full": "npm run deploy-hosting && npm run deploy-functions",
     "start-db": "firebase emulators:start --import=./offline-db --export-on-exit",
-    "clean-db": "lsof -t -i:9199 -i:8080 -i:9099 -i:5001 -i:9000 -i:5050 -i:8085 -i:4000 | xargs kill -9"
+    "clean-db": "lsof -t -i:9199 -i:8080 -i:9099 -i:5001 -i:9000 -i:5050 -i:8085 -i:4000 -i:4300| xargs kill -9"
   },
   "private": true,
   "dependencies": {

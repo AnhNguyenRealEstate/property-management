@@ -79,10 +79,10 @@
                 <mat-form-field class="col-6 col-sm-3" color="accent">
                     <mat-label>{{ 'property_upload.category' | translate }}</mat-label>
                     <mat-select required formControlName="propertyCategory" [(ngModel)]="property.category">
-                        <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
-                        <mat-option value="Villa">{{ 'property_upload.villa' | translate }}</mat-option>
-                        <mat-option value="Townhouse">{{ 'property_upload.townhouse' | translate }}</mat-option>
-                        <mat-option value="Commercial">{{ 'property_upload.commercial' | translate }}</mat-option>
+                        <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-6 col-sm-3" color="accent">
@@ -149,7 +149,7 @@
 
         <ng-container *ngFor="let sched of schedules; let i = index">
             <div class="mt-2">
-                <payment-schedule [schedule]="sched" (scheduleChange)="schedules[i] = $event" [edit]="true"
+                <payment-schedule [schedule]="sched" [edit]="true"
                     [property]="property" [columnHeaders]="['description', 'amount', 'paymentWindow']">
                 </payment-schedule>
             </div>

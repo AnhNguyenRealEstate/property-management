@@ -96,7 +96,8 @@ export class PropertyUploadService {
 
             const scheduleRef = await addDoc(collection(this.firestore, FirestoreCollections.paymentSchedules), {
                 isActive: schedule.isActive,
-                beginDate: schedule.beginDate
+                beginDate: schedule.beginDate,
+                endDate: schedule.endDate
             });
 
             const invoices = schedule.lineItems;

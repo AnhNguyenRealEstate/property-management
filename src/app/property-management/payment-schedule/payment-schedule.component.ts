@@ -20,8 +20,6 @@ export class PaymentScheduleComponent implements OnInit {
     @Input() canChangeStatus: boolean = false;
     @Input() scheduleName: string = '';
 
-    @Output() scheduleChange: EventEmitter<PaymentSchedule> = new EventEmitter();
-
     headerCellClass: string = '';
     lineItemCellClass: string = '';
 
@@ -39,6 +37,13 @@ export class PaymentScheduleComponent implements OnInit {
             const colWidth = Math.floor(bootstrapMaxColWidth / this.columnHeaders.length) || 1;
             this.headerCellClass = `col-${colWidth} d-flex justify-content-center text-bold`;
             this.lineItemCellClass = `col-${colWidth} d-flex justify-content-center`;
+        }
+
+        const setDefaultName = this.schedule.beginDate && this.schedule.endDate && !this.scheduleName;
+        if (setDefaultName) {
+            this.scheduleName = `Lịch thanh toán cho giai đoạn
+            ${this.datePipe.transform(this.schedule.beginDate?.toDate(), 'dd/MM/yyyy')}
+            - ${this.datePipe.transform(this.schedule.endDate?.toDate(), 'dd/MM/yyyy')}`;
         }
     }
 
@@ -81,6 +86,8 @@ export class PaymentScheduleComponent implements OnInit {
 
         const scheduleBegin = getDateFromInput(scheduleBeginInput);
         const scheduleEnd = getDateFromInput(scheduleEndInput);
+
+        this.scheduleName = `Lịch thanh toán cho giai đoạn ${this.datePipe.transform(scheduleBegin, 'dd/MM/yyyy')} - ${this.datePipe.transform(scheduleEnd, 'dd/MM/yyyy')}`;
 
         let currentDate = scheduleBegin;
         let paymentCount = 1;
@@ -127,13 +134,10 @@ export class PaymentScheduleComponent implements OnInit {
         this.schedule.beginDate = Timestamp.fromDate(scheduleBegin);
         this.schedule.endDate = Timestamp.fromDate(scheduleEnd);
         this.schedule.isActive = true;
-
-        this.scheduleChange.emit(this.schedule);
     }
 
     removeSchedule() {
         this.schedule = {} as PaymentSchedule;
-        this.scheduleChange.emit(this.schedule);
     }
 
     focusFirstEditable() {
