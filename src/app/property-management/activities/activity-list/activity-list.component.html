@@ -1,4 +1,4 @@
-<mat-accordion class="p-1">
+<mat-accordion class="p-1" [@activityItemAnim]="activitiesByDates.length">
     <mat-expansion-panel *ngFor="let activityByDate of activitiesByDates"
         class="mat-elevation-z1 activities-by-date-panel">
         <mat-expansion-panel-header>

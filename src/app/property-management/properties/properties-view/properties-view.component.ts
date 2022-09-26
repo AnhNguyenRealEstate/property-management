@@ -7,11 +7,29 @@ import { PropertyDetailsComponent } from '../property-details/property-details.c
 import { Property } from "../property-card/property-card.data";
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
+import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
 
 @Component({
     selector: 'properties-view',
     templateUrl: 'properties-view.component.html',
-    styleUrls: ['./properties-view.component.scss']
+    styleUrls: ['./properties-view.component.scss'],
+    animations: [
+        trigger('propertyCardAnim',
+            [
+                transition('* => *', // whenever binding value changes
+                    query(':enter',
+                        [
+                            style({ opacity: 0, transform: 'translateY(40px)' }),
+                            stagger(100, [
+                                animate('0.2s', style({ opacity: 1, transform: 'translateY(0)' }))
+                            ])
+                        ],
+                        { optional: true }
+                    )
+                )
+            ]
+        )
+    ]
 })
 
 export class PropertiesViewComponent implements OnInit, OnDestroy {
@@ -29,7 +47,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         public roles: RolesService,
         public propertiesView: PropertiesViewService,
         private auth: Auth
-    ) { }
+    ) {
+    }
 
     async ngOnInit() {
         this.subs.add(this.roles.roles$.subscribe(async roles => {

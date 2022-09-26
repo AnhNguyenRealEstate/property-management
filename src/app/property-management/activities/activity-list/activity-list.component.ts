@@ -1,3 +1,4 @@
+import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { Component, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activities-view/activity.data";
@@ -10,7 +11,24 @@ export interface DayActivities {
 @Component({
     selector: 'activity-list',
     templateUrl: 'activity-list.component.html',
-    styleUrls: ['./activity-list.component.scss']
+    styleUrls: ['./activity-list.component.scss'],
+    animations: [
+        trigger('activityItemAnim',
+            [
+                transition('* => *', // whenever binding value changes
+                    query(':enter',
+                        [
+                            style({ opacity: 0, transform: 'translateY(40px)' }),
+                            stagger(100, [
+                                animate('0.2s', style({ opacity: 1, transform: 'translateY(0)' }))
+                            ])
+                        ],
+                        { optional: true }
+                    )
+                )
+            ]
+        )
+    ]
 })
 
 export class ActivityListComponent implements OnChanges {

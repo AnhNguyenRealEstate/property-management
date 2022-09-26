@@ -3,7 +3,7 @@
         <mat-form-field color="default">
             <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
                 [(ngModel)]="algoliaQuery">
-            <button matSuffix mat-raised-button aria-label="Search" (click)="searchWithAlgolia()">
+            <button matSuffix mat-button aria-label="Search" (click)="searchWithAlgolia()">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
@@ -11,10 +11,14 @@
 
     <div class="col-12 ms-2">
         <mat-tab-group [dynamicHeight]="true" color="accent">
-            <mat-tab [label]="'property_category.apartment' | translate">
-                <div class="row p-2">
+            <mat-tab>
+                <ng-template matTabLabel>
+                    <mat-icon>apartment</mat-icon>
+                    <span class="ps-2">{{'property_category.apartment' | translate}}</span>
+                </ng-template>
+                <div [@propertyCardAnim]="apartments.length" class="row p-2">
                     <div *ngFor="let prop of apartments; let i = index;"
-                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        class="d-none d-sm-block col-sm-4 col-xl-3 my-1 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
                             (delete)="propertyRemoved(apartments, prop)">
                         </property-card>
@@ -22,8 +26,12 @@
                 </div>
             </mat-tab>
 
-            <mat-tab [label]="'property_category.villa' | translate">
-                <div class="row p-2">
+            <mat-tab>
+                <ng-template matTabLabel>
+                    <mat-icon>villa</mat-icon>
+                    <span class="ps-2">{{'property_category.villa' | translate}}</span>
+                </ng-template>
+                <div [@propertyCardAnim]="villas.length" class="row p-2">
                     <div *ngFor="let prop of villas; let i = index;"
                         class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
@@ -33,8 +41,12 @@
                 </div>
             </mat-tab>
 
-            <mat-tab [label]="'property_category.townhouse' | translate">
-                <div class="row p-2">
+            <mat-tab>
+                <ng-template matTabLabel>
+                    <mat-icon>door_sliding</mat-icon>
+                    <span class="ps-2">{{'property_category.townhouse' | translate}}</span>
+                </ng-template>
+                <div [@propertyCardAnim]="townhouses.length" class="row p-2">
                     <div *ngFor="let prop of townhouses; let i = index;"
                         class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
@@ -44,8 +56,12 @@
                 </div>
             </mat-tab>
 
-            <mat-tab [label]="'property_category.commercial' | translate">
-                <div class="row p-2">
+            <mat-tab>
+                <ng-template matTabLabel>
+                    <mat-icon>store_front</mat-icon>
+                    <span class="ps-2">{{'property_category.commercial' | translate}}</span>
+                </ng-template>
+                <div [@propertyCardAnim]="commercials.length" class="row p-2">
                     <div *ngFor="let prop of commercials; let i = index;"
                         class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"

@@ -1,3 +1,4 @@
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { Invoice } from '../invoices.data';
@@ -5,7 +6,24 @@ import { InvoicesViewService } from './invoices-view.service';
 
 @Component({
     selector: 'invoices-view',
-    templateUrl: 'invoices-view.component.html'
+    templateUrl: 'invoices-view.component.html',
+    animations: [
+        trigger('scheduleAnim',
+            [
+                transition('* => *', // whenever binding value changes
+                    query(':enter',
+                        [
+                            style({ opacity: 0, transform: 'translateY(40px)' }),
+                            stagger(100, [
+                                animate('0.2s', style({ opacity: 1, transform: 'translateY(0)' }))
+                            ])
+                        ],
+                        { optional: true }
+                    )
+                )
+            ]
+        )
+    ]
 })
 
 export class InvoicesViewComponent implements OnInit {
