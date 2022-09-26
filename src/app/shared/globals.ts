@@ -4,7 +4,8 @@ export const FirestoreCollections = Object.freeze({
     activities: 'activities',
     owners: 'owners',
     invoices: 'invoices',
-    paymentSchedules: 'payment-schedules'
+    paymentSchedules: 'payment-schedules',
+    appMetadata: 'app-metadata'
 });
 
 export const FirebaseStorageConsts = Object.freeze({

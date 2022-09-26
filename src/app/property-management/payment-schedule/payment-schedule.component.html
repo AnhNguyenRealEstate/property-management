@@ -122,7 +122,7 @@
 
                     <div class="pt-1" *ngIf="canChangeStatus" style="position: absolute; right: 25px">
                         <button *ngIf="lineItem.status === 'unpaid'" mat-raised-button (click)="markAsPaid(lineItem);"
-                            matTooltip="Received payment">
+                            [matTooltip]="'payment_schedule.received_payments' | translate">
                             <mat-icon color="accent">check</mat-icon>
                         </button>
                     </div>

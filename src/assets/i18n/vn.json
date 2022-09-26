@@ -188,7 +188,8 @@
         "paid": "Đã nhận ✅",
         "unpaid": "Chưa nhận",
         "partiallyPaid": "Nhận một phần",
-        "property_name": "Tên tài sản"
+        "property_name": "Tên tài sản",
+        "received_payments": "Đã nhận"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",

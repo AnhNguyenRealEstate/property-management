@@ -12,21 +12,11 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
         const invoiceId = context.params.invoiceId;
         const scheduleId = context.params.scheduleId;
 
-        const appCounters = await admin.firestore().collection('app-metadata').doc('counters').get();
-
-        const batch = admin.firestore().batch();
-
-        batch.update(snap.ref, {
+        snap.ref.update( {
             'id': invoiceId,
             'scheduleId': scheduleId,
         });
 
-        const increment = admin.firestore.FieldValue.increment(1);
-        batch.update(appCounters.ref, {
-            'invoiceCount': increment
-        });
-
-        batch.commit();
     });
 
 exports.emailInvoicesToCollect = functions.region('asia-southeast2')
