@@ -1,17 +1,23 @@
-<div class="row px-2 py-2 d-none d-sm-block">
-    <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
-        <payment-schedule [schedule]="uncollectedInvoices" [edit]="false" [canChangeStatus]="true"
-            [scheduleName]="'invoices.uncollected_invoices' | translate"
-            [columnHeaders]="['beginDate', 'payer', 'amount', 'description', 'status']">
-        </payment-schedule>
-    </div>
-</div>
+<mat-tab-group color="accent">
+    <mat-tab [label]="'invoices.uncollected_invoices' | translate">
+        <div class="row px-2 py-2 d-none d-sm-block">
+            <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
+                <payment-schedule [schedule]="uncollectedInvoices" [edit]="false" [canChangeStatus]="true"
+                    [columnHeaders]="['beginDate', 'payer', 'amount', 'description', 'status']">
+                </payment-schedule>
+            </div>
+        </div>
+    </mat-tab>
 
-<div class="row px-2 py-2 d-none d-sm-block">
-    <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length">
-        <payment-schedule [schedule]="collectedInvoices" [edit]="false"
-            [scheduleName]="'invoices.collected_invoices' | translate"
-            [columnHeaders]="['paymentDate', 'payer', 'amount', 'propertyName']">
-        </payment-schedule>
-    </div>
-</div>
+    <mat-tab [label]="'invoices.collected_invoices' | translate">
+        <div class="row px-2 py-2 d-none d-sm-block">
+            <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length">
+                <payment-schedule [schedule]="collectedInvoices" [edit]="false"
+                    [columnHeaders]="['paymentDate', 'payer', 'amount', 'propertyName']">
+                </payment-schedule>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+

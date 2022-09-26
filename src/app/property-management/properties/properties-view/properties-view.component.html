@@ -1,61 +1,60 @@
-<div class="row ps-2 pe-2 pb-4">
+<div class="row px-2 pb-4">
     <div class="col-12 search-bar">
         <mat-form-field color="default">
             <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
                 [(ngModel)]="algoliaQuery">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="searchWithAlgolia()">
+            <button matSuffix mat-raised-button aria-label="Search" (click)="searchWithAlgolia()">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
     </div>
 
     <div class="col-12 ms-2">
-        <div *ngIf="apartments.length" class="row pb-4">
-            <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                {{ 'property_category.apartment' | translate }}
-            </div>
-            <div *ngFor="let prop of apartments; let i = index;"
-                class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
-                <property-card (click)="showDetails(prop)" [property]="prop"
-                    (delete)="propertyRemoved(apartments, prop)">
-                </property-card>
-            </div>
-        </div>
+        <mat-tab-group [dynamicHeight]="true" color="accent">
+            <mat-tab [label]="'property_category.apartment' | translate">
+                <div class="row p-2">
+                    <div *ngFor="let prop of apartments; let i = index;"
+                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        <property-card (click)="showDetails(prop)" [property]="prop"
+                            (delete)="propertyRemoved(apartments, prop)">
+                        </property-card>
+                    </div>
+                </div>
+            </mat-tab>
 
-        <div *ngIf="villas.length" class="row pb-4">
-            <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                {{ 'property_category.villa' | translate }}
-            </div>
-            <div *ngFor="let prop of villas; let i = index;"
-                class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
-                <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
-                </property-card>
-            </div>
-        </div>
+            <mat-tab [label]="'property_category.villa' | translate">
+                <div class="row p-2">
+                    <div *ngFor="let prop of villas; let i = index;"
+                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        <property-card (click)="showDetails(prop)" [property]="prop"
+                            (delete)="propertyRemoved(villas, prop)">
+                        </property-card>
+                    </div>
+                </div>
+            </mat-tab>
 
-        <div *ngIf="townhouses.length" class="row pb-4">
-            <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                {{ 'property_category.townhouse' | translate }}
-            </div>
-            <div *ngFor="let prop of townhouses; let i = index;"
-                class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
-                <property-card (click)="showDetails(prop)" [property]="prop"
-                    (delete)="propertyRemoved(townhouses, prop)">
-                </property-card>
-            </div>
-        </div>
+            <mat-tab [label]="'property_category.townhouse' | translate">
+                <div class="row p-2">
+                    <div *ngFor="let prop of townhouses; let i = index;"
+                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        <property-card (click)="showDetails(prop)" [property]="prop"
+                            (delete)="propertyRemoved(townhouses, prop)">
+                        </property-card>
+                    </div>
+                </div>
+            </mat-tab>
 
-        <div *ngIf="commercials.length" class="row">
-            <div class="col-12 pb-2 text-bold" style="font-size: 18px;">
-                {{ 'property_category.commercial' | translate }}
-            </div>
-            <div *ngFor="let prop of commercials; let i = index;"
-                class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
-                <property-card (click)="showDetails(prop)" [property]="prop"
-                    (delete)="propertyRemoved(commercials, prop)">
-                </property-card>
-            </div>
-        </div>
+            <mat-tab [label]="'property_category.commercial' | translate">
+                <div class="row p-2">
+                    <div *ngFor="let prop of commercials; let i = index;"
+                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        <property-card (click)="showDetails(prop)" [property]="prop"
+                            (delete)="propertyRemoved(commercials, prop)">
+                        </property-card>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 
     <div class="d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">

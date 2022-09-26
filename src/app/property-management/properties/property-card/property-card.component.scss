@@ -35,3 +35,7 @@ mat-card {
     white-space: nowrap;
     mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
 }
+
+.no-longer-managed {
+    background-color: rgba(0, 0, 0, 0.2);
+}

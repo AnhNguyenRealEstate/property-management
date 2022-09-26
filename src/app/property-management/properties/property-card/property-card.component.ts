@@ -23,6 +23,8 @@ export class PropertyCardComponent implements OnInit {
 
     @ViewChild('confirmationDialog') confirmationDialogTemplate!: TemplateRef<string>;
 
+    propertyNoLongerManaged: boolean = false;
+
     constructor(
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
@@ -33,6 +35,8 @@ export class PropertyCardComponent implements OnInit {
 
     async ngOnInit() {
         this.mostRecentActivity = await this.propertyCard.getMostRecentActivity(this.property);
+
+        this.propertyNoLongerManaged = this.property.managementEndDate?.toDate()! < new Date();
     }
 
     async editProperty(event: Event) {

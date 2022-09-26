@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z3" [matTooltip]="property.name || ''">
+<mat-card class="mat-elevation-z3" [class.no-longer-managed]="propertyNoLongerManaged" [matTooltip]="property.name || ''">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
@@ -43,7 +43,7 @@
                 </span>
             </div>
 
-            <div *ngIf="mostRecentActivity; else noRecentActivity">
+            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
                 {{mostRecentActivity.description}}
             </div>
             <ng-template #noRecentActivity>

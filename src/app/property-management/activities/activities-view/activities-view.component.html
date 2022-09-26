@@ -1,44 +1,8 @@
-<div class="px-2 py-4">
-    <div class="d-none d-sm-block">
-        <mat-button-toggle-group class="mat-elevation-z2" name="viewToggleDesktop" value="calendar"
-            (change)="view = $event.value">
-            <mat-button-toggle value="calendar">
-                <mat-icon color="accent">calendar_month_icon</mat-icon>
-                <span class="ps-2">{{ 'activities_view.calendar' | translate }}</span>
-            </mat-button-toggle>
-            <mat-button-toggle value="list">
-                <mat-icon color="accent">list</mat-icon>
-                <span class="ps-2">{{ 'activities_view.list' | translate }}</span>
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-
-    <div class="d-sm-none pb-2 view-toggle-mobile">
-        <mat-button-toggle-group class="mat-elevation-z0" name="viewToggleMobile" value="calendar"
-            (change)="view = $event.value">
-            <mat-button-toggle value="calendar">
-                <mat-icon color="accent">calendar_month_icon</mat-icon>
-                <span class="ps-2">{{ 'activities_view.calendar' | translate }}</span>
-            </mat-button-toggle>
-            <mat-button-toggle value="list">
-                <mat-icon color="accent">list</mat-icon>
-                <span class="ps-2">{{ 'activities_view.list' | translate }}</span>
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-
-    <div class="pt-2">
-        <div class="d-flex justify-content-center"
-            *ngIf="!activities.length && (activitiesView.gettingActivities$ | async)">
-            <mat-spinner color="primary" [diameter]="35"></mat-spinner>
-        </div>
-
-        <ng-container *ngIf="view === 'list'">
-            <activity-list [activities]="activities"></activity-list>
-        </ng-container>
-
-        <ng-container *ngIf="view === 'calendar'">
-            <activity-calendar></activity-calendar>
-        </ng-container>
-    </div>
-</div>
+<mat-tab-group color="accent" class="px-2 py-4">
+    <mat-tab [label]="'activities_view.list' | translate">
+        <activity-list [activities]="activities"></activity-list>
+    </mat-tab>
+    <mat-tab [label]="'activities_view.calendar' | translate">
+        <activity-calendar></activity-calendar>
+    </mat-tab>
+</mat-tab-group>
