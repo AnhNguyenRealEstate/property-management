@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, limit, where, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Property } from "../property-card/property-card.data";
+import { Property, PropertyCategory } from "../property-card/property-card.data";
 
 @Injectable({ providedIn: 'root' })
 export class PropertiesViewService {
@@ -16,16 +16,17 @@ export class PropertiesViewService {
     ) { }
 
 
-    async getProperties(owner?: string): Promise<Property[]> {
+    async getProperties(category?: PropertyCategory): Promise<Property[]> {
         this.gettingProperties$$.next(true);
 
         let q = query(
-            collection(this.firestore, FirestoreCollections.underManagement), 
+            collection(this.firestore, FirestoreCollections.underManagement),
             limit(this.quotaPerQuery),
-            orderBy('creationDate', 'desc'));
+            orderBy('creationDate', 'desc')
+        );
 
-        if (owner) {
-            q = query(q, (where("ownerUsername", "==", owner)));
+        if (category) {
+            q = query(q, where('category', '==', category));
         }
 
         const result = await getDocs(q);
@@ -35,7 +36,7 @@ export class PropertiesViewService {
         return result.docs.map(doc => {
             return doc.data() as Property;
         });
-        
+
     }
 
 }

@@ -9,6 +9,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { environment } from 'src/environments/environment';
 import { Invoice } from '../../invoices/invoices.data';
 import { OwnerUploadComponent } from '../../owners/owner-upload/owner-upload.component';
 import { Owner } from '../../owners/owners-view/owner.data';
@@ -24,6 +25,8 @@ import { PropertyUploadService } from './property-upload.service';
 })
 
 export class PropertyUploadComponent implements OnInit, OnDestroy {
+    linearStepper: boolean = false;
+
     property: Property = {
         owner: {} as Owner,
         documents: []
@@ -69,6 +72,10 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             startDate: new FormControl<Date | undefined>(undefined),
             endDate: new FormControl<Date | undefined>(undefined)
         });
+
+        if (environment.production) {
+            this.linearStepper = true;
+        }
     }
 
     ngOnInit() {

@@ -1,5 +1,5 @@
-<div class="row px-2 pb-4">
-    <div class="col-12 search-bar">
+<div class="row pb-4">
+    <div class="col-12 mx-2 search-bar">
         <mat-form-field color="default">
             <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
                 [(ngModel)]="algoliaQuery">
@@ -9,8 +9,13 @@
         </mat-form-field>
     </div>
 
-    <div class="col-12 ms-2">
-        <mat-tab-group [dynamicHeight]="true" color="accent">
+    <div class="col-12 d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">
+        <mat-spinner color="primary" [diameter]="35"></mat-spinner>
+    </div>
+
+    <div class="col-12">
+        <mat-tab-group dynamicHeight="true" color="accent" [selectedIndex]="0"
+            (selectedIndexChange)="onTabChange($event)">
             <mat-tab>
                 <ng-template matTabLabel>
                     <mat-icon>apartment</mat-icon>
@@ -19,7 +24,7 @@
                 </ng-template>
                 <div [@propertyCardAnim]="apartments.length" class="row p-2">
                     <div *ngFor="let prop of apartments; let i = index;"
-                        class="d-none d-sm-block col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                        class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
                             (delete)="propertyRemoved(apartments, prop)">
                         </property-card>
@@ -34,8 +39,7 @@
                     <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
                 </ng-template>
                 <div [@propertyCardAnim]="villas.length" class="row p-2">
-                    <div *ngFor="let prop of villas; let i = index;"
-                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                    <div *ngFor="let prop of villas; let i = index;" class="col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
                             (delete)="propertyRemoved(villas, prop)">
                         </property-card>
@@ -51,7 +55,7 @@
                 </ng-template>
                 <div [@propertyCardAnim]="townhouses.length" class="row p-2">
                     <div *ngFor="let prop of townhouses; let i = index;"
-                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        class="col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
                             (delete)="propertyRemoved(townhouses, prop)">
                         </property-card>
@@ -67,7 +71,7 @@
                 </ng-template>
                 <div [@propertyCardAnim]="commercials.length" class="row p-2">
                     <div *ngFor="let prop of commercials; let i = index;"
-                        class="d-none d-sm-block col-sm-4 col-xl-3 property-card-wrapper">
+                        class="col-sm-4 col-xl-3 property-card-wrapper">
                         <property-card (click)="showDetails(prop)" [property]="prop"
                             (delete)="propertyRemoved(commercials, prop)">
                         </property-card>
@@ -77,9 +81,7 @@
         </mat-tab-group>
     </div>
 
-    <div class="d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">
-        <mat-spinner color="primary" [diameter]="35"></mat-spinner>
-    </div>
+
 </div>
 
 <div class="float-controls-mobile">

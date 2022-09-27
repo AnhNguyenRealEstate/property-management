@@ -1,7 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
 import { Property } from "../property-card/property-card.data";
@@ -47,7 +46,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public roles: RolesService,
         public propertiesView: PropertiesViewService,
-        private auth: Auth,
         public metadata: MetadataService
     ) {
     }
@@ -55,11 +53,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     async ngOnInit() {
         this.subs.add(this.roles.roles$.subscribe(async roles => {
             if (roles.includes('customer-service')) {
-                const properties = await this.propertiesView.getProperties();
-                this.sortProperties(properties);
-            } else if (roles.includes('owner') && this.auth.currentUser?.email) {
-                const properties = await this.propertiesView.getProperties(this.auth.currentUser.email);
-                this.sortProperties(properties);
+                this.apartments = await this.propertiesView.getProperties('Apartment');
             }
         }));
     }
@@ -138,5 +132,25 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     @HostListener('document:keydown.enter', ['$event'])
     onKeydownHandler(event: KeyboardEvent) {
         this.searchWithAlgolia();
+    }
+
+    async onTabChange($event: number) {
+        if (!(await lastValueFrom(this.roles.roles$)).includes('customer-service')) {
+            return;
+        }
+
+        switch ($event) {
+            case 0:
+                this.apartments = await this.propertiesView.getProperties('Apartment');
+                break;
+            case 1:
+                this.villas = await this.propertiesView.getProperties('Villa');
+                break;
+            case 2:
+                this.townhouses = await this.propertiesView.getProperties('Townhouse');
+                break;
+            case 3:
+                this.commercials = await this.propertiesView.getProperties('Commercial');
+        }
     }
 }

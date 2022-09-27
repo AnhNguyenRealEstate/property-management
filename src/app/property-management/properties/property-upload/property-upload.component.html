@@ -1,4 +1,4 @@
-<mat-stepper [linear]="false" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
+<mat-stepper [linear]="linearStepper" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
     <mat-step state="uploadContract" [stepControl]="firstFormGroup" [editable]="stepsCanBeEdited">
         <ng-template matStepLabel>{{ 'property_upload.upload_contract' | translate }}</ng-template>
         <form [formGroup]="firstFormGroup">

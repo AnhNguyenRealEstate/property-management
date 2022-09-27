@@ -1,11 +1,11 @@
-<mat-tab-group class="px-2 py-4" color="accent">
+<mat-tab-group class="px-2 py-4" color="accent" dynamicHeight="true">
     <mat-tab>
         <ng-template matTabLabel>
             <mat-icon>assignment_late_icon</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.uncollected_invoices' | translate}}</span>
             <span>({{uncollectedInvoices.lineItems?.length}})</span>
         </ng-template>
-        <div class="row px-2 py-2 d-none d-sm-block" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
+        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
             <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
                 <payment-schedule [schedule]="uncollectedInvoices" [edit]="false" [canChangeStatus]="true"
                     [columnHeaders]="['beginDate', 'payer', 'amount', 'description', 'status']">
@@ -20,7 +20,7 @@
             <span class="ps-2 pe-2">{{'invoices.collected_invoices' | translate}}</span>
             <span>({{collectedInvoices.lineItems?.length}})</span>
         </ng-template>
-        <div class="row px-2 py-2 d-none d-sm-block">
+        <div class="row px-2 py-2">
             <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length"
                 [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
                 <payment-schedule [schedule]="collectedInvoices" [edit]="false"
