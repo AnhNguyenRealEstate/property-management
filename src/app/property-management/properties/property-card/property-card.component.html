@@ -1,4 +1,5 @@
-<mat-card class="mat-elevation-z3" [class.no-longer-managed]="propertyNoLongerManaged" [matTooltip]="property.name || ''">
+<mat-card class="mat-elevation-z3 pe-4" [class.no-longer-managed]="propertyNoLongerManaged"
+    [matTooltip]="property.name || ''">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
@@ -17,7 +18,6 @@
         </div>
     </mat-card-subtitle>
     <mat-card-content class="mb-0">
-
         <div class="pb-2" *ngIf="property.owner">
             <div class="content-label">{{ 'property_card.owner' | translate }}</div>
             <div *ngIf="property.owner.contactName" class="overrun-wrap">{{property.owner.contactName}}</div>
@@ -33,6 +33,10 @@
                 <div class="content-label">{{ 'property_card.end_date' | translate }}</div>
                 <div>{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}</div>
             </div>
+        </div>
+
+        <div class="row pb-2">
+            <mat-progress-bar *ngIf="!propertyNoLongerManaged" [value]="contractProgress"></mat-progress-bar>
         </div>
 
         <mat-divider></mat-divider>

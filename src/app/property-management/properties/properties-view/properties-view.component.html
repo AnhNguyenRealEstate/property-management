@@ -14,7 +14,8 @@
             <mat-tab>
                 <ng-template matTabLabel>
                     <mat-icon>apartment</mat-icon>
-                    <span class="ps-2">{{'property_category.apartment' | translate}}</span>
+                    <span class="ps-2 pe-2">{{'property_category.apartment' | translate}}</span>
+                    <span>({{ (metadata.propertiesMetadata$ | async)?.apartmentCount }})</span>
                 </ng-template>
                 <div [@propertyCardAnim]="apartments.length" class="row p-2">
                     <div *ngFor="let prop of apartments; let i = index;"
@@ -29,7 +30,8 @@
             <mat-tab>
                 <ng-template matTabLabel>
                     <mat-icon>villa</mat-icon>
-                    <span class="ps-2">{{'property_category.villa' | translate}}</span>
+                    <span class="ps-2 pe-2">{{'property_category.villa' | translate}}</span>
+                    <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
                 </ng-template>
                 <div [@propertyCardAnim]="villas.length" class="row p-2">
                     <div *ngFor="let prop of villas; let i = index;"
@@ -44,7 +46,8 @@
             <mat-tab>
                 <ng-template matTabLabel>
                     <mat-icon>door_sliding</mat-icon>
-                    <span class="ps-2">{{'property_category.townhouse' | translate}}</span>
+                    <span class="ps-2 pe-2">{{'property_category.townhouse' | translate}}</span>
+                    <span>({{ (metadata.propertiesMetadata$ | async)?.townhouseCount }})</span>
                 </ng-template>
                 <div [@propertyCardAnim]="townhouses.length" class="row p-2">
                     <div *ngFor="let prop of townhouses; let i = index;"
@@ -59,7 +62,8 @@
             <mat-tab>
                 <ng-template matTabLabel>
                     <mat-icon>store_front</mat-icon>
-                    <span class="ps-2">{{'property_category.commercial' | translate}}</span>
+                    <span class="ps-2 pe-2">{{'property_category.commercial' | translate}}</span>
+                    <span>({{ (metadata.propertiesMetadata$ | async)?.commercialCount }})</span>
                 </ng-template>
                 <div [@propertyCardAnim]="commercials.length" class="row p-2">
                     <div *ngFor="let prop of commercials; let i = index;"

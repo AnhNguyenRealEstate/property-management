@@ -11,15 +11,16 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
 
         const id = context.params.documentId;
         const creationDate = admin.firestore.Timestamp.fromDate(new Date());
-
-        await snap.ref.update(
+        snap.ref.update(
             {
                 'id': id,
                 'creationDate': creationDate
             }
         );
 
-        //const propertyData = (await snap.ref.get()).data();
+        incrementPropertyCount(snap, 1);
+
+        //const propertyData = snap.data();
         //await registerPropertyWithOwner(propertyData);
     });
 
@@ -31,6 +32,7 @@ exports.postProcessDelete = functions.region('asia-southeast2').firestore
 
         removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
         removeActivities(id);
+        incrementPropertyCount(snap, -1);
     });
 
 //https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
@@ -89,6 +91,34 @@ async function removePaymentSchedulesAndInvoices(paymentScheduleIds: string[]) {
 
     await batch.commit();
 }
+
+function incrementPropertyCount(snap: functions.firestore.QueryDocumentSnapshot, count: number) {
+    const property = snap.data();
+    const propertyCategory = property['category'];
+    let fieldToUpdate = '';
+    switch (propertyCategory) {
+        case 'Apartment':
+            fieldToUpdate = 'apartmentCount'
+            break;
+        case 'Villa':
+            fieldToUpdate = 'villaCount'
+            break;
+        case 'Townhouse':
+            fieldToUpdate = 'townhouseCount'
+            break;
+        case 'Commercial':
+            fieldToUpdate = 'commercialCount'
+            break;
+    }
+
+    const data = {} as any;
+    data[fieldToUpdate] = admin.firestore.FieldValue.increment(count);
+
+    admin.firestore().doc('app-metadata/properties').update(
+        data
+    )
+}
+
 
 // async function registerPropertyWithOwner(propertyData: admin.firestore.DocumentData | undefined) {
 //     if (!propertyData) {

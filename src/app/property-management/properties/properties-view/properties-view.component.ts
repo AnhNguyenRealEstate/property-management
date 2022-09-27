@@ -8,6 +8,7 @@ import { Property } from "../property-card/property-card.data";
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
+import { MetadataService } from 'src/app/shared/metadata.service';
 
 @Component({
     selector: 'properties-view',
@@ -46,7 +47,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public roles: RolesService,
         public propertiesView: PropertiesViewService,
-        private auth: Auth
+        private auth: Auth,
+        public metadata: MetadataService
     ) {
     }
 

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { DocumentSnapshot } from '@angular/fire/firestore';
+import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,6 +24,7 @@ export class PropertyCardComponent implements OnInit {
     @ViewChild('confirmationDialog') confirmationDialogTemplate!: TemplateRef<string>;
 
     propertyNoLongerManaged: boolean = false;
+    contractProgress: number = 0;
 
     constructor(
         private dialog: MatDialog,
@@ -37,6 +38,8 @@ export class PropertyCardComponent implements OnInit {
         this.mostRecentActivity = await this.propertyCard.getMostRecentActivity(this.property);
 
         this.propertyNoLongerManaged = this.property.managementEndDate?.toDate()! < new Date();
+
+        this.calculateContractProgress();
     }
 
     async editProperty(event: Event) {
@@ -103,5 +106,16 @@ export class PropertyCardComponent implements OnInit {
 
     timestampToDate(stamp: any): Date {
         return new Date((stamp as any).seconds * 1000);
+    }
+
+    calculateContractProgress() {
+        const startDate = this.property.managementStartDate!;
+        const endDate = this.property.managementEndDate!;
+        const today = Timestamp.fromDate(new Date());
+
+        const total = endDate.seconds - startDate.seconds;
+        const progressSoFar = today.seconds - startDate.seconds;
+
+        this.contractProgress = Math.floor((progressSoFar / total) * 100);
     }
 }

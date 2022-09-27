@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PropertyManagementComponent } from './property-management.component';
 import { PropertyManagementRoutingModule } from './property-management-routing';
 import { SharedModule } from '../shared/shared.module';
-import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -29,6 +28,7 @@ import { PropertyEditModule } from './properties/property-edit/property-edit.mod
 import { PropertyUploadModule } from './properties/property-upload/property-upload.module';
 import { PropertyCardComponent } from './properties/property-card/property-card.component';
 import { InvoicesViewModule } from './invoices/invoices-view/invoices-view.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,6 @@ import { InvoicesViewModule } from './invoices/invoices-view/invoices-view.modul
     CommonModule,
     PropertyManagementRoutingModule,
     SharedModule,
-    MatTableModule,
     TranslateModule.forChild(
       { extend: true }
     ),
@@ -69,7 +68,8 @@ import { InvoicesViewModule } from './invoices/invoices-view/invoices-view.modul
     ContractExtractionModule,
     PropertyDetailsModule,
     PropertyEditModule,
-    InvoicesViewModule
+    InvoicesViewModule,
+    MatProgressBarModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
