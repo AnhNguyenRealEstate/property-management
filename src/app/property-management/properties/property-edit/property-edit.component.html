@@ -90,11 +90,6 @@
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
-            <mat-form-field class="col- col-sm-6" color="accent">
-                <mat-label>{{ 'property_upload.monthly_rent' | translate }}</mat-label>
-                <input matInput trim="blur" required type="text" name="rentalPrice" [(ngModel)]="property.rentalPrice"
-                    mask="separator" thousandSeparator=",">
-            </mat-form-field>
         </div>
         <div class="row">
             <div class="col-12">

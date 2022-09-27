@@ -12,11 +12,6 @@
             {{property.name}}
         </div>
     </mat-card-title>
-    <mat-card-subtitle>
-        <div class="card-subtitle overrun-wrap" *ngIf="property.rentalPrice">
-            {{ 'property_card.rental_price' | translate: {'price': property.rentalPrice} }}
-        </div>
-    </mat-card-subtitle>
     <mat-card-content class="mb-0">
         <div class="pb-2" *ngIf="property.owner">
             <div class="content-label">{{ 'property_card.owner' | translate }}</div>
@@ -35,7 +30,7 @@
             </div>
         </div>
 
-        <div class="row pb-2">
+        <div class="pb-2">
             <mat-progress-bar *ngIf="!propertyNoLongerManaged" [value]="contractProgress"></mat-progress-bar>
         </div>
 

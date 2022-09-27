@@ -67,8 +67,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             propertyCategory: new FormControl(''),
             propertySubcategory: new FormControl(''),
             startDate: new FormControl<Date | undefined>(undefined),
-            endDate: new FormControl<Date | undefined>(undefined),
-            rentalPrice: new FormControl('')
+            endDate: new FormControl<Date | undefined>(undefined)
         });
     }
 
@@ -130,14 +129,6 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
             const startDate = new Date(year, month, date);
             this.secondFormGroup.get('endDate')?.setValue(startDate);
-        }
-
-        const priceResult = /[0-9,.]+[^\/]*/gm.exec(
-            contractData.RENTAL_PRICE
-        );
-        if (priceResult) {
-            const price = priceResult[0];
-            this.secondFormGroup.get('rentalPrice')?.setValue(price);
         }
 
         this.propertyDescription =

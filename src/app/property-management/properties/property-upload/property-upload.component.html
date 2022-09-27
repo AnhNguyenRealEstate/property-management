@@ -113,11 +113,6 @@
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field class="col- col-sm-6" color="accent">
-                    <mat-label>{{ 'property_upload.monthly_rent' | translate }}</mat-label>
-                    <input matInput trim="blur" required type="text" formControlName="rentalPrice"
-                        [(ngModel)]="property.rentalPrice">
-                </mat-form-field>
             </div>
 
             <div class="row pb-2">
@@ -322,10 +317,6 @@
                     <div class="col-6 col-sm-3" color="accent">
                         <div class="text-bold">{{ 'property_upload.end_date' | translate }}</div>
                         <div [innerHtml]="property.managementEndDate?.toDate() | date: 'dd/MM/YYYY'"></div>
-                    </div>
-                    <div class="col- col-sm-6" color="accent">
-                        <div class="text-bold">{{ 'property_upload.monthly_rent' | translate }}</div>
-                        <div [innerHtml]="property.rentalPrice"></div>
                     </div>
                 </div>
 

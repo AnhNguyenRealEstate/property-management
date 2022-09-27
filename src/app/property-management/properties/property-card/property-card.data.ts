@@ -19,7 +19,6 @@ export interface Property {
     ownerUsername?: string
     owner?: Owner
     tenantName?: string
-    rentalPrice?: string
     lastModifiedBy?: string
     paymentScheduleIds?: string[]
 }
