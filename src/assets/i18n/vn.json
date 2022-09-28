@@ -20,7 +20,8 @@
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
-        "vietnamese": "Tiếng Việt 🇻🇳"
+        "vietnamese": "Tiếng Việt 🇻🇳",
+        "reset_pwd": "Đổi password"
     },
     "login": {
         "page_title": "Đăng nhập",
