@@ -30,8 +30,11 @@
             </div>
         </div>
 
-        <div class="pb-2">
-            <mat-progress-bar *ngIf="!propertyNoLongerManaged" [value]="contractProgress"></mat-progress-bar>
+        <div class="row pb-2">
+            <div class="col-12">
+                <div class="content-label">Thời hạn hợp đồng</div>
+                <mat-progress-bar [value]="contractProgress"></mat-progress-bar>
+            </div>
         </div>
 
         <mat-divider></mat-divider>
