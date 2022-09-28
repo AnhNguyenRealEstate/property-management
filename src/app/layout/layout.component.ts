@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../login/login.service';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
     selector: 'app-layout',
@@ -47,5 +48,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.auth.signOut().then(() => {
             this.router.navigateByUrl('');
         });
+    }
+
+    resetPwd() {
+        this.dialog.open(ResetPasswordComponent)
     }
 }

@@ -193,5 +193,14 @@
         "no_invoices_to_collect": "No invoices to collect",
         "no_invoices_to_show": "No invoices to show"
     },
+    "reset_password": {
+        "title": " Reset password",
+        "current": "Current password",
+        "new": "New password",
+        "new_confirm": "Confirm new password",
+        "minlength": "Minimum password length: 6",
+        "not_matching": "New passwords are not matching",
+        "change": "  Change password"
+    },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

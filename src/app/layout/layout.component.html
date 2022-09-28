@@ -23,6 +23,9 @@
                 <mat-icon>account_circle</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">
+                <a mat-menu-item (click)="resetPwd()">
+                    <mat-icon>lock_reset</mat-icon> Reset password
+                </a>
                 <a mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
                 </a>

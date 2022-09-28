@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { FooterModule } from './footer/footer.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -33,7 +34,8 @@ const maskConfig: Partial<IConfig> = {
     LayoutComponent,
     TimeoutComponent,
     LoginComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

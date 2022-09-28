@@ -197,5 +197,14 @@
         "no_invoices_to_collect": "Chưa có biên nhận cần thu",
         "no_invoices_to_show": "Chưa thu biên nhận trong tháng"
     },
+    "reset_password": {
+        "title": "Đổi password",
+        "current": "Password hiện tại",
+        "new": "Password mới",
+        "new_confirm": "Password mới - đánh lại",
+        "minlength": "Ít nhất 6 ký tự",
+        "not_matching": "Password mới chưa đúng",
+        "change": "Đổi password"
+    },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

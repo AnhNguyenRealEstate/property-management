@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDoc, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
@@ -12,11 +13,14 @@ export class PropertyUploadService {
     public initialNumOfActivities = 10;
 
     constructor(
+        private auth: Auth,
         private firestore: Firestore,
         private storage: Storage
     ) { }
 
     async editProperty(property: Property, newFiles: File[], deletedFiles: UploadedFile[], deletedActivities: Activity[]) {
+        property.lastModifiedBy = this.auth.currentUser?.displayName || this.auth.currentUser?.email || '';
+
         if (deletedFiles.length) {
             deletedFiles.map((fileToDelete) => {
                 deleteObject(ref(this.storage, `${property.fileStoragePath}/${fileToDelete.dbHashedName}`));
@@ -31,7 +35,10 @@ export class PropertyUploadService {
 
         await this.storeFiles(newFiles, property);
 
-        await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property });
+        await updateDoc(
+            doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+            { ...property }
+        );
     }
 
     private async storeFiles(files: File[], property: Property) {
