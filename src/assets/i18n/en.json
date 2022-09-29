@@ -77,7 +77,8 @@
         "uploaded_files": "Uploaded files",
         "submit": "Submit",
         "payment_schedule": "Payment schedule",
-        "tenant_name": "Tenant name"
+        "tenant_name": "Tenant name",
+        "add_schedule": "Add another schedule"
     },
     "property_card": {
         "activity_added": "Activity added 🎉",

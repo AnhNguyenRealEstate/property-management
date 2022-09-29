@@ -56,8 +56,7 @@
                 </mat-form-field>
                 <mat-form-field class="col-12 col-sm-6">
                     <mat-label>{{ 'property_upload.tenant_name' | translate }}</mat-label>
-                    <input matInput formControlName="tenantName" type="text" required
-                        [(ngModel)]="property.tenantName">
+                    <input matInput formControlName="tenantName" type="text" required [(ngModel)]="property.tenantName">
                 </mat-form-field>
             </div>
 
@@ -144,8 +143,9 @@
 
         <ng-container *ngFor="let sched of schedules; let i = index">
             <div class="mt-2">
-                <payment-schedule [schedule]="sched" [edit]="true"
-                    [property]="property" [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                <payment-schedule [schedule]="sched" [edit]="true" [property]="property"
+                    [columnHeaders]="['description', 'amount', 'paymentWindow']"
+                    [defaultValues]="{startDate: secondFormGroup.get('startDate')?.value, endDate: secondFormGroup.get('endDate')?.value}">
                 </payment-schedule>
             </div>
         </ng-container>
@@ -153,7 +153,7 @@
         <div class="row pt-2 pb-2 ">
             <div class="col-12">
                 <button mat-raised-button (click)="addSchedule()">
-                    <mat-icon>add</mat-icon> Add another schedule
+                    <mat-icon>add</mat-icon> {{ 'property_upload.add_schedule' | translate }}
                 </button>
             </div>
         </div>
@@ -176,11 +176,6 @@
         <ng-template matStepLabel>{{ 'property_upload.additional_files' | translate }}</ng-template>
         <div class="row pb-4">
             <div class="col-12">
-                <input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
-                    (change)="onFileUpload($event); secondFormGroup.markAsTouched();" />
-                <button mat-raised-button (click)="filesInput.click()">
-                    <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' | translate }}
-                </button>
                 <div class="uploaded-files pt-2" cdkDropList
                     (cdkDropListDropped)="uploadedFileDrop($event); secondFormGroup.markAsTouched();">
                     <mat-card class="mat-elevation-z3" *ngFor="let doc of property.documents; let i = index;" cdkDrag>
@@ -194,9 +189,9 @@
                                     <div>
                                         <button #checkBtnMobile mat-button
                                             [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
-                                         editMobile.hidden = true;
-                                         onFileNameChange(doc.displayName!, edit.value, doc);
-                                         secondFormGroup.markAsTouched();">
+                                     editMobile.hidden = true;
+                                     onFileNameChange(doc.displayName!, edit.value, doc);
+                                     secondFormGroup.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>
                                         <button #editBtnMobile mat-button
@@ -222,9 +217,9 @@
                                     [ngModelOptions]="{standalone: true}" style="width: 50vw">
                                 <div>
                                     <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
-                                    edit.hidden = true;
-                                    onFileNameChange(doc.displayName!, edit.value, doc);
-                                    secondFormGroup.markAsTouched();">
+                                edit.hidden = true;
+                                onFileNameChange(doc.displayName!, edit.value, doc);
+                                secondFormGroup.markAsTouched();">
                                         <mat-icon color="accent">check</mat-icon>
                                     </button>
                                     <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
@@ -241,6 +236,14 @@
                             </div>
                         </mat-card-content>
                     </mat-card>
+                </div>
+
+                <input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
+                    (change)="onFileUpload($event); secondFormGroup.markAsTouched();" />
+                <div class="pt-2">
+                    <button mat-raised-button (click)="filesInput.click()">
+                        <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' | translate }}
+                    </button>
                 </div>
             </div>
         </div>

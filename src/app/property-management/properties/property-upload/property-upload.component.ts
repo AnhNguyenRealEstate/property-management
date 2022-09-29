@@ -134,8 +134,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             const month = Number(endDateResult[1]) - 1;
             const date = Number(endDateResult[0]);
 
-            const startDate = new Date(year, month, date);
-            this.secondFormGroup.get('endDate')?.setValue(startDate);
+            const endDate = new Date(year, month, date);
+            this.secondFormGroup.get('endDate')?.setValue(endDate);
         }
 
         this.propertyDescription =

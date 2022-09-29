@@ -5,7 +5,12 @@ import { Property } from '../properties/property-card/property-card.data';
 import { PaymentSchedule } from './payment-schedule.data';
 import { DatePipe } from '@angular/common';
 import { PaymentScheduleService } from './payment-schedule.service';
+import { ContractData } from '../properties/property-upload/property-upload.data';
 
+export interface DefaultInputValues {
+    startDate?: Date,
+    endDate?: Date
+}
 @Component({
     selector: 'payment-schedule',
     templateUrl: './payment-schedule.component.html',
@@ -19,6 +24,7 @@ export class PaymentScheduleComponent implements OnInit {
     @Input() columnHeaders!: (keyof Invoice)[];
     @Input() canChangeStatus: boolean = false;
     @Input() scheduleName: string = '';
+    @Input() defaultValues: DefaultInputValues | undefined;
 
     headerCellClass: string = '';
     lineItemCellClass: string = '';

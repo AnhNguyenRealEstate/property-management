@@ -81,7 +81,8 @@
         "uploaded_files": "Danh sách file",
         "submit": "Đăng ký",
         "payment_schedule": "Lịch thanh toán",
-        "tenant_name": "Bên thuê"
+        "tenant_name": "Bên thuê",
+        "add_schedule": "Tạo lịch thanh toán"
     },
     "property_card": {
         "activity_added": "Đã thêm hoạt động 🎉",

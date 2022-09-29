@@ -7,7 +7,7 @@ import { Property } from "../property-card/property-card.data";
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
-import { MetadataService } from 'src/app/shared/metadata.service';
+import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 
 @Component({
     selector: 'properties-view',
@@ -42,6 +42,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     algoliaQuery = '';
 
+    propertiesMetadata = {} as PropertiesMetadata;
+
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
@@ -55,6 +57,10 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
             if (roles.includes('customer-service')) {
                 this.apartments = await this.propertiesView.getProperties('Apartment');
             }
+        }));
+
+        this.subs.add(this.metadata.propertiesMetadata$.subscribe(data => {
+            this.propertiesMetadata = data;
         }));
     }
 
@@ -107,15 +113,19 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
                 switch (prop.category) {
                     case 'Apartment':
                         this.apartments.unshift(prop);
+                        this.propertiesMetadata.apartmentCount++;
                         break;
                     case 'Commercial':
                         this.commercials.unshift(prop);
+                        this.propertiesMetadata.commercialCount++;
                         break;
                     case 'Townhouse':
                         this.townhouses.unshift(prop);
+                        this.propertiesMetadata.townhouseCount++;
                         break;
                     case 'Villa':
                         this.villas.unshift(prop);
+                        this.propertiesMetadata.villaCount++;
                         break;
                 }
             }

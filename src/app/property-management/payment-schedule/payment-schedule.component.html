@@ -6,7 +6,7 @@
                     <mat-form-field class="col-4 me-0 pe-0">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
                         <input #amount matInput name="amount" type="text" required
-                            [placeholder]="'payment_schedule.amount' | translate" value="">
+                            [placeholder]="'payment_schedule.amount' | translate" [value]="">
                     </mat-form-field>
                     <mat-form-field class="col-4 ms-0 ps-0 me-0 pe-0">
                         <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.every' | translate }}</span>
@@ -26,15 +26,17 @@
                         <span matPrefix class="ps-1 pe-3">{{ 'payment_schedule.from' | translate }}</span>
                         <input readonly #beginDate matInput name="beginDate" [matDatepicker]="beginningDatePicker"
                             required [placeholder]="'payment_schedule.first_due_date' | translate"
+                            [value]="defaultValues?.startDate | date: 'yyyy-MM-dd'"
                             (click)="beginningDatePicker.open()" />
                         <mat-datepicker-toggle matSuffix [for]="beginningDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #beginningDatePicker></mat-datepicker>
                     </mat-form-field>
+
                     <mat-form-field class="col-6 ms-0 ps-0">
                         <span matPrefix class="ps-3 pe-3">{{ 'payment_schedule.to' | translate }}</span>
                         <input readonly #endDate matInput name="endDate" [matDatepicker]="endDatePicker" required
                             [placeholder]="'payment_schedule.final_due_date' | translate"
-                            (click)="endDatePicker.open()" />
+                            [value]="defaultValues?.endDate | date: 'yyyy-MM-dd'" (click)="endDatePicker.open()" />
                         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #endDatePicker></mat-datepicker>
                     </mat-form-field>
