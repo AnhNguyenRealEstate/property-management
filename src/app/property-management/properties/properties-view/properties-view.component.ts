@@ -135,10 +135,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async onTabChange($event: number) {
-        if (!(await lastValueFrom(this.roles.roles$)).includes('customer-service')) {
-            return;
-        }
-
         switch ($event) {
             case 0:
                 this.apartments = await this.propertiesView.getProperties('Apartment');
