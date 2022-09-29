@@ -1,6 +1,6 @@
 <section class="container-flex">
     <div *ngIf="isDesktop">
-        <mat-drawer-container style="height: 100vh;">
+        <mat-drawer-container class="default-background" style="height: 100vh;">
             <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
                 <div class="row mt-4 me-1">
                     <!-- <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
@@ -47,7 +47,7 @@
         </mat-drawer-container>
     </div>
 
-    <div *ngIf="!isDesktop">
+    <div *ngIf="!isDesktop" class="default-background">
         <mat-tab-group color="accent" dynamicHeight="true" (selectedIndexChange)="changeView($event)" mat-stretch-tabs>
             <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
@@ -66,11 +66,11 @@
                         translate }}</span>
                 </ng-template>
             </mat-tab>
-            <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
+            <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
                     <span (click)="viewInvoices()">{{ 'property_management.invoices' | translate }}</span>
                 </ng-template>
-            </mat-tab>
+            </mat-tab> -->
         </mat-tab-group>
         <router-outlet name="property-management-outlet"></router-outlet>
     </div>

@@ -64,8 +64,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     showDetails(property: Property) {
         const config = {
-            height: '90%',
-            width: '100%',
+            height: '80%',
+            width: '60%',
             autoFocus: false,
             data: {
                 property: property

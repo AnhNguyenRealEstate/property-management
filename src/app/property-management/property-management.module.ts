@@ -29,6 +29,7 @@ import { PropertyUploadModule } from './properties/property-upload/property-uplo
 import { PropertyCardComponent } from './properties/property-card/property-card.component';
 import { InvoicesViewModule } from './invoices/invoices-view/invoices-view.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogConfig, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressBarModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+        ...new MatDialogConfig(),
+        enterAnimationDuration: '200ms',
+        exitAnimationDuration: '200ms'
+      }
+    }
   ]
 })
 export class PropertyManagementModule {

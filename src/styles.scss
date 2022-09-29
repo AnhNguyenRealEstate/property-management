@@ -29,3 +29,9 @@ mat-spinner {
     width: initial !important;
     overflow-y: inherit !important;
 }
+
+.default-background {
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    background-size: cover;
+    background-position: 0% 50%;
+}
