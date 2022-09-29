@@ -83,6 +83,7 @@
                     <mat-icon>description</mat-icon>
                     <span class="ps-2">{{'property_details.related_documents' | translate}}</span>
                 </ng-template>
+
                 <div class="row pt-2" *ngFor="let doc of property.documents">
                     <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">
                         <span class="related-document-date">{{doc.date?.toDate() | date:'dd/MM/yyyy'}}</span>
@@ -92,6 +93,7 @@
                         <mat-icon color="accent">download</mat-icon>
                     </button>
                 </div>
+
                 <div class="pt-2" *ngIf="!property.documents?.length">
                     {{ 'property_details.no_docs' | translate }}
                 </div>
