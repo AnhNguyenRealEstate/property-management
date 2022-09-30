@@ -1,7 +1,10 @@
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { Component, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activities-view/activity.data";
+import { ActivityListService } from './activity-list.service';
 
 export interface DayActivities {
     date?: Date,
@@ -40,7 +43,9 @@ export class ActivityListComponent implements OnChanges {
     activitiesByDates: DayActivities[] = [];
 
     constructor(
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private activityList: ActivityListService,
+        private dialog: MatDialog
     ) {
     }
 
@@ -98,6 +103,21 @@ export class ActivityListComponent implements OnChanges {
 
         const index = activities?.findIndex(activities => activities.id === activityToRemove.id);
         activities.splice(index, 1);
+    }
+
+    async showPropertyDetails(propertyId: string) {
+        const property = await this.activityList.getProperty(propertyId);
+
+        const config = {
+            height: '90%',
+            width: '80%',
+            autoFocus: false,
+            data: {
+                property: property
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(PropertyDetailsComponent, config);
     }
 
 }

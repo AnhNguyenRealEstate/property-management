@@ -1,0 +1,20 @@
+@use "src/app/styles/colors" as colors;
+
+.invoice-title {
+    color: colors.$accent-300;
+}
+
+.invoice-description {
+    font-size: 0.8rem;
+}
+
+.mat-expansion-panel-header-title {
+    width: 20vw;
+    margin-right: 0 !important;
+    align-items: center;
+}
+
+.label {
+    font-size: 1.2rem;
+    text-decoration: bold;
+}

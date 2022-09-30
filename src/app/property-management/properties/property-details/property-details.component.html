@@ -30,6 +30,19 @@
 
     <mat-divider></mat-divider>
 
+    <div class="row py-3">
+        <div *ngIf="property.managementStartDate" class="col-12 col-sm-6">
+            <div class="pb-1 text-bold">Start date</div>
+            <div>{{property.managementStartDate.toDate() | date: 'dd/MM/yyyy'}}</div>
+        </div>
+        <div *ngIf="property.managementEndDate" class="col-12 col-sm-6">
+            <div class="pb-1 text-bold">End date</div>
+            <div>{{property.managementEndDate.toDate() | date: 'dd/MM/yyyy'}}</div>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
     <div *ngIf="property.description" class="pt-3">
         <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>
         <div [innerHtml]="property.description"></div>

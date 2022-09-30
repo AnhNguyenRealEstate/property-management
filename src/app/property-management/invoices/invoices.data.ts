@@ -1,6 +1,6 @@
 import { Timestamp } from "@angular/fire/firestore"
 
-type PaymentStatus = 'paid' | 'unpaid' | 'partiallyPaid'
+type PaymentStatus = 'paid' | 'unpaid' | 'partiallyPaid' | 'doNotCollect'
 type StoragePath = string //Fire Storage path
 
 export interface Invoice {

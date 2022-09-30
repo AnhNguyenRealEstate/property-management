@@ -35,17 +35,13 @@ export class InvoicesViewComponent implements OnInit {
         private invoicesView: InvoicesViewService
     ) { }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.getUnpaidInvoices();
         this.getPaidInvoices();
     }
 
     async getUnpaidInvoices() {
         const invoices = await this.invoicesView.getUnpaidInvoices(this.today);
-        for (let i = 0; i < invoices.length; i++) {
-            const invoice = invoices[i];
-            invoice.description = `${invoice.propertyName}, thu trong vòng ${invoice.payWithin} ngày`
-        }
         this.uncollectedInvoices.lineItems = invoices;
     }
 

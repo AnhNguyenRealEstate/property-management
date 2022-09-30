@@ -204,5 +204,8 @@
         "not_matching": "New passwords are not matching",
         "change": "  Change password"
     },
+    "invoice_list":{ 
+        "period": "Period"
+    },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

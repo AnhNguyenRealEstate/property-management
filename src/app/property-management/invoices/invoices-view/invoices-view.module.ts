@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
-
+import { InvoiceListModule } from '../invoice-list/invoice-list.module';
+import { NgxPrintModule } from 'ngx-print';
 import { InvoicesViewComponent } from './invoices-view.component';
 
 @NgModule({
@@ -12,7 +13,9 @@ import { InvoicesViewComponent } from './invoices-view.component';
         CommonModule,
         SharedModule,
         TranslateModule.forChild({ extend: true }),
-        PaymentScheduleModule
+        PaymentScheduleModule,
+        InvoiceListModule,
+        NgxPrintModule
     ],
     exports: [InvoicesViewComponent]
 })

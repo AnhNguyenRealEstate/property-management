@@ -37,7 +37,9 @@
                     (mouseleave)="hideDeleteBtn(deleteBtn)">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <div class="property-name">{{activity.propertyName}}</div>
+                            <button mat-button (click)="showPropertyDetails(activity.propertyId!)">
+                                <span class="property-name">{{activity.propertyName}}</span>
+                            </button>
                         </mat-panel-title>
                         <mat-panel-description>
                             <div class="property-description">{{activity.description}}</div>

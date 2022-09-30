@@ -23,7 +23,6 @@ import { ActivityListModule } from './activities/activity-list/activity-list.mod
 import { ActivityUploadComponent } from './activities/activity-upload/activity-upload.component';
 import { OwnerListModule } from './owners/owner-list/owner-list.module';
 import { OwnerUploadModule } from './owners/owner-upload/owner-upload.module';
-import { PropertyDetailsModule } from './properties/property-details/property-details.module';
 import { PropertyEditModule } from './properties/property-edit/property-edit.module';
 import { PropertyUploadModule } from './properties/property-upload/property-upload.module';
 import { PropertyCardComponent } from './properties/property-card/property-card.component';
@@ -67,7 +66,6 @@ import { MatDialogConfig, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/d
     ),
     MatButtonToggleModule,
     ContractExtractionModule,
-    PropertyDetailsModule,
     PropertyEditModule,
     InvoicesViewModule,
     MatProgressBarModule
