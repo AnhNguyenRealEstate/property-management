@@ -4,6 +4,7 @@
 @use "app/styles/base";
 @import "~/node_modules/placeholder-loading/src/scss/placeholder-loading";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "~/node_modules/ngx-easy-table/style.scss";
 
 html,
 body {
@@ -34,4 +35,8 @@ mat-spinner {
     background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
     background-size: cover;
     background-position: 0% 50%;
+}
+
+#table {
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }

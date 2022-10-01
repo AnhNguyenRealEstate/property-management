@@ -183,7 +183,7 @@
         "payee": "Payee",
         "status": "Payment status",
         "invoice_description": "Description",
-        "paid": "Paid ✅",
+        "paid": "Paid  ✅",
         "unpaid": "Unpaid ",
         "partiallyPaid": "Partially paid",
         "property_name": "Property name",

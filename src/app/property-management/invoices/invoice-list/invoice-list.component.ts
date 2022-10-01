@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
@@ -64,6 +65,7 @@ export class InvoiceListComponent implements OnInit {
 
     approveInvoice(invoice: Invoice) {
         invoice.status = 'paid';
+        invoice.paymentDate = Timestamp.fromDate(new Date());
         this.invoiceList.updateInvoice(invoice);
     }
 

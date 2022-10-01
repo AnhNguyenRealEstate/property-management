@@ -6,8 +6,6 @@ import { Property, PropertyCategory } from "../property-card/property-card.data"
 
 @Injectable({ providedIn: 'root' })
 export class PropertiesViewService {
-    private quotaPerQuery = 20;
-
     private gettingProperties$$ = new BehaviorSubject<boolean>(false);
     gettingProperties$ = this.gettingProperties$$.asObservable();
 
@@ -21,7 +19,6 @@ export class PropertiesViewService {
 
         let q = query(
             collection(this.firestore, FirestoreCollections.underManagement),
-            limit(this.quotaPerQuery),
             orderBy('creationDate', 'desc')
         );
 

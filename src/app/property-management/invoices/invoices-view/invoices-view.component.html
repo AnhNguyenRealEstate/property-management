@@ -47,11 +47,14 @@
         </div>
         <div class="row px-2 py-2" id="print-section-collected">
             <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length"
-                [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
-                <payment-schedule [schedule]="collectedInvoices" [edit]="false"
-                    [columnHeaders]="['propertyName', 'payer', 'amount', 'paymentDate']">
-                </payment-schedule>
+                [@scheduleAnim]="collectedInvoices.lineItems?.length">
+                <ngx-table [configuration]="collectedInvoicesConfig" [columns]="collectedInvoicesCols"
+                    [data]="collectedInvoices.lineItems!"></ngx-table>
             </div>
         </div>
     </mat-tab>
 </mat-tab-group>
+
+<ng-template #paymentDateTpl let-row>
+    {{ row.paymentDate?.toDate() | date: 'dd/MM/yyyy' }}
+</ng-template>

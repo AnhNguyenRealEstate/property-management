@@ -6,6 +6,7 @@ import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.m
 import { InvoiceListModule } from '../invoice-list/invoice-list.module';
 import { NgxPrintModule } from 'ngx-print';
 import { InvoicesViewComponent } from './invoices-view.component';
+import { TableModule } from 'ngx-easy-table';
 
 @NgModule({
     declarations: [InvoicesViewComponent],
@@ -15,7 +16,8 @@ import { InvoicesViewComponent } from './invoices-view.component';
         TranslateModule.forChild({ extend: true }),
         PaymentScheduleModule,
         InvoiceListModule,
-        NgxPrintModule
+        NgxPrintModule,
+        TableModule
     ],
     exports: [InvoicesViewComponent]
 })

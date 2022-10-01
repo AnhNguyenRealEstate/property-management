@@ -1,13 +1,14 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../../activities/activities-view/activity.data';
-import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
 import { Property } from "../property-card/property-card.data";
 import { PropertyDetailsService } from './property-details.service';
+import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'property-details',
@@ -26,8 +27,25 @@ export class PropertyDetailsComponent implements OnInit {
 
     loading: boolean = true;
 
+    @ViewChild('statusTpl') statusTpl!: TemplateRef<string>;
+
+    paymentScheduleConfig: Config = {
+        ...DefaultConfig,
+        tableLayout: {
+            style: 'normal',
+            theme: 'light',
+            borderless: true,
+            hover: false,
+            striped: true
+        },
+        rows: 5
+    };
+
+    paymentScheduleCols: Columns[] = [];
+
     constructor(
         private propertyDetails: PropertyDetailsService,
+        private translate: TranslateService,
         public roles: RolesService,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
@@ -38,6 +56,12 @@ export class PropertyDetailsComponent implements OnInit {
         await this.getActivities();
         await this.getPaymentSchedules();
         this.loading = false;
+        this.paymentScheduleCols = [
+            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description') },
+            { key: 'amount', title: this.translate.instant('payment_schedule.amount') },
+            { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window') },
+            { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl }
+        ];
     }
 
     async getActivities() {

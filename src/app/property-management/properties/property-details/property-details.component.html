@@ -80,9 +80,8 @@
                 </ng-template>
                 <div class="row" *ngIf="schedules?.length; else noSchedules">
                     <div class="col-12 p-3" *ngFor="let schedule of schedules">
-                        <payment-schedule [edit]="false" [schedule]="schedule"
-                            [columnHeaders]="['description', 'amount', 'paymentWindow', 'status']">
-                        </payment-schedule>
+                        <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
+                            [data]="schedule.lineItems!"></ngx-table>
                     </div>
                 </div>
 
@@ -114,3 +113,7 @@
         </mat-tab-group>
     </div>
 </section>
+
+<ng-template #statusTpl let-row>
+    {{ 'payment_schedule.' + row.status | translate }}
+</ng-template>
