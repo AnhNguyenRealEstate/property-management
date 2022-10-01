@@ -5,8 +5,8 @@
             <mat-panel-title class="invoice-title">
                 <button mat-button (click)="showPropertyDetails(invoice.propertyId!)">{{invoice.propertyName}}</button>
             </mat-panel-title>
-            <mat-panel-description class="invoice-description d-none d-sm-block">
-                <span class="pe-5">{{invoice.payer}}</span>
+            <mat-panel-description class="invoice-description d-none d-sm-block pt-2">
+                <span class="pe-5">{{ 'invoice_list.from' | translate }}: {{invoice.payer}}</span>
                 <span class="pe-5">{{invoice.amount}}</span>
                 <span class="pe-5">{{ 'invoice_list.period' | translate }}: {{invoice.paymentWindow}}</span>
             </mat-panel-description>
@@ -19,8 +19,7 @@
             <div style="display: none" #approveBtn>
                 <button
                     *ngIf="canEditInvoices && invoice.status === 'unpaid' && !editableInvoices.includes(invoice.id!)"
-                    mat-button matTooltip="Payment received"
-                    (click)="$event.stopPropagation(); approveInvoice(invoice)">
+                    mat-button matTooltip="Payment received" (click)="$event.stopPropagation(); invoicePaid(invoice)">
                     <mat-icon color="accent">check</mat-icon>
                 </button>
             </div>

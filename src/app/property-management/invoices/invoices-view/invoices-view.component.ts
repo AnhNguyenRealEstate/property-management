@@ -1,7 +1,6 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
-import { Invoice } from '../invoices.data';
 import { InvoicesViewService } from './invoices-view.service';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,20 +32,24 @@ export class InvoicesViewComponent implements OnInit {
     collectedInvoices: PaymentSchedule = {};
 
     @ViewChild('paymentDateTpl') paymentDateTpl!: TemplateRef<string>;
-    collectedInvoicesConfig: Config = {
+    @ViewChild('beginDateTpl') beginDateTpl!: TemplateRef<string>;
+
+    tableConfig: Config = {
         ...DefaultConfig,
         tableLayout: {
             style: 'normal',
             theme: 'light',
-            borderless: true,
+            borderless: false,
             hover: false,
-            striped: true
+            striped: false
         },
-        rowReorder: false,
-        rows: 1000
+        rows: 1000,
+        paginationEnabled: false
     };
 
     collectedInvoicesCols: Columns[] = [];
+
+    uncollectedInvoicesCols: Columns[] = [];
 
     constructor(
         private invoicesView: InvoicesViewService,
@@ -64,6 +67,14 @@ export class InvoicesViewComponent implements OnInit {
             { key: 'paymentDate', title: this.translate.instant('payment_schedule.payment_date'), cellTemplate: this.paymentDateTpl, width: '10%' },
             { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), width: '30%' },
         ];
+
+        this.uncollectedInvoicesCols = [
+            { key: 'propertyName', title: this.translate.instant('payment_schedule.property_name') },
+            { key: 'payer', title: this.translate.instant('payment_schedule.payer'), width: '15%' },
+            { key: 'amount', title: this.translate.instant('payment_schedule.amount') },
+            { key: 'beginDate', title: this.translate.instant('payment_schedule.begin_date'), cellTemplate: this.beginDateTpl, width: '10%' },
+            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), width: '30%' },
+        ]
     }
 
     async getUnpaidInvoices() {

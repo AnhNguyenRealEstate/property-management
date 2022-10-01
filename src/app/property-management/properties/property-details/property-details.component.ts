@@ -34,7 +34,7 @@ export class PropertyDetailsComponent implements OnInit {
         tableLayout: {
             style: 'normal',
             theme: 'light',
-            borderless: true,
+            borderless: false,
             hover: false,
             striped: true
         },

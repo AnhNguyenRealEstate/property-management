@@ -16,15 +16,13 @@
         <div class="d-none">
             <div class="row px-2 py-2" id="print-section-uncollected">
                 <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
-                    <payment-schedule [schedule]="uncollectedInvoices"
-                        [columnHeaders]="['beginDate', 'payer', 'amount', 'description', 'status']">
-                    </payment-schedule>
+                    <ngx-table [configuration]="tableConfig" [columns]="uncollectedInvoicesCols"
+                        [data]="uncollectedInvoices.lineItems!"></ngx-table>
                 </div>
             </div>
         </div>
 
-        <div id="print-section-uncollected" class="row px-2 py-2"
-            [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
+        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
             <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
                 <invoice-list [canEditInvoices]="true" [invoices]="uncollectedInvoices.lineItems!">
                 </invoice-list>
@@ -45,11 +43,18 @@
                 </button>
             </div>
         </div>
-        <div class="row px-2 py-2" id="print-section-collected">
-            <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length"
-                [@scheduleAnim]="collectedInvoices.lineItems?.length">
-                <ngx-table [configuration]="collectedInvoicesConfig" [columns]="collectedInvoicesCols"
-                    [data]="collectedInvoices.lineItems!"></ngx-table>
+        <div class="d-none">
+            <div class="row px-2 py-2" id="print-section-collected">
+                <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length">
+                    <ngx-table [configuration]="tableConfig" [columns]="collectedInvoicesCols"
+                        [data]="collectedInvoices.lineItems!"></ngx-table>
+                </div>
+            </div>
+        </div>
+        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
+            <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
+                <invoice-list [canEditInvoices]="false" [invoices]="collectedInvoices.lineItems!">
+                </invoice-list>
             </div>
         </div>
     </mat-tab>
@@ -57,4 +62,8 @@
 
 <ng-template #paymentDateTpl let-row>
     {{ row.paymentDate?.toDate() | date: 'dd/MM/yyyy' }}
+</ng-template>
+
+<ng-template #beginDateTpl let-row>
+    {{ row.beginDate?.toDate() | date: 'dd/MM/yyyy' }}
 </ng-template>

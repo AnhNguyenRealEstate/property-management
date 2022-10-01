@@ -63,7 +63,7 @@ export class InvoiceListComponent implements OnInit {
         this.editableInvoices = this.editableInvoices.filter(id => id !== invoice.id);
     }
 
-    approveInvoice(invoice: Invoice) {
+    invoicePaid(invoice: Invoice) {
         invoice.status = 'paid';
         invoice.paymentDate = Timestamp.fromDate(new Date());
         this.invoiceList.updateInvoice(invoice);

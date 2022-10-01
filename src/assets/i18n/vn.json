@@ -208,7 +208,8 @@
         "not_matching": "Password mới chưa đúng",
         "change": "Đổi password"
     },
-    "invoice_list":{ 
+    "invoice_list": {
+        "from": "Từ",
         "period": "Giai đoạn"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"

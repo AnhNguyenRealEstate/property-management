@@ -205,6 +205,7 @@
         "change": "  Change password"
     },
     "invoice_list":{ 
+        "from": "From",
         "period": "Period"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
