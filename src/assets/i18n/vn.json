@@ -197,7 +197,8 @@
         "uncollected_invoices": "Chưa thu",
         "collected_invoices": "Đã thu trong tháng",
         "no_invoices_to_collect": "Chưa có biên nhận cần thu",
-        "no_invoices_to_show": "Chưa thu biên nhận trong tháng"
+        "no_invoices_to_show": "Chưa thu biên nhận trong tháng",
+        "print": "In"
     },
     "reset_password": {
         "title": "Đổi password",

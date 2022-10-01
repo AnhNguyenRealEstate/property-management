@@ -193,7 +193,8 @@
         "uncollected_invoices": "Uncollected invoices",
         "collected_invoices": "Collected invoices",
         "no_invoices_to_collect": "No invoices to collect",
-        "no_invoices_to_show": "No invoices to show"
+        "no_invoices_to_show": "No invoices to show",
+        "print": "Print"
     },
     "reset_password": {
         "title": " Reset password",
