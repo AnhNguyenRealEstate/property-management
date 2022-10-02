@@ -1,5 +1,7 @@
 .property-card-wrapper:hover {
-    transform: translate3D(0, -1px, 0) scale(1.02);
+    @media screen and (min-width: "600px") {
+        transform: translate3D(0, -1px, 0) scale(1.02);
+    }
 }
 
 .search-bar {

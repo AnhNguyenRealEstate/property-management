@@ -32,6 +32,7 @@ exports.postProcessDelete = functions.region('asia-southeast2').firestore
 
         removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
         removeActivities(id);
+        removeFiles(snap.get('fileStoragePath'))
         incrementPropertyCount(snap, -1);
     });
 
@@ -90,6 +91,16 @@ async function removePaymentSchedulesAndInvoices(paymentScheduleIds: string[]) {
     }))
 
     await batch.commit();
+}
+
+async function removeFiles(storagePath: string) {
+    const [files] = await admin.storage().bucket().getFiles({ prefix: `${storagePath}/` });
+    if (files.length) {
+        files.map(file => {
+            file.delete();
+        })
+    }
+
 }
 
 function incrementPropertyCount(snap: functions.firestore.QueryDocumentSnapshot, count: number) {

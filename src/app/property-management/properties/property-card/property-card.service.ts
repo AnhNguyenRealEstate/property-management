@@ -22,14 +22,6 @@ export class PropertyCardService {
             return;
         }
 
-        const fileStoragePath = property.fileStoragePath!;
-        listAll(ref(this.storage, fileStoragePath)).then(result => {
-            const allFiles = result.items;
-            allFiles.map(file => {
-                deleteObject(ref(file));
-            });
-        });
-
         deleteDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`));
     }
 

@@ -18,13 +18,17 @@
                     (blur)="checkIfOwnerAlreadyExists(property.ownerUsername?.trim() || '')">
             </mat-form-field> -->
 
-            <ng-container *ngIf="!(property.owner?.contactName && property.owner?.contactInfo)">
-                <mat-form-field class="col-12 col-sm-6" color="accent">
-                    <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
-                    <input matInput trim="blur" type="text" name="ownerContactName"
-                        [(ngModel)]="property.owner!.contactName">
-                </mat-form-field>
-            </ng-container>
+            <mat-form-field class="col-12 col-sm-6" color="accent">
+                <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
+                <input matInput trim="blur" type="text" name="ownerContactName"
+                    [(ngModel)]="property.owner!.contactName">
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-sm-6" color="accent">
+                <mat-label>{{ 'property_upload.tenant_name' | translate }}</mat-label>
+                <input matInput trim="blur" type="text" name="tenantName"
+                    [(ngModel)]="property.tenantName">
+            </mat-form-field>
 
             <ng-container *ngIf="property.owner?.contactName && property.owner?.contactInfo">
                 <div class="col-12">

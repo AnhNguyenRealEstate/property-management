@@ -32,11 +32,11 @@
 
     <div class="row py-3">
         <div *ngIf="property.managementStartDate" class="col-12 col-sm-6">
-            <div class="pb-1 text-bold">Start date</div>
+            <div class="pb-1 text-bold">{{ 'property_details.start_date' | translate }}</div>
             <div>{{property.managementStartDate.toDate() | date: 'dd/MM/yyyy'}}</div>
         </div>
         <div *ngIf="property.managementEndDate" class="col-12 col-sm-6">
-            <div class="pb-1 text-bold">End date</div>
+            <div class="pb-1 text-bold">{{ 'property_details.end_date' | translate }}</div>
             <div>{{property.managementEndDate.toDate() | date: 'dd/MM/yyyy'}}</div>
         </div>
     </div>
@@ -58,8 +58,7 @@
                 </ng-template>
                 <ng-container *ngIf="activities?.length; else noActivity">
                     <activity-list [activities]="activities!"
-                        [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"
-                        (download)="downloadDoc($event)">
+                        [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')">
                     </activity-list>
                     <div *ngIf="showViewMoreActivities" class="row">
                         <button class="d-block pt-2" mat-button (click)="getMoreActivities()" color="accent">

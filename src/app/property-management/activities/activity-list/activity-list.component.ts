@@ -37,15 +37,13 @@ export interface DayActivities {
 export class ActivityListComponent implements OnChanges {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
-    @Output() download: EventEmitter<UploadedFile> = new EventEmitter();
     @Output() activityRemoved: EventEmitter<Activity> = new EventEmitter();
 
     activitiesByDates: DayActivities[] = [];
 
     constructor(
         private renderer: Renderer2,
-        private activityList: ActivityListService,
-        private dialog: MatDialog
+        private activityList: ActivityListService
     ) {
     }
 
@@ -53,8 +51,11 @@ export class ActivityListComponent implements OnChanges {
         this.categorizeActivitiesByDates();
     }
 
-    downloadFile(doc: UploadedFile) {
-        this.download.emit(doc);
+    async downloadDoc(activity: Activity, doc: UploadedFile) {
+        const file = await this.activityList.downloadDoc(`${activity.fileStoragePath}/${doc.dbHashedName}`);
+
+        const url = window.URL.createObjectURL(file);
+        window.open(url);
     }
 
     showDeleteBtn(deleteBtn: HTMLDivElement) {
@@ -94,7 +95,7 @@ export class ActivityListComponent implements OnChanges {
         }
     }
 
-    removeActivity(activityToRemove: Activity) {
+    async removeActivity(activityToRemove: Activity) {
         this.activityRemoved.emit(activityToRemove);
         const activities = this.activitiesByDates.find(day => day.date?.getDate() == activityToRemove.date?.toDate().getDate())?.activities;
         if (!activities?.length) {
@@ -103,21 +104,8 @@ export class ActivityListComponent implements OnChanges {
 
         const index = activities?.findIndex(activities => activities.id === activityToRemove.id);
         activities.splice(index, 1);
-    }
 
-    async showPropertyDetails(propertyId: string) {
-        const property = await this.activityList.getProperty(propertyId);
-
-        const config = {
-            height: '90%',
-            width: '80%',
-            autoFocus: false,
-            data: {
-                property: property
-            }
-        } as MatDialogConfig;
-
-        this.dialog.open(PropertyDetailsComponent, config);
+        await this.activityList.removeActivity(activityToRemove);
     }
 
 }

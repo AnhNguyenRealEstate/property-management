@@ -113,7 +113,9 @@
         "category": "Phân loại",
         "address": "Địa chỉ",
         "payment_schedules": "Lịch thanh toán",
-        "no_schedules": "Không có lịch thanh toán"
+        "no_schedules": "Không có lịch thanh toán",
+        "start_date": "Ngày bắt đầu hợp đồng",
+        "end_date": "Ngày hết hạn hợp đồng"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",
