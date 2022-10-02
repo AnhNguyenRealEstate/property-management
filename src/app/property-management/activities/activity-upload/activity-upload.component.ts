@@ -102,8 +102,7 @@ export class ActivityUploadComponent implements OnInit {
             activity: {
                 date: Timestamp.fromDate(this.date),
                 description: this.description,
-                documents: this.newActivityAttachments,
-                owner: this.auth.currentUser?.email || ''
+                documents: this.newActivityAttachments
             } as Activity,
             newFiles: this.newFiles
         });

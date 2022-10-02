@@ -37,7 +37,6 @@ export interface DayActivities {
 export class ActivityListComponent implements OnChanges {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
-    @Output() activityRemoved: EventEmitter<Activity> = new EventEmitter();
 
     activitiesByDates: DayActivities[] = [];
 
@@ -96,7 +95,6 @@ export class ActivityListComponent implements OnChanges {
     }
 
     async removeActivity(activityToRemove: Activity) {
-        this.activityRemoved.emit(activityToRemove);
         const activities = this.activitiesByDates.find(day => day.date?.getDate() == activityToRemove.date?.toDate().getDate())?.activities;
         if (!activities?.length) {
             return;

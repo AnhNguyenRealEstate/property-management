@@ -12,7 +12,7 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
         const propertyId = context.params.propertyId;
 
         const propertyDoc = (await admin.firestore().doc(`under-management/${propertyId}`).get()).data();
-        const fileStoragePath = propertyDoc ? propertyDoc['fileStoragePath'] : undefined;
+        const fileStoragePath = propertyDoc ? propertyDoc['fileStoragePath'] : '';
 
         return snap.ref.update(
             {
@@ -24,12 +24,16 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
 
 exports.postProcessDelete = functions.region('asia-southeast2').firestore
     .document('under-management/{propertyId}/activities/{activityId}')
-    .onDelete(async (snap, context) => {
+    .onDelete((snap, context) => {
         const fileStoragePath = snap.get('fileStoragePath');
         const documents: any[] = snap.get('documents');
 
-        documents.map(async (document: any) => {
+        if (!(fileStoragePath && documents?.length)) {
+            return Promise.resolve();
+        }
+
+        return Promise.all(documents.map(async (document: any) => {
             const dbHashedName = document['dbHashedName'];
             admin.storage().bucket().file(`${fileStoragePath}/${dbHashedName}`).delete();
-        })
+        }))
     });
