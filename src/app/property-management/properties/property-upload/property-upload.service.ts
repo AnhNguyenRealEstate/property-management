@@ -59,6 +59,8 @@ export class PropertyUploadService {
         await updateDoc(docRef, { paymentScheduleIds: scheduleRefIds });
         property.paymentScheduleIds = scheduleRefIds;
 
+        property.id = propertyId;
+
         return propertyId;
     }
 

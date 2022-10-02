@@ -64,13 +64,15 @@ export class PropertyCardService {
                 )
             }));
         } finally {
-            await addDoc(
+            const activitiyRef = await addDoc(
                 collection(
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
                     FirestoreCollections.activities
                 ),
                 activity
             );
+
+            activity.id = activitiyRef.id;
         }
     }
 }
