@@ -21,18 +21,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { FooterModule } from './footer/footer.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SharedModule } from './shared/shared.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -51,18 +40,7 @@ const maskConfig: Partial<IConfig> = {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatCardModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatToolbarModule,
+    SharedModule,
     FooterModule,
     HttpClientModule,
     HttpClientJsonpModule,
