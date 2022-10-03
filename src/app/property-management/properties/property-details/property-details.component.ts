@@ -2,10 +2,10 @@ import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@an
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
-import { Activity } from '../../activities/activities-view/activity.data';
+import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
-import { Property } from "../property-card/property-card.data";
+import { Property } from "../property.data";
 import { PropertyDetailsService } from './property-details.service';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { TranslateService } from '@ngx-translate/core';

@@ -12,10 +12,10 @@ import { HashingService } from 'src/app/shared/hashing.service';
 import { environment } from 'src/environments/environment';
 import { Invoice } from '../../invoices/invoices.data';
 import { OwnerUploadComponent } from '../../owners/owner-upload/owner-upload.component';
-import { Owner } from '../../owners/owners-view/owner.data';
+import { Owner } from '../../owners/owner.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
-import { Property } from '../property-card/property-card.data';
+import { Property } from '../property.data';
 import { ContractType, ContractData } from './property-upload.data';
 import { PropertyUploadService } from './property-upload.service';
 

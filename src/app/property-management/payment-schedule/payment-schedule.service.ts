@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Activity } from '../activities/activities-view/activity.data';
+import { Activity } from '../activities/activity.data';
 import { Invoice } from '../invoices/invoices.data';
 
 @Injectable({ providedIn: 'root' })

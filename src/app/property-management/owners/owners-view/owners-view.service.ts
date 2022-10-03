@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, limit, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Owner } from "./owner.data";
+import { Owner } from "../owner.data";
 
 @Injectable({ providedIn: 'root' })
 export class OwnersViewService {

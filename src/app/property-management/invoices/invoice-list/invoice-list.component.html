@@ -3,9 +3,9 @@
         (mouseleave)="hideActions(editBtn, approveBtn)">
         <mat-expansion-panel-header>
             <mat-panel-title class="invoice-title">
-                <button mat-button (click)="showPropertyDetails(invoice.propertyId!)">{{invoice.propertyName}}</button>
+                <span>{{invoice.propertyName}}</span>
             </mat-panel-title>
-            <mat-panel-description class="invoice-description d-none d-sm-block pt-2">
+            <mat-panel-description class="invoice-description d-none d-sm-block">
                 <span class="pe-5">{{ 'invoice_list.from' | translate }}: {{invoice.payer}}</span>
                 <span class="pe-5">{{invoice.amount}}</span>
                 <span class="pe-5">{{ 'invoice_list.period' | translate }}: {{invoice.paymentWindow}}</span>

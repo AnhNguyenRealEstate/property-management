@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, limit, where, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Property, PropertyCategory } from "../property-card/property-card.data";
+import { Property, PropertyCategory } from "../property.data";
 
 @Injectable({ providedIn: 'root' })
 export class PropertiesViewService {

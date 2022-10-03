@@ -6,7 +6,7 @@ import { LoginService } from 'src/app/login/login.service';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
-import { Property } from "../property-card/property-card.data";
+import { Property } from "../property.data";
 
 @Injectable({ providedIn: 'root' })
 export class PropertyDetailsService {

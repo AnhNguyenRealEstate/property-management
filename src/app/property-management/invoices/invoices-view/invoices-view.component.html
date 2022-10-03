@@ -6,7 +6,16 @@
             <span>({{uncollectedInvoices.lineItems?.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>{{ 'invoices.select_time_period' | translate }}</mat-label>
+                    <mat-select [value]="'currentMonth'" (selectionChange)="getUnpaidInvoices($event.value)">
+                        <mat-option value="currentMonth">{{ 'invoices.this_month' | translate }}</mat-option>
+                        <mat-option value="all">{{ 'invoices.all_time' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6 py-2 d-flex justify-content-end">
                 <button mat-raised-button printSectionId="print-section-uncollected" [useExistingCss]="true" ngxPrint>
                     <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
                 </button>
@@ -37,7 +46,17 @@
             <span>({{collectedInvoices.lineItems?.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
+                    <input readonly matInput [matDatepicker]="dp" [value]="currentDate" (click)="dp.open()">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp startView="multi-year" (monthSelected)="monthAndYearSelected($event, dp);"
+                        panelClass="example-month-picker">
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-6 py-2 d-flex justify-content-end">
                 <button mat-raised-button printSectionId="print-section-collected" [useExistingCss]="true" ngxPrint>
                     <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
                 </button>

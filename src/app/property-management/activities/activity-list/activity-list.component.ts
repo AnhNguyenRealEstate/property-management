@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@a
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
 import { UploadedFile } from '../../property-management.data';
-import { Activity } from "../activities-view/activity.data";
+import { Activity } from "../activity.data";
 import { ActivityListService } from './activity-list.service';
 
 export interface DayActivities {

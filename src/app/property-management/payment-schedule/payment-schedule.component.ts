@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Invoice } from '../invoices/invoices.data';
-import { Property } from '../properties/property-card/property-card.data';
+import { Property } from '../properties/property.data';
 import { PaymentSchedule } from './payment-schedule.data';
 import { DatePipe } from '@angular/common';
 import { PaymentScheduleService } from './payment-schedule.service';

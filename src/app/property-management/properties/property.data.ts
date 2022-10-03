@@ -1,7 +1,7 @@
 import { Timestamp } from "@angular/fire/firestore";
-import { Owner } from "../../owners/owners-view/owner.data";
-import { PaymentSchedule } from "../../payment-schedule/payment-schedule.data";
-import { UploadedFile } from "../../property-management.data";
+import { Owner } from "../owners/owner.data";
+import { PaymentSchedule } from "../payment-schedule/payment-schedule.data";
+import { UploadedFile } from "../property-management.data";
 
 export type PropertyCategory = 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial';
 export interface Property {

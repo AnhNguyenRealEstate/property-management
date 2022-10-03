@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Owner } from "../owners-view/owner.data";
+import { Owner } from "../owner.data";
 
 @Component({
     selector: 'owner-list',

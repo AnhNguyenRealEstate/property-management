@@ -6,7 +6,7 @@ import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ContractExtractionComponent } from './contract-extraction/contract-extraction.component';
-import { Property } from './properties/property-card/property-card.data';
+import { Property } from './properties/property.data';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 

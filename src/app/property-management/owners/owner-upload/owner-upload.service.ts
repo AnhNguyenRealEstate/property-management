@@ -3,7 +3,7 @@ import { addDoc, collection, doc, Firestore } from '@angular/fire/firestore';
 import { updateDoc } from '@firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { Owner } from "../owners-view/owner.data";
+import { Owner } from "../owner.data";
 
 @Injectable({ providedIn: 'root' })
 export class OwnerUploadService {

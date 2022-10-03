@@ -196,7 +196,11 @@
         "collected_invoices": "Collected invoices",
         "no_invoices_to_collect": "No invoices to collect",
         "no_invoices_to_show": "No invoices to show",
-        "print": "Print"
+        "print": "Print",
+        "select_time_period": "Select time period",
+        "this_month": "This month",
+        "all_time": "All time",
+        "select_month": "Select month"
     },
     "reset_password": {
         "title": " Reset password",

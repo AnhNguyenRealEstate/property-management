@@ -16,18 +16,24 @@ export class InvoicesViewService {
         private firestore: Firestore
     ) { }
 
-    async getUnpaidInvoices(currentDate: Date): Promise<Invoice[]> {
+    async getUnpaidInvoices(currentDate?: Date): Promise<Invoice[]> {
         this.gettingInvoices$$.next(true);
-
-        const currentMonth = currentDate.getMonth();
-        const monthEndDate = new Date(currentDate.getFullYear(), currentMonth + 1, 0);
 
         let q = query(
             collectionGroup(this.firestore, FirestoreCollections.invoices),
-            orderBy('beginDate', 'desc'),
-            where('beginDate', '<=', monthEndDate),
-            where('status', '==', 'unpaid')
-        )
+            orderBy('beginDate', 'desc')
+        );
+
+        if (currentDate) {
+            const currentMonth = currentDate.getMonth();
+            const monthEndDate = new Date(currentDate.getFullYear(), currentMonth + 1, 0);
+
+            q = query(
+                q,
+                where('beginDate', '<=', monthEndDate),
+                where('status', '==', 'unpaid')
+            )
+        }
 
         const snapshot = await getDocs(q);
         this.gettingInvoices$$.next(false);

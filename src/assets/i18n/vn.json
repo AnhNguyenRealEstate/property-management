@@ -197,10 +197,14 @@
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",
-        "collected_invoices": "Đã thu trong tháng",
+        "collected_invoices": "Đã thu",
         "no_invoices_to_collect": "Chưa có biên nhận cần thu",
         "no_invoices_to_show": "Chưa thu biên nhận trong tháng",
-        "print": "In"
+        "print": "In",
+        "select_time_period": "Khoảng thời gian",
+        "this_month": "Tháng hiện tại",
+        "all_time": "Từ xưa tới nay",
+        "select_month": "Chọn tháng"
     },
     "reset_password": {
         "title": "Đổi password",

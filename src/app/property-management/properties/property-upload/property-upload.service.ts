@@ -7,7 +7,7 @@ import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/glob
 import { environment } from 'src/environments/environment';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
-import { Property } from '../property-card/property-card.data';
+import { Property } from '../property.data';
 import { ContractData } from './property-upload.data';
 
 @Injectable({ providedIn: 'root' })
