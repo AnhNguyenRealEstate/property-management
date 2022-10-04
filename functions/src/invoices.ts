@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import * as sgMail from '@sendgrid/mail';
 
 /**
  * After an invoice's creation
@@ -12,7 +13,7 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
         const invoiceId = context.params.invoiceId;
         const scheduleId = context.params.scheduleId;
 
-        snap.ref.update( {
+        snap.ref.update({
             'id': invoiceId,
             'scheduleId': scheduleId,
         });
@@ -41,18 +42,22 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
             invoicesAsHtml.concat(invoiceHtml);
         });
 
-        admin.firestore().collection('mail').add({
-            to: 'nguyentrungtu1996@gmail.com',
-            message: {
-                subject: 'Anh Nguyen RE Customer Service - Invoces to collect this week',
-                html: `
-                <p>Good morning,</p>
-                <br>
-                <p>Here is a list of invoices to be collected for this week:</p>
-                ${invoicesAsHtml}
-                <br>
-                <p>Have a good day!</p>
-                `,
-            },
+        if (!process.env.SENDGRID_API_KEY) {
+            console.log("Cannot find SendGrid API Key");
+            return Promise.resolve();
+        }
+
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const msg = {
+            to: 'nguyentrungtu1996@gmail.com', // Change to your recipient
+            from: 'it@anhnguyenre.com', // Change to your verified sender
+            subject: 'Invoices to collect',
+            html: invoicesAsHtml,
+        }
+
+        sgMail.send(msg).then(() => {
+            console.log('Mail sent')
+        }).catch((error) => {
+            console.error(error)
         });
     });
