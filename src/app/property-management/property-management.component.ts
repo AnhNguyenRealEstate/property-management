@@ -37,7 +37,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
         this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+                this.router.navigateByUrl('/property-management/(property-management-outlet:summary)');
             }
             else {
                 this.router.navigateByUrl('/');

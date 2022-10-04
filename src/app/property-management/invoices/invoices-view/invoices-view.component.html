@@ -49,10 +49,10 @@
             <div class="col-6">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
-                    <input readonly matInput [matDatepicker]="dp" [value]="currentDate" (click)="dp.open()">
-                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                    <mat-datepicker #dp startView="multi-year" (monthSelected)="monthAndYearSelected($event, dp);"
-                        panelClass="example-month-picker">
+                    <input readonly matInput [matDatepicker]="dpCollected" [value]="currentDate" (click)="dpCollected.open()">
+                    <mat-datepicker-toggle matSuffix [for]="dpCollected"></mat-datepicker-toggle>
+                    <mat-datepicker #dpCollected startView="multi-year"
+                        (monthSelected)="monthAndYearSelected($event, dpCollected);" panelClass="example-month-picker">
                     </mat-datepicker>
                 </mat-form-field>
             </div>
@@ -73,6 +73,46 @@
         <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
             <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
                 <invoice-list [canEditInvoices]="false" [invoices]="collectedInvoices.lineItems!">
+                </invoice-list>
+            </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template matTabLabel>
+            <mat-icon>price_check</mat-icon>
+            <span class="ps-2 pe-2">{{'invoices.sent_to_owner' | translate}}</span>
+            <span>({{paidOutInvoices.length}})</span>
+        </ng-template>
+        <div class="row px-2 py-2">
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
+                    <input readonly matInput [matDatepicker]="dpPaidout" [value]="currentDate"
+                        (click)="dpPaidout.open()">
+                    <mat-datepicker-toggle matSuffix [for]="dpPaidout"></mat-datepicker-toggle>
+                    <mat-datepicker #dpPaidout startView="multi-year"
+                        (monthSelected)="monthAndYearSelected($event, dpPaidout);" panelClass="example-month-picker">
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-6 py-2 d-flex justify-content-end">
+                <button mat-raised-button printSectionId="print-section-paidout" [useExistingCss]="true" ngxPrint>
+                    <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
+                </button>
+            </div>
+        </div>
+        <div class="d-none">
+            <div class="row px-2 py-2" id="print-section-paidout">
+                <div class="col-12" *ngIf="paidOutInvoices.length">
+                    <ngx-table [configuration]="tableConfig" [columns]="collectedInvoicesCols" [data]="paidOutInvoices">
+                    </ngx-table>
+                </div>
+            </div>
+        </div>
+        <div class="row px-2 py-2" [@scheduleAnim]="paidOutInvoices.length">
+            <div class="col-12" *ngIf="paidOutInvoices.length">
+                <invoice-list [canEditInvoices]="false" [invoices]="paidOutInvoices">
                 </invoice-list>
             </div>
         </div>

@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivitiesViewComponent } from './activities/activities-view/activities-view.component';
-import { InvoicesViewComponent } from './invoices/invoices-view/invoices-view.component';
-import { OwnersViewComponent } from './owners/owners-view/owners-view.component';
-import { PropertiesViewComponent } from './properties/properties-view/properties-view.component';
 import { PropertyManagementComponent } from './property-management.component';
-import { SummaryViewComponent } from './summary-view/summary-view.component';
 
 const routes: Routes = [
     {
@@ -14,27 +9,27 @@ const routes: Routes = [
         children: [
             {
                 path: 'summary',
-                component: SummaryViewComponent,
+                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryViewModule),
                 outlet: 'property-management-outlet'
             },
             {
                 path: 'owners',
-                component: OwnersViewComponent,
+                loadChildren: () => import('./owners/owners.module').then(mod => mod.OwnersViewModule),
                 outlet: 'property-management-outlet'
             },
             {
                 path: 'properties',
-                component: PropertiesViewComponent,
+                loadChildren: () => import('./properties/properties.module').then(mod => mod.PropertiesViewModule),
                 outlet: 'property-management-outlet'
             },
             {
                 path: 'activities',
-                component: ActivitiesViewComponent,
+                loadChildren: () => import('./activities/activities.module').then(mod => mod.ActivitiesModule),
                 outlet: 'property-management-outlet'
             },
             {
                 path: 'invoices',
-                component: InvoicesViewComponent,
+                loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesViewModule),
                 outlet: 'property-management-outlet'
             }
         ]

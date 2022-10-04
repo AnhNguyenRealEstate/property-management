@@ -204,7 +204,8 @@
         "select_time_period": "Khoảng thời gian",
         "this_month": "Tháng hiện tại",
         "all_time": "Từ xưa tới nay",
-        "select_month": "Chọn tháng"
+        "select_month": "Chọn tháng",
+        "sent_to_owner": "Đã trả chủ nhà"
     },
     "reset_password": {
         "title": "Đổi password",
@@ -217,7 +218,12 @@
     },
     "invoice_list": {
         "from": "Từ",
-        "period": "Giai đoạn"
+        "period": "Giai đoạn",
+        "payment_received": "Đã nhận"
+    },
+    "summary": {
+        "contracts_expiring_soon": "hợp đồng sắp hết hạn",
+        "expiring_soon_msg": "Hợp đồng còn {{month}} tháng"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

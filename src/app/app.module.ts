@@ -22,6 +22,7 @@ import { FooterModule } from './footer/footer.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -41,6 +42,7 @@ const maskConfig: Partial<IConfig> = {
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    MatSidenavModule,
     FooterModule,
     HttpClientModule,
     HttpClientJsonpModule,

@@ -1,0 +1,33 @@
+<section class="px-2 py-4">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
+        </div>
+    </div>
+</section>
+
+<ng-template #soonToExpireProps>
+    <mat-card>
+        <mat-card-title>
+            <div *ngIf="soonToExpireProperties.length; else noProp">{{soonToExpireProperties.length}} {{
+                'summary.contracts_expiring_soon' | translate }}</div>
+            <ng-template #noProp>No properties expiring soon</ng-template>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="pt-3 ps-4">
+                <div class="row" *ngFor="let prop of soonToExpireProperties">
+                    <div class="col-6 property-name">
+                        {{prop.name}}
+                    </div>
+                    <div class="col-6 time-to-expiry">
+                        {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
+
+<ng-template #recentActivities>
+
+</ng-template>

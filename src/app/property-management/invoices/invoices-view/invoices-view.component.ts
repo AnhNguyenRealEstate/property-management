@@ -8,6 +8,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, NativeDateAdapter } fro
 import { MatDatepicker } from '@angular/material/datepicker';
 import { ChildActivationStart } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
+import { Invoice } from '../invoices.data';
 
 export class MonthpickerDateAdapter extends NativeDateAdapter {
     constructor(matDateLocale: string, platform: Platform) {
@@ -67,6 +68,7 @@ export class InvoicesViewComponent implements OnInit {
     currentDate = new Date();
     uncollectedInvoices: PaymentSchedule = {};
     collectedInvoices: PaymentSchedule = {};
+    paidOutInvoices: Invoice[] = [];
 
     @ViewChild('paymentDateTpl') paymentDateTpl!: TemplateRef<string>;
     @ViewChild('beginDateTpl') beginDateTpl!: TemplateRef<string>;

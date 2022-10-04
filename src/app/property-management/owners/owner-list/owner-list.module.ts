@@ -21,6 +21,6 @@ import { OwnerUploadModule } from '../owner-upload/owner-upload.module';
         ),
         OwnerUploadModule
     ],
-    exports: [OwnerListComponent]
+    exports: [OwnerListComponent, OwnerListItemComponent]
 })
 export class OwnerListModule { }

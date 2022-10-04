@@ -19,7 +19,7 @@
             <div style="display: none" #approveBtn>
                 <button
                     *ngIf="canEditInvoices && invoice.status === 'unpaid' && !editableInvoices.includes(invoice.id!)"
-                    mat-button matTooltip="Payment received" (click)="$event.stopPropagation(); invoicePaid(invoice)">
+                    mat-button [matTooltip]="'invoice_list.payment_received' | translate" (click)="$event.stopPropagation(); invoicePaid(invoice)">
                     <mat-icon color="accent">check</mat-icon>
                 </button>
             </div>

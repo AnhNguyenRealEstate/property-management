@@ -15,7 +15,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -38,7 +37,6 @@ import { AutoFocusDirective } from './auto-focus-on-error.directive';
         MatCardModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatSidenavModule,
         MatMenuModule,
         NgxTrimDirectiveModule,
         MatTooltipModule,

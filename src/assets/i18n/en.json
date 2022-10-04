@@ -200,7 +200,8 @@
         "select_time_period": "Select time period",
         "this_month": "This month",
         "all_time": "All time",
-        "select_month": "Select month"
+        "select_month": "Select month",
+        "sent_to_owner": "Sent to owner"
     },
     "reset_password": {
         "title": " Reset password",
@@ -213,7 +214,12 @@
     },
     "invoice_list":{ 
         "from": "From",
-        "period": "Period"
+        "period": "Period",
+        "payment_received": "Payment received"
+    },
+    "summary": {
+        "contracts_expiring_soon": "contract(s) expiring soon",
+        "expiring_soon_msg": "Contract expires in {{month}} month(s)"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }
