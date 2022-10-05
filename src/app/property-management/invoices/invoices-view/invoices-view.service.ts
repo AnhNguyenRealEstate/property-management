@@ -60,4 +60,23 @@ export class InvoicesViewService {
         return snapshot.docs.map(doc => doc.data() as Invoice);
     }
 
+    async getPaidOutInvoices(currentDate: Date): Promise<Invoice[]> {
+        this.gettingInvoices$$.next(true);
+
+        const currentMonth = currentDate.getMonth();
+        const monthEndDate = new Date(currentDate.getFullYear(), currentMonth + 1, 0);
+
+        let q = query(
+            collectionGroup(this.firestore, FirestoreCollections.invoices),
+            orderBy('beginDate', 'desc'),
+            where('beginDate', '<=', monthEndDate),
+            where('status', '==', 'paidOut')
+        )
+
+        const snapshot = await getDocs(q);
+        this.gettingInvoices$$.next(false);
+
+        return snapshot.docs.map(doc => doc.data() as Invoice);
+    }
+
 }

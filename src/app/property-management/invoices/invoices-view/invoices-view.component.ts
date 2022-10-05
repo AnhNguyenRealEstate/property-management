@@ -1,12 +1,10 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { InvoicesViewService } from './invoices-view.service';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { TranslateService } from '@ngx-translate/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { ChildActivationStart } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
 import { Invoice } from '../invoices.data';
 
@@ -42,7 +40,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
         {
             provide: DateAdapter,
             useClass: MonthpickerDateAdapter,
-            deps: [MAT_DATE_LOCALE, Platform],
+            deps: [MAT_DATE_LOCALE, Platform]
         },
     ],
     animations: [
@@ -51,7 +49,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
                 transition('* => *', // whenever binding value changes
                     query(':enter',
                         [
-                            style({ opacity: 0, transform: 'translateY(40px)' }),
+                            style({ opacity: 0, transform: 'translateY(10px)' }),
                             stagger(100, [
                                 animate('0.1s', style({ opacity: 1, transform: 'translateY(0)' }))
                             ])
@@ -66,8 +64,8 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 
 export class InvoicesViewComponent implements OnInit {
     currentDate = new Date();
-    uncollectedInvoices: PaymentSchedule = {};
-    collectedInvoices: PaymentSchedule = {};
+    uncollectedInvoices: Invoice[] = [];
+    collectedInvoices: Invoice[] = [];
     paidOutInvoices: Invoice[] = [];
 
     @ViewChild('paymentDateTpl') paymentDateTpl!: TemplateRef<string>;
@@ -98,6 +96,7 @@ export class InvoicesViewComponent implements OnInit {
     async ngOnInit() {
         await this.getUnpaidInvoices('currentMonth');
         await this.getPaidInvoices();
+        await this.getPaidOutInvoices();
 
         this.collectedInvoicesCols = [
             { key: 'propertyName', title: this.translate.instant('payment_schedule.property_name') },
@@ -123,18 +122,23 @@ export class InvoicesViewComponent implements OnInit {
         } else {
             invoices = await this.invoicesView.getUnpaidInvoices();
         }
-        this.uncollectedInvoices.lineItems = invoices;
+        this.uncollectedInvoices = invoices;
     }
 
     async getPaidInvoices() {
         const invoices = await this.invoicesView.getPaidInvoices(this.currentDate);
-        this.collectedInvoices.lineItems = invoices;
+        this.collectedInvoices = invoices;
+    }
+
+    async getPaidOutInvoices() {
+        const invoices = await this.invoicesView.getPaidOutInvoices(this.currentDate);
+        this.paidOutInvoices = invoices;
     }
 
     async monthAndYearSelected(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
         datepicker.close();
         this.currentDate = normalizedMonthAndYear;
-        this.collectedInvoices.lineItems = await this.invoicesView.getPaidInvoices(this.currentDate);
+        this.collectedInvoices = await this.invoicesView.getPaidInvoices(this.currentDate);
     }
 }
 

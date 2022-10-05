@@ -114,5 +114,18 @@
 </section>
 
 <ng-template #statusTpl let-row>
-    {{ 'payment_schedule.' + row.status | translate }}
+    <div>
+        <span class="pe-1">
+            <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
+                assignment_late_icon
+            </mat-icon>
+            <mat-icon *ngIf="row.status === 'paid'" style="color: darkblue">
+                assignment_turned_in_icon
+            </mat-icon>
+            <mat-icon *ngIf="row.status === 'paidOut'" style="color: green">
+                price_check
+            </mat-icon>
+        </span>
+        {{ 'payment_schedule.' + row.status | translate }}
+    </div>
 </ng-template>

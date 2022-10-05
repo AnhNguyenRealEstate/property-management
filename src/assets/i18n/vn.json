@@ -189,9 +189,10 @@
         "payee": "Người nhận",
         "status": "Trạng thái",
         "invoice_description": "Mô tả",
-        "paid": "Đã nhận  ✅",
+        "paid": "Đã nhận",
         "unpaid": "Chưa nhận",
         "partiallyPaid": "Nhận một phần",
+        "paidOut": "Đã gửi chủ nhà",
         "property_name": "Tên tài sản",
         "received_payments": "Đã nhận"
     },
@@ -219,7 +220,11 @@
     "invoice_list": {
         "from": "Từ",
         "period": "Giai đoạn",
-        "payment_received": "Đã nhận"
+        "payment_received": "Đã nhận",
+        "description": "Chú thích",
+        "payer": "Người trả",
+        "payee": "Người nhận",
+        "paid_out": "Đã gửi chủ nhà"
     },
     "summary": {
         "contracts_expiring_soon": "hợp đồng sắp hết hạn",

@@ -3,7 +3,7 @@
         <ng-template matTabLabel>
             <mat-icon>assignment_late_icon</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.uncollected_invoices' | translate}}</span>
-            <span>({{uncollectedInvoices.lineItems?.length}})</span>
+            <span>({{uncollectedInvoices.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
             <div class="col-6">
@@ -24,16 +24,16 @@
 
         <div class="d-none">
             <div class="row px-2 py-2" id="print-section-uncollected">
-                <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
+                <div class="col-12" *ngIf="uncollectedInvoices.length">
                     <ngx-table [configuration]="tableConfig" [columns]="uncollectedInvoicesCols"
-                        [data]="uncollectedInvoices.lineItems!"></ngx-table>
+                        [data]="uncollectedInvoices"></ngx-table>
                 </div>
             </div>
         </div>
 
-        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
-            <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
-                <invoice-list [canEditInvoices]="true" [invoices]="uncollectedInvoices.lineItems!">
+        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.length">
+            <div class="col-12" *ngIf="uncollectedInvoices.length">
+                <invoice-list [canEditInvoices]="true" [invoices]="uncollectedInvoices">
                 </invoice-list>
             </div>
         </div>
@@ -43,7 +43,7 @@
         <ng-template matTabLabel>
             <mat-icon>assignment_turned_in_icon</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.collected_invoices' | translate}}</span>
-            <span>({{collectedInvoices.lineItems?.length}})</span>
+            <span>({{collectedInvoices.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
             <div class="col-6">
@@ -64,15 +64,15 @@
         </div>
         <div class="d-none">
             <div class="row px-2 py-2" id="print-section-collected">
-                <div class="col-12" *ngIf="collectedInvoices?.lineItems?.length">
+                <div class="col-12" *ngIf="collectedInvoices.length">
                     <ngx-table [configuration]="tableConfig" [columns]="collectedInvoicesCols"
-                        [data]="collectedInvoices.lineItems!"></ngx-table>
+                        [data]="collectedInvoices"></ngx-table>
                 </div>
             </div>
         </div>
-        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.lineItems?.length">
-            <div class="col-12" *ngIf="uncollectedInvoices?.lineItems?.length">
-                <invoice-list [canEditInvoices]="false" [invoices]="collectedInvoices.lineItems!">
+        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.length">
+            <div class="col-12" *ngIf="uncollectedInvoices.length">
+                <invoice-list [canEditInvoices]="true" [invoices]="collectedInvoices">
                 </invoice-list>
             </div>
         </div>
