@@ -116,29 +116,27 @@ export class InvoicesViewComponent implements OnInit {
     }
 
     async getUnpaidInvoices(option?: 'all' | 'currentMonth') {
-        let invoices;
-        if (option === 'currentMonth') {
-            invoices = await this.invoicesView.getUnpaidInvoices(new Date());
-        } else {
-            invoices = await this.invoicesView.getUnpaidInvoices();
-        }
-        this.uncollectedInvoices = invoices;
+        this.uncollectedInvoices = await this.invoicesView.getUnpaidInvoices(
+            option === 'currentMonth' ? new Date() : undefined
+        );
     }
 
     async getPaidInvoices() {
-        const invoices = await this.invoicesView.getPaidInvoices(this.currentDate);
-        this.collectedInvoices = invoices;
+        this.collectedInvoices = await this.invoicesView.getPaidInvoices(this.currentDate);
     }
 
     async getPaidOutInvoices() {
-        const invoices = await this.invoicesView.getPaidOutInvoices(this.currentDate);
-        this.paidOutInvoices = invoices;
+        this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(this.currentDate);
     }
 
-    async monthAndYearSelected(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
+    async getPaidInvoicesFromCalendar(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
         datepicker.close();
-        this.currentDate = normalizedMonthAndYear;
-        this.collectedInvoices = await this.invoicesView.getPaidInvoices(this.currentDate);
+        this.collectedInvoices = await this.invoicesView.getPaidInvoices(normalizedMonthAndYear);
+    }
+
+    async getPaidOutInvoicesFromCalendar(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
+        datepicker.close();
+        this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(normalizedMonthAndYear);
     }
 }
 

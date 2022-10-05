@@ -52,7 +52,7 @@
                     <input readonly matInput [matDatepicker]="dpCollected" [value]="currentDate" (click)="dpCollected.open()">
                     <mat-datepicker-toggle matSuffix [for]="dpCollected"></mat-datepicker-toggle>
                     <mat-datepicker #dpCollected startView="multi-year"
-                        (monthSelected)="monthAndYearSelected($event, dpCollected);" panelClass="example-month-picker">
+                        (monthSelected)="getPaidInvoicesFromCalendar($event, dpCollected);" panelClass="example-month-picker">
                     </mat-datepicker>
                 </mat-form-field>
             </div>
@@ -92,7 +92,7 @@
                         (click)="dpPaidout.open()">
                     <mat-datepicker-toggle matSuffix [for]="dpPaidout"></mat-datepicker-toggle>
                     <mat-datepicker #dpPaidout startView="multi-year"
-                        (monthSelected)="monthAndYearSelected($event, dpPaidout);" panelClass="example-month-picker">
+                        (monthSelected)="getPaidOutInvoicesFromCalendar($event, dpPaidout);" panelClass="example-month-picker">
                     </mat-datepicker>
                 </mat-form-field>
             </div>
