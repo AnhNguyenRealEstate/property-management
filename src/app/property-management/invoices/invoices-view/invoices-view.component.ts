@@ -63,7 +63,9 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 })
 
 export class InvoicesViewComponent implements OnInit {
-    currentDate = new Date();
+    paidInvoicesDate = new Date();
+    paidOutInvoicesDate = new Date();
+
     uncollectedInvoices: Invoice[] = [];
     collectedInvoices: Invoice[] = [];
     paidOutInvoices: Invoice[] = [];
@@ -122,20 +124,22 @@ export class InvoicesViewComponent implements OnInit {
     }
 
     async getPaidInvoices() {
-        this.collectedInvoices = await this.invoicesView.getPaidInvoices(this.currentDate);
+        this.collectedInvoices = await this.invoicesView.getPaidInvoices(this.paidInvoicesDate);
     }
 
     async getPaidOutInvoices() {
-        this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(this.currentDate);
+        this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(this.paidOutInvoicesDate);
     }
 
     async getPaidInvoicesFromCalendar(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
         datepicker.close();
+        this.paidInvoicesDate = normalizedMonthAndYear;
         this.collectedInvoices = await this.invoicesView.getPaidInvoices(normalizedMonthAndYear);
     }
 
     async getPaidOutInvoicesFromCalendar(normalizedMonthAndYear: Date, datepicker: MatDatepicker<Date>) {
         datepicker.close();
+        this.paidOutInvoicesDate = normalizedMonthAndYear;
         this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(normalizedMonthAndYear);
     }
 

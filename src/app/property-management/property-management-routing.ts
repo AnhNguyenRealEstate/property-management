@@ -31,6 +31,11 @@ const routes: Routes = [
                 path: 'invoices',
                 loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesViewModule),
                 outlet: 'property-management-outlet'
+            },
+            {
+                path: '**',
+                loadChildren: () => import('./owners/owners.module').then(mod => mod.OwnersViewModule),
+                outlet: 'property-management-outlet'
             }
         ]
     },

@@ -1,6 +1,6 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { RolesService } from '../shared/roles.service';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
@@ -16,7 +16,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
     styleUrls: ['./property-management.component.scss']
 })
 
-export class PropertyManagementComponent implements OnInit, OnDestroy {
+export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDestroy {
     isDesktop: boolean = true;
     subs: Subscription = new Subscription();
 
@@ -26,6 +26,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         private router: Router,
         private login: LoginService,
         private renderer: Renderer2,
+        private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: Document
     ) {
     }
@@ -36,13 +37,20 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         this.isDesktop = width > mobileDevicesWidth;
 
         this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
-            if (loggedIn) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
-            }
-            else {
+            if (!loggedIn) {
                 this.router.navigateByUrl('/');
             }
         }));
+
+        this.subs.add(this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.highlightSideNavBtn(event.url);
+            }
+        }))
+    }
+
+    ngAfterViewInit(): void {
+        this.highlightSideNavBtn(this.router.url);
     }
 
     ngOnDestroy(): void {
@@ -65,9 +73,9 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
     }
 
-    viewOwners() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
-    }
+    // viewOwners() {
+    //     this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
+    // }
 
     changeView(event: number) {
         if (event == 0) {
@@ -101,7 +109,15 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         this.dialog.open(ContractExtractionComponent, config);
     }
 
-    @HostListener('click', ['$event.target'])
+    highlightSideNavBtn(url: string) {
+        if (url.includes('property-management-outlet:properties')) {
+            this.raiseViewBtn(this.document.querySelector('button[id="properties-btn"]'))
+        } else if (url.includes('property-management-outlet:activities')) {
+            this.raiseViewBtn(this.document.querySelector('button[id="activities-btn"]'))
+        } else if (url.includes('property-management-outlet:invoices')) {
+            this.raiseViewBtn(this.document.querySelector('button[id="invoices-btn"]'))
+        }
+    }
     raiseViewBtn(target: any) {
         const classList = target.classList as DOMTokenList;
         if (classList.contains('view-nav-btn')) {

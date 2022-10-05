@@ -49,8 +49,8 @@ export class InvoicesViewService {
 
         let q = query(
             collectionGroup(this.firestore, FirestoreCollections.invoices),
-            orderBy('beginDate', 'desc'),
-            where('beginDate', '<=', monthEndDate),
+            orderBy('paymentDate', 'desc'),
+            where('paymentDate', '<=', monthEndDate),
             where('status', '==', 'paid')
         )
 
@@ -68,8 +68,8 @@ export class InvoicesViewService {
 
         let q = query(
             collectionGroup(this.firestore, FirestoreCollections.invoices),
-            orderBy('beginDate', 'desc'),
-            where('beginDate', '<=', monthEndDate),
+            orderBy('payoutDate', 'desc'),
+            where('payoutDate', '<=', monthEndDate),
             where('status', '==', 'paidOut')
         )
 
