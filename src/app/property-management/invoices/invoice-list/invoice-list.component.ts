@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -14,6 +14,9 @@ import { InvoiceListService } from './invoice-list.service';
 export class InvoiceListComponent {
     @Input() invoices: Invoice[] = [];
     @Input() canEditInvoices: boolean = false;
+
+    @Output() paymentReceived: EventEmitter<Invoice> = new EventEmitter();
+    @Output() paidOut: EventEmitter<Invoice> = new EventEmitter();
 
     invoicesBeingEdited: string[] = [];
 
@@ -48,16 +51,18 @@ export class InvoiceListComponent {
         this.invoicesBeingEdited = this.invoicesBeingEdited.filter(id => id !== invoice.id);
     }
 
-    paymentReceived(invoice: Invoice) {
+    async invoicePaymentReceived(invoice: Invoice) {
         invoice.status = 'paid';
         invoice.paymentDate = Timestamp.fromDate(new Date());
-        this.invoiceList.markInvoiceAsPaid(invoice);
+        await this.invoiceList.markInvoiceAsPaid(invoice);
+        this.paymentReceived.emit(invoice);
     }
 
-    invoicePaidOut(invoice: Invoice) {
+    async invoicePaidOut(invoice: Invoice) {
         invoice.status = 'paidOut';
         invoice.payoutDate = Timestamp.fromDate(new Date());
-        this.invoiceList.markInvoiceAsPaidOut(invoice);
+        await this.invoiceList.markInvoiceAsPaidOut(invoice);
+        this.paidOut.emit(invoice);
     }
 
 }

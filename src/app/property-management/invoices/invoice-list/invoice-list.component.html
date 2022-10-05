@@ -22,7 +22,7 @@
                     && invoice.status === 'unpaid' 
                     && !invoicesBeingEdited.includes(invoice.id!)" mat-button
                     [matTooltip]="'invoice_list.payment_received' | translate"
-                    (click)="$event.stopPropagation(); paymentReceived(invoice)">
+                    (click)="$event.stopPropagation(); invoicePaymentReceived(invoice)">
                     <mat-icon color="accent">check</mat-icon>
                 </button>
             </div>

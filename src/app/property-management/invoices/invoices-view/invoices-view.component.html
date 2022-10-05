@@ -33,7 +33,7 @@
 
         <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.length">
             <div class="col-12" *ngIf="uncollectedInvoices.length">
-                <invoice-list [canEditInvoices]="true" [invoices]="uncollectedInvoices">
+                <invoice-list [canEditInvoices]="true" [invoices]="uncollectedInvoices" (paymentReceived)="onPaymentReceived($event)">
                 </invoice-list>
             </div>
         </div>
@@ -72,7 +72,7 @@
         </div>
         <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.length">
             <div class="col-12" *ngIf="uncollectedInvoices.length">
-                <invoice-list [canEditInvoices]="true" [invoices]="collectedInvoices">
+                <invoice-list [canEditInvoices]="true" [invoices]="collectedInvoices" (paidOut)="onPaidOut($event)">
                 </invoice-list>
             </div>
         </div>

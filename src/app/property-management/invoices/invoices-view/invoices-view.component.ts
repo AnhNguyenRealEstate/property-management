@@ -138,5 +138,20 @@ export class InvoicesViewComponent implements OnInit {
         datepicker.close();
         this.paidOutInvoices = await this.invoicesView.getPaidOutInvoices(normalizedMonthAndYear);
     }
+
+    onPaymentReceived(invoice: Invoice) {
+        this.collectedInvoices.unshift(invoice);
+
+        const index = this.uncollectedInvoices.findIndex(inv => inv.id === invoice.id);
+        this.uncollectedInvoices.splice(index, 1);
+
+    }
+
+    onPaidOut(invoice: Invoice) {
+        this.paidOutInvoices.unshift(invoice);
+
+        const index = this.collectedInvoices.findIndex(inv => inv.id === invoice.id);
+        this.collectedInvoices.splice(index, 1);
+    }
 }
 
