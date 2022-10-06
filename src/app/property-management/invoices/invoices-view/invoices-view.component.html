@@ -70,8 +70,8 @@
                 </div>
             </div>
         </div>
-        <div class="row px-2 py-2" [@scheduleAnim]="uncollectedInvoices.length">
-            <div class="col-12" *ngIf="uncollectedInvoices.length">
+        <div class="row px-2 py-2" [@scheduleAnim]="collectedInvoices.length">
+            <div class="col-12" *ngIf="collectedInvoices.length">
                 <invoice-list [canEditInvoices]="true" [invoices]="collectedInvoices" (paidOut)="onPaidOut($event)">
                 </invoice-list>
             </div>
