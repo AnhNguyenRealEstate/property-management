@@ -1,5 +1,5 @@
 <mat-tab-group class="px-2 py-4" color="accent" dynamicHeight="true">
-    <mat-tab>
+    <mat-tab id="uncollected-invoices">
         <ng-template matTabLabel>
             <mat-icon>assignment_late_icon</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.uncollected_invoices' | translate}}</span>
@@ -39,7 +39,7 @@
         </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab id="collected-invoices">
         <ng-template matTabLabel>
             <mat-icon>assignment_turned_in_icon</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.collected_invoices' | translate}}</span>
@@ -49,10 +49,10 @@
             <div class="col-6">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
-                    <input readonly matInput [matDatepicker]="dpCollected" [value]="paidInvoicesDate" (click)="dpCollected.open()">
+                    <input id="dpCollected" readonly matInput [matDatepicker]="dpCollected" [value]="paidInvoicesDate" (click)="dpCollected.open()">
                     <mat-datepicker-toggle matSuffix [for]="dpCollected"></mat-datepicker-toggle>
                     <mat-datepicker #dpCollected startView="multi-year"
-                        (monthSelected)="getPaidInvoicesFromCalendar($event, dpCollected);" panelClass="example-month-picker">
+                        (monthSelected)="getPaidInvoicesFromCalendar($event, dpCollected);">
                     </mat-datepicker>
                 </mat-form-field>
             </div>
@@ -78,7 +78,7 @@
         </div>
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab id="paidout-invoices">
         <ng-template matTabLabel>
             <mat-icon>price_check</mat-icon>
             <span class="ps-2 pe-2">{{'invoices.sent_to_owner' | translate}}</span>
@@ -88,11 +88,11 @@
             <div class="col-6">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
-                    <input readonly matInput [matDatepicker]="dpPaidout" [value]="paidOutInvoicesDate"
+                    <input id="dpPaidout" readonly matInput [matDatepicker]="dpPaidout" [value]="paidOutInvoicesDate"
                         (click)="dpPaidout.open()">
                     <mat-datepicker-toggle matSuffix [for]="dpPaidout"></mat-datepicker-toggle>
                     <mat-datepicker #dpPaidout startView="multi-year"
-                        (monthSelected)="getPaidOutInvoicesFromCalendar($event, dpPaidout);" panelClass="example-month-picker">
+                        (monthSelected)="getPaidOutInvoicesFromCalendar($event, dpPaidout);">
                     </mat-datepicker>
                 </mat-form-field>
             </div>
@@ -112,7 +112,7 @@
         </div>
         <div class="row px-2 py-2" [@scheduleAnim]="paidOutInvoices.length">
             <div class="col-12" *ngIf="paidOutInvoices.length">
-                <invoice-list [canEditInvoices]="false" [invoices]="paidOutInvoices">
+                <invoice-list [canEditInvoices]="true" [invoices]="paidOutInvoices">
                 </invoice-list>
             </div>
         </div>

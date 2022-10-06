@@ -116,6 +116,8 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
             this.raiseViewBtn(this.document.querySelector('button[id="activities-btn"]'))
         } else if (url.includes('property-management-outlet:invoices')) {
             this.raiseViewBtn(this.document.querySelector('button[id="invoices-btn"]'))
+        } else {
+            this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
         }
     }
     raiseViewBtn(target: any) {

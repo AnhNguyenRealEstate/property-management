@@ -224,7 +224,14 @@
         "description": "Chú thích",
         "payer": "Người trả",
         "payee": "Người nhận",
-        "paid_out": "Đã gửi chủ nhà"
+        "paid_out": "Đã gửi chủ nhà",
+        "payment_received_msg": "Đã nhận tiền từ {{from}} cho {{propertyName}}",
+        "invoice_paid_out": "Đã gửi tiền cho {{to}}",
+        "dismiss_msg": "Tắt",
+        "begin_date": "Ngày bắt giai đoạn",
+        "due_date": "Ngày kết thúc giai đoạn",
+        "edit_invoice": "Sửa thông tin",
+        "payout_date": "Ngày trả tiền cho chủ"
     },
     "summary": {
         "contracts_expiring_soon": "hợp đồng sắp hết hạn",

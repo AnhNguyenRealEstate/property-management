@@ -6,8 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class LabelSpanComponent implements OnInit {
-    @Input() label: string | undefined
-    @Input() span: string | undefined
+    @Input() label: string | undefined | null
+    @Input() span: string | undefined | null
 
     constructor() { }
 

@@ -213,14 +213,21 @@
         "not_matching": "New passwords are not matching",
         "change": "  Change password"
     },
-    "invoice_list":{ 
+    "invoice_list": {
         "from": "From",
         "period": "Period",
         "payment_received": "Payment received",
         "description": "Description",
         "payer": "Payer",
         "payee": "Payee",
-        "paid_out": "Paid out"
+        "paid_out": "Paid out",
+        "payment_received_msg": "Received payment from {{from}} for {{propertyName}}",
+        "invoice_paid_out": "Money sent to {{to}}",
+        "dismiss_msg": "Dismiss",
+        "begin_date": "Period begin date",
+        "due_date": "Period end date",
+        "edit_invoice": "Edit invoice",
+        "payout_date": "Payout date"
     },
     "summary": {
         "contracts_expiring_soon": "contract(s) expiring soon",
