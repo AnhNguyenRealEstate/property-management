@@ -1,43 +1,38 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FirebaseApp, provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { Auth, provideAuth, getAuth, connectAuthEmulator, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Idle } from '@ng-idle/core';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { AppComponent } from './app.component';
-import { firebaseConfig } from './shared/globals';
+import { FirebaseStorage, provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
+import { TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
+import { firebaseConfig } from 'src/app/shared/globals';
+import { InvoicesViewComponent } from './invoices-view.component';
 import { TranslateTestingModule } from 'ngx-translate-testing';
-import { SharedModule } from './shared/shared.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-declare var require: any
-
-describe('App Component', () => {
+describe('Invoices View', () => {
     let firebaseApp: FirebaseApp;
+    let firestore: Firestore;
     let auth: Auth;
 
-    let component: AppComponent
-    let fixture: ComponentFixture<AppComponent>
+    let component: InvoicesViewComponent
+    let fixture: ComponentFixture<InvoicesViewComponent>
 
     beforeAll(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
-                AppComponent
-            ],
+            declarations: [InvoicesViewComponent],
             imports: [
-                RouterTestingModule,
-                HttpClientModule,
-                NgIdleKeepaliveModule.forRoot(),
-                SharedModule,
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
                     return firebaseApp;
                 }),
+                provideFirestore(() => {
+                    firestore = getFirestore(firebaseApp);
+                    connectFirestoreEmulator(firestore, 'localhost', 8080);
+                    return firestore;
+                }),
                 provideAuth(() => {
                     auth = getAuth(firebaseApp);
-                    connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+                    connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
                 }),
                 TranslateTestingModule.withTranslations(
@@ -45,19 +40,21 @@ describe('App Component', () => {
                         en: require('src/assets/i18n/en.json'),
                         vn: require('src/assets/i18n/vn.json')
                     }
-                )
+                ),
+                NoopAnimationsModule
             ]
         }).compileComponents();
 
         TestBed.inject(FirebaseApp);
+        TestBed.inject(Firestore);
         auth = TestBed.inject(Auth);
 
-        fixture = TestBed.createComponent(AppComponent);
+        fixture = TestBed.createComponent(InvoicesViewComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
-    it('should create the app', () => {
-        expect(component).toBeTruthy();
+    it('should create', () => {
+        expect(component).toBeDefined();
     });
 });
