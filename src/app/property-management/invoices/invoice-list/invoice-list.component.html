@@ -58,14 +58,12 @@
 </mat-accordion>
 
 <ng-template #invoiceDetails let-invoice="invoice">
-    <div class="row d-flex justify-content-between">
-        <label-span class="col-12" [label]="'invoice_list.description' | translate" [span]="invoice.description!">
+    <div class="row">
+        <label-span class="col-4" [label]="'invoice_list.payer' | translate" [span]="invoice.payer">
         </label-span>
-    </div>
-    <div class="row pt-2">
-        <label-span class="col-4" [label]="'invoice_list.payer' | translate" [span]="invoice.payer!">
+        <label-span class="col-4" [label]="'invoice_list.payee' | translate" [span]="invoice.payee">
         </label-span>
-        <label-span class="col-4" [label]="'invoice_list.payee' | translate" [span]="invoice.payee!">
+        <label-span class="col-4" [label]="'invoice_list.amount' | translate" [span]="invoice.amount">
         </label-span>
     </div>
     <div class="row pt-2">
@@ -79,16 +77,14 @@
             [span]="invoice.payoutDate!.toDate() | date: 'dd/MM/yyyy'">
         </label-span>
     </div>
+    <div class="row pt-2 d-flex justify-content-between">
+        <label-span class="col-12" [label]="'invoice_list.description' | translate" [span]="invoice.description">
+        </label-span>
+    </div>
 </ng-template>
 
 <ng-template #invoiceEdit let-invoice="invoice">
     <div class="row">
-        <mat-form-field class="col-12">
-            <mat-label>{{ 'invoice_list.description' | translate }}</mat-label>
-            <input matInput type="text" [(ngModel)]="invoice.description">
-        </mat-form-field>
-    </div>
-    <div class="row pt-2">
         <mat-form-field class="col-4">
             <mat-label>{{ 'invoice_list.payer' | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="invoice.payer">
@@ -96,6 +92,10 @@
         <mat-form-field class="col-4">
             <mat-label>{{ 'invoice_list.payee' | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="invoice.payee">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+            <mat-label>{{ 'invoice_list.amount' | translate }}</mat-label>
+            <input matInput type="text" [(ngModel)]="invoice.amount">
         </mat-form-field>
     </div>
     <div class="row pt-2">
@@ -119,6 +119,12 @@
                 [ngModel]="invoice.dueDate.toDate() | date: 'yyyy-MM-dd'" (click)="payoutDatePicker.open()">
             <mat-datepicker-toggle matSuffix [for]="payoutDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #payoutDatePicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="row pt-2">
+        <mat-form-field class="col-12">
+            <mat-label>{{ 'invoice_list.description' | translate }}</mat-label>
+            <textarea matInput type="text" [(ngModel)]="invoice.description"></textarea>
         </mat-form-field>
     </div>
 </ng-template>

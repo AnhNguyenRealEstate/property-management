@@ -113,19 +113,74 @@
     </div>
 </section>
 
-<ng-template #statusTpl let-row>
-    <div>
-        <span class="pe-1">
-            <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
-                assignment_late_icon
-            </mat-icon>
-            <mat-icon *ngIf="row.status === 'paid'" style="color: darkblue">
-                assignment_turned_in_icon
-            </mat-icon>
-            <mat-icon *ngIf="row.status === 'paidOut'" style="color: green">
-                price_check
-            </mat-icon>
-        </span>
-        {{ 'payment_schedule.' + row.status | translate }}
+<ng-template #descriptionTpl let-row>
+    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editDescription">
+        {{row.description}}
     </div>
+    <ng-template #editDescription>
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="row.description"></textarea>
+        </mat-form-field>
+    </ng-template>
+</ng-template>
+
+<ng-template #amountTpl let-row>
+    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editAmt">
+        {{row.amount}}
+    </div>
+    <ng-template #editAmt>
+        <mat-form-field>
+            <input matInput [(ngModel)]="row.amount">
+        </mat-form-field>
+    </ng-template>
+</ng-template>
+
+<ng-template #periodTpl let-row>
+    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editPeriod">
+        {{row.paymentWindow}}
+    </div>
+    <ng-template #editPeriod>
+        <mat-form-field>
+            <mat-label>{{ 'payment_schedule.begin_date' | translate }}</mat-label>
+            <input #beginEdit matInput readonly [value]="row.beginDate.toDate() | date: 'yyyy-MM-dd'"
+                [matDatepicker]="beginPicker" (click)="beginPicker.open()"
+                (blur)="changeInvoiceBeginDate(row, beginEdit)">
+            <mat-datepicker-toggle matSuffix [for]="beginPicker"></mat-datepicker-toggle>
+            <mat-datepicker #beginPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'payment_schedule.due_date' | translate }}</mat-label>
+            <input #endEdit matInput readonly [value]="row.dueDate.toDate() | date: 'yyyy-MM-dd'"
+                [matDatepicker]="endPicker" (click)="endPicker.open()" (blur)="changeInvoiceDueDate(row, endEdit)">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+    </ng-template>
+</ng-template>
+
+<ng-template #statusTpl let-row>
+    <span class="pe-1">
+        <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
+            assignment_late_icon
+        </mat-icon>
+        <mat-icon *ngIf="row.status === 'paid'" style="color: darkblue">
+            assignment_turned_in_icon
+        </mat-icon>
+        <mat-icon *ngIf="row.status === 'paidOut'" style="color: green">
+            price_check
+        </mat-icon>
+    </span>
+    <span>{{ 'payment_schedule.' + row.status | translate }}</span>
+</ng-template>
+
+<ng-template #actionsTpl let-row>
+    <button mat-raised-button *ngIf="!invoicesBeingEdited.includes(row.id)" (click)="invoicesBeingEdited.push(row.id)">
+        <mat-icon color="accent">edit</mat-icon> {{ 'payment_schedule.edit' | translate }}
+    </button>
+    <button class="me-2" mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)" (click)="updateInvoice(row)">
+        <mat-icon color="accent">save</mat-icon> {{ 'payment_schedule.save' | translate }}
+    </button>
+    <button mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)" (click)="cancelUpdate(row)">
+        <mat-icon>close</mat-icon> {{ 'payment_schedule.cancel' | translate }}
+    </button>
 </ng-template>

@@ -23,11 +23,11 @@ export class SessionTimeoutService {
     setTimeout() {
         if (environment.production) {
             this.idle.setIdle(600);
-            this.idle.setTimeout(300);
         } else {
             this.idle.setIdle(3600);
-            this.idle.setTimeout(300);
         }
+        
+        this.idle.setTimeout(300);
 
         // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
         this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
@@ -55,13 +55,8 @@ export class SessionTimeoutService {
         this.keepalive.interval(15);
 
         this.routeGuardService.loggedIn$.subscribe(userLoggedIn => {
-            if (userLoggedIn) {
-                this.idle.watch();
-                this.showTimeoutWarning = false;
-            } else {
-                this.idle.stop();
-                this.showTimeoutWarning = false;
-            }
+            userLoggedIn ? this.idle.watch() : this.idle.stop();
+            this.showTimeoutWarning = false;
         });
     }
 }

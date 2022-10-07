@@ -20,7 +20,7 @@ export interface DefaultInputValues {
 export class PaymentScheduleComponent implements OnInit {
     @Input() property: Property | undefined;
     @Input() schedule!: PaymentSchedule;
-    @Input() edit!: boolean;
+    @Input() editable!: boolean;
     @Input() columnHeaders!: (keyof Invoice)[];
     @Input() canChangeStatus: boolean = false;
     @Input() scheduleName: string = '';

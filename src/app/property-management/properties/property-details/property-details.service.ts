@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc } from '@angular/fire/firestore';
+import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc } from '@angular/fire/firestore';
 import { getBlob, ref, Storage } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
@@ -80,5 +80,15 @@ export class PropertyDetailsService {
         }));
 
         return schedules;
+    }
+
+    async updateInvoice(invoice: Invoice) {
+        await updateDoc(
+            doc(
+                this.firestore,
+                `${FirestoreCollections.paymentSchedules}/${invoice.scheduleId}/${FirestoreCollections.invoices}/${invoice.id}`
+            ),
+            { ...invoice }
+        )
     }
 }

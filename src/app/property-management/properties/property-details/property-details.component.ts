@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
-import { DocumentSnapshot } from '@angular/fire/firestore';
+import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../../activities/activity.data';
@@ -9,6 +9,10 @@ import { Property } from "../property.data";
 import { PropertyDetailsService } from './property-details.service';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { TranslateService } from '@ngx-translate/core';
+import { Invoice } from '../../invoices/invoices.data';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
     selector: 'property-details',
@@ -27,7 +31,11 @@ export class PropertyDetailsComponent implements OnInit {
 
     loading: boolean = true;
 
+    @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
+    @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
+    @ViewChild('periodTpl') periodTpl!: TemplateRef<string>;
     @ViewChild('statusTpl') statusTpl!: TemplateRef<string>;
+    @ViewChild('actionsTpl') actionsTpl!: TemplateRef<string>;
 
     paymentScheduleConfig: Config = {
         ...DefaultConfig,
@@ -40,13 +48,16 @@ export class PropertyDetailsComponent implements OnInit {
         },
         rows: 5
     };
-
     paymentScheduleCols: Columns[] = [];
+
+    invoicesBeingEdited: string[] = []
 
     constructor(
         private propertyDetails: PropertyDetailsService,
         private translate: TranslateService,
         public roles: RolesService,
+        private snackbar: MatSnackBar,
+        private datePipe: DatePipe,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         this.property = this.data.property;
@@ -57,10 +68,11 @@ export class PropertyDetailsComponent implements OnInit {
         await this.getPaymentSchedules();
         this.loading = false;
         this.paymentScheduleCols = [
-            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description') },
-            { key: 'amount', title: this.translate.instant('payment_schedule.amount') },
-            { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window') },
-            { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl }
+            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl },
+            { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl },
+            { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window'), cellTemplate: this.periodTpl },
+            { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl },
+            { key: 'action', title: this.translate.instant('payment_schedule.actions'), cellTemplate: this.actionsTpl }
         ];
     }
 
@@ -102,5 +114,49 @@ export class PropertyDetailsComponent implements OnInit {
 
     timestampToDate(stamp: any): Date {
         return new Date((stamp as any).seconds * 1000);
+    }
+
+    async updateInvoice(invoice: Invoice) {
+        const DATE_PIPE_FORMAT = 'dd/MM/yyyy';
+        invoice.paymentWindow = `${this.datePipe.transform(invoice.beginDate!.toDate(), DATE_PIPE_FORMAT)} - ${this.datePipe.transform(invoice.dueDate!.toDate(), DATE_PIPE_FORMAT)}`;
+        await this.propertyDetails.updateInvoice(invoice);
+
+        const index = this.invoicesBeingEdited.findIndex(invoiceId => invoiceId === invoice.id);
+        this.invoicesBeingEdited.splice(index, 1);
+
+        this.snackbar.open(
+            this.translate.instant('property_details.invoice_edit_success'),
+            this.translate.instant('property_details.dismiss_msg'),
+            {
+                duration: 3000
+            }
+        )
+    }
+
+    cancelUpdate(invoice: Invoice) {
+        const index = this.invoicesBeingEdited.findIndex(invoiceId => invoiceId === invoice.id);
+        this.invoicesBeingEdited.splice(index, 1);
+    }
+
+    dateToTimestamp(date: Date): Timestamp {
+        return Timestamp.fromDate(date);
+    }
+
+    changeInvoiceBeginDate(invoice: Invoice, input: HTMLInputElement) {
+        const value = input.value;
+        const numbers = value.split('/').map(val => Number(val));
+        if (numbers.length === 3) {
+            const newDate = new Date(numbers[2], numbers[1] - 1, numbers[0]);
+            invoice.beginDate = Timestamp.fromDate(newDate);
+        }
+    }
+
+    changeInvoiceDueDate(invoice: Invoice, input: HTMLInputElement) {
+        const value = input.value;
+        const numbers = value.split('/').map(val => Number(val));
+        if (numbers.length === 3) {
+            const newDate = new Date(numbers[2], numbers[1] - 1, numbers[0]);
+            invoice.dueDate = Timestamp.fromDate(newDate);
+        }
     }
 }

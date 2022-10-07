@@ -149,7 +149,6 @@ export class InvoicesViewComponent implements OnInit {
 
         const index = this.uncollectedInvoices.findIndex(inv => inv.id === invoice.id);
         this.uncollectedInvoices.splice(index, 1);
-
     }
 
     onPaidOut(invoice: Invoice) {

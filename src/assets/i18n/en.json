@@ -111,7 +111,9 @@
         "payment_schedules": "Payment schedules",
         "no_schedules": "No schedules to be shown",
         "start_date": "Start date",
-        "end_date": "End date"
+        "end_date": "End date",
+        "invoice_edit_success": "Successfully edited invoice",
+        "dismiss_msg": "Dismiss"
     },
     "activity_list": {
         "no_doc": "No documents to display",
@@ -190,7 +192,12 @@
         "partiallyPaid": "Partially paid",
         "paid_out": "Paid out",
         "property_name": "Property name",
-        "received_payments": "Received payment"
+        "received_payments": "Received payment",
+        "remove_sched": "Remove schedule",
+        "actions": "Actions",
+        "save": "Save",
+        "edit": "Edit",
+        "cancel": "Cancel"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",
@@ -227,7 +234,8 @@
         "begin_date": "Period begin date",
         "due_date": "Period end date",
         "edit_invoice": "Edit invoice",
-        "payout_date": "Payout date"
+        "payout_date": "Payout date",
+        "amount": "Amount"
     },
     "summary": {
         "contracts_expiring_soon": "contract(s) expiring soon",

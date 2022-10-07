@@ -115,7 +115,9 @@
         "payment_schedules": "Lịch thanh toán",
         "no_schedules": "Không có lịch thanh toán",
         "start_date": "Ngày bắt đầu hợp đồng",
-        "end_date": "Ngày hết hạn hợp đồng"
+        "end_date": "Ngày hết hạn hợp đồng",
+        "invoice_edit_success": "Đã sửa biên nhận",
+        "dismiss_msg": "Tắt"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",
@@ -194,7 +196,12 @@
         "partiallyPaid": "Nhận một phần",
         "paidOut": "Đã gửi chủ nhà",
         "property_name": "Tên tài sản",
-        "received_payments": "Đã nhận"
+        "received_payments": "Đã nhận",
+        "remove_sched": "Xoá lịch",
+        "actions": "",
+        "save": "Lưu",
+        "edit": "Sửa",
+        "cancel": "Huỷ"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",
@@ -231,7 +238,8 @@
         "begin_date": "Ngày bắt giai đoạn",
         "due_date": "Ngày kết thúc giai đoạn",
         "edit_invoice": "Sửa thông tin",
-        "payout_date": "Ngày trả tiền cho chủ"
+        "payout_date": "Ngày trả tiền cho chủ",
+        "amount": "Số tiền"
     },
     "summary": {
         "contracts_expiring_soon": "hợp đồng sắp hết hạn",

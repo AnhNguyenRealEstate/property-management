@@ -5,13 +5,14 @@
             <mat-divider></mat-divider>
         </div>
         <form #activityForm="ngForm">
-            <mat-form-field class="col-12" color="accent">
+            <mat-form-field class="col-12">
                 <mat-label>{{ 'activity_upload.date' | translate }}</mat-label>
-                <input matInput required name="activityDate" [matDatepicker]="activityDatePicker" [(ngModel)]="date" />
+                <input readonly matInput required name="activityDate" [matDatepicker]="activityDatePicker"
+                    [(ngModel)]="date" (click)="activityDatePicker.open()" />
                 <mat-datepicker-toggle matSuffix [for]="activityDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #activityDatePicker></mat-datepicker>
             </mat-form-field>
-            <mat-form-field class="col-12" color="accent">
+            <mat-form-field class="col-12">
                 <mat-label>{{ 'activity_upload.description' | translate }}</mat-label>
                 <input matInput trim="blur" required type="text" name="activityDesc" [(ngModel)]="description" />
             </mat-form-field>

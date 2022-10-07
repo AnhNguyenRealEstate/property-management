@@ -143,7 +143,7 @@
 
         <ng-container *ngFor="let sched of schedules; let i = index">
             <div class="mt-2">
-                <payment-schedule [schedule]="sched" [edit]="true" [property]="property"
+                <payment-schedule [schedule]="sched" [editable]="true" [property]="property"
                     [columnHeaders]="['description', 'amount', 'paymentWindow']"
                     [defaultValues]="{startDate: secondFormGroup.get('startDate')?.value, endDate: secondFormGroup.get('endDate')?.value}">
                 </payment-schedule>
@@ -350,7 +350,7 @@
             <ng-container *ngFor="let sched of schedules; let i = index">
                 <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
                 <div class="pt-2">
-                    <payment-schedule [schedule]="sched" [edit]="false"
+                    <payment-schedule [schedule]="sched" [editable]="false"
                         [columnHeaders]="['description', 'amount', 'paymentWindow']">
                     </payment-schedule>
                 </div>
