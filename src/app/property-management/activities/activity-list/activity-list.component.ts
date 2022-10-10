@@ -51,10 +51,14 @@ export class ActivityListComponent implements OnChanges {
     }
 
     async downloadDoc(activity: Activity, doc: UploadedFile) {
-        const file = await this.activityList.downloadDoc(`${activity.fileStoragePath}/${doc.dbHashedName}`);
-
+        const blob = await this.activityList.downloadDoc(`${activity.fileStoragePath}/${doc.dbHashedName}`);
+        const file = new File([blob], doc.displayName!)
         const url = window.URL.createObjectURL(file);
-        window.open(url);
+
+        const fileLink = document.createElement('a');
+        fileLink.href = url;
+        fileLink.download = doc.displayName!;
+        fileLink.click();
     }
 
     showDeleteBtn(deleteBtn: HTMLDivElement) {

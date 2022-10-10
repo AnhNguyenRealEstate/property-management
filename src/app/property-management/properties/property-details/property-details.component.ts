@@ -107,9 +107,14 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     async downloadDoc(doc: UploadedFile) {
-        const file = await this.propertyDetails.downloadDoc(`${this.property.fileStoragePath}/${doc.dbHashedName}`);
+        const blob = await this.propertyDetails.downloadDoc(`${this.property.fileStoragePath}/${doc.dbHashedName}`);
+        const file = new File([blob], doc.displayName!);
         const url = window.URL.createObjectURL(file);
-        window.open(url);
+
+        const fileLink = document.createElement('a');
+        fileLink.href = url;
+        fileLink.download = doc.displayName!;
+        fileLink.click();
     }
 
     timestampToDate(stamp: any): Date {
