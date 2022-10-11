@@ -34,8 +34,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/mammoth/mammoth.browser.min.js"
+              "node_modules/jquery/dist/jquery.min.js"
             ],
             "allowedCommonJsDependencies": [
               "stream",
