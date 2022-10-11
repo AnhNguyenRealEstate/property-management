@@ -43,36 +43,4 @@ export class PropertyCardService {
             return undefined;
         }
     }
-
-    async addActivity(property: Property, activity: Activity, newFiles: File[]) {
-        try {
-            // Only under extreme usage that there could be hash collision on file names
-            // Highly unlikely to happen
-            await Promise.all(newFiles.map(async file => {
-                const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
-                if (!hashedName) {
-                    return;
-                }
-
-                const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
-                await uploadBytes(
-                    ref(
-                        this.storage,
-                        fileStoragePath
-                    ),
-                    file
-                )
-            }));
-        } finally {
-            const activitiyRef = await addDoc(
-                collection(
-                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                    FirestoreCollections.activities
-                ),
-                activity
-            );
-
-            activity.id = activitiyRef.id;
-        }
-    }
 }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -13,6 +13,8 @@ import { Invoice } from '../../invoices/invoices.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HashingService } from 'src/app/shared/hashing.service';
 
 @Component({
     selector: 'property-details',
@@ -28,8 +30,17 @@ export class PropertyDetailsComponent implements OnInit {
     showViewMoreActivities: boolean = false;
 
     schedules: PaymentSchedule[] = [];
+    newSchedules: PaymentSchedule[] = [{}];
+
+    newFiles: File[] = [];
+    uploadedFiles: UploadedFile[] = [];
 
     loading: boolean = true;
+
+    @ViewChild('activityUploadTpl') activityUploadTpl!: TemplateRef<string>;
+    @ViewChild('scheduleUploadTpl') scheduleUploadTpl!: TemplateRef<string>;
+    @ViewChild('filesUploadTpl') filesUploadTpl!: TemplateRef<string>;
+
 
     @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
     @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
@@ -58,6 +69,8 @@ export class PropertyDetailsComponent implements OnInit {
         public roles: RolesService,
         private snackbar: MatSnackBar,
         private datePipe: DatePipe,
+        private dialog: MatDialog,
+        private hash: HashingService,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         this.property = this.data.property;
@@ -163,5 +176,123 @@ export class PropertyDetailsComponent implements OnInit {
             const newDate = new Date(numbers[2], numbers[1] - 1, numbers[0]);
             invoice.dueDate = Timestamp.fromDate(newDate);
         }
+    }
+
+    openActivityUpload() {
+        this.dialog.open(this.activityUploadTpl)
+    }
+
+    async addActivity(activityAddedEvent: any) {
+        const activity: Activity = activityAddedEvent.activity;
+        const newFiles: File[] = activityAddedEvent.newFiles;
+
+        activity.propertyName = this.property.name;
+        activity.propertyId = this.property.id;
+
+        await this.propertyDetails.addActivity(this.property, activity, newFiles);
+
+        this.snackbar.open(
+            this.translate.instant('property_card.activity_added'),
+            this.translate.instant('property_card.dismiss_msg'),
+            {
+                duration: 3000
+            }
+        )
+
+        await this.getActivities();
+    }
+
+    openScheduleUpload() {
+        this.dialog.open(this.scheduleUploadTpl, { height: '60vh' });
+    }
+
+    addSchedule() {
+        this.newSchedules.push({} as PaymentSchedule);
+    }
+
+    async uploadSchedules() {
+        this.newSchedules = this.newSchedules.filter(schedule => schedule.lineItems?.length);
+        const newScheduleIds = await this.propertyDetails.uploadSchedules(this.newSchedules, this.property);
+        this.schedules = await this.propertyDetails.getPaymentSchedules(newScheduleIds);
+
+        this.newSchedules = [];
+    }
+
+    uploadedFileDrop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.uploadedFiles!, event.previousIndex, event.currentIndex);
+    }
+
+    doesFileNameAlreadyExist(name: string) {
+        return !!this.property.documents?.find(doc => doc.displayName === name);
+    }
+
+    onFileNameChange(oldDisplayName: string, newDisplayName: string, file: UploadedFile) {
+        if (this.uploadedFiles.find(file => file.displayName === newDisplayName)) {
+            return;
+        }
+
+        const fileToAmend = this.uploadedFiles.find(file => file.displayName === oldDisplayName);
+        if (!fileToAmend) {
+            return;
+        }
+
+        Object.defineProperty(fileToAmend, 'name', {
+            writable: true,
+            value: newDisplayName
+        });
+
+        file.displayName = newDisplayName;
+        file.dbHashedName = this.hash.generate16DigitHash(newDisplayName);
+    }
+
+    onFileRemove(index: number) {
+        const removedFile = this.uploadedFiles.splice(index, 1);
+
+        const indexToRemove = this.newFiles.findIndex(file => file.name === removedFile[0].displayName);
+        this.newFiles.splice(indexToRemove, 1);
+    }
+
+    onFileUpload(event: any) {
+        const files = (event.target.files as FileList);
+        if (files.length === 0) {
+            return;
+        }
+
+        const newFiles: File[] = [];
+        for (let i = 0; i < files.length; i++) {
+            const file = files.item(i)!;
+
+            if (this.property.documents?.length
+                && this.property.documents.find(doc => doc.displayName === file.name)) {
+                continue;
+            }
+
+            newFiles.unshift(file);
+        }
+        this.newFiles = newFiles;
+
+        const newUploadedFiles = newFiles.map(file => {
+            return {
+                displayName: file.name,
+                dbHashedName: this.hash.generate16DigitHash(file.name)
+            } as UploadedFile
+        })
+
+        this.uploadedFiles.unshift(...newUploadedFiles);
+    }
+
+    openFilesUpload() {
+        this.dialog.open(this.filesUploadTpl, { width: '60vw', height: '60vh' })
+            .afterClosed().subscribe(() => {
+                this.newFiles = [];
+                this.uploadedFiles = [];
+            });
+    }
+
+    async uploadFiles() {
+        await this.propertyDetails.storeFiles(this.newFiles, this.uploadedFiles, this.property);
+
+        this.newFiles = [];
+        this.uploadedFiles = [];
     }
 }

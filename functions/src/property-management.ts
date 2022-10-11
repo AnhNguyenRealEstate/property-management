@@ -30,10 +30,10 @@ exports.postProcessDelete = functions.region('asia-southeast2').firestore
 
         const id = context.params.documentId;
 
-        removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
-        removeActivities(id);
-        removeFiles(snap.get('fileStoragePath'))
-        incrementPropertyCount(snap, -1);
+        await removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
+        await removeActivities(id);
+        await removeFiles(snap.get('fileStoragePath'))
+        await incrementPropertyCount(snap, -1);
     });
 
 //https://firebase.google.com/docs/firestore/manage-data/delete-data#collections

@@ -113,7 +113,10 @@
         "start_date": "Start date",
         "end_date": "End date",
         "invoice_edit_success": "Successfully edited invoice",
-        "dismiss_msg": "Dismiss"
+        "dismiss_msg": "Dismiss",
+        "add_activity": "Add activity",
+        "add_sched": "Add schedule",
+        "add_files": "Add files"
     },
     "activity_list": {
         "no_doc": "No documents to display",

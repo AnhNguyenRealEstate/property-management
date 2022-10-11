@@ -117,7 +117,10 @@
         "start_date": "Ngày bắt đầu hợp đồng",
         "end_date": "Ngày hết hạn hợp đồng",
         "invoice_edit_success": "Đã sửa biên nhận",
-        "dismiss_msg": "Tắt"
+        "dismiss_msg": "Tắt",
+        "add_activity": "Hoạt động mới",
+        "add_sched": "Lịch mới",
+        "add_files": "Thêm file"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
+import { Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,9 +36,7 @@ export class PropertyCardComponent implements OnInit {
 
     async ngOnInit() {
         this.mostRecentActivity = await this.propertyCard.getMostRecentActivity(this.property);
-
         this.propertyNoLongerManaged = this.property.managementEndDate?.toDate()! < new Date();
-
         this.calculateContractProgress();
     }
 
@@ -78,30 +76,6 @@ export class PropertyCardComponent implements OnInit {
                 );
             }
         });
-    }
-
-    async addActivity(activityAddedEvent: any) {
-        const activity: Activity = activityAddedEvent.activity;
-        const newFiles: File[] = activityAddedEvent.newFiles;
-
-        activity.propertyName = this.property.name;
-        activity.propertyId = this.property.id;
-
-        await this.propertyCard.addActivity(this.property, activity, newFiles);
-
-        this.snackbar.open(
-            this.translate.instant('property_card.activity_added'),
-            this.translate.instant('property_card.dismiss_msg'),
-            {
-                duration: 3000
-            }
-        )
-
-        const newActivityIsMostRecent = !this.mostRecentActivity?.date
-            || (this.mostRecentActivity?.date?.toDate() < activity.date?.toDate()!);
-        if (newActivityIsMostRecent) {
-            this.mostRecentActivity = activity;
-        }
     }
 
     timestampToDate(stamp: any): Date {

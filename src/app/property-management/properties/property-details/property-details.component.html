@@ -56,6 +56,14 @@
                     <mat-icon>view_list</mat-icon>
                     <span class="ps-2">{{'property_details.activities' | translate}}</span>
                 </ng-template>
+                <div class="p-3">
+                    <button mat-raised-button (click)="openActivityUpload()">
+                        <mat-icon color="accent">add</mat-icon> {{ 'property_details.add_activity' | translate }}
+                    </button>
+                    <ng-template #activityUploadTpl>
+                        <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
+                    </ng-template>
+                </div>
                 <ng-container *ngIf="activities?.length; else noActivity">
                     <activity-list [activities]="activities!"
                         [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')">
@@ -77,6 +85,28 @@
                     <mat-icon>request_quote</mat-icon>
                     <span class="ps-2">{{'property_details.payment_schedules' | translate}}</span>
                 </ng-template>
+
+                <div class="p-3">
+                    <button mat-raised-button (click)="openScheduleUpload()">
+                        <mat-icon color="accent">add</mat-icon> {{ 'property_details.add_sched' | translate }}
+                    </button>
+                    <ng-template #scheduleUploadTpl>
+                        <ng-container *ngFor="let sched of newSchedules; let i = index">
+                            <payment-schedule class="my-1" [schedule]="sched" [editable]="true" [property]="property"
+                                [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                            </payment-schedule>
+                        </ng-container>
+                        <div class="p-2">
+                            <button class="me-2" mat-raised-button (click)="addSchedule()">
+                                <mat-icon>add</mat-icon> {{ 'property_upload.add_schedule' | translate }}
+                            </button>
+                            <button mat-raised-button (click)="uploadSchedules()">
+                                <mat-icon>upload</mat-icon> Upload
+                            </button>
+                        </div>
+                    </ng-template>
+                </div>
+
                 <div class="row" *ngIf="schedules?.length; else noSchedules">
                     <div class="col-12 p-3" *ngFor="let schedule of schedules">
                         <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
@@ -94,6 +124,94 @@
                     <mat-icon>description</mat-icon>
                     <span class="ps-2">{{'property_details.related_documents' | translate}}</span>
                 </ng-template>
+
+                <div class="p-3">
+                    <button mat-raised-button (click)="openFilesUpload()">
+                        <mat-icon color="accent">add</mat-icon> {{ 'property_details.add_files' | translate }}
+                    </button>
+                    <ng-template #filesUploadTpl>
+                        <form #uploadForm="ngForm">
+                            <input name="uploadedFiles" #filesInput multiple hidden="true" type="file"
+                                onclick="this.value=null"
+                                (change)="onFileUpload($event); uploadForm.form.markAsTouched();" />
+                            <button class="my-2" mat-raised-button (click)="filesInput.click()">
+                                <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' |
+                                translate }}
+                            </button>
+                            <div class="uploaded-files" cdkDropList
+                                (cdkDropListDropped)="uploadedFileDrop($event); uploadForm.form.markAsTouched();">
+                                <mat-card *ngFor="let doc of uploadedFiles; let i = index;" cdkDrag>
+                                    <mat-card-content>
+                                        <div class="d-xs-block d-sm-none row">
+                                            <div class="col-8">
+                                                <span #displayMobile>{{doc.displayName}}</span>
+                                                <input #editMobile trim="blur" hidden="true" type="text"
+                                                    [ngModel]="doc.displayName"
+                                                    (ngModelChange)="checkBtnMobile.disabled = doesFileNameAlreadyExist($event)"
+                                                    [ngModelOptions]="{standalone: true}" style="height: 2rem">
+                                                <div>
+                                                    <button #checkBtnMobile mat-button
+                                                        [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
+                                                     editMobile.hidden = true;
+                                                     onFileNameChange(doc.displayName!, edit.value, doc);
+                                                     uploadForm.form.markAsTouched();">
+                                                        <mat-icon color="accent">check</mat-icon>
+                                                    </button>
+                                                    <button #editBtnMobile mat-button
+                                                        [style.display]="editMobile.hidden ? '': 'none'"
+                                                        (click)="displayMobile.hidden = true; editMobile.hidden = false;">
+                                                        <mat-icon color="accent">edit</mat-icon>
+                                                    </button>
+                                                    <button mat-button
+                                                        (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
+                                                        <mat-icon>delete</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <button mat-button cdkDragHandle>
+                                                    <mat-icon>drag_handle</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="d-none d-sm-flex justify-content-between">
+                                            <span #display>{{doc.displayName}}</span>
+                                            <input #edit trim="blur" hidden="true" type="text"
+                                                [ngModel]="doc.displayName"
+                                                (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <div>
+                                                <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'"
+                                                    (click)="display.hidden = false;
+                                                edit.hidden = true;
+                                                onFileNameChange(doc.displayName!, edit.value, doc);
+                                                uploadForm.form.markAsTouched();">
+                                                    <mat-icon color="accent">check</mat-icon>
+                                                </button>
+                                                <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
+                                                    (click)="display.hidden = true; edit.hidden = false;">
+                                                    <mat-icon color="accent">edit</mat-icon>
+                                                </button>
+                                                <button mat-button
+                                                    (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                                <button mat-button cdkDragHandle>
+                                                    <mat-icon>drag_handle</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div *ngIf="uploadedFiles.length" class="my-2">
+                                <button mat-raised-button (click)="uploadFiles()">
+                                    <mat-icon color="accent">upload</mat-icon> Upload
+                                </button>
+                            </div>
+                        </form>
+                    </ng-template>
+                </div>
 
                 <div class="row pt-2" *ngFor="let doc of property.documents">
                     <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">

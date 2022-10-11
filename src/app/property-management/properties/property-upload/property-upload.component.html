@@ -3,20 +3,17 @@
         <ng-template matStepLabel>{{ 'property_upload.upload_contract' | translate }}</ng-template>
         <form [formGroup]="firstFormGroup">
             <div class="row pb-4">
-                <mat-form-field class="col-12" color="accent">
-                    <mat-label>{{ 'property_upload.contract_type' | translate }}</mat-label>
-                    <mat-select #contractTypeSelect formControlName="contractType" required>
-                        <mat-option value="rental">{{ 'property_upload.rental_contract' | translate }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
                 <input #contractInput required formControlName="contract" hidden="true" type="file"
                     onclick="this.value=null" accept=".doc, .docx"
                     (change)="firstFormGroup.markAsTouched(); onContractUpload($event)">
 
                 <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click();"
-                    [disabled]="!contractTypeSelect.value || (upload.extracting$ | async)">
-                    <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_contract' | translate }}
+                    [disabled]="upload.extracting$ | async">
+                    <mat-spinner *ngIf="upload.extracting$ | async" [diameter]="35"></mat-spinner>
+                    <span *ngIf="!(upload.extracting$ | async)">
+                        <mat-icon color="accent">upload_file</mat-icon>
+                        {{ 'property_upload.upload_contract' | translate }}
+                    </span>
                 </button>
                 <div *ngIf="contract" class="col-12 col-sm-10 pt-2 text-bold">
                     <span>{{contract.name}}</span>

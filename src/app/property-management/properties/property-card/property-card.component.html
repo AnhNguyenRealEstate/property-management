@@ -62,14 +62,6 @@
     </button>
 
     <mat-menu #controlsMenu="matMenu">
-        <button mat-menu-item class="d-block" [matMenuTriggerFor]="newActivityMenu">
-            <mat-icon color="accent">add_box</mat-icon>
-            <span>{{ 'property_card.new_activity' | translate }}</span>
-        </button>
-        <mat-menu #newActivityMenu="matMenu">
-            <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
-        </mat-menu>
-
         <button mat-menu-item class="d-block" (click)="editProperty($event)">
             <mat-icon color="accent">edit</mat-icon>
             <span>{{ 'property_card.edit_info' | translate }}</span>

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc } from '@angular/fire/firestore';
-import { getBlob, ref, Storage } from '@angular/fire/storage';
+import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp } from '@angular/fire/firestore';
+import { getBlob, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { FirestoreCollections } from 'src/app/shared/globals';
+import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
+import { UploadedFile } from '../../property-management.data';
+import { PropertiesRoutingModule } from '../properties-routing.module';
 import { Property } from "../property.data";
 
 @Injectable({ providedIn: 'root' })
@@ -90,5 +93,116 @@ export class PropertyDetailsService {
             ),
             { ...invoice }
         )
+    }
+
+    async addActivity(property: Property, activity: Activity, newFiles: File[]) {
+        try {
+            // Only under extreme usage that there could be hash collision on file names
+            // Highly unlikely to happen
+            await Promise.all(newFiles.map(async file => {
+                const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
+                if (!hashedName) {
+                    return;
+                }
+
+                const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
+                await uploadBytes(
+                    ref(
+                        this.storage,
+                        fileStoragePath
+                    ),
+                    file
+                )
+            }));
+        } finally {
+            const activitiyRef = await addDoc(
+                collection(
+                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                    FirestoreCollections.activities
+                ),
+                activity
+            );
+
+            activity.id = activitiyRef.id;
+        }
+    }
+
+    async uploadSchedules(schedules: PaymentSchedule[], property: Property): Promise<string[]> {
+        const scheduleIds = await Promise.all(schedules.map(async schedule => {
+
+            const scheduleRef = await addDoc(collection(this.firestore, FirestoreCollections.paymentSchedules), {
+                isActive: schedule.isActive,
+                beginDate: schedule.beginDate,
+                endDate: schedule.endDate
+            });
+
+            const invoices = schedule.lineItems;
+
+            if (!invoices?.length) {
+                return '';
+            }
+
+            await Promise.all(invoices.map(async (invoice) => {
+                await addDoc(
+                    collection(
+                        doc(this.firestore, `${FirestoreCollections.paymentSchedules}/${scheduleRef.id}`),
+                        FirestoreCollections.invoices
+                    ),
+                    { ...invoice, propertyId: property.id }
+                );
+            }));
+
+            return scheduleRef.id;
+        }));
+
+        scheduleIds.filter(id => !!id);
+        property.paymentScheduleIds?.push(...scheduleIds);
+
+        const docRef = doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`);
+        await updateDoc(docRef, { paymentScheduleIds: property.paymentScheduleIds });
+
+        return property.paymentScheduleIds || [];
+    }
+
+    async storeFiles(files: File[], uploadedFiles: UploadedFile[], property: Property) {
+        if (!files.length) return;
+
+        const uploaded = await Promise.all(files.map(async (file) => {
+            const docToUpload = uploadedFiles.find(document => document.displayName === file.name);
+            const hashedName = docToUpload?.dbHashedName;
+            if (!hashedName) {
+                return;
+            }
+
+            const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
+            await uploadBytes(
+                ref(
+                    this.storage,
+                    fileStoragePath
+                ),
+                file
+            );
+
+            docToUpload.date = Timestamp.now();
+
+            return docToUpload;
+        }));
+
+        if (!property.documents?.length) {
+            property.documents = [];
+        }
+
+        property.documents.unshift(...uploaded.map(file => {
+            return {
+                displayName: file!.displayName,
+                dbHashedName: file!.dbHashedName,
+                date: Timestamp.now()
+            } as UploadedFile
+        }));
+
+        const docRef = doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`);
+        await updateDoc(docRef, {
+            documents: property.documents
+        });
     }
 }

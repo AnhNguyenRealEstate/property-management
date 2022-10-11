@@ -58,7 +58,6 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>
     ) {
         this.firstFormGroup = this.formBuilder.group({
-            contractType: new FormControl(ContractType.rental),
             contract: new FormControl<File | undefined>(undefined)
         });
 
@@ -103,7 +102,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         } as UploadedFile)
 
         const data = new FormData();
-        data.append('contract_type', this.firstFormGroup.controls['contractType'].value as string);
+        data.append('contract_type', ContractType.rental);
         data.append('contract', this.contract);
         this.contractData = await this.upload.extractContractData(data);
         if (this.contractData) {

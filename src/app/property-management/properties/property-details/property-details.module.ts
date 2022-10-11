@@ -6,6 +6,7 @@ import { ActivityListModule } from '../../activities/activity-list/activity-list
 import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.module';
 import { PropertyDetailsComponent } from './property-details.component';
 import { TableModule } from 'ngx-easy-table';
+import { ActivityUploadModule } from '../../activities/activity-upload/activity-upload.module';
 
 @NgModule({
     declarations: [PropertyDetailsComponent],
@@ -16,6 +17,7 @@ import { TableModule } from 'ngx-easy-table';
             extend: true
         }),
         ActivityListModule,
+        ActivityUploadModule,
         PaymentScheduleModule,
         TableModule
     ],

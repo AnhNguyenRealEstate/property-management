@@ -23,7 +23,6 @@ import { PropertyDetailsModule } from './property-details/property-details.modul
         TranslateModule.forChild({ extend: true }),
         PropertiesRoutingModule,
         MatProgressBarModule,
-        ActivityUploadModule,
         ContractExtractionModule,
         MatDatepickerModule,
         MatNativeDateModule,
