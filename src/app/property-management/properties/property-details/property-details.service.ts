@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp } from '@angular/fire/firestore';
-import { getBlob, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { getBlob, getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { FirestoreCollections } from 'src/app/shared/globals';
@@ -8,7 +8,6 @@ import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
-import { PropertiesRoutingModule } from '../properties-routing.module';
 import { Property } from "../property.data";
 
 @Injectable({ providedIn: 'root' })

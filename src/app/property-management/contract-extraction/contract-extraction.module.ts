@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ContractExtractionComponent } from './contract-extraction.component';
@@ -9,8 +8,7 @@ import { ContractExtractionComponent } from './contract-extraction.component';
     declarations: [ContractExtractionComponent],
     imports: [
         CommonModule,
-        SharedModule,
-        NgxDocViewerModule
+        SharedModule
     ],
     exports: [ContractExtractionComponent]
 })

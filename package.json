@@ -40,8 +40,6 @@
     "calendar-utils": "0.9.0",
     "date-fns": "2.29.2",
     "jquery": "^3.6.0",
-    "mammoth": "^1.5.1",
-    "ngx-doc-viewer": "^2.1.2",
     "ngx-easy-table": "^15.3.0",
     "ngx-mask": "^14.0.3",
     "ngx-print": "^1.2.1",

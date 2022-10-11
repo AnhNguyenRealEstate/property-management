@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Invoice } from '../../invoices/invoices.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
-import { MatDatepicker } from '@angular/material/datepicker';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HashingService } from 'src/app/shared/hashing.service';
 
@@ -37,10 +36,11 @@ export class PropertyDetailsComponent implements OnInit {
 
     loading: boolean = true;
 
+    @ViewChild('docPreviewTpl') docPreviewTpl!: TemplateRef<string>;
+
     @ViewChild('activityUploadTpl') activityUploadTpl!: TemplateRef<string>;
     @ViewChild('scheduleUploadTpl') scheduleUploadTpl!: TemplateRef<string>;
     @ViewChild('filesUploadTpl') filesUploadTpl!: TemplateRef<string>;
-
 
     @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
     @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
@@ -282,7 +282,7 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     openFilesUpload() {
-        this.dialog.open(this.filesUploadTpl, { width: '60vw', height: '60vh' })
+        this.dialog.open(this.filesUploadTpl, { width: '60vw', height: '70vh' })
             .afterClosed().subscribe(() => {
                 this.newFiles = [];
                 this.uploadedFiles = [];
