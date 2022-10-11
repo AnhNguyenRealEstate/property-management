@@ -7,7 +7,6 @@ import { PaymentScheduleModule } from '../../payment-schedule/payment-schedule.m
 import { PropertyDetailsComponent } from './property-details.component';
 import { TableModule } from 'ngx-easy-table';
 import { ActivityUploadModule } from '../../activities/activity-upload/activity-upload.module';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
     declarations: [PropertyDetailsComponent],
@@ -20,8 +19,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
         ActivityListModule,
         ActivityUploadModule,
         PaymentScheduleModule,
-        TableModule,
-        NgxDocViewerModule
+        TableModule
     ],
     exports: [PropertyDetailsComponent]
 })
