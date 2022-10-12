@@ -120,7 +120,8 @@
         "dismiss_msg": "Tắt",
         "add_activity": "Hoạt động mới",
         "add_sched": "Lịch mới",
-        "add_files": "Thêm file"
+        "add_files": "Thêm file",
+        "upload": "Lưu"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",
@@ -129,7 +130,8 @@
         "activities": "hoạt động",
         "activities_on_this_date": "Các hoạt động trong ngày",
         "property_name": "Tên tài sản",
-        "activity_description": "Mô tả hoạt động"
+        "activity_description": "Mô tả hoạt động",
+        "documents": "tài liệu"
     },
     "activities_view": {
         "list": "Danh sách ngày",

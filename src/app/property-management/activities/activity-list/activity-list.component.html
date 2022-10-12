@@ -21,14 +21,19 @@
         <ng-template matExpansionPanelContent>
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let activity of activityByDate.activities; let i = index;"
-                    class="mat-elevation-z0 activity-panel" (mouseenter)="showDeleteBtn(deleteBtn)"
+                    class="mat-elevation-z1 activity-panel" (mouseenter)="showDeleteBtn(deleteBtn)"
                     (mouseleave)="hideDeleteBtn(deleteBtn)">
                     <mat-expansion-panel-header>
-                        <mat-panel-title>
+                        <mat-panel-title *ngIf="showPropertyName">
                             <span class="property-name text-bold">{{activity.propertyName}}</span>
                         </mat-panel-title>
                         <mat-panel-description>
-                            <div class="property-description">{{activity.description}}</div>
+                            <div class="property-description">
+                                <span>{{activity.description}}</span>
+                                <span class="ps-1" *ngIf="activity.documents?.length">({{activity.documents?.length}}
+                                    {{ 'activity_list.documents' | translate }})
+                                </span>
+                            </div>
                         </mat-panel-description>
                         <div style="display: none" #deleteBtn>
                             <button *ngIf="canDeleteActivities" mat-button
@@ -41,8 +46,9 @@
                     <ng-template matExpansionPanelContent>
                         <div *ngIf="!activity.documents?.length">{{ 'activity_list.no_doc' | translate }}</div>
                         <div *ngIf="activity.documents?.length" class="row">
-                            <div class="col-12 col-sm-3" *ngFor="let doc of activity.documents">
-                                <button mat-raised-button (click)="$event.stopPropagation(); downloadDoc(activity, doc)">
+                            <div class="col-12 my-1" *ngFor="let doc of activity.documents">
+                                <button mat-raised-button
+                                    (click)="$event.stopPropagation(); downloadDoc(activity, doc)">
                                     <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
                                 </button>
                             </div>
@@ -86,7 +92,7 @@
                     <ng-template matExpansionPanelContent>
                         <div>{{activity.description}}</div>
                         <div *ngIf="activity.documents?.length" class="row">
-                            <div class="col-12 col-sm-3" *ngFor="let doc of activity.documents">
+                            <div class="col-12 my-1" *ngFor="let doc of activity.documents">
                                 <button mat-raised-button
                                     (click)="$event.stopPropagation(); downloadDoc(activity ,doc)">
                                     <mat-icon color="accent">download</mat-icon> {{doc.displayName}}

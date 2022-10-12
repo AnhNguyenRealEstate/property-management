@@ -65,7 +65,7 @@
                     </ng-template>
                 </div>
                 <ng-container *ngIf="activities?.length; else noActivity">
-                    <activity-list [activities]="activities!"
+                    <activity-list [showPropertyName]="false" [activities]="activities!"
                         [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')">
                     </activity-list>
                     <div *ngIf="showViewMoreActivities" class="row">
@@ -98,10 +98,12 @@
                         </ng-container>
                         <div class="p-2">
                             <button class="me-2" mat-raised-button (click)="addSchedule()">
-                                <mat-icon>add</mat-icon> {{ 'property_upload.add_schedule' | translate }}
+                                <mat-icon>add</mat-icon> {{ 'property_details.add_sched' | translate }}
                             </button>
+                        </div>
+                        <div class="p-2 d-flex justify-content-end">
                             <button mat-raised-button (click)="uploadSchedules()">
-                                <mat-icon>upload</mat-icon> Upload
+                                <mat-icon color="accent">upload</mat-icon> {{ 'property_details.upload' | translate }}
                             </button>
                         </div>
                     </ng-template>
@@ -138,7 +140,7 @@
                                 <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' |
                                 translate }}
                             </button>
-                            <div class="uploaded-files" cdkDropList
+                            <div class="uploaded-files my-2" cdkDropList
                                 (cdkDropListDropped)="uploadedFileDrop($event); uploadForm.form.markAsTouched();">
                                 <mat-card *ngFor="let doc of uploadedFiles; let i = index;" cdkDrag>
                                     <mat-card-content>
@@ -204,9 +206,10 @@
                                     </mat-card-content>
                                 </mat-card>
                             </div>
-                            <div *ngIf="uploadedFiles.length" class="my-2">
+                            <mat-divider></mat-divider>
+                            <div *ngIf="uploadedFiles.length" class="d-flex justify-content-end my-2">
                                 <button mat-raised-button (click)="uploadFiles()">
-                                    <mat-icon color="accent">upload</mat-icon> Upload
+                                    <mat-icon color="accent">upload</mat-icon> {{ 'property_details.upload' | translate }}
                                 </button>
                             </div>
                         </form>

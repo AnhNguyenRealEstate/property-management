@@ -37,6 +37,7 @@ export interface DayActivities {
 export class ActivityListComponent implements OnChanges {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
+    @Input() showPropertyName: boolean = true;
 
     activitiesByDates: DayActivities[] = [];
 

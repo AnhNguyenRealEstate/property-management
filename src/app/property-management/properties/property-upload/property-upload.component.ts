@@ -1,9 +1,9 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,6 +41,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
     contract!: File;
     contractData: ContractData | undefined;
+    contractType: ContractType = ContractType.rental;
 
     sub: Subscription = new Subscription();
 
@@ -55,8 +56,13 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         private hash: HashingService,
         private snackbar: MatSnackBar,
         private translate: TranslateService,
-        @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>
+        @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>,
+        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
+        if (this.data) {
+            this.contractType = data.contractType;
+        }
+
         this.firstFormGroup = this.formBuilder.group({
             contract: new FormControl<File | undefined>(undefined)
         });
@@ -102,7 +108,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         } as UploadedFile)
 
         const data = new FormData();
-        data.append('contract_type', ContractType.rental);
+        data.append('contract_type', this.contractType);
         data.append('contract', this.contract);
         this.contractData = await this.upload.extractContractData(data);
         if (this.contractData) {

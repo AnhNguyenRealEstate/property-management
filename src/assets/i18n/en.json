@@ -116,7 +116,8 @@
         "dismiss_msg": "Dismiss",
         "add_activity": "Add activity",
         "add_sched": "Add schedule",
-        "add_files": "Add files"
+        "add_files": "Add files",
+        "upload": "Upload"
     },
     "activity_list": {
         "no_doc": "No documents to display",
@@ -125,7 +126,8 @@
         "activities": "activities",
         "activities_on_this_date": "Activities on this date",
         "property_name": "Property name",
-        "activity_description": "Activity description"
+        "activity_description": "Activity description",
+        "documents": "document(s)"
     },
     "activities_view": {
         "list": "List",
