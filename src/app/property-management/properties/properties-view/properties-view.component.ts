@@ -8,6 +8,7 @@ import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
+import { ContractType } from '../property-upload/property-upload.data';
 
 @Component({
     selector: 'properties-view',
@@ -102,8 +103,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
             width: '100%',
             autoFocus: false,
             data: {
-                property: {} as Property,
-                isEditMode: false
+                contractType: ContractType.rental
             }
         } as MatDialogConfig;
 

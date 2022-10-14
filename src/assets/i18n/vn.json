@@ -101,7 +101,8 @@
         "no_recent_activity": "Chưa có hoạt động gần đây",
         "new_activity": "Hoạt động mới",
         "edit_info": "Sửa thông tin tài sản",
-        "remove": "Xoá khỏi hệ thống"
+        "remove": "Xoá khỏi hệ thống",
+        "contract_progress": "Thời hạn hợp đồng"
     },
     "property_details": {
         "important_notes": "Thông tin cần biết",

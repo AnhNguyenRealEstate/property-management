@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -23,16 +23,20 @@ import { HashingService } from 'src/app/shared/hashing.service';
 
 export class PropertyDetailsComponent implements OnInit {
     property!: Property;
+    propertyDocuments: UploadedFile[] | undefined;
 
     activities: Activity[] = [];
     lastActivity!: DocumentSnapshot;
     showViewMoreActivities: boolean = false;
+    activityUploadRef!: MatDialogRef<any>;
 
     schedules: PaymentSchedule[] = [];
     newSchedules: PaymentSchedule[] = [{}];
+    scheduleUploadRef!: MatDialogRef<any>;
 
     newFiles: File[] = [];
     uploadedFiles: UploadedFile[] = [];
+    fileUploadRef!: MatDialogRef<any>;
 
     loading: boolean = true;
 
@@ -80,6 +84,7 @@ export class PropertyDetailsComponent implements OnInit {
         await this.getActivities();
         await this.getPaymentSchedules();
         this.loading = false;
+        
         this.paymentScheduleCols = [
             { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl },
             { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl },
@@ -87,6 +92,10 @@ export class PropertyDetailsComponent implements OnInit {
             { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl },
             { key: 'action', title: this.translate.instant('payment_schedule.actions'), cellTemplate: this.actionsTpl }
         ];
+
+        this.propertyDocuments = this.property.documents?.sort((a, b) =>
+            b.date?.toMillis()! - a.date?.toMillis()!
+        )
     }
 
     async getActivities() {
@@ -179,7 +188,7 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     openActivityUpload() {
-        this.dialog.open(this.activityUploadTpl)
+        this.activityUploadRef = this.dialog.open(this.activityUploadTpl);
     }
 
     async addActivity(activityAddedEvent: any) {
@@ -200,10 +209,13 @@ export class PropertyDetailsComponent implements OnInit {
         )
 
         await this.getActivities();
+        this.activityUploadRef.close();
     }
 
     openScheduleUpload() {
-        this.dialog.open(this.scheduleUploadTpl, { height: '60vh' });
+        this.scheduleUploadRef = this.dialog.open(this.scheduleUploadTpl, {
+            height: '60vh'
+        });
     }
 
     addSchedule() {
@@ -216,6 +228,7 @@ export class PropertyDetailsComponent implements OnInit {
         this.schedules = await this.propertyDetails.getPaymentSchedules(newScheduleIds);
 
         this.newSchedules = [];
+        this.scheduleUploadRef.close();
     }
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
@@ -282,11 +295,7 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     openFilesUpload() {
-        this.dialog.open(this.filesUploadTpl, { width: '60vw', height: '70vh' })
-            .afterClosed().subscribe(() => {
-                this.newFiles = [];
-                this.uploadedFiles = [];
-            });
+        this.fileUploadRef = this.dialog.open(this.filesUploadTpl, { width: '60vw', height: '70vh' });
     }
 
     async uploadFiles() {
@@ -294,5 +303,7 @@ export class PropertyDetailsComponent implements OnInit {
 
         this.newFiles = [];
         this.uploadedFiles = [];
+
+        this.fileUploadRef.close();
     }
 }

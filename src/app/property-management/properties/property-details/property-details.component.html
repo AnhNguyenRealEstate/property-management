@@ -90,7 +90,7 @@
                     <button mat-raised-button (click)="openScheduleUpload()">
                         <mat-icon color="accent">add</mat-icon> {{ 'property_details.add_sched' | translate }}
                     </button>
-                    <ng-template #scheduleUploadTpl>
+                    <ng-template #scheduleUploadTpl let-data>
                         <ng-container *ngFor="let sched of newSchedules; let i = index">
                             <payment-schedule class="my-1" [schedule]="sched" [editable]="true" [property]="property"
                                 [columnHeaders]="['description', 'amount', 'paymentWindow']">
@@ -216,7 +216,7 @@
                     </ng-template>
                 </div>
 
-                <div class="row pt-2" *ngFor="let doc of property.documents">
+                <div class="row pt-2" *ngFor="let doc of propertyDocuments">
                     <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">
                         <span class="related-document-date">{{doc.date?.toDate() | date:'dd/MM/yyyy'}}</span>
                         <div class="d-inline">

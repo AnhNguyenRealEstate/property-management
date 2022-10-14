@@ -1,7 +1,8 @@
 export enum ContractType {
     rental = 'rental',
     brokerage = 'brokerage',
-    transaction = 'transaction'
+    transaction = 'transaction',
+    rental_extension = 'rental_extension'
 }
 
 export interface ContractData {

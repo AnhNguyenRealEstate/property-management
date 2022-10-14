@@ -1,0 +1,67 @@
+<input name="uploadedFiles" #filesInput multiple hidden="true" type="file" onclick="this.value=null"
+    (change)="onFileUpload($event); form.markAsTouched();" />
+
+<div>
+    <button mat-raised-button (click)="filesInput.click()">
+        <mat-icon color="accent">upload_file</mat-icon> {{ 'property_upload.upload_files' | translate }}
+    </button>
+</div>
+
+<div class="uploaded-files pt-2" cdkDropList (cdkDropListDropped)="uploadedFileDrop($event); form.markAsTouched();">
+    <mat-card class="mat-elevation-z3" *ngFor="let doc of uploadedFiles; let i = index;" cdkDrag>
+        <mat-card-content>
+            <div class="d-xs-block d-sm-none row">
+                <div class="col-8">
+                    <span #displayMobile>{{doc.displayName}}</span>
+                    <input #editMobile trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
+                        (ngModelChange)="checkBtnMobile.disabled = doesFileNameAlreadyExist($event)"
+                        [ngModelOptions]="{standalone: true}" style="height: 2rem;">
+                    <div>
+                        <button #checkBtnMobile mat-button [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
+                                     editMobile.hidden = true;
+                                     onFileNameChange(doc.displayName!, edit.value, doc);
+                                     form.markAsTouched();">
+                            <mat-icon color="accent">check</mat-icon>
+                        </button>
+                        <button #editBtnMobile mat-button [style.display]="editMobile.hidden ? '': 'none'"
+                            (click)="displayMobile.hidden = true; editMobile.hidden = false;">
+                            <mat-icon color="accent">edit</mat-icon>
+                        </button>
+                        <button mat-button (click)="onFileRemove(i); form.markAsTouched();">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button mat-button cdkDragHandle>
+                        <mat-icon>drag_handle</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="d-none d-sm-flex justify-content-between">
+                <span #display class="pt-2">{{doc.displayName}}</span>
+                <input #edit trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
+                    (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
+                    [ngModelOptions]="{standalone: true}" style="width: 50vw">
+                <div>
+                    <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
+                                edit.hidden = true;
+                                onFileNameChange(doc.displayName!, edit.value, doc);
+                                form.markAsTouched();">
+                        <mat-icon color="accent">check</mat-icon>
+                    </button>
+                    <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
+                        (click)="display.hidden = true; edit.hidden = false;">
+                        <mat-icon color="accent">edit</mat-icon>
+                    </button>
+                    <button mat-button (click)="onFileRemove(i); form.markAsTouched();">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-button cdkDragHandle>
+                        <mat-icon>drag_handle</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

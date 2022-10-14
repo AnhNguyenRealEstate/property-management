@@ -9,11 +9,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ActivityUploadModule } from '../activities/activity-upload/activity-upload.module';
 import { ContractExtractionModule } from '../contract-extraction/contract-extraction.module';
+import { ContractExtensionModule } from './contract-extension/contract-extension.module';
 import { PropertiesRoutingModule } from './properties-routing.module';
 
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyDetailsModule } from './property-details/property-details.module';
+import { PropertyEditModule } from './property-edit/property-edit.module';
+import { PropertyUploadModule } from './property-upload/property-upload.module';
 
 @NgModule({
     imports: [
@@ -27,7 +30,10 @@ import { PropertyDetailsModule } from './property-details/property-details.modul
         MatDatepickerModule,
         MatNativeDateModule,
         DatePipe,
-        PropertyDetailsModule
+        PropertyDetailsModule,
+        PropertyUploadModule,
+        PropertyEditModule,
+        ContractExtensionModule
     ],
     exports: [PropertiesViewComponent],
     declarations: [PropertiesViewComponent, PropertyCardComponent],

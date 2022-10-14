@@ -33,7 +33,8 @@ exports.postProcessDelete = functions.region('asia-southeast2').firestore
         await removePaymentSchedulesAndInvoices(snap.get('paymentScheduleIds') as string[]);
         await removeActivities(id);
         await removeFiles(snap.get('fileStoragePath'))
-        await incrementPropertyCount(snap, -1);
+        await removeRentalExtensions(id);
+        incrementPropertyCount(snap, -1);
     });
 
 //https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
@@ -100,7 +101,15 @@ async function removeFiles(storagePath: string) {
             file.delete();
         })
     }
+}
 
+async function removeRentalExtensions(propertyId: string) {
+    const rentalExtensions = admin.firestore().collection(`rental-extension`).where('propertyId', '==', propertyId);
+    const rentalExtensionsQuery = rentalExtensions.limit(10);
+
+    return new Promise((resolve, reject) => {
+        deleteQueryBatch(admin.firestore(), rentalExtensionsQuery, resolve).catch(reject);
+    });
 }
 
 function incrementPropertyCount(snap: functions.firestore.QueryDocumentSnapshot, count: number) {

@@ -8,6 +8,7 @@ import { Property } from "../property.data";
 import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertyCardService } from './property-card.service';
 import { Activity } from '../../activities/activity.data';
+import { ContractExtensionComponent } from '../contract-extension/contract-extension.component';
 
 @Component({
     selector: 'property-card',
@@ -40,7 +41,22 @@ export class PropertyCardComponent implements OnInit {
         this.calculateContractProgress();
     }
 
-    async editProperty(event: Event) {
+    extendContract(event: Event) {
+        event.stopPropagation();
+
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                property: this.property
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(ContractExtensionComponent, config);
+    }
+
+    editProperty(event: Event) {
         event.stopPropagation();
 
         const config = {
@@ -56,7 +72,7 @@ export class PropertyCardComponent implements OnInit {
         this.dialog.open(PropertyEditComponent, config);
     }
 
-    async deleteProperty(event: Event) {
+    deleteProperty(event: Event) {
         event.stopPropagation();
 
         this.dialog.open(this.confirmationDialogTemplate, {

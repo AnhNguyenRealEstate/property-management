@@ -56,12 +56,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         private hash: HashingService,
         private snackbar: MatSnackBar,
         private translate: TranslateService,
-        @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>,
-        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
+        @Optional() private dialogRef: MatDialogRef<OwnerUploadComponent>
     ) {
-        if (this.data) {
-            this.contractType = data.contractType;
-        }
 
         this.firstFormGroup = this.formBuilder.group({
             contract: new FormControl<File | undefined>(undefined)
@@ -222,13 +218,6 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
         this.stepsCanBeEdited = false;
         submitBtn.disabled = true;
-
-        const invoices: Invoice[] = [];
-        for (let i = 0; i < this.schedules.length; i++) {
-            if (this.schedules[i].lineItems?.length) {
-                invoices.push(...this.schedules[i].lineItems!);
-            }
-        }
 
         await this.upload.uploadProperty(this.property, this.uploadedFiles, this.schedules);
 

@@ -8,8 +8,7 @@ import { Property } from "../property.data";
 @Injectable({ providedIn: 'any' })
 export class PropertyCardService {
     constructor(
-        private firestore: Firestore,
-        private storage: Storage
+        private firestore: Firestore
     ) { }
 
     /**
