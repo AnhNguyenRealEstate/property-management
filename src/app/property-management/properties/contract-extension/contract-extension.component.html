@@ -1,6 +1,6 @@
 <mat-stepper [linear]="linear" [orientation]="'vertical'" #stepper>
     <mat-step state="uploadContract" [stepControl]="uploadContractFormGroup" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Upload contract</ng-template>
+        <ng-template matStepLabel>{{ 'contract_extension.upload_contract' | translate }}</ng-template>
         <form [formGroup]="uploadContractFormGroup">
             <div class="row pb-4">
                 <input #contractInput required formControlName="contract" hidden="true" type="file"
@@ -12,7 +12,7 @@
                         <mat-spinner *ngIf="contractExtension.extracting$ | async" [diameter]="35"></mat-spinner>
                         <span *ngIf="!(contractExtension.extracting$ | async)">
                             <mat-icon color="accent">upload_file</mat-icon>
-                            Upload extension contract
+                            {{ 'contract_extension.upload_extension_contract' | translate }}
                         </span>
                     </button>
                 </div>
@@ -37,7 +37,7 @@
 
                 <div class="row pt-4">
                     <button class="col-12 col-sm-2" mat-raised-button color="accent" matStepperNext>
-                        Next <mat-icon>arrow_forward</mat-icon>
+                        {{ 'contract_extension.next' | translate }} <mat-icon>arrow_forward</mat-icon>
                     </button>
                 </div>
             </ng-container>
@@ -45,21 +45,21 @@
     </mat-step>
 
     <mat-step state="contractInfo" [stepControl]="contractInfoFormGroup" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Contract information</ng-template>
+        <ng-template matStepLabel>{{ 'contract_extension.contract_info' | translate }}</ng-template>
         <form [formGroup]="contractInfoFormGroup">
             <div class="row pb-4">
                 <mat-form-field class="col-12 col-sm-6">
-                    <mat-label>Owner name</mat-label>
+                    <mat-label>{{ 'contract_extension.owner_name' | translate }}</mat-label>
                     <input matInput formControlName="ownerName" type="text" required
                         [(ngModel)]="extensionData.ownerName">
                 </mat-form-field>
                 <mat-form-field class="col-12 col-sm-6">
-                    <mat-label>Tenant name</mat-label>
+                    <mat-label>{{ 'contract_extension.tenant_name' | translate }}</mat-label>
                     <input matInput formControlName="tenantName" type="text" required
                         [(ngModel)]="extensionData.tenantName">
                 </mat-form-field>
                 <mat-form-field class="col-12 col-sm-6">
-                    <mat-label>Start date</mat-label>
+                    <mat-label>{{ 'contract_extension.start_date' | translate }}</mat-label>
                     <input readonly matInput required formControlName="startDate" #startDate
                         (ngModelChange)="extensionData.startDate = dateToTimestamp($event)"
                         [matDatepicker]="startDatePicker" (click)="startDatePicker.open()">
@@ -67,7 +67,7 @@
                     <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="col-12 col-sm-6">
-                    <mat-label>End date</mat-label>
+                    <mat-label>{{ 'contract_extension.end_date' | translate }}</mat-label>
                     <input readonly matInput required formControlName="endDate" #endDate
                         (ngModelChange)="extensionData.endDate = dateToTimestamp($event)"
                         [matDatepicker]="endDatePicker" (click)="endDatePicker.open()">
@@ -80,17 +80,17 @@
 
             <div class="row pt-4 d-flex justify-content-between">
                 <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                    <mat-icon>arrow_back</mat-icon> Previous
+                    <mat-icon>arrow_back</mat-icon> {{ 'contract_extension.previous' | translate }}
                 </button>
                 <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
-                    Next <mat-icon>arrow_forward</mat-icon>
+                    {{ 'contract_extension.next' | translate }} <mat-icon>arrow_forward</mat-icon>
                 </button>
             </div>
         </form>
     </mat-step>
 
     <mat-step state="paymentSchedules" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Payment schedules</ng-template>
+        <ng-template matStepLabel>{{ 'contract_extension.payment_schedules' | translate }}</ng-template>
 
         <ng-container *ngFor="let sched of schedules; let i = index">
             <div class="mt-2">
@@ -106,7 +106,7 @@
         <div class="row pt-2 pb-2 ">
             <div class="col-12">
                 <button mat-raised-button (click)="addSchedule()">
-                    <mat-icon>add</mat-icon> Add schedule
+                    <mat-icon>add</mat-icon> {{ 'contract_extension.add_schedule' | translate }}
                 </button>
             </div>
         </div>
@@ -115,17 +115,17 @@
 
         <div class="row pt-4 d-flex justify-content-between">
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+                <mat-icon>arrow_back</mat-icon> {{ 'contract_extension.previous' | translate }}
             </button>
             <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit"
                 (click)="removeEmptySchedules()">
-                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+                {{ 'contract_extension.next' | translate }} <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
     </mat-step>
 
     <mat-step state="additionalFiles" [editable]="stepsCanBeEdited">
-        <ng-template matStepLabel>Additional files</ng-template>
+        <ng-template matStepLabel>{{ 'contract_extension.additional_files' | translate }}</ng-template>
         <div class="py-2">
             <file-upload [form]="contractInfoFormGroup" [(files)]="files" [(uploadedFiles)]="uploadedFiles">
             </file-upload>
@@ -135,38 +135,38 @@
 
         <div class="row pt-4 d-flex justify-content-between">
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+                <mat-icon>arrow_back</mat-icon> {{ 'contract_extension.previous' | translate }}
             </button>
             <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit"
                 (click)="removeEmptySchedules()">
-                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+                {{ 'contract_extension.next' | translate }} <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
     </mat-step>
 
     <mat-step state="previewInfo">
-        <ng-template matStepLabel>Preview information</ng-template>
+        <ng-template matStepLabel>{{ 'contract_extension.preview_info' | translate }}</ng-template>
 
         <div class="row pb-2">
             <div class="col-6">
-                <label-span [label]="'Owner name'" [span]="extensionData.ownerName"></label-span>
+                <label-span [label]="'contract_extension.owner_name' | translate" [span]="extensionData.ownerName"></label-span>
             </div>
             <div class="col-6">
-                <label-span [label]="'Tenant name'" [span]="extensionData.tenantName"></label-span>
+                <label-span [label]="'contract_extension.tenant_name' | translate" [span]="extensionData.tenantName"></label-span>
             </div>
             <div class="col-6">
-                <label-span [label]="'Start date'" [span]="extensionData.startDate?.toDate() | date: 'dd/MM/yyyy'">
+                <label-span [label]="'contract_extension.start_date' | translate" [span]="extensionData.startDate?.toDate() | date: 'dd/MM/yyyy'">
                 </label-span>
             </div>
             <div class="col-6">
-                <label-span [label]="'End date'" [span]="extensionData.endDate?.toDate() | date: 'dd/MM/yyyy'">
+                <label-span [label]="'contract_extension.end_date' | translate" [span]="extensionData.endDate?.toDate() | date: 'dd/MM/yyyy'">
                 </label-span>
             </div>
         </div>
 
         <div class="row pb-2">
             <div class="col-12 pb-1 text-bold">
-                Uploaded files
+                {{ 'contract_extension.additional_files' | translate }}
             </div>
             <mat-divider></mat-divider>
             <div class="col-12 pt-1" *ngFor="let file of files">
@@ -176,7 +176,7 @@
 
         <div class="row pb-2" *ngIf="schedules.length">
             <div class="col-12 pb-1 text-bold">
-               Payment schedules
+                {{ 'contract_extensions.payment_schedules' | translate }}
             </div>
             <ng-container *ngFor="let sched of schedules; let i = index">
                 <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
@@ -192,11 +192,11 @@
 
         <div class="row pt-4 d-flex justify-content-between">
             <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
-                <mat-icon>arrow_back</mat-icon> Previous
+                <mat-icon>arrow_back</mat-icon>  {{ 'contract_extension.previous' | translate }}
             </button>
             <button class="col-6 col-sm-2" mat-raised-button color="accent" #submitBtn (click)="submit(submitBtn)"
                 [disabled]="contractExtension.uploading$ | async">
-                Submit <mat-icon>upload</mat-icon>
+                {{ 'contract_extensions.submit' | translate }} <mat-icon>upload</mat-icon>
             </button>
         </div>
     </mat-step>

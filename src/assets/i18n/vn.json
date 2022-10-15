@@ -102,7 +102,8 @@
         "new_activity": "Hoạt động mới",
         "edit_info": "Sửa thông tin tài sản",
         "remove": "Xoá khỏi hệ thống",
-        "contract_progress": "Thời hạn hợp đồng"
+        "contract_progress": "Thời hạn hợp đồng",
+        "extend_contract": "Gia hạn"
     },
     "property_details": {
         "important_notes": "Thông tin cần biết",
@@ -250,6 +251,23 @@
     "summary": {
         "contracts_expiring_soon": "hợp đồng sắp hết hạn",
         "expiring_soon_msg": "Hợp đồng còn {{month}} tháng"
+    },
+    "contract_extension": {
+        "upload_contract": "Phụ lục gia hạn",
+        "upload_extension_contract": "Phụ lục gia hạn",
+        "next": "Tiếp",
+        "previous": "Quay lại",
+        "contract_info": "Thông tin hợp đồng",
+        "owner_name": "Tên chủ nhà",
+        "tenant_name": "Bên thuê",
+        "start_date": "Ngày bắt đầu",
+        "end_date": "Ngày kết thúc",
+        "payment_schedules": "Lịch thanh toán",
+        "add_schedule": "Tạo lịch thanh toán",
+        "additional_files": "Giấy tờ liên quan",
+        "preview_info": "Xem lại thông tin",
+        "upload_files": "Đính kèm file",
+        "submit": "Gia hạn"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

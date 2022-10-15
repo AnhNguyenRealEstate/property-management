@@ -19,9 +19,9 @@ exports.extendRentalContracts = functions.region('asia-southeast2').pubsub.
 
         const today = admin.firestore.Timestamp.fromDate(todayAsDate);
         const tomorrow = admin.firestore.Timestamp.fromDate(new Date(todayAsDate.getFullYear(), todayAsDate.getMonth(), todayAsDate.getDate() + 1))
-        const rentalExtensionsSnap = await admin.firestore().collection(`rental-extensions`)
+        const rentalExtensionsSnap = await admin.firestore().collection(`rental-extension`)
             .where('startDate', '>=', today)
-            .where('endDate', '<', tomorrow).get()
+            .where('startDate', '<', tomorrow).get()
 
         console.log(`Extending ${rentalExtensionsSnap.size} contracts`)
 

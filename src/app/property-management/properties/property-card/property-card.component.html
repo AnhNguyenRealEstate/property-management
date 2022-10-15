@@ -62,13 +62,13 @@
     </button>
 
     <mat-menu #controlsMenu="matMenu">
-        <button mat-menu-item class="d-block">
+        <!-- <button mat-menu-item class="d-block">
             <mat-icon color="accent">add_circle_outline_icon</mat-icon>
             <span>New contract</span>
-        </button>
+        </button> -->
         <button mat-menu-item class="d-block" (click)="extendContract($event)">
             <mat-icon color="accent">more_time</mat-icon>
-            <span>Extend contract</span>
+            <span>{{ 'property_card.extend_contract' | translate }}</span>
         </button>
         <button mat-menu-item class="d-block" (click)="editProperty($event)">
             <mat-icon color="accent">edit</mat-icon>

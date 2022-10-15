@@ -98,7 +98,8 @@
         "new_activity": "New activity",
         "edit_info": "Edit information",
         "remove": "Remove from system",
-        "contract_progress": "Contract progress"
+        "contract_progress": "Contract progress",
+        "extend_contract": "Extend contract"
     },
     "property_details": {
         "important_notes": "Important details",
@@ -246,6 +247,23 @@
     "summary": {
         "contracts_expiring_soon": "contract(s) expiring soon",
         "expiring_soon_msg": "Contract expires in {{month}} month(s)"
+    },
+    "contract_extension": {
+        "upload_contract": "Upload contract",
+        "upload_extension_contract": "Upload extension contract",
+        "next": "Next",
+        "previous": "Previous",
+        "contract_info": "Contract information",
+        "owner_name": "Owner name",
+        "tenant_name": "Tenant name",
+        "start_date": "Start date",
+        "end_date": "End date",
+        "payment_schedules": "Payment schedules",
+        "add_schedule": "Add schedule",
+        "additional_files": "Additional files",
+        "preview_info": "Preview information",
+        "upload_files": " Uploaded files",
+        "submit": "Submit"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }
