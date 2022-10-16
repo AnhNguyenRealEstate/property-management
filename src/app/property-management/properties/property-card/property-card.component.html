@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z3 pe-4" [class.no-longer-managed]="propertyNoLongerManaged"
+<mat-card class="pe-4" [class.no-longer-managed]="propertyNoLongerManaged"
     [matTooltip]="property.name || ''">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>

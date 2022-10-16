@@ -43,6 +43,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     propertiesMetadata = {} as PropertiesMetadata;
 
+    searchInput: string = '';
+
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
@@ -89,23 +91,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async search(category: PropertyCategory, query: string) {
-        const properties = (await this.propertiesView.getProperties(category))
-            .filter(property => property.name?.toLowerCase().includes(query.toLowerCase()));
-
-        switch (category) {
-            case 'Apartment':
-                this.apartments = properties.filter(prop => prop.category === 'Apartment');
-                break;
-            case 'Commercial':
-                this.commercials = properties.filter(prop => prop.category === 'Commercial');
-                break;
-            case 'Townhouse':
-                this.townhouses = properties.filter(prop => prop.category === 'Townhouse');
-                break;
-            case 'Villa':
-                this.villas = properties.filter(prop => prop.category === 'Villa');
-                break;
-        }
     }
 
     registerProperty() {
