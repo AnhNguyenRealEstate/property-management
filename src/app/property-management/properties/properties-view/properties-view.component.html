@@ -11,7 +11,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.apartmentCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
-        <div [@propertyCardAnim]="apartments.length" class="row p-2">
+        <div [@propertyCardAnim]="apartments.length" class="row p-2" style="overflow-y: scroll">
             <div *ngFor="let prop of apartments; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(apartments, prop)">
@@ -27,7 +27,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
-        <div [@propertyCardAnim]="villas.length" class="row p-2">
+        <div [@propertyCardAnim]="villas.length" class="row p-2" style="overflow-y: scroll">
             <div *ngFor="let prop of villas; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
                 </property-card>
@@ -42,7 +42,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.townhouseCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
-        <div [@propertyCardAnim]="townhouses.length" class="row p-2">
+        <div [@propertyCardAnim]="townhouses.length" class="row p-2" style="overflow-y: scroll">
             <div *ngFor="let prop of townhouses; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(townhouses, prop)">
@@ -58,7 +58,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.commercialCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
-        <div [@propertyCardAnim]="commercials.length" class="row p-2">
+        <div [@propertyCardAnim]="commercials.length" class="row p-2" style="overflow-y: scroll">
             <div *ngFor="let prop of commercials; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(commercials, prop)">
@@ -81,8 +81,7 @@
             <mat-form-field color="accent" class="px-3">
                 <input #searchInput matInput [placeholder]="'properties_view.search_placeholder' | translate"
                     type="text">
-                <button matSuffix mat-button aria-label="Search"
-                    (click)="search(category,searchInput.value)">
+                <button matSuffix mat-button aria-label="Search" (click)="search(category,searchInput.value)">
                     <mat-icon>search</mat-icon>
                 </button>
             </mat-form-field>
