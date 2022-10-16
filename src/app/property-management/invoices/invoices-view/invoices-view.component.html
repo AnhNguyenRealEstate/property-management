@@ -1,4 +1,4 @@
-<mat-tab-group class="px-2 py-4" color="accent" dynamicHeight="true">
+<mat-tab-group class="mx-2 my-sm-4" color="accent" style="min-height: 90vh;">
     <mat-tab id="uncollected-invoices">
         <ng-template matTabLabel>
             <mat-icon>assignment_late_icon</mat-icon>
@@ -6,7 +6,7 @@
             <span>({{uncollectedInvoices.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
-            <div class="col-6">
+            <div class="col-6 mt-2">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_time_period' | translate }}</mat-label>
                     <mat-select [value]="'currentMonth'" (selectionChange)="getUnpaidInvoices($event.value)">
@@ -15,7 +15,7 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-6 py-2 d-flex justify-content-end">
+            <div class="col-6 py-3 d-flex justify-content-end">
                 <button mat-raised-button printSectionId="print-section-uncollected" [useExistingCss]="true" ngxPrint>
                     <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
                 </button>
@@ -46,7 +46,7 @@
             <span>({{collectedInvoices.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
-            <div class="col-6">
+            <div class="col-6 mt-2">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
                     <input id="dpCollected" readonly matInput [matDatepicker]="dpCollected" [value]="paidInvoicesDate" (click)="dpCollected.open()">
@@ -56,7 +56,7 @@
                     </mat-datepicker>
                 </mat-form-field>
             </div>
-            <div class="col-6 py-2 d-flex justify-content-end">
+            <div class="col-6 py-3 d-flex justify-content-end">
                 <button mat-raised-button printSectionId="print-section-collected" [useExistingCss]="true" ngxPrint>
                     <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
                 </button>
@@ -85,7 +85,7 @@
             <span>({{paidOutInvoices.length}})</span>
         </ng-template>
         <div class="row px-2 py-2">
-            <div class="col-6">
+            <div class="col-6 mt-2">
                 <mat-form-field>
                     <mat-label>{{ 'invoices.select_month' | translate }}</mat-label>
                     <input id="dpPaidout" readonly matInput [matDatepicker]="dpPaidout" [value]="paidOutInvoicesDate"
@@ -96,7 +96,7 @@
                     </mat-datepicker>
                 </mat-form-field>
             </div>
-            <div class="col-6 py-2 d-flex justify-content-end">
+            <div class="col-6 py-3 d-flex justify-content-end">
                 <button mat-raised-button printSectionId="print-section-paidout" [useExistingCss]="true" ngxPrint>
                     <mat-icon color="accent">print</mat-icon> {{ 'invoices.print' | translate }}
                 </button>
