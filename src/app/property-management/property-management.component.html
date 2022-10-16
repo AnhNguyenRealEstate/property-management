@@ -65,11 +65,11 @@
                         translate }}</span>
                 </ng-template>
             </mat-tab>
-            <!-- <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
+            <mat-tab *ngIf="(roles.roles$ | async )?.includes('customer-service')">
                 <ng-template mat-tab-label>
                     <span (click)="viewInvoices()">{{ 'property_management.invoices' | translate }}</span>
                 </ng-template>
-            </mat-tab> -->
+            </mat-tab>
         </mat-tab-group>
         <router-outlet name="property-management-outlet"></router-outlet>
     </div>

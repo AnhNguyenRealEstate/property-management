@@ -1,7 +1,9 @@
 <mat-accordion multi="true">
     <mat-expansion-panel #invoicePanel *ngFor="let invoice of invoices"
         (mouseenter)="showActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
-        (mouseleave)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
+        (mouseleave)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
+        (afterExpand)="showActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
+        (afterCollapse)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
         <mat-expansion-panel-header>
             <mat-panel-title class="invoice-title">
                 <span>{{invoice.propertyName}}</span>

@@ -1,90 +1,72 @@
-<div class="pt-2 row d-flex justify-content-center">
-    <div class="col-11 py-0 search-bar">
-        <mat-form-field color="accent" class="px-3">
-            <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
-                [(ngModel)]="algoliaQuery">
-            <button matSuffix mat-button aria-label="Search" (click)="searchWithAlgolia()">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
+<div class="row d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">
+    <mat-spinner color="primary" [diameter]="35"></mat-spinner>
 </div>
 
-<div class="row pb-4">
-    <div class="col-12 d-flex justify-content-center" *ngIf="propertiesView.gettingProperties$ | async">
-        <mat-spinner color="primary" [diameter]="35"></mat-spinner>
-    </div>
+<mat-tab-group class="my-sm-4 mx-1" dynamicHeight="true" color="accent" [selectedIndex]="0"
+    (selectedIndexChange)="onTabChange($event)">
+    <mat-tab>
+        <ng-template matTabLabel>
+            <mat-icon>apartment</mat-icon>
+            <span class="ps-2 pe-2">{{'property_category.apartment' | translate}}</span>
+            <span>({{ (metadata.propertiesMetadata$ | async)?.apartmentCount }})</span>
+        </ng-template>
+        <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
+        <div [@propertyCardAnim]="apartments.length" class="row p-2">
+            <div *ngFor="let prop of apartments; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                <property-card (click)="showDetails(prop)" [property]="prop"
+                    (delete)="propertyRemoved(apartments, prop)">
+                </property-card>
+            </div>
+        </div>
+    </mat-tab>
 
-    <div class="col-12">
-        <mat-tab-group dynamicHeight="true" color="accent" [selectedIndex]="0"
-            (selectedIndexChange)="onTabChange($event)">
-            <mat-tab>
-                <ng-template matTabLabel>
-                    <mat-icon>apartment</mat-icon>
-                    <span class="ps-2 pe-2">{{'property_category.apartment' | translate}}</span>
-                    <span>({{ (metadata.propertiesMetadata$ | async)?.apartmentCount }})</span>
-                </ng-template>
-                <div [@propertyCardAnim]="apartments.length" class="row p-2">
-                    <div *ngFor="let prop of apartments; let i = index;"
-                        class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
-                        <property-card (click)="showDetails(prop)" [property]="prop"
-                            (delete)="propertyRemoved(apartments, prop)">
-                        </property-card>
-                    </div>
-                </div>
-            </mat-tab>
+    <mat-tab>
+        <ng-template matTabLabel>
+            <mat-icon>villa</mat-icon>
+            <span class="ps-2 pe-2">{{'property_category.villa' | translate}}</span>
+            <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
+        </ng-template>
+        <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
+        <div [@propertyCardAnim]="villas.length" class="row p-2">
+            <div *ngFor="let prop of villas; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
+                </property-card>
+            </div>
+        </div>
+    </mat-tab>
 
-            <mat-tab>
-                <ng-template matTabLabel>
-                    <mat-icon>villa</mat-icon>
-                    <span class="ps-2 pe-2">{{'property_category.villa' | translate}}</span>
-                    <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
-                </ng-template>
-                <div [@propertyCardAnim]="villas.length" class="row p-2">
-                    <div *ngFor="let prop of villas; let i = index;" class="col-sm-4 col-xl-3 property-card-wrapper">
-                        <property-card (click)="showDetails(prop)" [property]="prop"
-                            (delete)="propertyRemoved(villas, prop)">
-                        </property-card>
-                    </div>
-                </div>
-            </mat-tab>
+    <mat-tab>
+        <ng-template matTabLabel>
+            <mat-icon>door_sliding</mat-icon>
+            <span class="ps-2 pe-2">{{'property_category.townhouse' | translate}}</span>
+            <span>({{ (metadata.propertiesMetadata$ | async)?.townhouseCount }})</span>
+        </ng-template>
+        <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
+        <div [@propertyCardAnim]="townhouses.length" class="row p-2">
+            <div *ngFor="let prop of townhouses; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                <property-card (click)="showDetails(prop)" [property]="prop"
+                    (delete)="propertyRemoved(townhouses, prop)">
+                </property-card>
+            </div>
+        </div>
+    </mat-tab>
 
-            <mat-tab>
-                <ng-template matTabLabel>
-                    <mat-icon>door_sliding</mat-icon>
-                    <span class="ps-2 pe-2">{{'property_category.townhouse' | translate}}</span>
-                    <span>({{ (metadata.propertiesMetadata$ | async)?.townhouseCount }})</span>
-                </ng-template>
-                <div [@propertyCardAnim]="townhouses.length" class="row p-2">
-                    <div *ngFor="let prop of townhouses; let i = index;"
-                        class="col-sm-4 col-xl-3 property-card-wrapper">
-                        <property-card (click)="showDetails(prop)" [property]="prop"
-                            (delete)="propertyRemoved(townhouses, prop)">
-                        </property-card>
-                    </div>
-                </div>
-            </mat-tab>
-
-            <mat-tab>
-                <ng-template matTabLabel>
-                    <mat-icon>store_front</mat-icon>
-                    <span class="ps-2 pe-2">{{'property_category.commercial' | translate}}</span>
-                    <span>({{ (metadata.propertiesMetadata$ | async)?.commercialCount }})</span>
-                </ng-template>
-                <div [@propertyCardAnim]="commercials.length" class="row p-2">
-                    <div *ngFor="let prop of commercials; let i = index;"
-                        class="col-sm-4 col-xl-3 property-card-wrapper">
-                        <property-card (click)="showDetails(prop)" [property]="prop"
-                            (delete)="propertyRemoved(commercials, prop)">
-                        </property-card>
-                    </div>
-                </div>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-
-
-</div>
+    <mat-tab>
+        <ng-template matTabLabel>
+            <mat-icon>store_front</mat-icon>
+            <span class="ps-2 pe-2">{{'property_category.commercial' | translate}}</span>
+            <span>({{ (metadata.propertiesMetadata$ | async)?.commercialCount }})</span>
+        </ng-template>
+        <ng-container [ngTemplateOutlet]="searchBar"></ng-container>
+        <div [@propertyCardAnim]="commercials.length" class="row p-2">
+            <div *ngFor="let prop of commercials; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                <property-card (click)="showDetails(prop)" [property]="prop"
+                    (delete)="propertyRemoved(commercials, prop)">
+                </property-card>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
 
 <div class="float-controls-mobile">
     <button mat-raised-button class="mat-elevation-z4" (click)="registerProperty()">
@@ -92,3 +74,18 @@
         <span class="ps-2">{{ 'property_management.register' | translate }}</span>
     </button>
 </div>
+
+<ng-template #searchBar let-category>
+    <div class="pt-2 row d-flex justify-content-center">
+        <div class="col-11 py-0 search-bar">
+            <mat-form-field color="accent" class="px-3">
+                <input #searchInput matInput [placeholder]="'properties_view.search_placeholder' | translate"
+                    type="text">
+                <button matSuffix mat-button aria-label="Search"
+                    (click)="search(category,searchInput.value)">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+</ng-template>

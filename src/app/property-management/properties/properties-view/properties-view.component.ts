@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
-import { Property } from "../property.data";
+import { Property, PropertyCategory } from "../property.data";
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
@@ -40,8 +40,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     commercials: Property[] = [];
 
     subs: Subscription = new Subscription();
-
-    algoliaQuery = '';
 
     propertiesMetadata = {} as PropertiesMetadata;
 
@@ -90,11 +88,24 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         properties.splice(index, 1);
     }
 
-    async searchWithAlgolia() {
-        //TODO: replace with algolia search at some point
-        const properties = (await this.propertiesView.getProperties())
-            .filter(property => property.name?.toLowerCase().includes(this.algoliaQuery.toLowerCase()));
-        this.sortProperties(properties);
+    async search(category: PropertyCategory, query: string) {
+        const properties = (await this.propertiesView.getProperties(category))
+            .filter(property => property.name?.toLowerCase().includes(query.toLowerCase()));
+
+        switch (category) {
+            case 'Apartment':
+                this.apartments = properties.filter(prop => prop.category === 'Apartment');
+                break;
+            case 'Commercial':
+                this.commercials = properties.filter(prop => prop.category === 'Commercial');
+                break;
+            case 'Townhouse':
+                this.townhouses = properties.filter(prop => prop.category === 'Townhouse');
+                break;
+            case 'Villa':
+                this.villas = properties.filter(prop => prop.category === 'Villa');
+                break;
+        }
     }
 
     registerProperty() {
@@ -130,18 +141,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
                 }
             }
         });
-    }
-
-    sortProperties(properties: Property[]) {
-        this.apartments = properties.filter(prop => prop.category === 'Apartment');
-        this.villas = properties.filter(prop => prop.category === 'Villa');
-        this.townhouses = properties.filter(prop => prop.category === 'Townhouse');
-        this.commercials = properties.filter(prop => prop.category === 'Commercial');
-    }
-
-    @HostListener('document:keydown.enter', ['$event'])
-    onKeydownHandler(event: KeyboardEvent) {
-        this.searchWithAlgolia();
     }
 
     async onTabChange($event: number) {
