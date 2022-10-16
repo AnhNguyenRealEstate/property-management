@@ -15,3 +15,6 @@ exports.paymentSchedules = paymentSchedules;
 
 const invoices = require('./invoices');
 exports.invoices = invoices;
+
+const rentalExtension = require('./rental-extension');
+exports.rentalExtension = rentalExtension;

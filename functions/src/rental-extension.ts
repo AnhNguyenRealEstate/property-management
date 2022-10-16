@@ -16,6 +16,7 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
 exports.extendRentalContracts = functions.region('asia-southeast2').pubsub.
     schedule('every day 00:00').timeZone('Asia/Ho_Chi_Minh').onRun(async () => {
         const todayAsDate = new Date();
+        todayAsDate.setHours(0, 0, 0, 0);
 
         const today = admin.firestore.Timestamp.fromDate(todayAsDate);
         const tomorrow = admin.firestore.Timestamp.fromDate(new Date(todayAsDate.getFullYear(), todayAsDate.getMonth(), todayAsDate.getDate() + 1))
@@ -28,20 +29,24 @@ exports.extendRentalContracts = functions.region('asia-southeast2').pubsub.
         await Promise.all(rentalExtensionsSnap.docs.map(async (doc) => {
             // Extend contract and then remove the extension doc
             const extensionData = doc.data();
-            const propertySnap = await admin.firestore().collection('under-management').doc(extensionData['propertyId']).get()
-
-            if (!propertySnap.exists) {
-                return;
-            }
-
-            await propertySnap.ref.update({
-                managementStartDate: extensionData['startDate'],
-                managementEndDate: extensionData['endDate'],
-                ownerName: extensionData['ownerName'],
-                tenantName: extensionData['tenantName']
-            })
+            await updateProperty(extensionData);
 
             await doc.ref.delete()
         }))
 
     })
+
+async function updateProperty(extensionData: any) {
+    const propertySnap = await admin.firestore().collection('under-management').doc(extensionData['propertyId']).get()
+
+    if (!propertySnap.exists) {
+        return;
+    }
+
+    await propertySnap.ref.update({
+        managementStartDate: extensionData['startDate'],
+        managementEndDate: extensionData['endDate'],
+        ownerName: extensionData['ownerName'],
+        tenantName: extensionData['tenantName']
+    })
+}
