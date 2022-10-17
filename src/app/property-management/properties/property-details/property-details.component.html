@@ -209,7 +209,8 @@
                             <mat-divider></mat-divider>
                             <div *ngIf="uploadedFiles.length" class="d-flex justify-content-end my-2">
                                 <button mat-raised-button (click)="uploadFiles()">
-                                    <mat-icon color="accent">upload</mat-icon> {{ 'property_details.upload' | translate }}
+                                    <mat-icon color="accent">upload</mat-icon> {{ 'property_details.upload' | translate
+                                    }}
                                 </button>
                             </div>
                         </form>
@@ -280,18 +281,30 @@
 </ng-template>
 
 <ng-template #statusTpl let-row>
-    <span class="pe-1">
-        <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
-            assignment_late_icon
-        </mat-icon>
-        <mat-icon *ngIf="row.status === 'paid'" style="color: darkblue">
-            assignment_turned_in_icon
-        </mat-icon>
-        <mat-icon *ngIf="row.status === 'paidOut'" style="color: green">
-            price_check
-        </mat-icon>
-    </span>
-    <span>{{ 'payment_schedule.' + row.status | translate }}</span>
+    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editStatus">
+        <span class="pe-1">
+            <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
+                assignment_late_icon
+            </mat-icon>
+            <mat-icon *ngIf="row.status === 'paid'" style="color: darkblue">
+                assignment_turned_in_icon
+            </mat-icon>
+            <mat-icon *ngIf="row.status === 'paidOut'" style="color: green">
+                price_check
+            </mat-icon>
+        </span>
+        <span>{{ 'payment_schedule.' + row.status | translate }}</span>
+    </div>
+    <ng-template #editStatus>
+        <mat-form-field>
+            <mat-label>{{ 'payment_schedule.status' | translate }}</mat-label>
+            <mat-select [(ngModel)]="row.status">
+                <mat-option value="unpaid">{{ 'payment_schedule.unpaid' | translate }}</mat-option>
+                <mat-option value="paid">{{ 'payment_schedule.paid' | translate }}</mat-option>
+                <mat-option value="paidOut">{{ 'payment_schedule.paidOut' | translate }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-template>
 </ng-template>
 
 <ng-template #actionsTpl let-row>
