@@ -283,6 +283,9 @@
 <ng-template #statusTpl let-row>
     <div *ngIf="!invoicesBeingEdited.includes(row.id); else editStatus">
         <span class="pe-1">
+            <mat-icon *ngIf="row.status === 'doNotCollect'" style="color: gray">
+                block
+            </mat-icon>
             <mat-icon *ngIf="row.status === 'unpaid'" style="color: crimson">
                 assignment_late_icon
             </mat-icon>
@@ -299,6 +302,7 @@
         <mat-form-field>
             <mat-label>{{ 'payment_schedule.status' | translate }}</mat-label>
             <mat-select [(ngModel)]="row.status">
+                <mat-option value="doNotCollect">{{ 'payment_schedule.doNotCollect' | translate }}</mat-option>
                 <mat-option value="unpaid">{{ 'payment_schedule.unpaid' | translate }}</mat-option>
                 <mat-option value="paid">{{ 'payment_schedule.paid' | translate }}</mat-option>
                 <mat-option value="paidOut">{{ 'payment_schedule.paidOut' | translate }}</mat-option>

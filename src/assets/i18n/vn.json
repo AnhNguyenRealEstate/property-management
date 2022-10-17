@@ -208,7 +208,8 @@
         "actions": "",
         "save": "Lưu",
         "edit": "Sửa",
-        "cancel": "Huỷ"
+        "cancel": "Huỷ",
+        "doNotCollect": "Không thu"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",

@@ -2,8 +2,8 @@
     <mat-spinner color="primary" [diameter]="35"></mat-spinner>
 </div>
 
-<mat-tab-group class="my-sm-4 mx-1" color="accent" [selectedIndex]="0"
-    (selectedIndexChange)="onTabChange($event)" style="min-height: 90vh;">
+<mat-tab-group class="my-sm-4 mx-2" color="accent" [selectedIndex]="0" (selectedIndexChange)="onTabChange($event)"
+   dynamicHeight="true" style="min-height: 90vh;">
     <mat-tab>
         <ng-template matTabLabel>
             <mat-icon>apartment</mat-icon>
@@ -11,7 +11,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.apartmentCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]="{category: 'Apartment'}"></ng-container>
-        <div [@propertyCardAnim]="apartments.length" class="row p-2" style="overflow-y: scroll">
+        <div [@propertyCardAnim]="apartments.length" class="row p-2">
             <div *ngFor="let prop of apartments; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(apartments, prop)">
@@ -27,7 +27,7 @@
             <span>({{ (metadata.propertiesMetadata$ | async)?.villaCount }})</span>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Villa' }"></ng-container>
-        <div [@propertyCardAnim]="villas.length" class="row p-2" style="overflow-y: scroll">
+        <div [@propertyCardAnim]="villas.length" class="row p-2">
             <div *ngFor="let prop of villas; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
                 </property-card>
@@ -43,7 +43,7 @@
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Townhouse' }">
         </ng-container>
-        <div [@propertyCardAnim]="townhouses.length" class="row p-2" style="overflow-y: scroll">
+        <div [@propertyCardAnim]="townhouses.length" class="row p-2">
             <div *ngFor="let prop of townhouses; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(townhouses, prop)">
@@ -58,8 +58,9 @@
             <span class="ps-2 pe-2">{{'property_category.commercial' | translate}}</span>
             <span>({{ (metadata.propertiesMetadata$ | async)?.commercialCount }})</span>
         </ng-template>
-        <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Commercial' }"></ng-container>
-        <div [@propertyCardAnim]="commercials.length" class="row p-2" style="overflow-y: scroll">
+        <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Commercial' }">
+        </ng-container>
+        <div [@propertyCardAnim]="commercials.length" class="row p-2">
             <div *ngFor="let prop of commercials; let i = index;" class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(commercials, prop)">

@@ -84,7 +84,7 @@ export class PropertyDetailsComponent implements OnInit {
         await this.getActivities();
         await this.getPaymentSchedules();
         this.loading = false;
-        
+
         this.paymentScheduleCols = [
             { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl },
             { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl },

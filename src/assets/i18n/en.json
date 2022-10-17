@@ -204,7 +204,8 @@
         "actions": "Actions",
         "save": "Save",
         "edit": "Edit",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "doNotCollect": "Not collected"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",
