@@ -1,5 +1,4 @@
-<mat-card class="pe-4" [class.no-longer-managed]="propertyNoLongerManaged"
-    [matTooltip]="property.name || ''">
+<mat-card class="pe-4" [class.no-longer-managed]="propertyNoLongerManaged">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
@@ -8,7 +7,7 @@
 
 <ng-template #desktopCardView>
     <mat-card-title>
-        <div class="card-title overrun-wrap" *ngIf="property.name">
+        <div class="card-title overrun-wrap" *ngIf="property.name" [matTooltip]="property.name || ''">
             {{property.name}}
         </div>
     </mat-card-title>
