@@ -61,17 +61,17 @@
     </button>
 
     <mat-menu #controlsMenu="matMenu">
-        <!-- <button mat-menu-item class="d-block">
-            <mat-icon color="accent">add_circle_outline_icon</mat-icon>
-            <span>New contract</span>
-        </button> -->
+        <button mat-menu-item class="d-block" (click)="editProperty($event)">
+            <mat-icon color="accent">edit</mat-icon>
+            <span>{{ 'property_card.edit_info' | translate }}</span>
+        </button>
         <button mat-menu-item class="d-block" (click)="extendContract($event)">
             <mat-icon color="accent">more_time</mat-icon>
             <span>{{ 'property_card.extend_contract' | translate }}</span>
         </button>
-        <button mat-menu-item class="d-block" (click)="editProperty($event)">
-            <mat-icon color="accent">edit</mat-icon>
-            <span>{{ 'property_card.edit_info' | translate }}</span>
+        <button *ngIf="!propertyNoLongerManaged" mat-menu-item class="d-block" (click)="deactivateContract($event)">
+            <mat-icon color="accent">cancel_presentation_icon</mat-icon>
+            <span>Deactivate contract</span>
         </button>
         <button mat-menu-item class="d-block" (click)="deleteProperty($event)">
             <mat-icon color="accent">delete</mat-icon>

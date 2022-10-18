@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Timestamp } from '@angular/fire/firestore';
+import { doc, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import { PropertyEditComponent } from '../property-edit/property-edit.component'
 import { PropertyCardService } from './property-card.service';
 import { Activity } from '../../activities/activity.data';
 import { ContractExtensionComponent } from '../contract-extension/contract-extension.component';
+import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Component({
     selector: 'property-card',
@@ -107,5 +108,11 @@ export class PropertyCardComponent implements OnInit {
         const progressSoFar = today.seconds - startDate.seconds;
 
         this.contractProgress = Math.floor((progressSoFar / total) * 100);
+    }
+
+    async deactivateContract(event: Event) {
+        event.stopPropagation();
+        await this.propertyCard.deactivateProperty(this.property);
+        this.propertyNoLongerManaged = true;
     }
 }

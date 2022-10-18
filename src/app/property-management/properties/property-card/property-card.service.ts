@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, DocumentData, QuerySnapshot, startAfter, DocumentSnapshot, orderBy, collectionGroup } from '@angular/fire/firestore';
-import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
-import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { deleteDoc, addDoc, doc, Firestore, getDocs, collection, limit, query, orderBy, updateDoc, Timestamp } from '@angular/fire/firestore';
+import { FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../../activities/activity.data';
 import { Property } from "../property.data";
 
@@ -41,5 +40,32 @@ export class PropertyCardService {
         } else {
             return undefined;
         }
+    }
+
+    async deactivateProperty(property: Property) {
+        const scheduleIds = property.paymentScheduleIds
+        if (scheduleIds?.length) {
+            await Promise.all(scheduleIds.map(async (schedId) => {
+                await updateDoc(doc(this.firestore, `${FirestoreCollections.paymentSchedules}/${schedId}`), {
+                    isActive: false
+                })
+            }));
+        }
+
+        const managementEndDate = Timestamp.fromDate(new Date())
+        property.managementEndDate = managementEndDate
+        await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), {
+            managementEndDate: managementEndDate
+        })
+
+        await addDoc(
+            collection(this.firestore, `${FirestoreCollections.underManagement}/${property.id}/${FirestoreCollections.activities}`),
+            {
+                date: Timestamp.now(),
+                description: 'Huỷ/thanh lý hợp đồng thuê',
+                propertyId: property.id,
+                propertyName: property.name
+            } as Activity
+        )
     }
 }
