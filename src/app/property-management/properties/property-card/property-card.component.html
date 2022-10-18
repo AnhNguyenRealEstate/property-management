@@ -71,7 +71,7 @@
         </button>
         <button *ngIf="!propertyNoLongerManaged" mat-menu-item class="d-block" (click)="deactivateContract($event)">
             <mat-icon color="accent">cancel_presentation_icon</mat-icon>
-            <span>Deactivate contract</span>
+            <span>{{ 'property_card.deactivate_contract' | translate }}</span>
         </button>
         <button mat-menu-item class="d-block" (click)="deleteProperty($event)">
             <mat-icon color="accent">delete</mat-icon>

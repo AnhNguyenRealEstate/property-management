@@ -103,7 +103,8 @@
         "edit_info": "Sửa thông tin",
         "remove": "Xoá khỏi hệ thống",
         "contract_progress": "Thời hạn hợp đồng",
-        "extend_contract": "Gia hạn"
+        "extend_contract": "Gia hạn",
+        "deactivate_contract": "Huỷ hợp đồng"
     },
     "property_details": {
         "important_notes": "Thông tin cần biết",
