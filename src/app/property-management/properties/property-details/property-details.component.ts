@@ -216,7 +216,7 @@ export class PropertyDetailsComponent implements OnInit {
 
     openScheduleUpload() {
         this.scheduleUploadRef = this.dialog.open(this.scheduleUploadTpl, {
-            height: '60vh'
+            height: '70vh'
         });
     }
 

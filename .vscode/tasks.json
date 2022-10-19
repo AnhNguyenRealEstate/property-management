@@ -37,34 +37,6 @@
           }
         }
       }
-    },
-    {
-      "label": "Start Angular server",
-      "type": "shell",
-      "command": "ng serve",
-      "presentation": {
-        "reveal": "always",
-        "focus": false,
-        "panel": "new",
-        "group": "development"
-      },
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "label": "Start Firebase server",
-      "type": "shell",
-      "command": "npm run start-db",
-      "presentation": {
-        "reveal": "always",
-        "focus": false,
-        "panel": "new",
-        "group": "development"
-      },
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
     }
   ]
 }
