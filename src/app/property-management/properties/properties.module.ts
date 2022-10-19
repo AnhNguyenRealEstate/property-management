@@ -12,7 +12,7 @@ import { ContractExtractionModule } from '../contract-extraction/contract-extrac
 import { ContractExtensionModule } from './contract-extension/contract-extension.module';
 import { PropertiesRoutingModule } from './properties-routing.module';
 
-import { PropertiesViewComponent } from './properties-view/properties-view.component';
+import { PropertiesViewComponent, PropertyFilterPipe } from './properties-view/properties-view.component';
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyDetailsModule } from './property-details/property-details.module';
 import { PropertyEditModule } from './property-edit/property-edit.module';
@@ -36,7 +36,7 @@ import { PropertyUploadModule } from './property-upload/property-upload.module';
         ContractExtensionModule
     ],
     exports: [PropertiesViewComponent],
-    declarations: [PropertiesViewComponent, PropertyCardComponent],
+    declarations: [PropertiesViewComponent, PropertyCardComponent, PropertyFilterPipe],
     providers: [
         {
             provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {

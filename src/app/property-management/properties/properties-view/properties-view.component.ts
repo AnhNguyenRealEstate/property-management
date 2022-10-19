@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
@@ -10,6 +10,18 @@ import { trigger, transition, query, style, animate, stagger } from '@angular/an
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 import { ContractType } from '../property-upload/property-upload.data';
 
+@Pipe({
+    name: 'propFilter'
+})
+export class PropertyFilterPipe implements PipeTransform {
+    transform(value: Property[], query: string): Property[] {
+        if (!query) {
+            return value;
+        }
+
+        return value.filter(property => property.name?.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+    }
+}
 @Component({
     selector: 'properties-view',
     templateUrl: 'properties-view.component.html',
@@ -90,9 +102,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         properties.splice(index, 1);
     }
 
-    async search(category: PropertyCategory, query: string) {
-    }
-
     registerProperty() {
         const config = {
             height: '90%',
@@ -144,3 +153,4 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         }
     }
 }
+
