@@ -26,7 +26,7 @@ exports.postProcessUpdate = functions.region('asia-southeast2').firestore
     })
 
 function deactivateInvoices(scheduleId: string) {
-    const query = admin.firestore().collection(`payment-schedules/${scheduleId}/invoices`).limit(10)
+    const query = admin.firestore().collection(`payment-schedules/${scheduleId}/invoices`).where('status', '==', 'unpaid').limit(10)
     return new Promise((resolve, reject) => {
         markInvoicesAsDoNotCollectInBatch(admin.firestore(), query, resolve).catch(reject)
     })
@@ -47,7 +47,7 @@ async function markInvoicesAsDoNotCollectInBatch(db: admin.firestore.Firestore, 
     const batch = db.batch();
     snapshot.docs.forEach((doc) => {
         const status = doc.data()['status'];
-        if(status === 'unpaid'){
+        if (status === 'unpaid') {
             batch.update(doc.ref, {
                 status: 'doNotCollect'
             });

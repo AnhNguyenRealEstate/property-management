@@ -111,8 +111,23 @@
 
                 <div class="row" *ngIf="schedules?.length; else noSchedules">
                     <div class="col-12 p-3" *ngFor="let schedule of schedules">
-                        <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
-                            [data]="schedule.lineItems!"></ngx-table>
+                        <mat-card>
+                            <mat-card-title class="schedule-title d-flex justify-content-between">
+                                <div>
+                                    <span class="pe-1">{{'payment_schedule.payment_window' | translate}}</span>
+                                    <span>{{schedule.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                    -
+                                    <span>{{schedule.endDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                </div>
+                                <button *ngIf="schedule.isActive" mat-raised-button (click)="deactivateSchedule(schedule)">
+                                   <mat-icon color="accent">clear</mat-icon> {{ 'payment_schedule.deactivate' | translate }}
+                                </button>
+                            </mat-card-title>
+                            <mat-card-content>
+                                <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
+                                    [data]="schedule.lineItems!"></ngx-table>
+                            </mat-card-content>
+                        </mat-card>
                     </div>
                 </div>
 
@@ -245,6 +260,18 @@
         </mat-form-field>
     </ng-template>
 </ng-template>
+
+<ng-template #payerTpl let-row>
+    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editPayer">
+        {{row.payer}}
+    </div>
+    <ng-template #editPayer>
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="row.payer"></textarea>
+        </mat-form-field>
+    </ng-template>
+</ng-template>
+
 
 <ng-template #amountTpl let-row>
     <div *ngIf="!invoicesBeingEdited.includes(row.id); else editAmt">

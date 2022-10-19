@@ -47,6 +47,7 @@ export class PropertyDetailsComponent implements OnInit {
     @ViewChild('filesUploadTpl') filesUploadTpl!: TemplateRef<string>;
 
     @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
+    @ViewChild('payerTpl') payerTpl!: TemplateRef<string>;
     @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
     @ViewChild('periodTpl') periodTpl!: TemplateRef<string>;
     @ViewChild('statusTpl') statusTpl!: TemplateRef<string>;
@@ -87,6 +88,7 @@ export class PropertyDetailsComponent implements OnInit {
 
         this.paymentScheduleCols = [
             { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl },
+            { key: 'payer', title: this.translate.instant('payment_schedule.payer'), cellTemplate: this.payerTpl },
             { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl },
             { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window'), cellTemplate: this.periodTpl },
             { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl },
@@ -305,5 +307,11 @@ export class PropertyDetailsComponent implements OnInit {
         this.uploadedFiles = [];
 
         this.fileUploadRef.close();
+    }
+
+    async deactivateSchedule(schedule: PaymentSchedule) {
+        await this.propertyDetails.deactivateSchedule(schedule);
+        this.schedules = [];
+        await this.getPaymentSchedules();
     }
 }

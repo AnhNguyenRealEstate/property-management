@@ -66,6 +66,10 @@ export class PropertyDetailsService {
             const scheduleSnap = await getDoc(scheduleDocRef);
             const schedule = scheduleSnap.data() as PaymentSchedule;
 
+            if (!schedule.isActive) {
+                return {};
+            }
+
             const invoicesSnap = await getDocs(
                 query(
                     collection(this.firestore,
@@ -81,7 +85,7 @@ export class PropertyDetailsService {
             return schedule;
         }));
 
-        return schedules;
+        return schedules.filter(schedule => schedule.id);
     }
 
     async updateInvoice(invoice: Invoice) {
@@ -203,5 +207,14 @@ export class PropertyDetailsService {
         await updateDoc(docRef, {
             documents: property.documents
         });
+    }
+
+    async deactivateSchedule(schedule: PaymentSchedule) {
+        await updateDoc(
+            doc(this.firestore, `${FirestoreCollections.paymentSchedules}/${schedule.id}`),
+            {
+                isActive: false
+            }
+        )
     }
 }

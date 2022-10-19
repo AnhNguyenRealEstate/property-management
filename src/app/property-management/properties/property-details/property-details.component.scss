@@ -1,6 +1,7 @@
 @use "src/app/styles/colors" as colors;
 
-.property-details-title {
+.property-details-title,
+.schedule-title {
     color: colors.$accent-300;
 }
 

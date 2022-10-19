@@ -206,7 +206,8 @@
         "save": "Save",
         "edit": "Edit",
         "cancel": "Cancel",
-        "doNotCollect": "Not collected"
+        "doNotCollect": "Not collected",
+        "deactivate": "Deactivate"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",
