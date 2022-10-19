@@ -1,10 +1,14 @@
-.login-button {
-    float: right;
-}
+
 
 .login-background {
     background-image: url("/assets/images/login-background.jpg");
     background-size: cover;
     background-position: 0% 50%;
     height: 90vh;
+}
+
+.login-background-mobile {
+    background-image: url("/assets/images/login-background-mobile.png");
+    background-size: contain;
+    background-position: center;
 }

@@ -9,17 +9,11 @@
         </div>
     </div>
 
-    <div class="row d-sm-none">
-        <div class="col-12 login-background">
-            <h1 class="pt-5 pb-5 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
-            <mat-card>
-                <mat-card-content>
-                    <div class="h5">{{ 'login.page_title' | translate }}</div>
-                    <div>
-                        <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+    <div class="row d-sm-none" style="height: 120vh;">
+        <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
+        <div class="col-12 login-background-mobile" style="height: 60vh"></div>
+        <div class="col-12 mx-2">
+            <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
         </div>
     </div>
 </section>
@@ -41,9 +35,11 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <button type="submit" class="login-button" mat-flat-button color="accent">
-            <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
-            <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>
-        </button>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="login-button" mat-flat-button color="accent">
+                <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
+                <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>
+            </button>
+        </div>
     </form>
 </ng-template>
