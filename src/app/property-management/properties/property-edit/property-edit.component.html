@@ -80,17 +80,17 @@
             </div>
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>{{ 'property_upload.start_date' | translate }}</mat-label>
-                <input matInput required name="managementStartDate" [(ngModel)]="managementStartDate"
+                <input readonly matInput required name="managementStartDate" [(ngModel)]="managementStartDate"
                     (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
-                    [matDatepicker]="startDatePicker">
+                    [matDatepicker]="startDatePicker" (click)="startDatePicker.open()">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>{{ 'property_upload.end_date' | translate }}</mat-label>
-                <input matInput required name="managementEndDate" [(ngModel)]="managementEndDate"
+                <input readonly matInput required name="managementEndDate" [(ngModel)]="managementEndDate"
                     (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
-                    [matDatepicker]="endDatePicker">
+                    [matDatepicker]="endDatePicker" (click)="endDatePicker.open()">
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="row d-flex justify-content-end">
-            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-button
+            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-raised-button
                 (click)="edit(); uploadForm.form.markAsUntouched()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">save</mat-icon> {{ 'property_upload.save' | translate }}
