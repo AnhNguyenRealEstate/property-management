@@ -10,5 +10,5 @@ export interface Activity {
     owner?: string
     propertyId?: string
     propertyName?: string
-    fileStoragePath?: string
+    fileStoragePath?: string //Firebase auto generated
 }

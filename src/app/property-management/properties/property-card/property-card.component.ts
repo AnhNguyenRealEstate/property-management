@@ -9,7 +9,8 @@ import { PropertyEditComponent } from '../property-edit/property-edit.component'
 import { PropertyCardService } from './property-card.service';
 import { Activity } from '../../activities/activity.data';
 import { ContractExtensionComponent } from '../contract-extension/contract-extension.component';
-import { FirestoreCollections } from 'src/app/shared/globals';
+import { PropertyRenewComponent } from '../property-renew/property-renew.component';
+import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 
 @Component({
     selector: 'property-card',
@@ -114,5 +115,29 @@ export class PropertyCardComponent implements OnInit {
         event.stopPropagation();
         await this.propertyCard.deactivateProperty(this.property);
         this.propertyNoLongerManaged = true;
+    }
+
+    newContract(event: Event) {
+        event.stopPropagation();
+
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                property: this.property
+            }
+        } as MatDialogConfig;
+
+        this.dialog.open(PropertyRenewComponent, config).afterClosed().subscribe((result: any) => {
+            if (!result?.success) { return; }
+
+            const data = result.data;
+            if (!data) { return; }
+
+            this.property = data.property;
+
+            this.ngOnInit();
+        });
     }
 }

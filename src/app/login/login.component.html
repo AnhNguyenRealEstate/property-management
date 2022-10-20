@@ -9,9 +9,11 @@
         </div>
     </div>
 
-    <div class="row d-sm-none" style="height: 120vh;">
-        <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
-        <div class="col-12 login-background-mobile" style="height: 60vh"></div>
+    <div class="row d-sm-none" style="height: 100vh;">
+        <div class="col-12">
+            <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
+        </div>
+        <div class="col-12 login-background-mobile" style="height: 55vh; width: 100vw"></div>
         <div class="col-12 mx-2">
             <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
         </div>

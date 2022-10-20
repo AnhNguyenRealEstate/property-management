@@ -16,6 +16,7 @@ import { PropertiesViewComponent, PropertyFilterPipe } from './properties-view/p
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyDetailsModule } from './property-details/property-details.module';
 import { PropertyEditModule } from './property-edit/property-edit.module';
+import { PropertyRenewModule } from './property-renew/property-renew.module';
 import { PropertyUploadModule } from './property-upload/property-upload.module';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { PropertyUploadModule } from './property-upload/property-upload.module';
         DatePipe,
         PropertyDetailsModule,
         PropertyUploadModule,
+        PropertyRenewModule,
         PropertyEditModule,
         ContractExtensionModule
     ],

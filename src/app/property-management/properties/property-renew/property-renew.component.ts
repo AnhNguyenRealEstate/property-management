@@ -1,28 +1,32 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
 import { environment } from 'src/environments/environment';
 import { Owner } from '../../owners/owner.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
+import { ContractData, ContractType } from '../property-upload/property-upload.data';
 import { Property } from '../property.data';
-import { ContractType, ContractData } from './property-upload.data';
-import { PropertyUploadService } from './property-upload.service';
+import { PropertyRenewService } from './property-renew.service';
 
+/**
+ * This component is nearly identical to PropertyUploadComponent, except it handles the renewal logic
+ * instead of uploading a new property altogether
+ */
 @Component({
-    selector: 'property-upload',
-    templateUrl: './property-upload.component.html'
+    selector: 'property-renew',
+    templateUrl: 'property-renew.component.html'
 })
 
-export class PropertyUploadComponent implements OnInit, OnDestroy {
+export class PropertyRenewComponent implements OnInit, OnDestroy {
     linearStepper: boolean = false;
 
     property: Property = {
@@ -32,7 +36,9 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     propertyPreview!: Object;
 
     propertyDescription = '';
-    uploadedFiles: File[] = [];
+
+    uploadedFiles: UploadedFile[] = [];
+    files: File[] = [];
 
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
@@ -50,12 +56,15 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
     constructor(
         private formBuilder: FormBuilder,
-        public upload: PropertyUploadService,
+        public renew: PropertyRenewService,
         private hash: HashingService,
-        private snackbar: MatSnackBar,
-        private translate: TranslateService,
-        @Optional() private dialogRef: MatDialogRef<PropertyUploadComponent>
+        @Optional() private dialogRef: MatDialogRef<PropertyRenewService>,
+        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
+
+        if (this.data?.property) {
+            this.property = Object.assign({}, this.data.property);
+        }
 
         this.firstFormGroup = this.formBuilder.group({
             contract: new FormControl<File | undefined>(undefined)
@@ -94,9 +103,9 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
 
         const files = event.target.files as FileList;
         this.contract = files[0];
-        this.uploadedFiles.push(this.contract);
+        this.files.push(this.contract);
 
-        this.property.documents!.unshift({
+        this.uploadedFiles.unshift({
             displayName: this.contract.name,
             dbHashedName: this.hash.generate16DigitHash(this.contract.name)
         } as UploadedFile)
@@ -104,7 +113,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         const data = new FormData();
         data.append('contract_type', this.contractType);
         data.append('contract', this.contract);
-        this.contractData = await this.upload.extractContractData(data);
+        this.contractData = await this.renew.extractContractData(data);
         if (this.contractData) {
             this.bindExtractionResult(this.contractData);
             this.stepper.next();
@@ -112,7 +121,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     bindExtractionResult(contractData: ContractData) {
-        this.secondFormGroup.get('propertyName')?.setValue(contractData.PROPERTY_NAME);
+        this.secondFormGroup.get('propertyName')?.setValue(this.property.name);
+        this.secondFormGroup.get('propertyCategory')?.setValue(this.property.category);
         this.secondFormGroup.get('ownerName')?.setValue(contractData.LANDLORD_NAME);
         this.secondFormGroup.get('tenantName')?.setValue(contractData.TENANT_NAME);
         this.secondFormGroup.get('propertyAddress')?.setValue(contractData.PROPERTY_ADDR);
@@ -141,6 +151,13 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             `${contractData.TENANT_NAME ? `<p>Bên thuê hiện tại: ${contractData.TENANT_NAME}</p>` : ''}
             ${contractData.CONTRACT_NUM ? `Số HĐ: ${contractData.CONTRACT_NUM}` : ''}
             ${contractData.PROPERTY_PURPOSE ? `<p>${contractData.PROPERTY_PURPOSE}</p>` : ''}`.trim()
+
+        this.property.owner = {
+            contactName: this.secondFormGroup.get('ownerName')?.value
+        }
+        this.property.tenantName = this.secondFormGroup.get('tenantName')?.value;
+        this.property.address = this.secondFormGroup.get('propertyAddress')?.value;
+        this.property.description = this.propertyDescription;
     }
 
     onFileUpload(event: any) {
@@ -153,20 +170,16 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
-            if (this.property.documents?.length
-                && this.property.documents.find(doc => doc.displayName === file.name)) {
+            if (this.uploadedFiles.length
+                && this.uploadedFiles.find(doc => doc.displayName === file.name)) {
                 continue;
             }
 
             newFiles.unshift(file);
-            this.uploadedFiles.unshift(file);
+            this.files.unshift(file);
         }
 
-        if (!this.property.documents?.length) {
-            this.property.documents = [];
-        }
-
-        this.property.documents.unshift(...newFiles.map(file => {
+        this.uploadedFiles.unshift(...newFiles.map(file => {
             return {
                 displayName: file.name,
                 dbHashedName: this.hash.generate16DigitHash(file.name)
@@ -176,15 +189,15 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     onFileRemove(index: number) {
-        this.property.documents!.splice(index, 1);
+        this.uploadedFiles.splice(index, 1);
     }
 
     onFileNameChange(oldDisplayName: string, newDisplayName: string, file: UploadedFile) {
-        if (this.uploadedFiles.find(file => file.name === newDisplayName)) {
+        if (this.files.find(file => file.name === newDisplayName)) {
             return;
         }
 
-        const fileToAmend = this.uploadedFiles.find(file => file.name === oldDisplayName);
+        const fileToAmend = this.files.find(file => file.name === oldDisplayName);
         if (!fileToAmend) {
             return;
         }
@@ -199,11 +212,11 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.property.documents!, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.uploadedFiles, event.previousIndex, event.currentIndex);
     }
 
     doesFileNameAlreadyExist(name: string) {
-        return !!this.property.documents?.find(doc => doc.displayName === name);
+        return !!this.uploadedFiles.find(doc => doc.displayName === name);
     }
 
     dateToTimestamp(date: Date): Timestamp {
@@ -211,23 +224,18 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     async submit(submitBtn: MatButton) {
-        this.property.description = this.propertyDescription;
         this.propertyPreview = this.property as Object;
 
         this.stepsCanBeEdited = false;
         submitBtn.disabled = true;
 
-        await this.upload.uploadProperty(this.property, this.uploadedFiles, this.schedules);
-
-        this.snackbar.open(
-            await lastValueFrom(this.translate.get('property_upload.upload_successful')),
-            undefined,
-            { duration: 1500 }
-        );
+        await this.renew.renewProperty(this.property, this.files, this.uploadedFiles, this.schedules);
 
         this.dialogRef.close({
             success: true,
-            data: this.property
+            data: {
+                property: this.property
+            }
         });
     }
 
@@ -237,15 +245,11 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     reinitVariables() {
+        this.files = [];
         this.uploadedFiles = [];
 
-        this.property = {
-            documents: [],
-            description: '',
-            owner: {} as Owner
-        } as Property;
+        this.property = this.data?.property;
         this.propertyPreview = {};
-
         this.propertyDescription = '';
 
         this.schedules = [];

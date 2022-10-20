@@ -100,7 +100,8 @@
         "remove": "Remove from system",
         "contract_progress": "Contract progress",
         "extend_contract": "Extend contract",
-        "deactivate_contract": "Deactivate contract"
+        "deactivate_contract": "Deactivate contract",
+        "new_contract": "New rental contract"
     },
     "property_details": {
         "important_notes": "Important details",

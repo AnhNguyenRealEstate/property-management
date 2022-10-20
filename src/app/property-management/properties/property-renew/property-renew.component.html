@@ -1,0 +1,301 @@
+<mat-stepper [linear]="linearStepper" [animationDuration]="'500'" [orientation]="'vertical'" #stepper>
+    <mat-step state="uploadContract" [stepControl]="firstFormGroup" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>{{ 'property_upload.upload_contract' | translate }}</ng-template>
+        <form [formGroup]="firstFormGroup">
+            <div class="row pb-4">
+                <input #contractInput required formControlName="contract" hidden="true" type="file"
+                    onclick="this.value=null" accept=".doc, .docx"
+                    (change)="firstFormGroup.markAsTouched(); onContractUpload($event)">
+
+                <button class="col-12 col-sm-2" mat-raised-button type="button" (click)="contractInput.click();"
+                    [disabled]="renew.extracting$ | async">
+                    <mat-spinner *ngIf="renew.extracting$ | async" [diameter]="35"></mat-spinner>
+                    <span *ngIf="!(renew.extracting$ | async)">
+                        <mat-icon color="accent">upload_file</mat-icon>
+                        {{ 'property_upload.upload_contract' | translate }}
+                    </span>
+                </button>
+                <div *ngIf="contract" class="col-12 col-sm-10 pt-2 text-bold">
+                    <span>{{contract.name}}</span>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *ngIf="contractData">
+                <div class="row pt-4 pb-4">
+                    <ng-container *ngFor="let item of contractData | keyvalue">
+                        <div class="col-12 pb-2">
+                            <label class="text-bold">{{item.key}}</label>: <span>{{item.value}}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="row pt-4">
+                    <button class="col-12 col-sm-2" mat-raised-button color="accent" matStepperNext>
+                        {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </form>
+    </mat-step>
+
+    <mat-step state="formInput" [stepControl]="secondFormGroup" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>{{ 'property_upload.property_info' | translate }}</ng-template>
+        <form [formGroup]="secondFormGroup" [formToFocus]="secondFormGroup" appAutoFocusOnError>
+            <div class="row pb-4">
+                <mat-form-field class="col-12 col-sm-6">
+                    <mat-label>{{ 'property_upload.owner_contact_name' | translate }}</mat-label>
+                    <input matInput formControlName="ownerName" type="text" required>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6">
+                    <mat-label>{{ 'property_upload.tenant_name' | translate }}</mat-label>
+                    <input matInput formControlName="tenantName" type="text" required>
+                </mat-form-field>
+            </div>
+
+            <div class="row pb-4">
+                <div class="col-12 pb-1">
+                    <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
+                    <mat-divider></mat-divider>
+                </div>
+                <mat-form-field class="col-12 col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.property_name' | translate }}</mat-label>
+                    <input readonly required matInput trim="blur" required type="text" formControlName="propertyName">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6" color="accent">
+                    <mat-label>{{ 'property_upload.address' | translate }}</mat-label>
+                    <input required matInput trim="blur" required type="text" formControlName="propertyAddress">
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.category' | translate }}</mat-label>
+                    <mat-select [disabled]="true" required formControlName="propertyCategory">
+                        <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.subcategory' | translate }}</mat-label>
+                    <input matInput trim="blur" type="text" formControlName="propertySubcategory">
+                </mat-form-field>
+            </div>
+
+            <div class="row pb-4">
+                <div class="col-12 pb-1">
+                    <div class="text-bold pb-2">{{ 'property_upload.management_info' | translate }}</div>
+                    <mat-divider></mat-divider>
+                </div>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.start_date' | translate }}</mat-label>
+                    <input readonly matInput required formControlName="startDate" #managementStartDate
+                        (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
+                        [matDatepicker]="startDatePicker" (click)="startDatePicker.open()">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="col-6 col-sm-3" color="accent">
+                    <mat-label>{{ 'property_upload.end_date' | translate }}</mat-label>
+                    <input readonly matInput required formControlName="endDate" #managementEndDate
+                        (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
+                        [matDatepicker]="endDatePicker" (click)="endDatePicker.open()">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="row pb-2">
+                <div class="col-12">
+                    <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
+                    <div class="mat-form-field-wrapper">
+                        <app-editor [text]="propertyDescription"
+                            (textChange)="propertyDescription = $event; secondFormGroup.markAsTouched()">
+                        </app-editor>
+                    </div>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="row pt-4 d-flex justify-content-between">
+                <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                    <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+                </button>
+                <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit">
+                    {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step state="paymentSchedule">
+        <ng-template matStepLabel>{{ 'property_upload.payment_schedule' | translate }}</ng-template>
+
+        <ng-container *ngFor="let sched of schedules; let i = index">
+            <div class="mt-2">
+                <payment-schedule [schedule]="sched" [editable]="true" [property]="property"
+                    [columnHeaders]="['description', 'amount', 'paymentWindow']"
+                    [defaultValues]="{startDate: secondFormGroup.get('startDate')?.value, endDate: secondFormGroup.get('endDate')?.value}">
+                </payment-schedule>
+            </div>
+        </ng-container>
+
+        <div class="row pt-2 pb-2 ">
+            <div class="col-12">
+                <button mat-raised-button (click)="addSchedule()">
+                    <mat-icon>add</mat-icon> {{ 'property_upload.add_schedule' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+            </button>
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext type="submit"
+                (click)="removeEmptySchedules()">
+                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+
+    </mat-step>
+
+    <mat-step state="uploadAdditionalFiles" [editable]="stepsCanBeEdited">
+        <ng-template matStepLabel>{{ 'property_upload.additional_files' | translate }}</ng-template>
+        <div class="row pb-4">
+            <div class="col-12">
+               <file-upload [form]="secondFormGroup" [(files)]="files" [(uploadedFiles)]="uploadedFiles"></file-upload>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+            </button>
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" matStepperNext>
+                {{ 'property_upload.next' | translate }} <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+
+    <mat-step state="previewForUpload">
+        <ng-template matStepLabel>{{ 'property_upload.submission_preview' | translate }}</ng-template>
+
+        <div class="row pb-4">
+            <div class="col-12">
+                <div class="row pb-4">
+                    <div *ngIf="property.owner?.contactName" class="col-6">
+                        <div class="text-bold pb-1">{{ 'property_upload.owner_contact_name' | translate }}</div>
+                        <div>{{property.owner!.contactName}}</div>
+                    </div>
+                    <div *ngIf="property.tenantName" class="col-6">
+                        <div class="text-bold pb-1">{{ 'property_upload.tenant_name' | translate }}</div>
+                        <div>{{property.tenantName}}</div>
+                    </div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-12 pb-1">
+                        <div class="text-bold pb-2">{{ 'property_upload.property_info' | translate }}</div>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 col-sm-6" color="accent">
+                        <div class="text-bold">{{ 'property_upload.property_name' | translate }}</div>
+                        <div [innerHtml]="property.name"></div>
+                    </div>
+                    <div class="col-12 col-sm-6" color="accent">
+                        <div class="text-bold">{{ 'property_upload.address' | translate }}</div>
+                        <div [innerHtml]="property.address"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-4">
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.category' | translate }}</div>
+                        <div>
+                            <span *ngIf="property.category === 'Apartment'">{{ 'property_category.apartment' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Villa'">{{ 'property_category.villa' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+                                }}</span>
+                            <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' |
+                                translate
+                                }}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="property.subcategory" class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.subcategory' | translate }}</div>
+                        <div [innerHtml]="property.subcategory"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-4">
+                    <div class="col-12 pb-1">
+                        <div class="text-bold pb-2">{{ 'property_upload.management_info' | translate }}</div>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.start_date' | translate }}</div>
+                        <div [innerHtml]="property.managementStartDate?.toDate() | date: 'dd/MM/YYYY'"></div>
+                    </div>
+                    <div class="col-6 col-sm-3" color="accent">
+                        <div class="text-bold">{{ 'property_upload.end_date' | translate }}</div>
+                        <div [innerHtml]="property.managementEndDate?.toDate() | date: 'dd/MM/YYYY'"></div>
+                    </div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-12">
+                        <div class="text-bold pt-1 pb-1">{{ 'property_upload.description' | translate }}</div>
+                        <mat-divider></mat-divider>
+                        <div class="pt-1" [innerHtml]="propertyDescription"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-4">
+            <div class="col-12 pb-1 text-bold">
+                {{ 'property_upload.uploaded_files' | translate }}
+            </div>
+            <mat-divider></mat-divider>
+            <div class="col-12 pt-1" *ngFor="let file of files">
+                {{file.name}}
+            </div>
+        </div>
+
+        <div class="row pb-4">
+            <div class="col-12 pb-1 text-bold">
+                {{ 'property_upload.payment_schedule' | translate }}
+            </div>
+            <ng-container *ngFor="let sched of schedules; let i = index">
+                <mat-divider [inset]="true" *ngIf="i > 0"></mat-divider>
+                <div class="pt-2">
+                    <payment-schedule [schedule]="sched" [editable]="false"
+                        [columnHeaders]="['description', 'amount', 'paymentWindow']">
+                    </payment-schedule>
+                </div>
+            </ng-container>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row pt-4 d-flex justify-content-between">
+            <button class="col-6 col-sm-2" mat-raised-button matStepperPrevious>
+                <mat-icon>arrow_back</mat-icon> {{ 'property_upload.previous' | translate }}
+            </button>
+            <button class="col-6 col-sm-2" mat-raised-button color="accent" #submitBtn (click)="submit(submitBtn)"
+                [disabled]="renew.uploading$ | async">
+                {{ 'property_upload.submit' | translate }} <mat-icon>upload</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+</mat-stepper>
