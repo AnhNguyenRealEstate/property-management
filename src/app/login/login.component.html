@@ -9,11 +9,11 @@
         </div>
     </div>
 
-    <div class="row d-sm-none" style="height: 100vh;">
+    <div class="row d-sm-none">
         <div class="col-12">
             <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
         </div>
-        <div class="col-12 login-background-mobile" style="height: 55vh; width: 100vw"></div>
+        <div class="col-12 login-background-mobile"></div>
         <div class="col-12 mx-2">
             <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
         </div>
@@ -37,7 +37,7 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <div class="d-flex justify-content-center">
+        <div class="pb-4 d-flex justify-content-center">
             <button type="submit" class="login-button" mat-flat-button color="accent">
                 <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
                 <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>
