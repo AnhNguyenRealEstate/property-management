@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from '@sendgrid/mail';
+import dateFormat from 'dateformat';
 
 /**
  * After an invoice's creation
@@ -36,10 +37,10 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
             .get();
         const invoicesToCollect = snap.docs.map(doc => doc.data());
 
-        const invoicesAsHtml = '';
-        invoicesToCollect.forEach(invoice => {
-            const invoiceHtml = `<p>Collect ${invoice['amount']} from ${invoice['payee']} on ${invoice['beginDate']} within ${invoice['payWithin']} days</p>`;
-            invoicesAsHtml.concat(invoiceHtml);
+        const invoicesAsHtml: string[] = [];
+        invoicesToCollect.forEach((invoice, index) => {
+            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']} từ ${invoice['payee']} (${invoice['propertyName']}), bắt đầu từ ${dateFormat((invoice['beginDate'] as admin.firestore.Timestamp).toDate(), "dd/MM/yyyy")}`;
+            invoicesAsHtml.push(invoiceHtml);
         });
 
         if (!process.env.SENDGRID_API_KEY) {
@@ -49,10 +50,10 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
+            templateId: 'invoices-to-collect',
             to: 'nguyentrungtu1996@gmail.com', // Change to your recipient
-            from: 'it@anhnguyenre.com', // Change to your verified sender
-            subject: 'Invoices to collect',
-            html: invoicesAsHtml,
+            from: 'it@anhnguyenre.com', // Change to your verified sender,
+            invoicesAsHtml: invoicesAsHtml
         }
 
         sgMail.send(msg).then(() => {
