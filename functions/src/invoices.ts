@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from '@sendgrid/mail';
-import dateFormat from 'dateformat';
+var format = require('date-format');
 
 /**
  * After an invoice's creation
@@ -39,7 +39,7 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
 
         const invoicesAsHtml: string[] = [];
         invoicesToCollect.forEach((invoice, index) => {
-            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']} từ ${invoice['payee']} (${invoice['propertyName']}), bắt đầu từ ${dateFormat((invoice['beginDate'] as admin.firestore.Timestamp).toDate(), "dd/MM/yyyy")}`;
+            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']} từ ${invoice['payee']} (${invoice['propertyName']}), bắt đầu từ ${ format.asString('dd/MM/yyyy' ,(invoice['beginDate'] as admin.firestore.Timestamp).toDate())}`;
             invoicesAsHtml.push(invoiceHtml);
         });
 
