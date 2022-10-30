@@ -188,8 +188,8 @@
         "create": "Tạo lịch",
         "amount": "Số tiền",
         "frequency": "số tháng",
-        "first_due_date": "ngày bắt đầu hợp đồng",
-        "final_due_date": "ngày hết hợp đồng",
+        "first_due_date": "ngày bắt đầu",
+        "final_due_date": "ngày kết thúc",
         "invoice_name": "Tên",
         "begin_date": "Ngày bắt đầu thu",
         "due_date": "Ngày hết hạn thanh toán",
@@ -212,7 +212,10 @@
         "edit": "Sửa",
         "cancel": "Huỷ",
         "doNotCollect": "Không thu",
-        "deactivate": "Huỷ lịch"
+        "deactivate": "Huỷ lịch",
+        "description": "mô tả",
+        "description_placeholder": "mô tả lịch...",
+        "payment_details": "Chi tiết thanh toán"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",

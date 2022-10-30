@@ -1,8 +1,45 @@
 <mat-card class="mat-elevation-z2">
     <form #scheduleRef>
         <div class="row pb-4" *ngIf="editable">
-            <div class="col-10 py-2">
+            <div class="col-12 py-2">
+                <div class="row pb-3">
+                    <mat-form-field class="col-5">
+                        <span matPrefix class="pe-3">{{ 'payment_schedule.payer' | translate }}:</span>
+                        <input matInput name="payer" required [(ngModel)]="payer"
+                            [placeholder]="'payment_schedule.payer' | translate">
+                        <span matSuffix>.</span>
+                    </mat-form-field>
+                    <div class="ps-4 col-1">
+                        <div>
+                            <mat-icon color="accent">attach_money</mat-icon>
+                        </div>
+                        <div>
+                            <mat-icon color="accent">trending_flat</mat-icon>
+                        </div>
+                    </div>
+                    <mat-form-field [class.col-5]="payeeSelect.value !== 'other'"
+                        [class.col-3]="payeeSelect.value === 'other'">
+                        <span matPrefix class="pe-3">{{ 'payment_schedule.payee' | translate }}:</span>
+                        <mat-select [placeholder]="'payment_schedule.payee' | translate" name="payeeSelect" required
+                            #payeeSelect [value]="payee">
+                            <mat-option [value]="payee">{{payee}}</mat-option>
+                            <mat-option [value]="companyName">{{companyName}}</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                        </mat-select>
+                        <span *ngIf="payeeSelect.value === 'other'" matSuffix>
+                            :
+                        </span>
+                        <span *ngIf="payeeSelect.value !== 'other'" matSuffix>
+                            .
+                        </span>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="payeeSelect.value === 'other'" class="col-3">
+                        <input name="customPayee" required trim="blur" matInput [(ngModel)]="customPayee"
+                            [placeholder]="'payment_schedule.payee' | translate">
+                    </mat-form-field>
+                </div>
                 <div class="row">
+                    <div class="col-12">{{ 'payment_schedule.payment_details' | translate }}</div>
                     <mat-form-field class="col-4 me-0 pe-0">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
                         <input #amount matInput name="amount" type="text" required
@@ -23,7 +60,7 @@
                 </div>
                 <div class="row">
                     <mat-form-field class="col-6 me-0 pe-0">
-                        <span matPrefix class="ps-1 pe-3">{{ 'payment_schedule.from' | translate }}</span>
+                        <span matPrefix class="pe-3">{{ 'payment_schedule.from' | translate }}</span>
                         <input readonly #beginDate matInput name="beginDate" [matDatepicker]="beginningDatePicker"
                             required [placeholder]="'payment_schedule.first_due_date' | translate"
                             [value]="defaultValues?.startDate | date: 'yyyy-MM-dd'"
@@ -41,8 +78,15 @@
                         <mat-datepicker #endDatePicker></mat-datepicker>
                     </mat-form-field>
                 </div>
+                <div class="row">
+                    <mat-form-field class="col-12">
+                        <span matPrefix class="pe-3">{{ 'payment_schedule.description' | translate }}:</span>
+                        <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="scheduleDescription"
+                            [placeholder]="'payment_schedule.description_placeholder' | translate " />
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="col-2 d-flex justify-content-center py-5">
+            <div class="col-12 d-flex justify-content-end">
                 <button mat-raised-button
                     [disabled]="!(amount.value && howOften.valueAsNumber && beginDate.value && endDate.value)"
                     (click)="createPaymentSchedule(amount.value, howOften.valueAsNumber, howUrgent.valueAsNumber , beginDate, endDate); focusFirstEditable()">
@@ -58,9 +102,19 @@
                     <mat-icon color="accent">remove</mat-icon>
                 </button>
             </div>
-            <div *ngIf="scheduleName" class="row pb-1 schedule-name">
-                <div class="col-12">
+            <div *ngIf="scheduleName" class="row pb-1 ">
+                <div class="col-12 schedule-name">
                     {{scheduleName}}
+                </div>
+                <div class="col-12">
+                    <span class="bold pe-1">{{ 'payment_schedule.description' | translate | titlecase
+                        }}:</span>{{scheduleDescription}}
+                </div>
+                <div class="col-12">
+                    <span class="bold pe-1">{{ 'payment_schedule.payer' | translate }}:</span> {{payer}}
+                </div>
+                <div class="col-12">
+                    <span class="bold pe-1">{{ 'payment_schedule.payee' | translate }}:</span> {{customPayee || payee}}
                 </div>
             </div>
             <ng-container [ngTemplateOutlet]="paymentSchedule"></ng-container>

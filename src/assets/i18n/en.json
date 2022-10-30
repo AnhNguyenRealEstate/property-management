@@ -208,7 +208,10 @@
         "edit": "Edit",
         "cancel": "Cancel",
         "doNotCollect": "Not collected",
-        "deactivate": "Deactivate"
+        "deactivate": "Deactivate",
+        "description": "description",
+        "description_placeholder": "Describe the payment schedule",
+        "payment_details": "Payment details"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",

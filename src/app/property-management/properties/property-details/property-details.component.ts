@@ -226,10 +226,13 @@ export class PropertyDetailsComponent implements OnInit {
 
     async uploadSchedules() {
         this.newSchedules = this.newSchedules.filter(schedule => schedule.lineItems?.length);
-        const newScheduleIds = await this.propertyDetails.uploadSchedules(this.newSchedules, this.property);
-        this.schedules = await this.propertyDetails.getPaymentSchedules(newScheduleIds);
-
+        
+        await this.propertyDetails.uploadSchedules(this.newSchedules, this.property);
         this.newSchedules = [];
+
+        this.schedules = [];
+        await this.getPaymentSchedules();
+
         this.scheduleUploadRef.close();
     }
 

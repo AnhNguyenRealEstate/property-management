@@ -10,7 +10,6 @@ import { PropertyCardService } from './property-card.service';
 import { Activity } from '../../activities/activity.data';
 import { ContractExtensionComponent } from '../contract-extension/contract-extension.component';
 import { PropertyRenewComponent } from '../property-renew/property-renew.component';
-import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 
 @Component({
     selector: 'property-card',

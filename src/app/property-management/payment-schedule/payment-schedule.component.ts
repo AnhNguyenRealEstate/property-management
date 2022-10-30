@@ -26,6 +26,12 @@ export class PaymentScheduleComponent implements OnInit {
     @Input() scheduleName: string = '';
     @Input() defaultValues: DefaultInputValues | undefined;
 
+    scheduleDescription: string = '';
+    payer: string = '';
+    payee: string = '';
+    customPayee: string = '';
+    companyName: string = 'BĐS Anh Nguyễn';
+
     headerCellClass: string = '';
     lineItemCellClass: string = '';
 
@@ -38,6 +44,9 @@ export class PaymentScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.payer = this.property?.tenantName || '';
+        this.payee = this.property?.owner?.contactName || '';
+
         if (this.columnHeaders?.length) {
             const bootstrapMaxColWidth = 12;
             const colWidth = Math.floor(bootstrapMaxColWidth / this.columnHeaders.length) || 1;
@@ -67,8 +76,8 @@ export class PaymentScheduleComponent implements OnInit {
 
         const createLineItem = () => {
             return {
-                payer: this.property?.tenantName,
-                payee: this.property?.owner?.contactName,
+                payer: this.payer,
+                payee: this.customPayee || this.payee,
                 dateCreated: Timestamp.fromDate(new Date()),
                 paymentDate: undefined,
                 payoutDate: undefined,
@@ -107,7 +116,9 @@ export class PaymentScheduleComponent implements OnInit {
                     beginDate: Timestamp.fromDate(beginDate),
                     dueDate: Timestamp.fromDate(dueDate),
                     paymentWindow: generatePaymentWindowString(beginDate, dueDate),
-                    description: `Lần ${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
+                    description: `Lần ${paymentCount}.
+                    Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày
+                    ${this.scheduleDescription.trim().length ? `(${this.scheduleDescription.trim()})` : ''}`
                 }
             } as Invoice
             lineItems.push(lineItem);
@@ -127,7 +138,9 @@ export class PaymentScheduleComponent implements OnInit {
                         dueDate: Timestamp.fromDate(finalDueDate),
                         paymentWindow: generatePaymentWindowString(finalBeginDate, finalDueDate),
                         amount: '',
-                        description: `Lần ${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày`
+                        description: `Lần ${paymentCount}.
+                        Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày
+                        ${this.scheduleDescription.trim().length ? `(${this.scheduleDescription.trim()})` : ''}`
                     }
                 } as Invoice
 
