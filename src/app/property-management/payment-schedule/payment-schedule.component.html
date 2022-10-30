@@ -21,7 +21,7 @@
                         [class.col-3]="payeeSelect.value === 'other'">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.payee' | translate }}:</span>
                         <mat-select [placeholder]="'payment_schedule.payee' | translate" name="payeeSelect" required
-                            #payeeSelect [value]="payee">
+                            #payeeSelect [(value)]="payee">
                             <mat-option [value]="payee">{{payee}}</mat-option>
                             <mat-option [value]="companyName">{{companyName}}</mat-option>
                             <mat-option value="other">Other</mat-option>
@@ -39,7 +39,7 @@
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <div class="col-12">{{ 'payment_schedule.payment_details' | translate }}</div>
+                    <div class="col-12 h5">{{ 'payment_schedule.payment_details' | translate }}</div>
                     <mat-form-field class="col-4 me-0 pe-0">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.pay' | translate }}</span>
                         <input #amount matInput name="amount" type="text" required
@@ -107,14 +107,14 @@
                     {{scheduleName}}
                 </div>
                 <div class="col-12">
-                    <span class="bold pe-1">{{ 'payment_schedule.description' | translate | titlecase
+                    <span class="text-bold pe-1">{{ 'payment_schedule.description' | translate
                         }}:</span>{{scheduleDescription}}
                 </div>
                 <div class="col-12">
-                    <span class="bold pe-1">{{ 'payment_schedule.payer' | translate }}:</span> {{payer}}
+                    <span class="text-bold pe-1">{{ 'payment_schedule.payer' | translate }}:</span> {{payer}}
                 </div>
                 <div class="col-12">
-                    <span class="bold pe-1">{{ 'payment_schedule.payee' | translate }}:</span> {{customPayee || payee}}
+                    <span class="text-bold pe-1">{{ 'payment_schedule.payee' | translate }}:</span> {{customPayee || payee}}
                 </div>
             </div>
             <ng-container [ngTemplateOutlet]="paymentSchedule"></ng-container>
