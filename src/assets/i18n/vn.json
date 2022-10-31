@@ -242,6 +242,7 @@
     },
     "invoice_list": {
         "from": "Từ",
+        "to": "Đến",
         "period": "Giai đoạn",
         "payment_received": "Đã nhận",
         "description": "Chú thích",

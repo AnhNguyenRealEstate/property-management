@@ -4,13 +4,13 @@
         (mouseleave)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterExpand)="showActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterCollapse)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header [collapsedHeight]="'5rem'">
             <mat-panel-title>
                 <div class="invoice-title">
                     <div class="text-bold">
                         <span>{{invoice.propertyName}}</span>
                     </div>
-                    <div class="invoice-description">
+                    <div class="invoice-description" style="color: gray">
                         <span>{{invoice.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
                         <span class="px-1">
                             <mat-icon>arrow_right_alt</mat-icon>
@@ -20,9 +20,17 @@
                 </div>
             </mat-panel-title>
             <mat-panel-description>
-                <div class="invoice-description d-none d-sm-block">
-                    <span class="pe-5">{{ 'invoice_list.from' | translate }}: {{invoice.payer}}</span>
-                    <span class="pe-5">{{invoice.amount}}</span>
+                <div class="row invoice-description" style="width: 70%">
+                    <div class="col-5 pt-3 d-flex justify-content-center">{{invoice.payer}}</div>
+                    <div class="col-2 px-1">
+                        <div class="d-flex justify-content-center">
+                            <span class="text-bold" style="color: black;">{{invoice.amount}}</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <mat-icon style="width: fit-content; font-size: 2rem;" color="accent">trending_flat</mat-icon>
+                        </div>
+                    </div>
+                    <div class="col-5 pt-3  d-flex justify-content-center">{{invoice.payee}}</div>
                 </div>
             </mat-panel-description>
             <div style="display: none" #editBtn>

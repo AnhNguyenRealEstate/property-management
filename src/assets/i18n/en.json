@@ -238,6 +238,7 @@
     },
     "invoice_list": {
         "from": "From",
+        "to": "To",
         "period": "Period",
         "payment_received": "Payment received",
         "description": "Description",
