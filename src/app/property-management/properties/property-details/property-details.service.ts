@@ -136,7 +136,8 @@ export class PropertyDetailsService {
             const scheduleRef = await addDoc(collection(this.firestore, FirestoreCollections.paymentSchedules), {
                 isActive: schedule.isActive,
                 beginDate: schedule.beginDate,
-                endDate: schedule.endDate
+                endDate: schedule.endDate,
+                description: schedule.description
             });
 
             const invoices = schedule.lineItems;
