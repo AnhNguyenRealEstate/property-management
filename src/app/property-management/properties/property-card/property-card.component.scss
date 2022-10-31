@@ -29,6 +29,7 @@ mat-card {
 
 .activity {
     color: colors.$primary-dark;
+    font-size: 0.9rem;
 }
 
 .overrun-wrap {
@@ -37,5 +38,15 @@ mat-card {
 }
 
 .no-longer-managed {
-    background-color: rgba(0, 0, 0, 0.2);
+    background: repeating-linear-gradient(
+        -45deg,
+        rgb(238, 238, 238),
+        rgb(238, 238, 238) 10px,
+        rgb(226, 226, 226) 10px,
+        rgb(226, 226, 226) 20px
+    );
+}
+
+.owner-info{
+    font-size: 0.8rem;
 }

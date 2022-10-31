@@ -12,36 +12,51 @@
         </div>
     </mat-card-title>
     <mat-card-content class="mb-0">
-        <div class="pb-2" *ngIf="property.owner">
-            <div class="content-label">{{ 'property_card.owner' | translate }}</div>
+        <div class="pb-3 owner-info" *ngIf="property.owner">
             <div *ngIf="property.owner.contactName" class="overrun-wrap">{{property.owner.contactName}}</div>
             <div *ngIf="property.owner.contactInfo" class="overrun-wrap">{{property.owner.contactInfo}}</div>
         </div>
 
-        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
-            <div class="col-6">
-                <div class="content-label">{{ 'property_card.start_date' | translate }}</div>
-                <div id="mgmtStartDate">{{property.managementStartDate.toDate() | date:'dd/MM/yyyy' }}</div>
+        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-3">
+            <div class="col-5">
+                <div class="content-label">
+                    <mat-icon style="color: green">event_available</mat-icon>
+                    <span class="ps-1"> {{ 'property_card.start_date' | translate }}</span>
+                </div>
+                <div class="text-bold" id="mgmtStartDate">
+                    {{property.managementStartDate.toDate() | date:'dd/MM/yyyy' }}
+                </div>
             </div>
-            <div class="col-6">
-                <div class="content-label">{{ 'property_card.end_date' | translate }}</div>
-                <div id="mgmtEndDate">{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}</div>
+            <div class="col-2 pt-1 px-0">
+                <mat-icon style="font-size: 2rem; width: fit-content; height: fit-content">arrow_right_alt</mat-icon>
+            </div>
+            <div class="col-5">
+                <div class="content-label">
+                    <mat-icon style="color: red">event_busy</mat-icon>
+                    <span class="ps-1">{{ 'property_card.end_date' | translate }}</span>
+                </div>
+                <div class="text-bold" id="mgmtEndDate">{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}
+                </div>
             </div>
         </div>
 
         <div class="row pb-2">
             <div class="col-12">
-                <div class="content-label">{{ 'property_card.contract_progress' | translate }}</div>
-                <mat-progress-bar [value]="contractProgress"></mat-progress-bar>
+                <div class="pb-1 content-label">
+                    <mat-icon color="primary">timelapse</mat-icon>
+                    <span class="ps-1">{{ 'property_card.contract_progress' | translate }}</span>
+                </div>
+                <div>
+                    <mat-progress-bar [value]="contractProgress"></mat-progress-bar>
+                </div>
             </div>
         </div>
 
         <mat-divider></mat-divider>
 
         <div class="pt-2">
-            <div class="content-label activity">{{ 'property_card.most_recent_activity' | translate }}
-                <span *ngIf="mostRecentActivity">- {{timestampToDate(mostRecentActivity.date) | date:'dd/MM/yyyy'}}
-                </span>
+            <div class="">
+                <span class="activity text-bold pe-1">{{ 'property_card.most_recent_activity' | translate }}</span>
             </div>
 
             <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
@@ -57,7 +72,7 @@
 <ng-template #cardControls>
     <button mat-icon-button class="controls-btn" [matMenuTriggerFor]="controlsMenu"
         [matTooltip]="'property_card.edit' | translate" (click)="$event.stopPropagation()">
-        <mat-icon color="accent">more_horiz</mat-icon>
+        <mat-icon>more_vert</mat-icon>
     </button>
 
     <mat-menu #controlsMenu="matMenu">
