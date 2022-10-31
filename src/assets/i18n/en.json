@@ -211,7 +211,9 @@
         "deactivate": "Deactivate",
         "description": "description",
         "description_placeholder": "Describe the payment schedule",
-        "payment_details": "Payment details"
+        "payment_details": "Payment details",
+        "upload_successful": "Payment schedule successfully added ✅",
+        "dismiss_msg": "Dismiss"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",

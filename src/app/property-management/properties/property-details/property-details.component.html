@@ -116,13 +116,15 @@
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <div class="schedule-title">
-                                            <span *ngIf="schedule.description"
-                                                class="pe-1">{{schedule.description}}:</span>
-                                            <span class="pe-1">{{'payment_schedule.payment_window' |
-                                                translate}}</span>
-                                            <span>{{schedule.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
-                                            -
-                                            <span>{{schedule.endDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                            <div class="text-bold" *ngIf="schedule.description">{{schedule.description}}
+                                            </div>
+                                            <div class="schedule-description">
+                                                <span>{{schedule.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                                <span class="px-1">
+                                                    <mat-icon>arrow_right_alt</mat-icon>
+                                                </span>
+                                                <span>{{schedule.endDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                            </div>
                                         </div>
                                     </mat-panel-title>
                                     <mat-panel-description>

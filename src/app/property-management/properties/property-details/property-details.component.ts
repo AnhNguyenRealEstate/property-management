@@ -226,14 +226,19 @@ export class PropertyDetailsComponent implements OnInit {
 
     async uploadSchedules() {
         this.newSchedules = this.newSchedules.filter(schedule => schedule.lineItems?.length);
-        
+
         await this.propertyDetails.uploadSchedules(this.newSchedules, this.property);
         this.newSchedules = [];
 
-        this.schedules = [];
-        await this.getPaymentSchedules();
-
         this.scheduleUploadRef.close();
+
+        this.snackbar.open(
+            this.translate.instant("payment_schedule.upload_successful"),
+            this.translate.instant("payment_schedule.dismiss_msg"),
+            {
+                duration: 3000
+            }
+        );
     }
 
     uploadedFileDrop(event: CdkDragDrop<string[]>) {

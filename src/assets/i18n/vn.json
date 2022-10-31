@@ -215,7 +215,9 @@
         "deactivate": "Huỷ lịch",
         "description": "Mô tả",
         "description_placeholder": "mô tả lịch...",
-        "payment_details": "Chi tiết thanh toán"
+        "payment_details": "Chi tiết thanh toán",
+        "upload_successful": "Lịch thanh toán đã được đưa vào hệ thống ✅",
+        "dismiss_msg": "Tắt"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",
