@@ -110,24 +110,46 @@
                 </div>
 
                 <div class="row" *ngIf="schedules?.length; else noSchedules">
-                    <div class="col-12 p-3" *ngFor="let schedule of schedules">
-                        <mat-card>
-                            <mat-card-title class="schedule-title d-flex justify-content-between">
-                                <div>
-                                    <span class="pe-1">{{'payment_schedule.payment_window' | translate}}</span>
-                                    <span>{{schedule.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
-                                    -
-                                    <span>{{schedule.endDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                    <div class="col-12 p-3">
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let schedule of schedules">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <div class="schedule-title">
+                                            <span *ngIf="schedule.description"
+                                                class="pe-1">{{schedule.description}}:</span>
+                                            <span class="pe-1">{{'payment_schedule.payment_window' |
+                                                translate}}</span>
+                                            <span>{{schedule.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                            -
+                                            <span>{{schedule.endDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                                        </div>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <div *ngIf="schedule.lineItems?.length" class="schedule-description">
+                                            <span class="pe-5">{{schedule.lineItems![0].amount}}</span>
+                                            <span class="pe-5">{{'payment_schedule.payer'
+                                                |
+                                                translate}}: {{schedule.lineItems![0].payer}}</span>
+                                            <span>{{'payment_schedule.payee' |
+                                                translate}}: {{schedule.lineItems![0].payee}}</span>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div matExpansionPanelContent>
+                                    <div class="d-flex justify-content-end">
+                                        <button *ngIf="schedule.isActive" mat-raised-button
+                                            (click)="deactivateSchedule(schedule)">
+                                            <mat-icon color="accent">clear</mat-icon> {{ 'payment_schedule.deactivate' |
+                                            translate }}
+                                        </button>
+                                    </div>
+                                    <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
+                                        [data]="schedule.lineItems!"></ngx-table>
                                 </div>
-                                <button *ngIf="schedule.isActive" mat-raised-button (click)="deactivateSchedule(schedule)">
-                                   <mat-icon color="accent">clear</mat-icon> {{ 'payment_schedule.deactivate' | translate }}
-                                </button>
-                            </mat-card-title>
-                            <mat-card-content>
-                                <ngx-table [configuration]="paymentScheduleConfig" [columns]="paymentScheduleCols"
-                                    [data]="schedule.lineItems!"></ngx-table>
-                            </mat-card-content>
-                        </mat-card>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
 

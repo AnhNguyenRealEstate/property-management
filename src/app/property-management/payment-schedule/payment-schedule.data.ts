@@ -6,5 +6,6 @@ export interface PaymentSchedule {
     isActive?: boolean
     beginDate?: Timestamp
     endDate?: Timestamp
+    description?: string
     lineItems?: Invoice[]
 }

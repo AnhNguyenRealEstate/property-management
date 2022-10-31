@@ -152,6 +152,7 @@ export class PaymentScheduleComponent implements OnInit {
         this.schedule.lineItems = lineItems;
         this.schedule.beginDate = Timestamp.fromDate(scheduleBegin);
         this.schedule.endDate = Timestamp.fromDate(scheduleEnd);
+        this.schedule.description = this.scheduleDescription;
         this.schedule.isActive = true;
     }
 
