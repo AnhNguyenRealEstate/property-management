@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { Timestamp, FieldValue } from "firebase-admin/firestore"
 
 /**
  * After a listing's creation
@@ -10,7 +11,7 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
     .onCreate(async (snap, context) => {
 
         const id = context.params.documentId;
-        const creationDate = admin.firestore.Timestamp.fromDate(new Date());
+        const creationDate = Timestamp.fromDate(new Date());
         snap.ref.update(
             {
                 'id': id,
@@ -115,28 +116,30 @@ async function removeRentalExtensions(propertyId: string) {
 function incrementPropertyCount(snap: functions.firestore.QueryDocumentSnapshot, count: number) {
     const property = snap.data();
     const propertyCategory = property['category'];
-    let fieldToUpdate = '';
     switch (propertyCategory) {
         case 'Apartment':
-            fieldToUpdate = 'apartmentCount'
+            admin.firestore().doc('app-metadata/properties').update(
+                { 'apartmentCount': FieldValue.increment(count) }
+            );
             break;
         case 'Villa':
-            fieldToUpdate = 'villaCount'
+            admin.firestore().doc('app-metadata/properties').update(
+                { 'villaCount': FieldValue.increment(count) }
+            );
             break;
         case 'Townhouse':
-            fieldToUpdate = 'townhouseCount'
+            admin.firestore().doc('app-metadata/properties').update(
+                { 'townhouseCount': FieldValue.increment(count) }
+            );
             break;
         case 'Commercial':
-            fieldToUpdate = 'commercialCount'
+            admin.firestore().doc('app-metadata/properties').update(
+                { 'commercialCount': FieldValue.increment(count) }
+            );
             break;
     }
 
-    const data = {} as any;
-    data[fieldToUpdate] = admin.firestore.FieldValue.increment(count);
 
-    admin.firestore().doc('app-metadata/properties').update(
-        data
-    )
 }
 
 
