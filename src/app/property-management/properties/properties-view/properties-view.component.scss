@@ -1,5 +1,33 @@
-.property-card-wrapper:hover {
-    transform: translateY(-5px);
+@media only screen and (min-width: 600px) {
+    .property-card-wrapper:hover {
+        transform: translateY(-5px);
+    }
+}
+
+::ng-deep {
+    @media only screen and (max-width: 600px) {
+        #prop-view-tabs .mat-tab-header {
+            padding-top: 1vh !important;
+            border-bottom: none;
+        }
+
+        #prop-view-tabs .mat-tab-label {
+            border: none;
+            box-sizing: border-box;
+            border-radius: 0.8rem;
+            color: rgb(64, 92, 124);
+        }
+
+        #prop-view-tabs .mat-tab-label-active {
+            border: none;
+            box-sizing: border-box;
+            border-radius: 0.8rem;
+        }
+
+        #prop-view-tabs .mat-ink-bar {
+            display: none !important;
+        }
+    }
 }
 
 .search-bar {

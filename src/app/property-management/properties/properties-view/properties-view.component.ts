@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
@@ -9,6 +9,7 @@ import { PropertyUploadComponent } from '../property-upload/property-upload.comp
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 import { ContractType } from '../property-upload/property-upload.data';
+import { MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 
 @Pipe({
     name: 'propFilter'
@@ -138,6 +139,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async onTabChange($event: number) {
+
         switch ($event) {
             case 0:
                 this.apartments = await this.propertiesView.getProperties('Apartment');
