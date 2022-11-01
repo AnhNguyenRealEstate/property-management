@@ -12,15 +12,27 @@
         </div>
     </mat-card-title>
     <mat-card-content class="mb-0">
-        <div class="pb-3 owner-info" *ngIf="property.owner">
-            <div *ngIf="property.owner.contactName" class="overrun-wrap">{{property.owner.contactName}}</div>
+        <div class="owner-info" *ngIf="property.owner">
+            <div *ngIf="property.owner.contactName" class="overrun-wrap">
+                <mat-icon [matTooltip]="'property_card.owner' | translate" style="font-size: 1.2rem; color:gray">key
+                </mat-icon>
+                <span class="ps-1">{{property.owner.contactName}}</span>
+            </div>
             <div *ngIf="property.owner.contactInfo" class="overrun-wrap">{{property.owner.contactInfo}}</div>
+        </div>
+
+        <div class="pb-3 tenant-info" *ngIf="property.owner">
+            <div *ngIf="property.tenantName" class="overrun-wrap">
+                <mat-icon [matTooltip]="'property_card.tenant' | translate" style="font-size: 1.2rem; color:gray">
+                    description</mat-icon>
+                <span class="ps-1">{{property.tenantName}}</span>
+            </div>
         </div>
 
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-3">
             <div class="col-5">
                 <div class="content-label">
-                    <mat-icon style="color: green">event_available</mat-icon>
+                    <mat-icon style="color: green;">event_available</mat-icon>
                     <span class="ps-1"> {{ 'property_card.start_date' | translate }}</span>
                 </div>
                 <div class="text-bold" id="mgmtStartDate">
@@ -32,7 +44,7 @@
             </div>
             <div class="col-5">
                 <div class="content-label">
-                    <mat-icon style="color: red">event_busy</mat-icon>
+                    <mat-icon style="color: red;">event_busy</mat-icon>
                     <span class="ps-1">{{ 'property_card.end_date' | translate }}</span>
                 </div>
                 <div class="text-bold" id="mgmtEndDate">{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}
@@ -55,15 +67,13 @@
         <mat-divider></mat-divider>
 
         <div class="pt-2">
-            <div class="">
-                <span class="activity text-bold pe-1">{{ 'property_card.most_recent_activity' | translate }}</span>
-            </div>
+            <div class="activity text-bold pe-1">{{ 'property_card.most_recent_activity' | translate }}</div>
 
-            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap">
+            <div *ngIf="mostRecentActivity; else noRecentActivity" class="overrun-wrap activity-description">
                 {{mostRecentActivity.description}}
             </div>
             <ng-template #noRecentActivity>
-                <div>{{ 'property_card.no_recent_activity' | translate }}</div>
+                <div class="activity-description">{{ 'property_card.no_recent_activity' | translate }}</div>
             </ng-template>
         </div>
     </mat-card-content>
