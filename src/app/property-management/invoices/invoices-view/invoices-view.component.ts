@@ -37,6 +37,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 @Component({
     selector: 'invoices-view',
     templateUrl: 'invoices-view.component.html',
+    styleUrls: ['./invoices-view.component.scss'],
     providers: [
         {
             provide: DateAdapter,
@@ -51,7 +52,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
                     query(':enter',
                         [
                             style({ opacity: 0, transform: 'translateY(10px)' }),
-                            stagger(100, [
+                            stagger(50, [
                                 animate('0.1s', style({ opacity: 1, transform: 'translateY(0)' }))
                             ])
                         ],

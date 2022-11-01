@@ -7,8 +7,8 @@
 ::ng-deep {
     @media only screen and (max-width: 600px) {
         #prop-view-tabs .mat-tab-header {
-            padding-top: 1vh !important;
-            border-bottom: none;
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
         }
 
         #prop-view-tabs .mat-tab-label {

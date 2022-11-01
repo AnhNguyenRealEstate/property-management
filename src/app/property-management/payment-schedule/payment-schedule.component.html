@@ -3,12 +3,28 @@
         <div class="row pb-4" *ngIf="editable">
             <div class="col-12 py-2">
                 <div class="row pb-3">
-                    <mat-form-field class="col-5">
+                    <mat-form-field [class.col-5]="payerSelect.value !== 'other'"
+                        [class.col-3]="payerSelect.value === 'other'">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.payer' | translate }}:</span>
-                        <input matInput name="payer" required [(ngModel)]="payer"
-                            [placeholder]="'payment_schedule.payer' | translate">
-                        <span matSuffix>.</span>
+                        <mat-select [placeholder]="'payment_schedule.payer' | translate" name="payerSelect" required
+                            #payerSelect [(value)]="selectedPayer" (selectionChange)="customPayer = ''">
+                            <mat-option [value]="payer">{{payer}}</mat-option>
+                            <mat-option [value]="payee">{{payee}}</mat-option>
+                            <mat-option [value]="companyName">{{companyName}}</mat-option>
+                            <mat-option value="other">{{ 'payment_schedule.other' | translate }}</mat-option>
+                        </mat-select>
+                        <span *ngIf="payerSelect.value === 'other'" matSuffix>
+                            :
+                        </span>
+                        <span *ngIf="payerSelect.value !== 'other'" matSuffix>
+                            .
+                        </span>
                     </mat-form-field>
+                    <mat-form-field *ngIf="payerSelect.value === 'other'" class="col-2">
+                        <input name="customPayer" required trim="blur" matInput [(ngModel)]="customPayer"
+                            [placeholder]="'payment_schedule.payer' | translate">
+                    </mat-form-field>
+
                     <div class="ps-4 col-1">
                         <div>
                             <mat-icon color="accent">attach_money</mat-icon>
@@ -21,10 +37,11 @@
                         [class.col-3]="payeeSelect.value === 'other'">
                         <span matPrefix class="pe-3">{{ 'payment_schedule.payee' | translate }}:</span>
                         <mat-select [placeholder]="'payment_schedule.payee' | translate" name="payeeSelect" required
-                            #payeeSelect [(value)]="payee">
+                            #payeeSelect [(value)]="selectedPayee" (selectionChange)="customPayee = ''">
+                            <mat-option [value]="payer">{{payer}}</mat-option>
                             <mat-option [value]="payee">{{payee}}</mat-option>
                             <mat-option [value]="companyName">{{companyName}}</mat-option>
-                            <mat-option value="other">Other</mat-option>
+                            <mat-option value="other">{{ 'payment_schedule.other' | translate }}</mat-option>
                         </mat-select>
                         <span *ngIf="payeeSelect.value === 'other'" matSuffix>
                             :
@@ -33,7 +50,7 @@
                             .
                         </span>
                     </mat-form-field>
-                    <mat-form-field *ngIf="payeeSelect.value === 'other'" class="col-3">
+                    <mat-form-field *ngIf="payeeSelect.value === 'other'" class="col-2">
                         <input name="customPayee" required trim="blur" matInput [(ngModel)]="customPayee"
                             [placeholder]="'payment_schedule.payee' | translate">
                     </mat-form-field>
@@ -111,10 +128,12 @@
                         }}:</span>{{scheduleDescription}}
                 </div>
                 <div class="col-12">
-                    <span class="text-bold pe-1">{{ 'payment_schedule.payer' | translate }}:</span> {{payer}}
+                    <span class="text-bold pe-1">{{ 'payment_schedule.payer' | translate }}:</span> {{
+                    schedule.lineItems![0].payer}}
                 </div>
                 <div class="col-12">
-                    <span class="text-bold pe-1">{{ 'payment_schedule.payee' | translate }}:</span> {{customPayee || payee}}
+                    <span class="text-bold pe-1">{{ 'payment_schedule.payee' | translate }}:</span> {{
+                    schedule.lineItems![0].payee}}
                 </div>
             </div>
             <ng-container [ngTemplateOutlet]="paymentSchedule"></ng-container>

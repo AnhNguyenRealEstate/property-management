@@ -8,43 +8,15 @@
     <mat-divider></mat-divider>
 
     <div class="row py-3">
-        <div *ngIf="property.category" class="col-12 col-sm-6">
-            <div class="pb-1 text-bold">{{ 'property_details.category' | translate }}</div>
-            <div>
-                <span *ngIf="property.category === 'Apartment'">{{ 'property_category.apartment' | translate
-                    }}</span>
-                <span *ngIf="property.category === 'Villa'">{{ 'property_category.villa' | translate
-                    }}</span>
-                <span *ngIf="property.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
-                    }}</span>
-                <span *ngIf="property.category === 'Commercial'">{{ 'property_category.commercial' | translate
-                    }}</span>
-            </div>
-        </div>
-
         <div *ngIf="property.address" class="col-12 col-sm-6">
             <div class="pb-1 text-bold">{{ 'property_details.address' | translate }}</div>
             <div>{{property.address}}</div>
         </div>
     </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="row py-3">
-        <div *ngIf="property.managementStartDate" class="col-12 col-sm-6">
-            <div class="pb-1 text-bold">{{ 'property_details.start_date' | translate }}</div>
-            <div>{{property.managementStartDate.toDate() | date: 'dd/MM/yyyy'}}</div>
-        </div>
-        <div *ngIf="property.managementEndDate" class="col-12 col-sm-6">
-            <div class="pb-1 text-bold">{{ 'property_details.end_date' | translate }}</div>
-            <div>{{property.managementEndDate.toDate() | date: 'dd/MM/yyyy'}}</div>
-        </div>
-    </div>
-
     <mat-divider *ngIf="property.description"></mat-divider>
 
     <div *ngIf="property.description" class="pt-3">
-        <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate | titlecase }}</div>
+        <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate  }}</div>
         <div [innerHtml]="property.description"></div>
     </div>
 
@@ -128,13 +100,24 @@
                                         </div>
                                     </mat-panel-title>
                                     <mat-panel-description>
-                                        <div *ngIf="schedule.lineItems?.length" class="schedule-description">
-                                            <span class="pe-5">{{schedule.lineItems![0].amount}}</span>
-                                            <span class="pe-5">{{'payment_schedule.payer'
-                                                |
-                                                translate}}: {{schedule.lineItems![0].payer}}</span>
-                                            <span>{{'payment_schedule.payee' |
-                                                translate}}: {{schedule.lineItems![0].payee}}</span>
+                                        <div *ngIf="schedule.lineItems?.length" class="row schedule-description" style="width: 80%">
+                                            <div class="col-4 pt-3 d-flex justify-content-center">
+                                                {{schedule.lineItems![0].payer}}
+                                            </div>
+                                            <div class="col-4 px-1">
+                                                <div class="d-flex justify-content-center">
+                                                    <span class="text-bold"
+                                                        style="color: black;">{{schedule.lineItems![0].amount}}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <mat-icon class="payments-icon" color="primary">payments</mat-icon>
+                                                    <mat-icon class="arrow-icon" color="primary">trending_flat
+                                                    </mat-icon>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 pt-3  d-flex justify-content-center">
+                                                {{schedule.lineItems![0].payee}}
+                                            </div>
                                         </div>
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>

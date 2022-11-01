@@ -213,7 +213,8 @@
         "description_placeholder": "Describe the payment schedule",
         "payment_details": "Payment details",
         "upload_successful": "Payment schedule successfully added ✅",
-        "dismiss_msg": "Dismiss"
+        "dismiss_msg": "Dismiss",
+        "other": "Other"
     },
     "invoices": {
         "uncollected_invoices": "Uncollected invoices",

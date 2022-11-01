@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Invoice } from '../invoices/invoices.data';
 import { Property } from '../properties/property.data';
@@ -27,9 +27,14 @@ export class PaymentScheduleComponent implements OnInit {
     @Input() defaultValues: DefaultInputValues | undefined;
 
     scheduleDescription: string = '';
+    selectedPayer: string = '';
     payer: string = '';
+    customPayer: string = '';
+
+    selectedPayee: string = '';
     payee: string = '';
     customPayee: string = '';
+
     companyName: string = 'BĐS Anh Nguyễn';
 
     headerCellClass: string = '';
@@ -44,8 +49,13 @@ export class PaymentScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.customPayer = this.property?.tenantName || '';
         this.payer = this.property?.tenantName || '';
+        this.selectedPayer = this.payer = this.property?.tenantName || '';
+
+        this.customPayee = this.property?.owner?.contactName || '';
         this.payee = this.property?.owner?.contactName || '';
+        this.selectedPayee = this.property?.owner?.contactName || '';
 
         if (this.columnHeaders?.length) {
             const bootstrapMaxColWidth = 12;
@@ -76,8 +86,8 @@ export class PaymentScheduleComponent implements OnInit {
 
         const createLineItem = () => {
             return {
-                payer: this.payer,
-                payee: this.customPayee || this.payee,
+                payer: String(this.customPayer || this.selectedPayer || this.payer),
+                payee: String(this.customPayee || this.selectedPayee || this.payee),
                 dateCreated: Timestamp.fromDate(new Date()),
                 paymentDate: undefined,
                 payoutDate: undefined,

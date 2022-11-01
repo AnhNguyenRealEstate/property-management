@@ -1,16 +1,28 @@
-<mat-tab-group color="accent" class="mx-2 my-sm-4" style="min-height: 90vh;">
+<mat-tab-group id="activities-view-tabs" color="accent" class="mx-2 my-sm-4" style="min-height: 90vh;" mat-stretch-tabs>
     <mat-tab>
         <ng-template matTabLabel>
-            <mat-icon>list</mat-icon>
-            <span class="ps-2">{{'activities_view.list' | translate}}</span>
+            <div>
+                <div class="d-block d-sm-inline">
+                    <mat-icon>list</mat-icon>
+                </div>
+                <div class="d-block d-sm-inline">
+                    <span class="ps-2">{{'activities_view.list' | translate}}</span>
+                </div>
+            </div>
         </ng-template>
         <activity-list [activities]="activities"
             [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"></activity-list>
     </mat-tab>
     <mat-tab>
         <ng-template matTabLabel>
-            <mat-icon>calendar_month_icon</mat-icon>
-            <span class="ps-2">{{'activities_view.calendar' | translate}}</span>
+            <div>
+                <div class="d-block d-sm-inline">
+                    <mat-icon>calendar_month_icon</mat-icon>
+                </div>
+                <div class="d-block d-sm-inline">
+                    <span class="ps-2">{{'activities_view.calendar' | translate}}</span>
+                </div>
+            </div>
         </ng-template>
         <activity-calendar></activity-calendar>
     </mat-tab>

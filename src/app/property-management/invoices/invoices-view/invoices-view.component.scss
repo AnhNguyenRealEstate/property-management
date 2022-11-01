@@ -1,34 +1,24 @@
-.view-toggle-mobile {
-    mat-button-toggle-group {
-        display: flex;
-
-        mat-button-toggle {
-            width: 50vw;
-        }
-    }
-}
-
 ::ng-deep {
     @media only screen and (max-width: 600px) {
-        #activities-view-tabs .mat-tab-header {
+        #invoices-view-tabs .mat-tab-header {
             padding-top: 4px !important;
             padding-bottom: 4px !important;
         }
 
-        #activities-view-tabs .mat-tab-label {
+        #invoices-view-tabs .mat-tab-label {
             border: none;
             box-sizing: border-box;
             border-radius: 0.8rem;
             color: rgb(64, 92, 124);
         }
 
-        #activities-view-tabs .mat-tab-label-active {
+        #invoices-view-tabs .mat-tab-label-active {
             border: none;
             box-sizing: border-box;
             border-radius: 0.8rem;
         }
 
-        #activities-view-tabs .mat-ink-bar {
+        #invoices-view-tabs .mat-ink-bar {
             display: none !important;
         }
     }
