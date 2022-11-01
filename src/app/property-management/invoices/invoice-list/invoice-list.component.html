@@ -20,17 +20,18 @@
                 </div>
             </mat-panel-title>
             <mat-panel-description>
-                <div class="row invoice-description" style="width: 70%">
-                    <div class="col-5 pt-3 d-flex justify-content-center">{{invoice.payer}}</div>
-                    <div class="col-2 px-1">
+                <div class="row invoice-description" style="width: 80%">
+                    <div class="col-4 pt-3 d-flex justify-content-center">{{invoice.payer}}</div>
+                    <div class="col-4 px-1">
                         <div class="d-flex justify-content-center">
                             <span class="text-bold" style="color: black;">{{invoice.amount}}</span>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <mat-icon style="width: fit-content; font-size: 2rem;" color="accent">trending_flat</mat-icon>
+                            <mat-icon class="payments-icon" color="primary">payments</mat-icon>
+                            <mat-icon class="arrow-icon" color="primary">trending_flat</mat-icon>
                         </div>
                     </div>
-                    <div class="col-5 pt-3  d-flex justify-content-center">{{invoice.payee}}</div>
+                    <div class="col-4 pt-3  d-flex justify-content-center">{{invoice.payee}}</div>
                 </div>
             </mat-panel-description>
             <div style="display: none" #editBtn>
