@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from '@sendgrid/mail';
+import { Timestamp } from "firebase-admin/firestore"
 var format = require('date-format');
 
 /**
@@ -28,8 +29,8 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
         const monday = new Date();
         const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
 
-        const mondayTimestamp = admin.firestore.Timestamp.fromDate(monday);
-        const endOfWeekTimestamp = admin.firestore.Timestamp.fromDate(endOfWeek);
+        const mondayTimestamp = Timestamp.fromDate(monday);
+        const endOfWeekTimestamp = Timestamp.fromDate(endOfWeek);
 
         const snap = await admin.firestore().collectionGroup('invoices')
             .where('beginDate', '>=', mondayTimestamp)
@@ -39,7 +40,9 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
 
         const invoicesAsHtml: string[] = [];
         invoicesToCollect.forEach((invoice, index) => {
-            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']} từ ${invoice['payee']} (${invoice['propertyName']}), bắt đầu từ ${ format.asString('dd/MM/yyyy' ,(invoice['beginDate'] as admin.firestore.Timestamp).toDate())}`;
+            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']}
+            từ ${invoice['payee']} (${invoice['propertyName']}),
+            bắt đầu từ ${format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())}`;
             invoicesAsHtml.push(invoiceHtml);
         });
 

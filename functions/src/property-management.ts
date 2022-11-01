@@ -172,7 +172,7 @@ function incrementPropertyCount(snap: functions.firestore.QueryDocumentSnapshot,
 //             contactName: (propertyData['owner'] as any)['contactName'] || '',
 //             contactInfo: (propertyData['owner'] as any)['contactInfo'] || '',
 //             username: (propertyData['owner'] as any)['username'] || '',
-//             dateOfLastContact: (propertyData['owner'] as any)['dateOfLastContact'] || admin.firestore.Timestamp.fromDate(new Date()),
+//             dateOfLastContact: (propertyData['owner'] as any)['dateOfLastContact'] || Timestamp.fromDate(new Date()),
 //             propertyIDs: propertiesIDs
 //         });
 //     }

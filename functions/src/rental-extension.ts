@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { Timestamp } from "firebase-admin/firestore"
 
 exports.postProcessCreation = functions.region('asia-southeast2').firestore
     .document('rental_extension/{extension_id}')
@@ -18,8 +19,8 @@ exports.extendRentalContracts = functions.region('asia-southeast2').pubsub.
         const todayAsDate = new Date();
         todayAsDate.setHours(0, 0, 0, 0);
 
-        const today = admin.firestore.Timestamp.fromDate(todayAsDate);
-        const tomorrow = admin.firestore.Timestamp.fromDate(new Date(todayAsDate.getFullYear(), todayAsDate.getMonth(), todayAsDate.getDate() + 1))
+        const today = Timestamp.fromDate(todayAsDate);
+        const tomorrow = Timestamp.fromDate(new Date(todayAsDate.getFullYear(), todayAsDate.getMonth(), todayAsDate.getDate() + 1))
         const rentalExtensionsSnap = await admin.firestore().collection(`rental-extension`)
             .where('startDate', '>=', today)
             .where('startDate', '<', tomorrow).get()
