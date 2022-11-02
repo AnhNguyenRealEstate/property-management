@@ -4,9 +4,9 @@
         (mouseleave)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterExpand)="showActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterCollapse)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
-        <mat-expansion-panel-header [collapsedHeight]="'5rem'">
+        <mat-expansion-panel-header [collapsedHeight]="'fit-content'">
             <mat-panel-title>
-                <div class="invoice-title">
+                <div class="invoice-title py-2">
                     <div class="text-bold">
                         <span>{{invoice.propertyName}}</span>
                     </div>
@@ -37,14 +37,14 @@
                     <div class="col-4 pt-3  d-flex justify-content-center">{{invoice.payee}}</div>
                 </div>
             </mat-panel-description>
-            <div style="display: none" #editBtn>
+            <div class="pt-3" style="display: none" #editBtn>
                 <button *ngIf="canEditInvoices && !invoicesBeingEdited.includes(invoice.id!)" mat-button
                     (click)="$event.stopPropagation(); editInvoice(invoicePanel, invoice);"
                     [matTooltip]="'invoice_list.edit_invoice' | translate">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
-            <div style="display: none" #paymentReceivedBtn>
+            <div class="pt-3" style="display: none" #paymentReceivedBtn>
                 <button *ngIf="canEditInvoices 
                     && invoice.status === 'unpaid' 
                     && !invoicesBeingEdited.includes(invoice.id!)" mat-button
@@ -53,7 +53,7 @@
                     <mat-icon color="accent">check</mat-icon>
                 </button>
             </div>
-            <div style="display: none" #payoutSentBtn>
+            <div class="pt-3" style="display: none" #payoutSentBtn>
                 <button *ngIf="canEditInvoices 
                     && invoice.status === 'paid'
                     && !invoicesBeingEdited.includes(invoice.id!)" mat-button
@@ -64,12 +64,14 @@
             </div>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-            <ng-container *ngIf="!invoicesBeingEdited.includes(invoice.id!)" [ngTemplateOutlet]="invoiceDetails"
-                [ngTemplateOutletContext]="{invoice: invoice}">
-            </ng-container>
-            <ng-container *ngIf="invoicesBeingEdited.includes(invoice.id!)" [ngTemplateOutlet]="invoiceEdit"
-                [ngTemplateOutletContext]="{invoice: invoice}">
-            </ng-container>
+            <div class="pt-3">
+                <ng-container *ngIf="!invoicesBeingEdited.includes(invoice.id!)" [ngTemplateOutlet]="invoiceDetails"
+                    [ngTemplateOutletContext]="{invoice: invoice}">
+                </ng-container>
+                <ng-container *ngIf="invoicesBeingEdited.includes(invoice.id!)" [ngTemplateOutlet]="invoiceEdit"
+                    [ngTemplateOutletContext]="{invoice: invoice}">
+                </ng-container>
+            </div>
 
             <div *ngIf="invoicesBeingEdited.includes(invoice.id!)" class="d-flex justify-content-end">
                 <button mat-button (click)="cancelEdit(invoice)">
