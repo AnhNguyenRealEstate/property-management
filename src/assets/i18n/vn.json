@@ -126,7 +126,10 @@
         "add_activity": "Hoạt động mới",
         "add_sched": "Lịch mới",
         "add_files": "Thêm file",
-        "upload": "Lưu"
+        "upload": "Lưu",
+        "confirmation_msg": "Bạn có chắc bạn muốn xoá lịch thanh toán này?",
+        "delete": "Xoá",
+        "cancel": "Huỷ"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",

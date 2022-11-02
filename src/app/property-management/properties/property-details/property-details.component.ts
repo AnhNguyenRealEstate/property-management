@@ -47,11 +47,12 @@ export class PropertyDetailsComponent implements OnInit {
     @ViewChild('filesUploadTpl') filesUploadTpl!: TemplateRef<string>;
 
     @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
-    @ViewChild('payerTpl') payerTpl!: TemplateRef<string>;
     @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
     @ViewChild('periodTpl') periodTpl!: TemplateRef<string>;
     @ViewChild('statusTpl') statusTpl!: TemplateRef<string>;
     @ViewChild('actionsTpl') actionsTpl!: TemplateRef<string>;
+
+    @ViewChild('deleteConfirmation') confirmationDialogTpl!: TemplateRef<string>;
 
     paymentScheduleConfig: Config = {
         ...DefaultConfig,
@@ -62,7 +63,8 @@ export class PropertyDetailsComponent implements OnInit {
             hover: false,
             striped: true
         },
-        rows: 5
+        rows: 5,
+        fixedColumnWidth: true
     };
     paymentScheduleCols: Columns[] = [];
 
@@ -87,12 +89,11 @@ export class PropertyDetailsComponent implements OnInit {
         this.loading = false;
 
         this.paymentScheduleCols = [
-            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl },
-            { key: 'payer', title: this.translate.instant('payment_schedule.payer'), cellTemplate: this.payerTpl },
-            { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl },
-            { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window'), cellTemplate: this.periodTpl },
-            { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl },
-            { key: 'action', title: this.translate.instant('payment_schedule.actions'), cellTemplate: this.actionsTpl }
+            { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), cellTemplate: this.descriptionTpl, width: '25%' },
+            { key: 'amount', title: this.translate.instant('payment_schedule.amount'), cellTemplate: this.amountTpl, width: '10%' },
+            { key: 'paymentWindow', title: this.translate.instant('payment_schedule.payment_window'), cellTemplate: this.periodTpl, width: '15%' },
+            { key: 'status', title: this.translate.instant('payment_schedule.status'), cellTemplate: this.statusTpl, width: '15%' },
+            { key: 'action', title: this.translate.instant('payment_schedule.actions'), cellTemplate: this.actionsTpl, width: '15%' }
         ];
 
         this.propertyDocuments = this.property.documents?.sort((a, b) =>
@@ -318,8 +319,15 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     async deactivateSchedule(schedule: PaymentSchedule) {
-        await this.propertyDetails.deactivateSchedule(schedule);
-        this.schedules = [];
-        await this.getPaymentSchedules();
+        this.dialog.open(this.confirmationDialogTpl, {
+            height: '20%',
+            width: '80%'
+        }).afterClosed().subscribe(async (toDelete: boolean) => {
+            if (toDelete) {
+                await this.propertyDetails.deactivateSchedule(schedule);
+                this.schedules = [];
+                await this.getPaymentSchedules();
+            }
+        });
     }
 }

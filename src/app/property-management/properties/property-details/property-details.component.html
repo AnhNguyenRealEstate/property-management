@@ -263,22 +263,10 @@
     </div>
     <ng-template #editDescription>
         <mat-form-field>
-            <textarea matInput [(ngModel)]="row.description"></textarea>
+            <textarea matInput [(ngModel)]="row.description" rows="5"></textarea>
         </mat-form-field>
     </ng-template>
 </ng-template>
-
-<ng-template #payerTpl let-row>
-    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editPayer">
-        {{row.payer}}
-    </div>
-    <ng-template #editPayer>
-        <mat-form-field>
-            <textarea matInput [(ngModel)]="row.payer"></textarea>
-        </mat-form-field>
-    </ng-template>
-</ng-template>
-
 
 <ng-template #amountTpl let-row>
     <div *ngIf="!invoicesBeingEdited.includes(row.id); else editAmt">
@@ -355,4 +343,15 @@
     <button mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)" (click)="cancelUpdate(row)">
         <mat-icon>close</mat-icon> {{ 'payment_schedule.cancel' | translate }}
     </button>
+</ng-template>
+
+<ng-template #deleteConfirmation>
+    <div class="row">
+        <div class="col-12">{{ 'property_details.confirmation_msg' | translate }}</div>
+        <div class="col-12 d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">{{ 'property_details.delete' | translate
+                }}</button>
+            <button mat-button [mat-dialog-close]="false">{{ 'property_details.cancel' | translate }}</button>
+        </div>
+    </div>
 </ng-template>

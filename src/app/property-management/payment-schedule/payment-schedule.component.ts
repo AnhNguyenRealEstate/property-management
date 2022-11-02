@@ -5,7 +5,6 @@ import { Property } from '../properties/property.data';
 import { PaymentSchedule } from './payment-schedule.data';
 import { DatePipe } from '@angular/common';
 import { PaymentScheduleService } from './payment-schedule.service';
-import { ContractData } from '../properties/property-upload/property-upload.data';
 
 export interface DefaultInputValues {
     startDate?: Date,
@@ -148,9 +147,7 @@ export class PaymentScheduleComponent implements OnInit {
                         dueDate: Timestamp.fromDate(finalDueDate),
                         paymentWindow: generatePaymentWindowString(finalBeginDate, finalDueDate),
                         amount: '',
-                        description: `Lần ${paymentCount}.
-                        Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày
-                        ${this.scheduleDescription.trim().length ? `(${this.scheduleDescription.trim()})` : ''}`
+                        description: `Lần ${paymentCount}. Từ ${this.datePipe.transform(beginDate, 'dd/MM/yyyy')}, trong vòng ${within} ngày ${this.scheduleDescription.trim().length ? `(${this.scheduleDescription.trim()})` : ''}`
                     }
                 } as Invoice
 

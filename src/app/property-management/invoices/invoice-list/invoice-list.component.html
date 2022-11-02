@@ -10,6 +10,9 @@
                     <div class="text-bold">
                         <span>{{invoice.propertyName}}</span>
                     </div>
+                    <div class="invoice-description text-bold" style="color: gray">
+                        <span>{{invoice.description}}</span>
+                    </div>
                     <div class="invoice-description" style="color: gray">
                         <span>{{invoice.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
                         <span class="px-1">
