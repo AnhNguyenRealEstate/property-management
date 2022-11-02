@@ -28,6 +28,8 @@ export class InvoiceListComponent {
 
     invoicesBeingEdited: string[] = [];
 
+    searchInput: string = '';
+
     constructor(
         public invoiceList: InvoiceListService,
         private renderer: Renderer2,

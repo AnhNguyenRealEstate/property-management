@@ -5,11 +5,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LabelSpanModule } from 'src/app/label-span/label-span.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PropertyDetailsModule } from '../../properties/property-details/property-details.module';
+import { PropertyFilterPipe } from './invoice-filter.pipe';
 
 import { InvoiceListComponent } from './invoice-list.component';
 
 @NgModule({
-    declarations: [InvoiceListComponent],
+    declarations: [InvoiceListComponent, PropertyFilterPipe],
     imports: [
         CommonModule,
         SharedModule,

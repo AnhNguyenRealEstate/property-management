@@ -171,7 +171,7 @@
         "cancel": "Huỷ"
     },
     "properties_view": {
-        "search_placeholder": "Tên tài sản"
+        "search_placeholder": "Tên tài sản..."
     },
     "owner_upload": {
         "register_new": "Đăng ký chủ nhà mới",
@@ -261,7 +261,8 @@
         "due_date": "Ngày kết thúc giai đoạn",
         "edit_invoice": "Sửa thông tin",
         "payout_date": "Ngày trả tiền cho chủ",
-        "amount": "Số tiền"
+        "amount": "Số tiền",
+        "search_placeholder": "Tên tài sản, người trả, người nhận..."
     },
     "summary": {
         "contracts_expiring_soon": "hợp đồng sắp hết hạn",

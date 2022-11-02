@@ -139,7 +139,6 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async onTabChange($event: number) {
-
         switch ($event) {
             case 0:
                 this.apartments = await this.propertiesView.getProperties('Apartment');
@@ -152,6 +151,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
                 break;
             case 3:
                 this.commercials = await this.propertiesView.getProperties('Commercial');
+                break;
         }
     }
 }

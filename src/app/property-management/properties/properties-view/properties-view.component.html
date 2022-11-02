@@ -18,7 +18,7 @@
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]="{category: 'Apartment'}"></ng-container>
         <div [@propertyCardAnim]="apartments.length" class="row p-2">
-            <div *ngFor="let prop of apartments | propFilter: searchInput; let i = index;"
+            <div *ngFor="let prop of apartments | propFilter: searchInput;"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(apartments, prop)">
@@ -41,7 +41,7 @@
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Villa' }"></ng-container>
         <div [@propertyCardAnim]="villas.length" class="row p-2">
-            <div *ngFor="let prop of villas | propFilter: searchInput; let i = index;"
+            <div *ngFor="let prop of villas | propFilter: searchInput;"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
                 </property-card>
@@ -64,7 +64,7 @@
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Townhouse' }">
         </ng-container>
         <div [@propertyCardAnim]="townhouses.length" class="row p-2">
-            <div *ngFor="let prop of townhouses | propFilter: searchInput; let i = index;"
+            <div *ngFor="let prop of townhouses | propFilter: searchInput;"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(townhouses, prop)">
@@ -88,7 +88,7 @@
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Commercial' }">
         </ng-container>
         <div [@propertyCardAnim]="commercials.length" class="row p-2">
-            <div *ngFor="let prop of commercials | propFilter: searchInput; let i = index;"
+            <div *ngFor="let prop of commercials | propFilter: searchInput;"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(commercials, prop)">
@@ -109,11 +109,11 @@
     <div class="pt-2 row d-flex justify-content-center">
         <div class="col-11 py-0 search-bar">
             <mat-form-field color="accent" class="px-3">
+                <span matPrefix class="px-3" style="font-size: 1rem">
+                    <mat-icon>search</mat-icon>
+                </span>
                 <input matInput [placeholder]="'properties_view.search_placeholder' | translate" type="text"
                     [(ngModel)]="searchInput">
-                <button matSuffix mat-button aria-label="Search">
-                    <mat-icon>search</mat-icon>
-                </button>
             </mat-form-field>
         </div>
     </div>
