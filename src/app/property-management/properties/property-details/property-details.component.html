@@ -100,11 +100,11 @@
                                         </div>
                                     </mat-panel-title>
                                     <mat-panel-description>
-                                        <div *ngIf="schedule.lineItems?.length" class="row schedule-description" style="width: 80%">
+                                        <div *ngIf="schedule.lineItems?.length" class="row schedule-description" style="width: 80%; height: 55px;">
                                             <div class="col-4 pt-3 d-flex justify-content-center">
                                                 {{schedule.lineItems![0].payer}}
                                             </div>
-                                            <div class="col-4 px-1">
+                                            <div class="pt-2 col-4 px-1">
                                                 <div class="d-flex justify-content-center">
                                                     <span class="text-bold"
                                                         style="color: black;">{{schedule.lineItems![0].amount}}</span>
