@@ -127,9 +127,11 @@
         "add_sched": "Lịch mới",
         "add_files": "Thêm file",
         "upload": "Lưu",
-        "confirmation_msg": "Bạn có chắc bạn muốn xoá lịch thanh toán này?",
+        "payment_schedule_remove_confirmation": "Bạn có chắc bạn muốn xoá lịch thanh toán này?",
+        "document_delete_confirmation": "Bạn có chắc bạn muốn xoá: {{filename}}?",
         "delete": "Xoá",
-        "cancel": "Huỷ"
+        "cancel": "Huỷ",
+        "download": "Tải về"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Optional, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'property-details',
@@ -74,6 +75,7 @@ export class PropertyDetailsComponent implements OnInit {
         private propertyDetails: PropertyDetailsService,
         private translate: TranslateService,
         public roles: RolesService,
+        private renderer: Renderer2,
         private snackbar: MatSnackBar,
         private datePipe: DatePipe,
         private dialog: MatDialog,
@@ -140,6 +142,33 @@ export class PropertyDetailsComponent implements OnInit {
         fileLink.href = url;
         fileLink.download = doc.displayName!;
         fileLink.click();
+    }
+
+    async deleteDoc(doc: UploadedFile) {
+        this.dialog.open(this.confirmationDialogTpl, {
+            height: '20%',
+            width: '80%',
+            data: {
+                confirmation_msg: this.translate.instant('property_details.document_delete_confirmation', {
+                    filename: doc.displayName
+                })
+            }
+        }).afterClosed().subscribe(async (toDelete: boolean) => {
+            if (toDelete) {
+                if (!this.propertyDocuments) {
+                    return;
+                }
+
+                const idx = this.propertyDocuments.findIndex(_ => _.dbHashedName === doc.dbHashedName);
+                if (idx === -1) {
+                    return;
+                }
+
+                this.propertyDocuments.splice(idx, 1);
+
+                await this.propertyDetails.deleteDoc(this.property, doc, this.propertyDocuments);
+            }
+        });
     }
 
     timestampToDate(stamp: any): Date {
@@ -321,7 +350,10 @@ export class PropertyDetailsComponent implements OnInit {
     async deactivateSchedule(schedule: PaymentSchedule) {
         this.dialog.open(this.confirmationDialogTpl, {
             height: '20%',
-            width: '80%'
+            width: '80%',
+            data: {
+                confirmation_msg: this.translate.instant('property_details.payment_schedule_remove_confirmation')
+            }
         }).afterClosed().subscribe(async (toDelete: boolean) => {
             if (toDelete) {
                 await this.propertyDetails.deactivateSchedule(schedule);
@@ -329,5 +361,17 @@ export class PropertyDetailsComponent implements OnInit {
                 await this.getPaymentSchedules();
             }
         });
+    }
+
+    showDocBtns(...btns: MatButton[]) {
+        btns.forEach(btn => {
+            this.renderer.removeStyle(btn._elementRef.nativeElement, 'display');
+        })
+    }
+
+    hideDocBtns(...btns: MatButton[]) {
+        btns.forEach(btn => {
+            this.renderer.setStyle(btn._elementRef.nativeElement, 'display', 'none');
+        })
     }
 }

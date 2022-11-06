@@ -16,7 +16,7 @@
     <mat-divider *ngIf="property.description"></mat-divider>
 
     <div *ngIf="property.description" class="pt-3">
-        <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate  }}</div>
+        <div class="pb-1 text-bold">{{ 'property_details.important_notes' | translate }}</div>
         <div [innerHtml]="property.description"></div>
     </div>
 
@@ -100,7 +100,8 @@
                                         </div>
                                     </mat-panel-title>
                                     <mat-panel-description>
-                                        <div *ngIf="schedule.lineItems?.length" class="row schedule-description" style="width: 80%; height: 55px;">
+                                        <div *ngIf="schedule.lineItems?.length" class="row schedule-description"
+                                            style="width: 80%; height: 55px;">
                                             <div class="col-4 pt-3 d-flex justify-content-center">
                                                 {{schedule.lineItems![0].payer}}
                                             </div>
@@ -240,13 +241,32 @@
                 </div>
 
                 <div class="row pt-2" *ngFor="let doc of propertyDocuments">
-                    <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">
-                        <span class="related-document-date">{{doc.date?.toDate() | date:'dd/MM/yyyy'}}</span>
-                        <div class="d-inline">
-                            {{doc.displayName}}
-                        </div>
-                        <mat-icon color="accent">download</mat-icon>
-                    </button>
+                    <mat-list>
+                        <mat-list-item (mouseenter)="showDocBtns(deleteBtn, downloadBtn)"
+                            (mouseleave)="hideDocBtns(deleteBtn, downloadBtn)">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <span class="related-document-date">{{doc.date?.toDate() |
+                                        date:'dd/MM/yyyy'}}</span>
+                                    <div class="d-inline">
+                                        {{doc.displayName}}
+                                    </div>
+                                </div>
+                                <div>
+                                    <button style="position: absolute; top: 4px; right: 128px; display: none" mat-button
+                                        #downloadBtn [matTooltip]="'property_details.download' | translate"
+                                        (click)="downloadDoc(doc)">
+                                        <mat-icon color="accent">download</mat-icon>
+                                    </button>
+                                    <button style="position: absolute; top: 4px; right: 48px; display: none" mat-button
+                                        #deleteBtn [matTooltip]="'property_details.delete' | translate"
+                                        (click)="deleteDoc(doc)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
                 </div>
 
                 <div class="pt-2" *ngIf="!property.documents?.length">
@@ -345,9 +365,9 @@
     </button>
 </ng-template>
 
-<ng-template #deleteConfirmation>
+<ng-template #deleteConfirmation let-data>
     <div class="row">
-        <div class="col-12">{{ 'property_details.confirmation_msg' | translate }}</div>
+        <div class="col-12">{{data.confirmation_msg}}</div>
         <div class="col-12 d-flex justify-content-end">
             <button mat-button color="accent" [mat-dialog-close]="true">{{ 'property_details.delete' | translate
                 }}</button>

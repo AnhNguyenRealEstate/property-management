@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp } from '@angular/fire/firestore';
-import { getBlob, getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp, docData } from '@angular/fire/firestore';
+import { deleteObject, getBlob, getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
-import { FirestoreCollections } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -27,6 +27,21 @@ export class PropertyDetailsService {
         }
 
         return await getBlob(ref(this.storage, `${docPath}`));
+    }
+
+    async deleteDoc(property: Property, docToDelete: UploadedFile, updatedListOfDocuments: UploadedFile[]) {
+        const loggedIn = lastValueFrom(this.login.loggedIn$);
+        if (!loggedIn) {
+            return;
+        }
+
+        await deleteObject(
+            ref(this.storage, `${property.fileStoragePath}/${docToDelete.dbHashedName}`)
+        );
+
+        await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), {
+            documents: updatedListOfDocuments
+        });
     }
 
     async getActivities(property: Property) {
