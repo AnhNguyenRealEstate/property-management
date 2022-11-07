@@ -380,4 +380,16 @@ export class PropertyDetailsComponent implements OnInit {
     closeBottomSheet() {
         this._bottomSheetRef.dismiss();
     }
+
+    async previewDoc(doc: UploadedFile) {
+        const url = await this.propertyDetails.getDocUrl(`${this.property.fileStoragePath}/${doc.dbHashedName}`)
+        
+        this.dialog.open(this.docPreviewTpl, {
+            height: '90%',
+            width: '90%',
+            data: {
+                url: url
+            }
+        })
+    }
 }

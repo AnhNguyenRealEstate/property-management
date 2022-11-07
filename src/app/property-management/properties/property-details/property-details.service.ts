@@ -20,6 +20,17 @@ export class PropertyDetailsService {
         private login: LoginService
     ) { }
 
+    async getDocUrl(docPath: string) {
+        const loggedIn = lastValueFrom(this.login.loggedIn$);
+        if (!loggedIn) {
+            return '';
+        }
+
+        return await getDownloadURL(
+            ref(this.storage, `${docPath}`)
+        );
+    }
+
     async downloadDoc(docPath: string): Promise<Blob> {
         const loggedIn = lastValueFrom(this.login.loggedIn$);
         if (!loggedIn) {

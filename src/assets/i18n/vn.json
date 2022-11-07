@@ -131,7 +131,8 @@
         "document_delete_confirmation": "Bạn có chắc bạn muốn xoá: {{filename}}?",
         "delete": "Xoá",
         "cancel": "Huỷ",
-        "download": "Tải về"
+        "download": "Tải về",
+        "preview": "Xem"
     },
     "activity_list": {
         "no_doc": "Không có tài liệu đính kèm",

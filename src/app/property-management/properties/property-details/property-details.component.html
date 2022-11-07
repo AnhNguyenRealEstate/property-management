@@ -244,8 +244,8 @@
                 </div>
                 <mat-list class="pt-2">
                     <mat-list-item *ngFor="let doc of propertyDocuments; let i = index"
-                        (mouseenter)="showDocBtns(deleteBtn, downloadBtn)"
-                        (mouseleave)="hideDocBtns(deleteBtn, downloadBtn)">
+                        (mouseenter)="showDocBtns(previewBtn, deleteBtn, downloadBtn)"
+                        (mouseleave)="hideDocBtns(previewBtn, deleteBtn, downloadBtn)">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <span class="related-document-date">{{doc.date?.toDate() |
@@ -255,10 +255,15 @@
                                 </div>
                             </div>
                             <div>
+                                <button style="position: absolute; top: 4px; right: 208px; display: none" mat-button
+                                    #previewBtn [matTooltip]="'property_details.preview' | translate"
+                                    (click)="previewDoc(doc)">
+                                    <mat-icon color="accent">visibility</mat-icon>
+                                </button>
                                 <button style="position: absolute; top: 4px; right: 128px; display: none" mat-button
                                     #downloadBtn [matTooltip]="'property_details.download' | translate"
                                     (click)="downloadDoc(doc)">
-                                    <mat-icon color="accent">download</mat-icon>
+                                    <mat-icon>download</mat-icon>
                                 </button>
                                 <button style="position: absolute; top: 4px; right: 48px; display: none" mat-button
                                     #deleteBtn [matTooltip]="'property_details.delete' | translate"
@@ -374,4 +379,8 @@
             <button mat-button [mat-dialog-close]="false">{{ 'property_details.cancel' | translate }}</button>
         </div>
     </div>
+</ng-template>
+
+<ng-template #docPreviewTpl let-data>
+    <ngx-doc-viewer [url]="data.url" viewer="google" style="width:90%; height:80vh;"></ngx-doc-viewer>
 </ng-template>

@@ -10,6 +10,8 @@ import { ActivityUploadModule } from '../../activities/activity-upload/activity-
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+
 @NgModule({
     declarations: [PropertyDetailsComponent],
     imports: [
@@ -23,7 +25,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
         PaymentScheduleModule,
         TableModule,
         MatExpansionModule,
-        MatBottomSheetModule
+        MatBottomSheetModule,
+        NgxDocViewerModule
     ],
     exports: [PropertyDetailsComponent]
 })

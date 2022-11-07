@@ -127,7 +127,8 @@
         "document_delete_confirmation": "Are you sure you want to delete: {{filename}}?",
         "delete": "Delete",
         "cancel": "Cancel",
-        "download": "Download"
+        "download": "Download",
+        "preview": "Preview"
     },
     "activity_list": {
         "no_doc": "No documents to display",
