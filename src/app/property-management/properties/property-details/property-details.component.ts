@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HashingService } from 'src/app/shared/hashing.service';
 import { MatButton } from '@angular/material/button';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 @Component({
     selector: 'property-details',
@@ -80,7 +81,8 @@ export class PropertyDetailsComponent implements OnInit {
         private datePipe: DatePipe,
         private dialog: MatDialog,
         private hash: HashingService,
-        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
+        private _bottomSheetRef: MatBottomSheetRef<PropertyDetailsComponent>,
+        @Optional() @Inject(MAT_BOTTOM_SHEET_DATA) private data: any
     ) {
         this.property = this.data.property;
     }
@@ -373,5 +375,9 @@ export class PropertyDetailsComponent implements OnInit {
         btns.forEach(btn => {
             this.renderer.setStyle(btn._elementRef.nativeElement, 'display', 'none');
         })
+    }
+
+    closeBottomSheet() {
+        this._bottomSheetRef.dismiss();
     }
 }

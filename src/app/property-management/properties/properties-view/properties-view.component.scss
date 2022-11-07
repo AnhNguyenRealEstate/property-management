@@ -45,3 +45,9 @@
     }
     z-index: 1;
 }
+
+::ng-deep .mat-bottom-sheet-container {
+    min-height: 95vh;
+    min-width: 100vw !important;
+    border-radius: 2.5% 2.5% 0% 0% !important;
+}

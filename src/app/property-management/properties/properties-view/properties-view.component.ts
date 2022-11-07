@@ -10,6 +10,7 @@ import { trigger, transition, query, style, animate, stagger } from '@angular/an
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 import { ContractType } from '../property-upload/property-upload.data';
 import { MatTabGroup, MatTabHeader } from '@angular/material/tabs';
+import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 
 @Pipe({
     name: 'propFilter'
@@ -60,6 +61,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialog: MatDialog,
+        private bottomSheet: MatBottomSheet,
         public roles: RolesService,
         public propertiesView: PropertiesViewService,
         public metadata: MetadataService
@@ -84,14 +86,13 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     showDetails(property: Property) {
         const config = {
-            height: '90%',
-            width: '80%',
             autoFocus: false,
+            disableClose: false,
             data: {
                 property: property
             }
-        } as MatDialogConfig;
-        this.dialog.open(PropertyDetailsComponent, config);
+        } as MatBottomSheetConfig;
+        this.bottomSheet.open(PropertyDetailsComponent, config);
     }
 
     propertyRemoved(properties: Property[], propToRemove: Property) {

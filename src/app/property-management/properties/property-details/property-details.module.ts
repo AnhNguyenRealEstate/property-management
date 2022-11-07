@@ -8,6 +8,7 @@ import { PropertyDetailsComponent } from './property-details.component';
 import { TableModule } from 'ngx-easy-table';
 import { ActivityUploadModule } from '../../activities/activity-upload/activity-upload.module';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
     declarations: [PropertyDetailsComponent],
@@ -21,7 +22,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         ActivityUploadModule,
         PaymentScheduleModule,
         TableModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatBottomSheetModule
     ],
     exports: [PropertyDetailsComponent]
 })

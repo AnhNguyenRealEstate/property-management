@@ -18,7 +18,7 @@ import { PropertyDetailsModule } from './property-details/property-details.modul
 import { PropertyEditModule } from './property-edit/property-edit.module';
 import { PropertyRenewModule } from './property-renew/property-renew.module';
 import { PropertyUploadModule } from './property-upload/property-upload.module';
-
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 @NgModule({
     imports: [
         CommonModule,
@@ -35,7 +35,8 @@ import { PropertyUploadModule } from './property-upload/property-upload.module';
         PropertyUploadModule,
         PropertyRenewModule,
         PropertyEditModule,
-        ContractExtensionModule
+        ContractExtensionModule,
+        MatBottomSheetModule
     ],
     exports: [PropertiesViewComponent],
     declarations: [PropertiesViewComponent, PropertyCardComponent, PropertyFilterPipe],

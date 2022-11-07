@@ -5,6 +5,9 @@
         <span>{{property.name}}</span>
         <ng-container *ngIf="property.subcategory">({{property.subcategory}})</ng-container>
     </h1>
+    <button mat-button style="position: absolute; top: 15px; right: 15px" (click)="closeBottomSheet()">
+        <mat-icon color="accent">close</mat-icon>
+    </button>
     <mat-divider></mat-divider>
 
     <div class="row py-3">
@@ -239,36 +242,33 @@
                         </form>
                     </ng-template>
                 </div>
-
-                <div class="row pt-2" *ngFor="let doc of propertyDocuments">
-                    <mat-list>
-                        <mat-list-item (mouseenter)="showDocBtns(deleteBtn, downloadBtn)"
-                            (mouseleave)="hideDocBtns(deleteBtn, downloadBtn)">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <span class="related-document-date">{{doc.date?.toDate() |
-                                        date:'dd/MM/yyyy'}}</span>
-                                    <div class="d-inline">
-                                        {{doc.displayName}}
-                                    </div>
-                                </div>
-                                <div>
-                                    <button style="position: absolute; top: 4px; right: 128px; display: none" mat-button
-                                        #downloadBtn [matTooltip]="'property_details.download' | translate"
-                                        (click)="downloadDoc(doc)">
-                                        <mat-icon color="accent">download</mat-icon>
-                                    </button>
-                                    <button style="position: absolute; top: 4px; right: 48px; display: none" mat-button
-                                        #deleteBtn [matTooltip]="'property_details.delete' | translate"
-                                        (click)="deleteDoc(doc)">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
+                <mat-list class="pt-2">
+                    <mat-list-item *ngFor="let doc of propertyDocuments; let i = index"
+                        (mouseenter)="showDocBtns(deleteBtn, downloadBtn)"
+                        (mouseleave)="hideDocBtns(deleteBtn, downloadBtn)">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span class="related-document-date">{{doc.date?.toDate() |
+                                    date:'dd/MM/yyyy'}}</span>
+                                <div class="d-inline">
+                                    {{doc.displayName}}
                                 </div>
                             </div>
-                        </mat-list-item>
-                    </mat-list>
-                </div>
-
+                            <div>
+                                <button style="position: absolute; top: 4px; right: 128px; display: none" mat-button
+                                    #downloadBtn [matTooltip]="'property_details.download' | translate"
+                                    (click)="downloadDoc(doc)">
+                                    <mat-icon color="accent">download</mat-icon>
+                                </button>
+                                <button style="position: absolute; top: 4px; right: 48px; display: none" mat-button
+                                    #deleteBtn [matTooltip]="'property_details.delete' | translate"
+                                    (click)="deleteDoc(doc)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
                 <div class="pt-2" *ngIf="!property.documents?.length">
                     {{ 'property_details.no_docs' | translate }}
                 </div>
