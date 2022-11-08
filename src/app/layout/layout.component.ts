@@ -20,6 +20,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
     lang!: string;
     sub = new Subscription();
+    highlightSideNavBtnSub: Subscription | undefined;
 
     constructor(
         private router: Router,
@@ -31,13 +32,18 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private renderer: Renderer2,
         @Inject(DOCUMENT) private document: Document) {
 
-        this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
+        this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => {
+            this.loggedIn = loggedIn;
 
-        this.sub.add(this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this.highlightSideNavBtn(event.url);
+            if (this.loggedIn) {
+                this.highlightSideNavBtnSub = this.router.events.subscribe(event => {
+                    if (event instanceof NavigationEnd) {
+                        this.highlightSideNavBtn(event.url);
+                    }
+                });
+                this.sub.add(this.highlightSideNavBtnSub);
             }
-        }))
+        }));
     }
 
     ngOnInit(): void {
@@ -55,6 +61,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     logout() {
+        this.highlightSideNavBtnSub?.unsubscribe();
+        
         this.auth.signOut().then(() => {
             this.router.navigateByUrl('');
         });
