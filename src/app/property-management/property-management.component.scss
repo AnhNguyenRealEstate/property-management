@@ -5,6 +5,10 @@
 }
 
 ::ng-deep {
+    .mat-tab-label {
+        color: rgba(0, 0, 0, 1) !important;
+    }
+
     .mat-tab-label-active {
         .mat-tab-label-content {
             color: colors.$accent !important;
@@ -13,7 +17,7 @@
 }
 
 mat-drawer {
-        background: rgb(242, 242, 242) !important;
+    background: rgb(242, 242, 242) !important;
 }
 
 .view-nav-btn {

@@ -26,3 +26,9 @@
     top: 50px;
     position: inherit;
 }
+
+.overrun-wrap {
+    max-height: 3rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0));
+}

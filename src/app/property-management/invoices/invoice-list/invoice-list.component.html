@@ -11,16 +11,16 @@
         (mouseleave)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterExpand)="showActions(editBtn, paymentReceivedBtn, payoutSentBtn)"
         (afterCollapse)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
-        <mat-expansion-panel-header [collapsedHeight]="'fit-content'">
-            <mat-panel-title>
-                <div class="invoice-title py-2">
+        <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
+            <mat-panel-title class="py-2">
+                <div class="invoice-title">
                     <div class="text-bold">
                         <span>{{invoice.propertyName}}</span>
                     </div>
-                    <div class="invoice-description text-bold" style="color: gray">
+                    <div class="invoice-description overrun-wrap text-bold" style="color: gray">
                         <span>{{invoice.description}}</span>
                     </div>
-                    <div class="invoice-description" style="color: gray">
+                    <div class="pt-2 invoice-description" style="color: gray">
                         <span>{{invoice.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
                         <span class="px-1">
                             <mat-icon>arrow_right_alt</mat-icon>
