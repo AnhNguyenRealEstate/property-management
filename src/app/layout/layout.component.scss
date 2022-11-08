@@ -70,3 +70,19 @@ mat-sidenav-content {
     position: relative;
     z-index: 2;
 }
+
+.view-nav-btn {
+    color: rgb(67, 63, 63);
+    .mat-icon {
+        color: rgb(67, 63, 63);
+    }
+}
+
+.active-nav-btn {
+    padding-left: 30px !important;
+    background: colors.$accent-50 !important;
+    color: colors.$accent !important;
+    .mat-icon {
+        color: colors.$accent !important;
+    }
+}

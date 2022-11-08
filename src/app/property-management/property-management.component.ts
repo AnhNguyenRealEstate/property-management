@@ -5,10 +5,8 @@ import { RolesService } from '../shared/roles.service';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { ContractExtractionComponent } from './contract-extraction/contract-extraction.component';
 import { Property } from './properties/property.data';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
     selector: 'property-management',
@@ -26,7 +24,6 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
         private router: Router,
         private login: LoginService,
         private renderer: Renderer2,
-        private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: Document
     ) {
     }
@@ -77,14 +74,6 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
     //     this.router.navigateByUrl('/property-management/(property-management-outlet:owners)');
     // }
 
-    changeView(event: number) {
-        if (event == 0) {
-            this.viewProperties();
-        } else if (event == 1) {
-            this.viewActivities();
-        }
-    }
-
     async addProperty() {
         const config = {
             height: '95%',
@@ -99,16 +88,6 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
         this.dialog.open(PropertyEditComponent, config);
     }
 
-    async extractContract() {
-        const config = {
-            height: '95%',
-            width: '100%',
-            autoFocus: false
-        } as MatDialogConfig;
-
-        this.dialog.open(ContractExtractionComponent, config);
-    }
-
     highlightSideNavBtn(url: string) {
         if (url.includes('property-management-outlet:properties')) {
             this.raiseViewBtn(this.document.querySelector('button[id="properties-btn"]'))
@@ -120,6 +99,7 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
             this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
         }
     }
+
     raiseViewBtn(target: any) {
         const classList = target.classList as DOMTokenList;
         if (classList.contains('view-nav-btn')) {

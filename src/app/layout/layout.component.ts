@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
@@ -26,8 +27,17 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private loginService: LoginService,
         public roles: RolesService,
         private dialog: MatDialog,
-        public translate: TranslateService) {
+        public translate: TranslateService,
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document) {
+
         this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
+
+        this.sub.add(this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.highlightSideNavBtn(event.url);
+            }
+        }))
     }
 
     ngOnInit(): void {
@@ -52,5 +62,47 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     resetPwd() {
         this.dialog.open(ResetPasswordComponent)
+    }
+
+    viewProperties() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+    }
+
+    viewActivities() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
+    }
+
+    viewInvoices() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
+    }
+
+    highlightSideNavBtn(url: string) {
+        if (url.includes('property-management-outlet:properties')) {
+            this.raiseViewBtn(this.document.querySelector('a[id="properties-btn"]'))
+        } else if (url.includes('property-management-outlet:activities')) {
+            this.raiseViewBtn(this.document.querySelector('a[id="activities-btn"]'))
+        } else if (url.includes('property-management-outlet:invoices')) {
+            this.raiseViewBtn(this.document.querySelector('a[id="invoices-btn"]'))
+        } else {
+            this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+        }
+    }
+
+    raiseViewBtn(target: any) {
+        const classList = target.classList as DOMTokenList;
+        if (classList.contains('view-nav-btn')) {
+            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
+                this.renderer.removeClass(element, 'active-nav-btn');
+            });
+
+            this.renderer.addClass(target, 'active-nav-btn');
+        } else if ((target.offsetParent.classList as DOMTokenList).contains('view-nav-btn')) {
+            parent = target.offsetParent;
+            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
+                this.renderer.removeClass(element, 'active-nav-btn');
+            });
+
+            this.renderer.addClass(parent, 'active-nav-btn');
+        }
     }
 }
