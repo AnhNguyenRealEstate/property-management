@@ -41,8 +41,8 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
         const invoicesAsHtml: string[] = [];
         invoicesToCollect.forEach((invoice, index) => {
             const invoiceHtml = `${index + 1}. Thu ${invoice['amount']}
-            từ ${invoice['payee']} (${invoice['propertyName']}),
-            bắt đầu từ ${format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())}`;
+            từ ${invoice['payer']} (${invoice['propertyName']}) cho ${invoice['payee']},
+            bắt đầu từ ${format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())}.`;
             invoicesAsHtml.push(invoiceHtml);
         });
 
@@ -54,8 +54,15 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
             "templateId": 'd-097312d35e3f497bb7976fa562306b6b',
-            "to": 'nguyentrungtu1996@gmail.com', // Change to your recipient
-            "from": 'it@anhnguyenre.com', // Change to your verified sender,
+            "to":
+                [
+                    'nguyentrungtu1996@gmail.com',
+                    'mydungrental4u@gmail.com'
+                ],
+            "from": {
+                "name": "Quản Lý Tài Sản",
+                "email": 'it@anhnguyenre.com'
+            },
             "dynamic_template_data": {
                 "invoicesAsHtml": invoicesAsHtml
             }
