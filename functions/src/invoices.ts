@@ -53,10 +53,12 @@ exports.emailInvoicesToCollect = functions.region('asia-southeast2')
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
-            templateId: 'invoices-to-collect',
-            to: 'nguyentrungtu1996@gmail.com', // Change to your recipient
-            from: 'it@anhnguyenre.com', // Change to your verified sender,
-            invoicesAsHtml: invoicesAsHtml
+            "templateId": 'd-097312d35e3f497bb7976fa562306b6b',
+            "to": 'nguyentrungtu1996@gmail.com', // Change to your recipient
+            "from": 'it@anhnguyenre.com', // Change to your verified sender,
+            "dynamic_template_data": {
+                "invoicesAsHtml": invoicesAsHtml
+            }
         }
 
         sgMail.send(msg).then(() => {
