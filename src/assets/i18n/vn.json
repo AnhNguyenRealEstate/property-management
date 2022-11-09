@@ -268,7 +268,19 @@
         "search_placeholder": "Tên tài sản, người trả, người nhận..."
     },
     "summary": {
-        "contracts_expiring_soon": "hợp đồng sắp hết hạn",
+        "overview": "Tổng quan",
+        "view_by": "Xem theo",
+        "category": "Phân loại",
+        "status": "Trạng thái",
+        "view_all": "Xem hết",
+        "property": "Tài sản",
+        "time_to_exp": "Thời hạn còn lại",
+        "end_date": "Ngày hết hợp đồng",
+        "owner": "Chủ nhà",
+        "recent_activities": "Hoạt động gần đây",
+        "description": "Mô tả",
+        "date": "Ngày",
+        "contracts_expiring_soon": "Hợp đồng thuê sắp hết hạn",
         "expiring_soon_msg": "Hợp đồng còn {{month}} tháng"
     },
     "contract_extension": {

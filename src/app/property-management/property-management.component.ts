@@ -37,6 +37,10 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit {
         this.layout.highlightNav();
     }
 
+    viewSummary() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:summary)');
+    }
+
     viewProperties() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
     }

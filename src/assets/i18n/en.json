@@ -264,7 +264,19 @@
         "search_placeholder": "Property name, payer, payee..."
     },
     "summary": {
-        "contracts_expiring_soon": "contract(s) expiring soon",
+        "overview": "Overview",
+        "view_by": "View by",
+        "category": "Category",
+        "status": "Status",
+        "view_all": "View all",
+        "property": "Property",
+        "time_to_exp": "Time to expiry",
+        "end_date": "End date",
+        "owner": "Owner",
+        "recent_activities": "Recent activities",
+        "description": "Description",
+        "date": "Date",
+        "contracts_expiring_soon": "Contract expiry",
         "expiring_soon_msg": "Contract expires in {{month}} month(s)"
     },
     "contract_extension": {

@@ -7,11 +7,11 @@ const routes: Routes = [
         path: '',
         component: PropertyManagementComponent,
         children: [
-            // {
-            //     path: 'summary',
-            //     loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryViewModule),
-            //     outlet: 'property-management-outlet'
-            // },
+            {
+                path: 'summary',
+                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryViewModule),
+                outlet: 'property-management-outlet'
+            },
             {
                 path: 'owners',
                 loadChildren: () => import('./owners/owners.module').then(mod => mod.OwnersViewModule),

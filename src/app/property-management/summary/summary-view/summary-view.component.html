@@ -1,26 +1,70 @@
 <section class="px-2 py-4">
     <div class="row">
-        <div class="col-12 col-sm-6">
-            <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
+        <div class="col-12 col-sm-4">
+            <ng-container [ngTemplateOutlet]="propertyComposition"></ng-container>
+        </div>
+        <div class="col-12 col-sm-8">
+            <div>
+                <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
+            </div>
+            <div class="pt-2">
+                <ng-container [ngTemplateOutlet]="recentActivities"></ng-container>
+            </div>
         </div>
     </div>
 </section>
 
-<ng-template #soonToExpireProps>
-    <mat-card>
+<ng-template #propertyComposition>
+    <mat-card class="mat-elevation-z0">
         <mat-card-title>
-            <div *ngIf="soonToExpireProperties.length; else noProp">{{soonToExpireProperties.length}} {{
-                'summary.contracts_expiring_soon' | translate }}</div>
-            <ng-template #noProp>No properties expiring soon</ng-template>
+            <div class="row">
+                <div class="col-6">{{ 'summary.overview' | translate }}</div>
+                <mat-form-field class="col-6" style="font-size: 14px">
+                    <mat-label>{{ 'summary.view_by' | translate }}</mat-label>
+                    <mat-select value="category" (selectionChange)="onChartViewChange($event.value)">
+                        <mat-option value="category">{{ 'summary.category' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="chart">
+                <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins" height="500">
+                </canvas>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
+
+<ng-template #soonToExpireProps>
+    <mat-card class="mat-elevation-z0">
+        <mat-card-title>
+            <div class="d-flex justify-content-between">
+                <div>{{'summary.contracts_expiring_soon' | translate }}</div>
+                <button mat-button (click)="viewProperties()">{{ 'summary.view_all' | translate }} <mat-icon>arrow_right_alt</mat-icon></button>
+            </div>
         </mat-card-title>
         <mat-card-content>
             <div class="pt-3 ps-4">
-                <div class="row" *ngFor="let prop of soonToExpireProperties">
-                    <div class="col-6 property-name">
+                <div class="pb-3 row">
+                    <div class="col-3 table-header">{{ 'summary.property' | translate }}</div>
+                    <div class="col-3 table-header">{{ 'summary.time_to_exp' | translate }}</div>
+                    <div class="col-3 table-header">{{ 'summary.end_date' | translate }}</div>
+                    <div class="col-3 table-header">{{ 'summary.owner' | translate }}</div>
+                </div>
+                <div class="row pb-1" *ngFor="let prop of soonToExpireProperties">
+                    <div class="col-3 property-name text-bold">
                         {{prop.name}}
                     </div>
-                    <div class="col-6 time-to-expiry">
+                    <div class="col-3" style="color: gray">
                         {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
+                    </div>
+                    <div class="col-3 text-bold">
+                        {{prop.managementEndDate?.toDate() | date: 'dd/MM/yyyy'}}
+                    </div>
+                    <div class="col-3">
+                        {{prop.owner?.contactName}}
                     </div>
                 </div>
             </div>
@@ -29,5 +73,28 @@
 </ng-template>
 
 <ng-template #recentActivities>
-
+    <mat-card class="mat-elevation-z0">
+        <mat-card-title>
+            <div class="d-flex justify-content-between">
+                <span> {{ 'summary.recent_activities' | translate }}</span>
+                <button mat-button (click)="viewActivities()">{{ 'summary.view_all' | translate }} <mat-icon>arrow_right_alt</mat-icon></button>
+            </div>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-card-content>
+                <div class="pt-3 ps-4">
+                    <div class="pb-3 row">
+                        <div class="col-4 table-header">{{ 'summary.property' | translate }}</div>
+                        <div class="col-4 table-header">{{ 'summary.description' | translate }}</div>
+                        <div class="col-4 table-header">{{ 'summary.date' | translate }}</div>
+                    </div>
+                    <div class="row pb-2" *ngFor="let activity of newestActivities">
+                        <div class="col-4 property-name text-bold">{{activity.propertyName}}</div>
+                        <div class="col-4" style="color: gray">{{activity.description}}</div>
+                        <div class="col-4 text-bold">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card-content>
+    </mat-card>
 </ng-template>

@@ -1,11 +1,16 @@
 @use "src/app/styles/colors" as colors;
 
+.table-header {
+    color: rgb(161, 161, 161);
+    font-weight: bold
+}
+
 .property-name {
     font-size: 0.8rem;
     color: colors.$accent;
 }
 
-.time-to-expiry{
+.time-to-expiry {
     font-size: 0.8rem;
-    color: gray
+    color: gray;
 }

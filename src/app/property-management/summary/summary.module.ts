@@ -5,7 +5,7 @@ import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SummaryViewRoutingModule } from './summary-routing.module';
 import { MatListModule } from '@angular/material/list';
-
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
     declarations: [SummaryViewComponent],
     imports: [
@@ -13,7 +13,8 @@ import { MatListModule } from '@angular/material/list';
         SharedModule,
         SummaryViewRoutingModule,
         TranslateModule.forChild({ extend: true }),
-        MatListModule
+        MatListModule,
+        NgChartsModule
     ],
     exports: [SummaryViewComponent]
 })

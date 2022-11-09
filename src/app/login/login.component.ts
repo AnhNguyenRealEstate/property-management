@@ -11,6 +11,8 @@ import { LoginService } from './login.service';
 })
 
 export class LoginComponent implements OnInit {
+    landingUrl = '/property-management/(property-management-outlet:summary)';
+
     userName: string = '';
     password: string = '';
     hide: boolean = true;
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         this.loginService.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+                this.router.navigateByUrl(this.landingUrl);
             }
         })
     }
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.inProgress = false;
 
         if (this.successful) {
-            this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+            this.router.navigateByUrl(this.landingUrl);
         }
     }
 }

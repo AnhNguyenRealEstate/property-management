@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { collection, Firestore, getDocs, orderBy, query, where } from '@angular/fire/firestore';
+import { collection, collectionGroup, Firestore, getDocs, limit, orderBy, query, where } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
+import { Activity } from '../../activities/activity.data';
 import { Property } from '../../properties/property.data';
 
 @Injectable({ providedIn: 'root' })
 export class SummaryViewService {
-    private monthsTilExpiry = 4;
+    private monthsTilExpiry = 6;
 
     constructor(
         private firestore: Firestore
@@ -25,5 +26,17 @@ export class SummaryViewService {
         );
 
         return snap.docs.map(doc => doc.data() as Property);
+    }
+
+    async getRecentActivities(): Promise<Activity[]> {
+        const snap = await getDocs(
+            query(
+                collectionGroup(this.firestore, FirestoreCollections.activities),
+                orderBy('date', 'desc'),
+                limit(8)
+            )
+        );
+
+        return snap.docs.map(doc => doc.data() as Activity);
     }
 }
