@@ -10,7 +10,7 @@
 }
 
 .navbar {
-    background: colors.$alt-primary;
+    background: white !important;
 }
 
 .sidenav-container {
@@ -18,7 +18,6 @@
 }
 
 .sidenav {
-    background: colors.$alt-primary;
     min-width: 240px;
     a {
         display: block;
@@ -33,10 +32,6 @@
     min-width: 0;
     padding: 0;
     line-height: normal;
-}
-
-::ng-deep .employee-actions-menu {
-    background: colors.$alt-primary;
 }
 
 mat-sidenav-container,
@@ -69,20 +64,4 @@ mat-sidenav-content {
 .mat-toolbar {
     position: relative;
     z-index: 2;
-}
-
-.view-nav-btn {
-    color: rgb(67, 63, 63);
-    .mat-icon {
-        color: rgb(67, 63, 63);
-    }
-}
-
-.active-nav-btn {
-    padding-left: 30px !important;
-    background: colors.$accent-50 !important;
-    color: colors.$accent !important;
-    .mat-icon {
-        color: colors.$accent !important;
-    }
 }

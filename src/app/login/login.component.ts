@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         this.loginService.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management');
+                this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
             }
         })
     }

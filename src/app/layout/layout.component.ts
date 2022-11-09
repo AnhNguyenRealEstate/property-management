@@ -9,6 +9,7 @@ import { RolesService } from 'src/app/shared/roles.service';
 import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../login/login.service';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { LayoutService } from './layout.service';
 
 @Component({
     selector: 'app-layout',
@@ -28,21 +29,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private loginService: LoginService,
         public roles: RolesService,
         private dialog: MatDialog,
-        public translate: TranslateService,
-        private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document) {
+        public translate: TranslateService) {
 
         this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => {
             this.loggedIn = loggedIn;
-
-            if (this.loggedIn) {
-                this.highlightSideNavBtnSub = this.router.events.subscribe(event => {
-                    if (event instanceof NavigationEnd) {
-                        this.highlightSideNavBtn(event.url);
-                    }
-                });
-                this.sub.add(this.highlightSideNavBtnSub);
-            }
         }));
     }
 
@@ -61,8 +51,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     logout() {
-        this.highlightSideNavBtnSub?.unsubscribe();
-        
         this.auth.signOut().then(() => {
             this.router.navigateByUrl('');
         });
@@ -82,35 +70,5 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     viewInvoices() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
-    }
-
-    highlightSideNavBtn(url: string) {
-        if (url.includes('property-management-outlet:properties')) {
-            this.raiseViewBtn(this.document.querySelector('a[id="properties-btn"]'))
-        } else if (url.includes('property-management-outlet:activities')) {
-            this.raiseViewBtn(this.document.querySelector('a[id="activities-btn"]'))
-        } else if (url.includes('property-management-outlet:invoices')) {
-            this.raiseViewBtn(this.document.querySelector('a[id="invoices-btn"]'))
-        } else {
-            this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
-        }
-    }
-
-    raiseViewBtn(target: any) {
-        const classList = target.classList as DOMTokenList;
-        if (classList.contains('view-nav-btn')) {
-            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
-                this.renderer.removeClass(element, 'active-nav-btn');
-            });
-
-            this.renderer.addClass(target, 'active-nav-btn');
-        } else if ((target.offsetParent.classList as DOMTokenList).contains('view-nav-btn')) {
-            parent = target.offsetParent;
-            this.document.querySelectorAll('.view-nav-btn').forEach(element => {
-                this.renderer.removeClass(element, 'active-nav-btn');
-            });
-
-            this.renderer.addClass(parent, 'active-nav-btn');
-        }
     }
 }
