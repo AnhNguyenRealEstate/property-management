@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         this.inProgress = false;
 
         if (this.successful) {
-            this.router.navigateByUrl('/property-management');
+            this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
         }
     }
 }
