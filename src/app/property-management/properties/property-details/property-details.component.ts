@@ -186,7 +186,8 @@ export class PropertyDetailsComponent implements OnInit {
                 propertyId: this.property.id,
                 propertyName: this.property.name,
                 date: Timestamp.now(),
-                description: `Cập nhật thông tin biên nhận`
+                description: `Cập nhật thông tin biên nhận`,
+                type: 'invoice'
             } as Activity,
             []);
 

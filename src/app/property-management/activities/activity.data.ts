@@ -1,6 +1,8 @@
 import { Timestamp } from "@angular/fire/firestore";
+import { PropertyCategory } from "../properties/property.data";
 import { UploadedFile } from "../property-management.data";
 
+type ActivityType = 'generic' | 'invoice';
 
 export interface Activity {
     date?: Timestamp
@@ -10,5 +12,7 @@ export interface Activity {
     owner?: string
     propertyId?: string
     propertyName?: string
+    propertyCategory?: PropertyCategory
     fileStoragePath?: string //Firebase auto generated
+    type?: ActivityType
 }

@@ -135,6 +135,8 @@
         "preview": "Xem"
     },
     "activity_list": {
+        "search_label": "Tên tài sản...",
+        "filter": "Bộ lọc",
         "no_doc": "Không có tài liệu đính kèm",
         "no_activity": "Không có hoạt động",
         "activity": "hoạt động",
@@ -142,7 +144,8 @@
         "activities_on_this_date": "Các hoạt động trong ngày",
         "property_name": "Tên tài sản",
         "activity_description": "Mô tả hoạt động",
-        "documents": "tài liệu"
+        "documents": "tài liệu",
+        "view_more": "Xem thêm"
     },
     "activities_view": {
         "list": "Danh sách ngày",

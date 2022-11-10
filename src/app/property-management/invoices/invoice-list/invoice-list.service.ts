@@ -41,7 +41,8 @@ export class InvoiceListService {
                 date: Timestamp.fromDate(new Date()),
                 description: `Khách trả tiền thuê cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
-                propertyName: invoice.propertyName
+                propertyName: invoice.propertyName,
+                type: 'invoice'
             } as Activity
         )
     }
@@ -66,7 +67,8 @@ export class InvoiceListService {
                 date: Timestamp.fromDate(new Date()),
                 description: `Gửi chủ nhà tiền thuê cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
-                propertyName: invoice.propertyName
+                propertyName: invoice.propertyName,
+                type: 'invoice'
             } as Activity
         )
     }

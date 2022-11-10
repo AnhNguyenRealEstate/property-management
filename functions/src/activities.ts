@@ -19,6 +19,7 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
                 'id': activityId,
                 'propertyId': propertyId,
                 'propertyName': propertyDoc ? propertyDoc['name'] : '',
+                'propertyCategory': propertyDoc ? propertyDoc['category'] : '',
                 'fileStoragePath': fileStoragePath
             }
         );

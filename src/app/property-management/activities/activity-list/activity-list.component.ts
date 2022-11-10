@@ -1,7 +1,5 @@
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activity.data";
 import { ActivityListService } from './activity-list.service';
@@ -34,12 +32,17 @@ export interface DayActivities {
     ]
 })
 
-export class ActivityListComponent implements OnChanges {
+export class ActivityListComponent implements OnChanges, DoCheck {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Input() showPropertyName: boolean = true;
 
+    @Output() getMoreActivities: EventEmitter<void> = new EventEmitter();
+
     activitiesByDates: DayActivities[] = [];
+    numberOfActivities = 0;
+
+    searchQuery: string = '';
 
     constructor(
         private renderer: Renderer2,
@@ -47,8 +50,14 @@ export class ActivityListComponent implements OnChanges {
     ) {
     }
 
+    ngDoCheck(): void {
+        if (this.activities.length !== this.numberOfActivities) {
+            this.ngOnChanges();
+        }
+    }
+
     ngOnChanges(): void {
-        this.categorizeActivitiesByDates();
+        this.categorizeActivitiesByDates(this.activities);
     }
 
     async downloadDoc(activity: Activity, doc: UploadedFile) {
@@ -70,7 +79,7 @@ export class ActivityListComponent implements OnChanges {
         this.renderer.setStyle(deleteBtn, 'display', 'none');
     }
 
-    categorizeActivitiesByDates() {
+    categorizeActivitiesByDates(activities: Activity[]) {
         this.activitiesByDates = [];
 
         let currentDate: Date | undefined = undefined;
@@ -78,8 +87,8 @@ export class ActivityListComponent implements OnChanges {
             activities: []
         } as DayActivities;
 
-        for (let i = 0; i < this.activities.length; i++) {
-            const activity = this.activities[i];
+        for (let i = 0; i < activities.length; i++) {
+            const activity = activities[i];
             if (!currentDate) {
                 currentDate = activity.date?.toDate()!;
                 activitiesByDate.date = currentDate;
@@ -97,6 +106,8 @@ export class ActivityListComponent implements OnChanges {
 
             activitiesByDate.activities!.push(activity);
         }
+
+        this.numberOfActivities = this.activities.length;
     }
 
     async removeActivity(activityToRemove: Activity) {
@@ -109,6 +120,14 @@ export class ActivityListComponent implements OnChanges {
         activities.splice(index, 1);
 
         await this.activityList.removeActivity(activityToRemove);
+    }
+
+    filterActivitiesByPropName(name: string) {
+        const filteredActivities = this.activities.filter(activity =>
+            activity.propertyName?.toLowerCase().indexOf(name.toLowerCase().trim()) !== -1
+        );
+        
+        this.categorizeActivitiesByDates(filteredActivities);
     }
 
 }

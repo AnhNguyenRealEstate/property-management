@@ -131,6 +131,8 @@
         "preview": "Preview"
     },
     "activity_list": {
+        "search_label": "Property name...",
+        "filter": "Filter",
         "no_doc": "No documents to display",
         "no_activity": "No activity",
         "activity": "activity",
@@ -138,7 +140,8 @@
         "activities_on_this_date": "Activities on this date",
         "property_name": "Property name",
         "activity_description": "Activity description",
-        "documents": "document(s)"
+        "documents": "document(s)",
+        "view_more": "View more"
     },
     "activities_view": {
         "list": "List",

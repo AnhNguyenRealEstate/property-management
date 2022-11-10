@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
-import { RolesService } from 'src/app/shared/roles.service';
+import { Role, RolesService } from 'src/app/shared/roles.service';
 import { Activity } from "../activity.data";
 import { ActivitiesViewService } from './activities-view.service';
 import { UploadedFile } from '../../property-management.data';
@@ -16,6 +16,7 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
     activities: Activity[] = [];
     subs: Subscription = new Subscription();
     view: 'list' | 'calendar' = 'calendar';
+    currentRoles: Role[] = [];
 
     constructor(
         public activitiesView: ActivitiesViewService,
@@ -25,6 +26,7 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.subs.add(this.roles.roles$.subscribe(async roles => {
+            this.currentRoles = roles;
             if (roles.includes('customer-service')) {
                 const snapshot = await this.activitiesView.getActivities();
                 this.activities = snapshot.docs.map(doc => doc.data() as Activity);
@@ -37,5 +39,17 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    async getMoreActivities() {
+        if (this.currentRoles.includes('customer-service')) {
+            const snapshot = await this.activitiesView.getMoreActivities();
+            const newActivities = snapshot.docs.map(doc => doc.data() as Activity)
+            this.activities.push(...newActivities);
+        } else if (this.currentRoles.includes('owner') && this.auth.currentUser?.email) {
+            const snapshot = await this.activitiesView.getMoreActivities(this.auth.currentUser.email);
+            const newActivities = snapshot.docs.map(doc => doc.data() as Activity)
+            this.activities.push(...newActivities);
+        }
     }
 }

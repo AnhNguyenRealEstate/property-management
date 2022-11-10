@@ -16,7 +16,7 @@ import { Activity } from "../activity.data";
 export class ActivityUploadComponent implements OnInit {
     @Output() activityAdded: EventEmitter<any> = new EventEmitter<any>();
 
-    date!: Date;
+    date = new Date();
     description: string = '';
     newActivityAttachments: UploadedFile[] = [];
     newFiles: File[] = [];

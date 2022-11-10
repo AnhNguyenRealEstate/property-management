@@ -1,15 +1,25 @@
 @use "src/app/styles/colors" as colors;
 
 .title-date {
-    color: colors.$accent-300;
+    font-weight: 500;
 }
 
 .property-name {
-    font-size: 0.8rem;
+    color: colors.$accent-300;
+    font-weight: 500;
 }
 
+.activity-description,
 .property-description {
-    font-size: 0.8rem;
+    color: gray;
+}
+
+.property-type-icon {
+    color: colors.$accent-300;
+}
+
+.activity-line {
+    border-left: 2px solid rgba(200, 200, 200, 0.8);
 }
 
 .mat-expansion-panel-header-title {

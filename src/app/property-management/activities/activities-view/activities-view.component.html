@@ -10,7 +10,7 @@
                 </div>
             </div>
         </ng-template>
-        <activity-list [activities]="activities"
+        <activity-list [activities]="activities" (getMoreActivities)="getMoreActivities()"
             [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"></activity-list>
     </mat-tab>
     <mat-tab>
