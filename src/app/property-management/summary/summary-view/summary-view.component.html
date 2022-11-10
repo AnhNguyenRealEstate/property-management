@@ -15,7 +15,7 @@
 </section>
 
 <ng-template #propertyComposition>
-    <mat-card class="mat-elevation-z0">
+    <mat-card class="mat-elevation-z1">
         <mat-card-title>
             <div class="row">
                 <div class="col-6">{{ 'summary.overview' | translate }}</div>
@@ -38,11 +38,12 @@
 </ng-template>
 
 <ng-template #soonToExpireProps>
-    <mat-card class="mat-elevation-z0">
+    <mat-card class="mat-elevation-z1">
         <mat-card-title>
             <div class="d-flex justify-content-between">
                 <div>{{'summary.contracts_expiring_soon' | translate }}</div>
-                <button mat-button (click)="viewProperties()">{{ 'summary.view_all' | translate }} <mat-icon>arrow_right_alt</mat-icon></button>
+                <button mat-raised-button (click)="viewProperties()">{{ 'summary.view_all' | translate }} <mat-icon>
+                        arrow_right_alt</mat-icon></button>
             </div>
         </mat-card-title>
         <mat-card-content>
@@ -54,16 +55,17 @@
                     <div class="col-3 table-header">{{ 'summary.owner' | translate }}</div>
                 </div>
                 <div class="row pb-1" *ngFor="let prop of soonToExpireProperties">
-                    <div class="col-3 property-name text-bold">
+                    <button mat-raised-button (click)="showPropDetails(prop)"
+                        class="col-3 property-name text-bold mat-elevation-z1">
                         {{prop.name}}
-                    </div>
-                    <div class="col-3" style="color: gray">
+                    </button>
+                    <div class="col-3 pt-2" style="color: gray">
                         {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
                     </div>
-                    <div class="col-3 text-bold">
+                    <div class="col-3 pt-2 text-bold">
                         {{prop.managementEndDate?.toDate() | date: 'dd/MM/yyyy'}}
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 pt-2">
                         {{prop.owner?.contactName}}
                     </div>
                 </div>
@@ -73,11 +75,12 @@
 </ng-template>
 
 <ng-template #recentActivities>
-    <mat-card class="mat-elevation-z0">
+    <mat-card class="mat-elevation-z1">
         <mat-card-title>
             <div class="d-flex justify-content-between">
                 <span> {{ 'summary.recent_activities' | translate }}</span>
-                <button mat-button (click)="viewActivities()">{{ 'summary.view_all' | translate }} <mat-icon>arrow_right_alt</mat-icon></button>
+                <button mat-raised-button (click)="viewActivities()">{{ 'summary.view_all' | translate }} <mat-icon>
+                        arrow_right_alt</mat-icon></button>
             </div>
         </mat-card-title>
         <mat-card-content>
@@ -88,10 +91,13 @@
                         <div class="col-4 table-header">{{ 'summary.description' | translate }}</div>
                         <div class="col-4 table-header">{{ 'summary.date' | translate }}</div>
                     </div>
-                    <div class="row pb-2" *ngFor="let activity of newestActivities">
-                        <div class="col-4 property-name text-bold">{{activity.propertyName}}</div>
-                        <div class="col-4" style="color: gray">{{activity.description}}</div>
-                        <div class="col-4 text-bold">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
+                    <div class="row pb-1" *ngFor="let activity of newestActivities">
+                        <button mat-raised-button (click)="showPropDetailsFromId(activity.propertyId)"
+                            class="col-4 property-name text-bold mat-elevation-z1">
+                            {{activity.propertyName}}
+                        </button>
+                        <div class="col-4 pt-2" style="color: gray">{{activity.description}}</div>
+                        <div class="col-4 text-bold pt-2">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
                     </div>
                 </div>
             </mat-card-content>

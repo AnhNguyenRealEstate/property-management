@@ -14,3 +14,9 @@
     font-size: 0.8rem;
     color: gray;
 }
+
+.overrun-wrap {
+    max-height: 2rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0));
+}

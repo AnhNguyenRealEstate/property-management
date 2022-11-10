@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionGroup, Firestore, getDocs, limit, orderBy, query, where } from '@angular/fire/firestore';
+import { collection, collectionGroup, doc, Firestore, getDoc, getDocs, limit, orderBy, query, where } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../../activities/activity.data';
 import { Property } from '../../properties/property.data';
@@ -11,6 +11,10 @@ export class SummaryViewService {
     constructor(
         private firestore: Firestore
     ) { }
+
+    async getProperty(id: string): Promise<Property> {
+        return (await getDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${id}`))).data() as Property;
+    }
 
     async getSoonToExpireProps(): Promise<Property[]> {
         const today = new Date();

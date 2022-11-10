@@ -8,6 +8,8 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Router } from '@angular/router';
+import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
 
 @Component({
     selector: 'summary-view',
@@ -29,7 +31,8 @@ export class SummaryViewComponent implements OnInit {
         private summaryView: SummaryViewService,
         private translate: TranslateService,
         private metadata: MetadataService,
-        private router: Router
+        private router: Router,
+        private bottomSheet: MatBottomSheet
     ) { }
 
     async ngOnInit() {
@@ -114,5 +117,25 @@ export class SummaryViewComponent implements OnInit {
 
     viewActivities() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
+    }
+
+    showPropDetails(property: Property) {
+        const config = {
+            autoFocus: false,
+            disableClose: false,
+            data: {
+                property: property
+            }
+        } as MatBottomSheetConfig;
+        this.bottomSheet.open(PropertyDetailsComponent, config);
+    }
+
+    async showPropDetailsFromId(propertyId?: string) {
+        if (!propertyId) {
+            return
+        }
+
+        const property = await this.summaryView.getProperty(propertyId)
+        this.showPropDetails(property)
     }
 }

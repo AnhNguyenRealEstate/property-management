@@ -17,6 +17,8 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
         return snap.ref.update(
             {
                 'id': activityId,
+                'propertyId': propertyId,
+                'propertyName': propertyDoc ? propertyDoc['name'] : '',
                 'fileStoragePath': fileStoragePath
             }
         );

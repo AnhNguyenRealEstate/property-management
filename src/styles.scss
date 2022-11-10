@@ -41,3 +41,17 @@ mat-spinner {
 #table {
     font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
+
+mat-card {
+    border-radius: 35px 35px 35px 35px !important;
+}
+
+button {
+    border-radius: 35px 35px 35px 35px !important;
+}
+
+.mat-bottom-sheet-container {
+    min-height: 95vh;
+    min-width: 100vw !important;
+    border-radius: 35px 35px 0px 0px !important;
+}

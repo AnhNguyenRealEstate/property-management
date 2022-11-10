@@ -6,6 +6,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SummaryViewRoutingModule } from './summary-routing.module';
 import { MatListModule } from '@angular/material/list';
 import { NgChartsModule } from 'ng2-charts';
+import { PropertyDetailsModule } from '../properties/property-details/property-details.module';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 @NgModule({
     declarations: [SummaryViewComponent],
     imports: [
@@ -14,7 +16,9 @@ import { NgChartsModule } from 'ng2-charts';
         SummaryViewRoutingModule,
         TranslateModule.forChild({ extend: true }),
         MatListModule,
-        NgChartsModule
+        NgChartsModule,
+        MatBottomSheetModule,
+        PropertyDetailsModule
     ],
     exports: [SummaryViewComponent]
 })

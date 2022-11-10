@@ -181,6 +181,14 @@ export class PropertyDetailsComponent implements OnInit {
         const DATE_PIPE_FORMAT = 'dd/MM/yyyy';
         invoice.paymentWindow = `${this.datePipe.transform(invoice.beginDate!.toDate(), DATE_PIPE_FORMAT)} - ${this.datePipe.transform(invoice.dueDate!.toDate(), DATE_PIPE_FORMAT)}`;
         await this.propertyDetails.updateInvoice(invoice);
+        await this.propertyDetails.addActivity(this.property,
+            {
+                propertyId: this.property.id,
+                propertyName: this.property.name,
+                date: Timestamp.now(),
+                description: `Cập nhật thông tin biên nhận`
+            } as Activity,
+            []);
 
         const index = this.invoicesBeingEdited.findIndex(invoiceId => invoiceId === invoice.id);
         this.invoicesBeingEdited.splice(index, 1);
@@ -383,7 +391,7 @@ export class PropertyDetailsComponent implements OnInit {
 
     async previewDoc(doc: UploadedFile) {
         const url = await this.propertyDetails.getDocUrl(`${this.property.fileStoragePath}/${doc.dbHashedName}`)
-        
+
         this.dialog.open(this.docPreviewTpl, {
             height: '90%',
             width: '90%',
