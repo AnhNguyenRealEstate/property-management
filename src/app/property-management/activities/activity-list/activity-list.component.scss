@@ -12,6 +12,8 @@
 .activity-description,
 .property-description {
     color: gray;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .property-type-icon {

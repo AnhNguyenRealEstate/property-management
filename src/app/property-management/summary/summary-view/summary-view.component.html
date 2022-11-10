@@ -55,8 +55,8 @@
                     <div class="col-3 table-header">{{ 'summary.owner' | translate }}</div>
                 </div>
                 <div class="row pb-1" *ngFor="let prop of soonToExpireProperties">
-                    <button mat-raised-button (click)="showPropDetails(prop)"
-                        class="col-3 property-name text-bold mat-elevation-z1">
+                    <button mat-button (click)="showPropDetails(prop)"
+                        class="col-3 property-name text-bold d-flex justify-content-start">
                         {{prop.name}}
                     </button>
                     <div class="col-3 pt-2" style="color: gray">
@@ -92,8 +92,8 @@
                         <div class="col-4 table-header">{{ 'summary.date' | translate }}</div>
                     </div>
                     <div class="row pb-1" *ngFor="let activity of newestActivities">
-                        <button mat-raised-button (click)="showPropDetailsFromId(activity.propertyId)"
-                            class="col-4 property-name text-bold mat-elevation-z1">
+                        <button mat-button (click)="showPropDetailsFromId(activity.propertyId)"
+                            class="col-4 property-name text-bold d-flex justify-content-start">
                             {{activity.propertyName}}
                         </button>
                         <div class="col-4 pt-2" style="color: gray">{{activity.description}}</div>

@@ -1,5 +1,5 @@
 <mat-toolbar class="navbar mat-elevation-z3">
-    <a class="navbar-brand" (click)="viewProperties()">
+    <a class="navbar-brand" (click)="viewSummary()">
         <span class="home-icon-wrapper">
             <img width="22rem" height="22rem" src="/assets/images/logo.png">
         </span>
@@ -62,6 +62,10 @@
         </a>
 
         <ng-container *ngIf="loggedIn">
+            <a id="summary-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewSummary()">
+                <mat-icon>dashboard</mat-icon>
+                <span class="ps-3">{{ 'property_management.summary' | translate }}</span>
+            </a>
             <a id="properties-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewProperties()">
                 <mat-icon>holiday_village</mat-icon>
                 <span class="ps-3">{{ 'property_management.properties' | translate }}</span>
@@ -78,7 +82,7 @@
             <mat-divider inset="true"></mat-divider>
 
             <a mat-button (click)="resetPwd()">
-                <mat-icon>lock_reset</mat-icon> 
+                <mat-icon>lock_reset</mat-icon>
                 <span class="ps-3">{{ 'layout.reset_pwd' | translate }}</span>
             </a>
             <a mat-button (click)="logout()">

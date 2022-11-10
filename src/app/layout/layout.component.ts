@@ -60,6 +60,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.dialog.open(ResetPasswordComponent)
     }
 
+    viewSummary() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:summary)');
+    }
+
     viewProperties() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
     }

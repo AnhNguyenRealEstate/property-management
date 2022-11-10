@@ -1,4 +1,4 @@
-<section class="p-3">
+<section class="p-3" style="min-width: fit-content">
     <mat-card>
         <mat-card-content>
             <div class="ps-2 pb-1 row">
@@ -16,32 +16,46 @@
             <mat-divider></mat-divider>
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of activitiesByDates">
                 <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}} </div>
-                <div class="col-12 ms-3 pb-2" *ngFor="let activity of activitiesByDate.activities">
+                <div class="col-12 ms-3 pb-1" *ngFor="let activity of activitiesByDate.activities">
                     <div class="row">
-                        <div class="col-12">
-                            <span>
-                                <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
-                                <mat-icon color="primary" *ngIf="activity.type === 'generic'">history_edu</mat-icon>
-                                <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
-                                </mat-icon>
-                            </span>
-                            <span class="activity-description ps-3 pt-2">{{activity.date?.toDate() | date: 'HH:mm'
-                                }}</span>
-                            <span *ngIf="showPropertyName" class="ps-5">
-                                <mat-icon class="property-type-icon" *ngIf="activity.propertyCategory === 'Apartment'">
-                                    apartment</mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="activity.propertyCategory === 'Villa'">villa
-                                </mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="activity.propertyCategory === 'Townhouse'">
-                                    door_sliding</mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="activity.propertyCategory === 'Commercial'">
-                                    store_front</mat-icon>
-                            </span>
-                            <span *ngIf="showPropertyName"
-                                class="property-name ps-2 pt-2">{{activity.propertyName}}</span>
-                            <span class="ps-5 activity-description pt-2">{{activity.description}}</span>
+                        <div class="col-2">
+                            <div>
+                                <span>
+                                    <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
+                                    <mat-icon color="primary" *ngIf="activity.type === 'generic'">history_edu</mat-icon>
+                                    <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
+                                    </mat-icon>
+                                </span>
+                                <span class="activity-description ps-3 pt-2">{{activity.date?.toDate() | date: 'HH:mm'
+                                    }}</span>
+                            </div>
+                            <div class="ms-2 activity-line" style="height: 20px;"></div>
                         </div>
-                        <div class="col-12 ms-4 activity-line" style="height: 20px;"></div>
+                        <div class="col-10">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span *ngIf="showPropertyName" class="pe-2">
+                                        <mat-icon class="property-type-icon"
+                                            *ngIf="activity.propertyCategory === 'Apartment'">
+                                            apartment</mat-icon>
+                                        <mat-icon class="property-type-icon"
+                                            *ngIf="activity.propertyCategory === 'Villa'">villa
+                                        </mat-icon>
+                                        <mat-icon class="property-type-icon"
+                                            *ngIf="activity.propertyCategory === 'Townhouse'">
+                                            door_sliding</mat-icon>
+                                        <mat-icon class="property-type-icon"
+                                            *ngIf="activity.propertyCategory === 'Commercial'">
+                                            store_front</mat-icon>
+                                    </span>
+                                    <span *ngIf="showPropertyName"
+                                        class="property-name pt-2">{{activity.propertyName}}</span>
+                                </div>
+                                <div class="col-8">
+                                    <span class="activity-description pt-2">{{activity.description}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
