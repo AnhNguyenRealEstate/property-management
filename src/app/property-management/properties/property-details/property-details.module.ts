@@ -30,4 +30,10 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     ],
     exports: [PropertyDetailsComponent]
 })
-export class PropertyDetailsModule { }
+export class PropertyDetailsModule {
+    constructor() { }
+
+    getPropertyDetailsComponent() {
+        return PropertyDetailsComponent;
+    }
+}

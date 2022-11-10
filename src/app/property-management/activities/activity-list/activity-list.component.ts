@@ -1,5 +1,9 @@
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
-import { Component, DoCheck, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, createComponent, createNgModule, DoCheck, EventEmitter, Injector, Input, OnChanges, Output, Renderer2 } from '@angular/core';
+import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
+import { PropertyDetailsModule } from '../../properties/property-details/property-details.module';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activity.data";
 import { ActivityListService } from './activity-list.service';
@@ -46,7 +50,9 @@ export class ActivityListComponent implements OnChanges, DoCheck {
 
     constructor(
         private renderer: Renderer2,
-        private activityList: ActivityListService
+        private activityList: ActivityListService,
+        private bottomSheet: MatBottomSheet,
+        private injector: Injector
     ) {
     }
 
@@ -126,8 +132,25 @@ export class ActivityListComponent implements OnChanges, DoCheck {
         const filteredActivities = this.activities.filter(activity =>
             activity.propertyName?.toLowerCase().indexOf(name.toLowerCase().trim()) !== -1
         );
-        
+
         this.categorizeActivitiesByDates(filteredActivities);
+    }
+
+    async showDetails(propertyId: string) {
+        const { PropertyDetailsModule } = await import("src/app/property-management/properties/property-details/property-details.module");
+
+        const moduleRef = createNgModule(PropertyDetailsModule, this.injector);
+        const propertyDetailsComponent = moduleRef.instance.getPropertyDetailsComponent();
+
+        const property = await this.activityList.getProperty(propertyId);
+        const config = {
+            autoFocus: false,
+            disableClose: false,
+            data: {
+                property: property
+            }
+        } as MatBottomSheetConfig;
+        this.bottomSheet.open(propertyDetailsComponent, config);
     }
 
 }
