@@ -62,7 +62,9 @@ export class PropertyEditComponent implements OnInit {
             { duration: 1500 }
         );
 
-        this.dialogRef.close();
+        this.dialogRef.close({
+            success: true
+        });
     }
 
     dateToTimestamp(date: Date): Timestamp {

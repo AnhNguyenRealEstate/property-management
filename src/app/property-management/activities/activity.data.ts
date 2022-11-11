@@ -2,7 +2,7 @@ import { Timestamp } from "@angular/fire/firestore";
 import { PropertyCategory } from "../properties/property.data";
 import { UploadedFile } from "../property-management.data";
 
-type ActivityType = 'generic' | 'invoice';
+type ActivityType = 'generic' | 'newContract' | 'contractExtension' | 'contractCancellation' | 'propertyEdit' | 'invoice';
 
 export interface Activity {
     date?: Timestamp

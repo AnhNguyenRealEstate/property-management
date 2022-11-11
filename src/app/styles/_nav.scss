@@ -1,22 +1,23 @@
 @use "src/app/styles/colors" as colors;
 
 .view-nav-btn {
-    color: rgb(67, 63, 63);
+    font-weight: 400 !important;
+
+    color: rgba(67, 63, 63, 0.9) !important;
     .mat-icon {
-        color: rgb(67, 63, 63);
+        color: rgba(67, 63, 63, 0.9) !important;
     }
 }
 
 .active-nav-btn {
     @media only screen and (max-width: 600px) {
-        border-radius: 50px 0px 0px 50px !important;
+        border-radius: 50px 50px 50px 50px !important;
     }
 
     @media only screen and (min-width: 600px) {
-        border-radius: 0px 50px 50px 0px !important;
+        border-radius: 50px 50px 50px 50px !important;
     }
 
-    padding-left: 30px !important;
     background: colors.$accent-50 !important;
     color: colors.$accent !important;
     .mat-icon {

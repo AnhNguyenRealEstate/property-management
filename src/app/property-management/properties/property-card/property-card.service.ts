@@ -58,14 +58,19 @@ export class PropertyCardService {
             managementEndDate: managementEndDate
         })
 
+        await this.addActivity(property, {
+            propertyId: property.id,
+            propertyName: property.name,
+            date: Timestamp.now(),
+            type: 'contractCancellation',
+            description: `Huỷ/thanh lý hợp đồng thuê`
+        });
+    }
+
+    async addActivity(property: Property, activity: Activity) {
         await addDoc(
             collection(this.firestore, `${FirestoreCollections.underManagement}/${property.id}/${FirestoreCollections.activities}`),
-            {
-                date: Timestamp.now(),
-                description: 'Huỷ/thanh lý hợp đồng thuê',
-                propertyId: property.id,
-                propertyName: property.name
-            } as Activity
+            activity
         )
     }
 }

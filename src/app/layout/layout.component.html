@@ -81,11 +81,11 @@
 
             <mat-divider inset="true"></mat-divider>
 
-            <a mat-button (click)="resetPwd()">
+            <a mat-button class="view-nav-btn" (click)="resetPwd()">
                 <mat-icon>lock_reset</mat-icon>
                 <span class="ps-3">{{ 'layout.reset_pwd' | translate }}</span>
             </a>
-            <a mat-button (click)="logout()">
+            <a mat-button class="view-nav-btn" (click)="logout()">
                 <mat-icon>logout</mat-icon>
                 <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
             </a>

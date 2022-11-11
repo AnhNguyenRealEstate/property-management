@@ -4,18 +4,20 @@
             <div class="ps-2 pb-1 row">
                 <mat-form-field class="col-6">
                     <mat-label>{{ 'activity_list.search_label' | translate }}</mat-label>
-                    <mat-icon matPrefix>search</mat-icon>
+                    <span class="pe-2" matPrefix>
+                        <mat-icon>search</mat-icon>
+                    </span>
                     <input matInput [ngModel]="searchQuery" (ngModelChange)="filterActivitiesByPropName($event)">
                 </mat-form-field>
-                <div class="col-6 d-flex justify-content-end">
+                <!-- <div class="col-6 d-flex justify-content-end">
                     <button mat-button>
                         <mat-icon>filter_alt</mat-icon> {{ 'activity_list.filter' | translate }}
                     </button>
-                </div>
+                </div> -->
             </div>
             <mat-divider></mat-divider>
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of activitiesByDates">
-                <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}} </div>
+                <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}}</div>
                 <div class="col-12 ms-3 pb-1 activity" *ngFor="let activity of activitiesByDate.activities">
                     <div class="row">
                         <div class="col-2 icon-and-time">
@@ -23,6 +25,15 @@
                                 <span>
                                     <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
                                     <mat-icon color="primary" *ngIf="activity.type === 'generic'">history_edu</mat-icon>
+                                    <mat-icon style="color: green" *ngIf="activity.type === 'newContract'">note_add
+                                    </mat-icon>
+                                    <mat-icon style="color: green" *ngIf="activity.type === 'contractExtension'">
+                                        more_time
+                                    </mat-icon>
+                                    <mat-icon color="warn" *ngIf="activity.type === 'contractCancellation'">
+                                        cancel_presentation_icon</mat-icon>
+                                    <mat-icon color="primary" *ngIf="activity.type === 'propertyEdit'">edit
+                                    </mat-icon>
                                     <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
                                     </mat-icon>
                                 </span>
@@ -34,21 +45,23 @@
                         <div class="col-10">
                             <div class="row">
                                 <div class="col-4" *ngIf="showPropertyName">
-                                    <span  class="pe-2">
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Apartment'">
-                                            apartment</mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Villa'">villa
-                                        </mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Townhouse'">
-                                            door_sliding</mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Commercial'">
-                                            store_front</mat-icon>
-                                    </span>
-                                    <button mat-button (click)="showDetails(activity.propertyId!)" class="property-name">{{activity.propertyName}}
+                                    <button mat-button (click)="showDetails(activity.propertyId!)"
+                                        class="property-name">
+                                        <span class="pe-2">
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Apartment'">
+                                                apartment</mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Villa'">villa
+                                            </mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Townhouse'">
+                                                door_sliding</mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Commercial'">
+                                                store_front</mat-icon>
+                                        </span>
+                                        <span>{{activity.propertyName}}</span>
                                     </button>
                                 </div>
                                 <div class="col-8 pt-2">

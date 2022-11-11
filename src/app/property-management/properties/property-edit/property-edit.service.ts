@@ -14,8 +14,7 @@ export class PropertyUploadService {
 
     constructor(
         private auth: Auth,
-        private firestore: Firestore,
-        private storage: Storage
+        private firestore: Firestore
     ) { }
 
     async editProperty(property: Property) {
@@ -24,6 +23,17 @@ export class PropertyUploadService {
         await updateDoc(
             doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
             { ...property }
+        );
+
+        await addDoc(
+            collection(this.firestore, `${FirestoreCollections.underManagement}/${property.id}/${FirestoreCollections.activities}`),
+            {
+                propertyId: property.id,
+                propertyName: property.name,
+                date: Timestamp.now(),
+                type: 'propertyEdit',
+                description: `Sửa thông tin`
+            } as Activity
         );
     }
 

@@ -74,7 +74,8 @@ export class PropertyRenewService {
                 date: Timestamp.now(),
                 description: `Hợp đồng thuê mới. Bên thuê: ${property.tenantName}`,
                 propertyId: property.id,
-                propertyName: property.name
+                propertyName: property.name,
+                type: 'newContract'
             } as Activity
         )
 
