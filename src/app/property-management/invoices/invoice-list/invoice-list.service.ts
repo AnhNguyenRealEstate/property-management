@@ -39,7 +39,7 @@ export class InvoiceListService {
             ),
             {
                 date: Timestamp.fromDate(new Date()),
-                description: `Khách trả tiền thuê cho giai đoạn ${invoice.paymentWindow}`,
+                description: `Đã thu ${invoice.amount} từ ${invoice.payer} cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
                 propertyName: invoice.propertyName,
                 type: 'invoice'
