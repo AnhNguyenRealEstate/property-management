@@ -19,6 +19,20 @@ export class InvoiceListService {
             ),
             { ...invoice }
         )
+
+        await addDoc(
+            collection(
+                this.firestore,
+                `${FirestoreCollections.underManagement}/${invoice.propertyId}/${FirestoreCollections.activities}`
+            ),
+            {
+                date: Timestamp.fromDate(new Date()),
+                description: `Cập nhật thông tin biên nhận`,
+                propertyId: invoice.propertyId,
+                propertyName: invoice.propertyName,
+                type: 'invoice'
+            } as Activity
+        )
     }
 
     async markInvoiceAsPaid(invoice: Invoice) {

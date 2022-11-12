@@ -66,8 +66,7 @@ export class ContractExtensionService {
             ),
             {
                 date: Timestamp.fromDate(new Date()),
-                description: `Gia hạn, bắt đầu từ ${formatDate(extensionData.startDate!.toDate(), 'dd/MM/yyyy', this.locale)
-                    }`,
+                description: `Gia hạn, bắt đầu từ ${formatDate(extensionData.startDate!.toDate(), 'dd/MM/yyyy', this.locale)}`,
                 propertyId: property.id,
                 propertyName: property.name,
                 type: 'contractExtension',
