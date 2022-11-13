@@ -5,6 +5,7 @@ import { ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
+import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { Property } from '../property.data';
@@ -122,5 +123,12 @@ export class PropertyUploadService {
         }));
 
         return scheduleIds.filter(id => !!id);
+    }
+
+    async addActivity(property: Property, activity: Activity) {
+        await addDoc(
+            collection(this.firestore, `${FirestoreCollections.underManagement}/${property.id}/${FirestoreCollections.activities}`),
+            activity
+        )
     }
 }

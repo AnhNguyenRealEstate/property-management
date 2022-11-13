@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
 import { environment } from 'src/environments/environment';
+import { Activity } from '../../activities/activity.data';
 import { Owner } from '../../owners/owner.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
@@ -218,6 +219,15 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         submitBtn.disabled = true;
 
         await this.upload.uploadProperty(this.property, this.uploadedFiles, this.schedules);
+        await this.upload.addActivity(this.property,
+            {
+                propertyId: this.property.id,
+                propertyName: this.property.name,
+                date: Timestamp.now(),
+                type: 'newContract',
+                description: `Hợp đồng thuê mới. Bên thuê: ${this.property.tenantName}`
+            } as Activity
+        )
 
         this.snackbar.open(
             await lastValueFrom(this.translate.get('property_upload.upload_successful')),
