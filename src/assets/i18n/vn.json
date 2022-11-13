@@ -284,7 +284,7 @@
         "description": "Mô tả",
         "date": "Ngày",
         "contracts_expiring_soon": "Hợp đồng thuê sắp hết hạn",
-        "expiring_soon_msg": "Hợp đồng còn {{month}} tháng"
+        "expiring_soon_msg": "Còn {{month}} tháng"
     },
     "contract_extension": {
         "upload_contract": "Phụ lục gia hạn",

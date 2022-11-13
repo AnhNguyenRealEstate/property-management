@@ -280,7 +280,7 @@
         "description": "Description",
         "date": "Date",
         "contracts_expiring_soon": "Contract expiry",
-        "expiring_soon_msg": "Contract expires in {{month}} month(s)"
+        "expiring_soon_msg": "{{month}} month(s) remaining"
     },
     "contract_extension": {
         "upload_contract": "Upload contract",

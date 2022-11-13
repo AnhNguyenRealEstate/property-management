@@ -1,9 +1,27 @@
-<section class="px-2 py-4">
-    <div class="row">
-        <div class="col-12 col-sm-4">
+<section class="d-sm-none px-2 py-4">
+    <div class="row pb-2">
+        <div class="col-12">
             <ng-container [ngTemplateOutlet]="propertyComposition"></ng-container>
         </div>
-        <div class="col-12 col-sm-8">
+    </div>
+    <div class="row pb-2">
+        <div class="col-12">
+            <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-12">
+            <ng-container [ngTemplateOutlet]="recentActivities"></ng-container>
+        </div>
+    </div>
+</section>
+
+<section class="d-none d-sm-block px-2 py-4">
+    <div class="row">
+        <div class="col-sm-4">
+            <ng-container [ngTemplateOutlet]="propertyComposition"></ng-container>
+        </div>
+        <div class="col-sm-8">
             <div>
                 <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
             </div>
@@ -47,7 +65,20 @@
             </div>
         </mat-card-title>
         <mat-card-content>
-            <div class="pt-3 ps-4">
+            <div class="d-sm-none pt-3 ps-2">
+                <div class="row pb-1" *ngFor="let prop of soonToExpireProperties; let i = index">
+                    <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
+                    <button mat-button (click)="showPropDetails(prop)"
+                        class="col-12 property-name text-bold d-flex justify-content-start">
+                        {{prop.name}}
+                    </button>
+                    <div class="col-12 ps-3" style="color: gray">
+                        {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-none d-sm-block pt-3 ps-4">
                 <div class="pb-3 row">
                     <div class="col-3 table-header">{{ 'summary.property' | translate }}</div>
                     <div class="col-3 table-header">{{ 'summary.time_to_exp' | translate }}</div>
@@ -85,7 +116,19 @@
         </mat-card-title>
         <mat-card-content>
             <mat-card-content>
-                <div class="pt-3 ps-4">
+                <div class="d-sm-none pt-3 ps-2">
+                    <div class="row pb-1" *ngFor="let activity of newestActivities; let i = index">
+                        <mat-divider inset="true" *ngIf="i > 0"></mat-divider>
+                        <button mat-button (click)="showPropDetailsFromId(activity.propertyId)"
+                            class="col-12 property-name text-bold d-flex justify-content-start">
+                            {{activity.propertyName}}
+                        </button>
+                        <div class="col-12 ps-3" style="color: gray">{{activity.description}}</div>
+                        <div class="col-12 ps-3 text-bold">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
+                    </div>
+                </div>
+
+                <div class="d-none d-sm-block pt-3 ps-4">
                     <div class="pb-3 row">
                         <div class="col-4 table-header">{{ 'summary.property' | translate }}</div>
                         <div class="col-4 table-header">{{ 'summary.description' | translate }}</div>
