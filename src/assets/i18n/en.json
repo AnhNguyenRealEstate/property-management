@@ -299,5 +299,13 @@
         "upload_files": " Uploaded files",
         "submit": "Submit"
     },
+    "activity_type": {
+        "all": "All activities",
+        "edit": "Property information edit",
+        "new_contract": "New contract",
+        "contract_ext": "Contract extension",
+        "invoice_activities": "Invoice-related activities",
+        "contract_cancellation": "Contract cancellation"
+    },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

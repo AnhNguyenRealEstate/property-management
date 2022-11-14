@@ -136,7 +136,7 @@
     },
     "activity_list": {
         "search_label": "Tên tài sản...",
-        "filter": "Bộ lọc",
+        "filter": "Dạng hoạt động",
         "no_doc": "Không có tài liệu đính kèm",
         "no_activity": "Không có hoạt động",
         "activity": "hoạt động",
@@ -302,6 +302,14 @@
         "preview_info": "Xem lại thông tin",
         "upload_files": "Đính kèm file",
         "submit": "Gia hạn"
+    },
+    "activity_type": {
+        "all": "Tất cả hoạt động",
+        "edit": "Sửa thông tin",
+        "new_contract": "Hợp đồng mới",
+        "contract_ext": "Gia hạn hợp đồng",
+        "invoice_activities": "Hoạt động thanh toán",
+        "contract_cancellation": "Huỷ/thanh lý hợp đồng"
     },
     "footer": "@ 2022 Anh Nguyen Real Estate"
 }

@@ -1,11 +1,12 @@
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, createComponent, createNgModule, DoCheck, EventEmitter, Injector, Input, OnChanges, Output, Renderer2 } from '@angular/core';
+import { Component, createComponent, createNgModule, DoCheck, EventEmitter, Injector, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
 import { PropertyDetailsModule } from '../../properties/property-details/property-details.module';
 import { UploadedFile } from '../../property-management.data';
-import { Activity } from "../activity.data";
+import { Activity, ActivityType } from "../activity.data";
 import { ActivityListService } from './activity-list.service';
 
 export interface DayActivities {
@@ -16,37 +17,28 @@ export interface DayActivities {
 @Component({
     selector: 'activity-list',
     templateUrl: 'activity-list.component.html',
-    styleUrls: ['./activity-list.component.scss'],
-    animations: [
-        trigger('activityItemAnim',
-            [
-                transition('* => *', // whenever binding value changes
-                    query(':enter',
-                        [
-                            style({ opacity: 0, transform: 'translateY(40px)' }),
-                            stagger(100, [
-                                animate('0.2s', style({ opacity: 1, transform: 'translateY(0)' }))
-                            ])
-                        ],
-                        { optional: true }
-                    )
-                )
-            ]
-        )
-    ]
+    styleUrls: ['./activity-list.component.scss']
 })
 
-export class ActivityListComponent implements OnChanges, DoCheck {
+export class ActivityListComponent implements OnInit, OnChanges, DoCheck, OnDestroy {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Input() showPropertyName: boolean = true;
 
     @Output() getMoreActivities: EventEmitter<void> = new EventEmitter();
 
-    activitiesByDates: DayActivities[] = [];
     numberOfActivities = 0;
 
-    searchQuery: string = '';
+    subs: Subscription = new Subscription();
+
+    activitiesByDates$$: BehaviorSubject<DayActivities[]> = new BehaviorSubject<DayActivities[]>([]);
+    activitiesByDates$: Observable<DayActivities[]> = this.activitiesByDates$$.asObservable();
+
+    searchQuery$$: BehaviorSubject<string> = new BehaviorSubject('');
+    searchQuery$: Observable<string> = this.searchQuery$$.asObservable();
+
+    typeQuery$$: BehaviorSubject<ActivityType | ''> = new BehaviorSubject<ActivityType | ''>('');
+    typeQuery$: Observable<ActivityType | ''> = this.typeQuery$$.asObservable();
 
     constructor(
         private renderer: Renderer2,
@@ -54,6 +46,23 @@ export class ActivityListComponent implements OnChanges, DoCheck {
         private bottomSheet: MatBottomSheet,
         private injector: Injector
     ) {
+        this.subs.add(this.searchQuery$.subscribe(async propNameQuery => {
+            const filteredActivities = this.applyFilters(propNameQuery, this.typeQuery$$.getValue())
+            this.activitiesByDates$$.next(
+                this.categorizeActivitiesByDates(filteredActivities)
+            );
+        }))
+
+        this.subs.add(this.typeQuery$.subscribe(async typeQuery => {
+            const filteredActivities = this.applyFilters(this.searchQuery$$.getValue(), typeQuery)
+            this.activitiesByDates$$.next(
+                this.categorizeActivitiesByDates(filteredActivities)
+            );
+        }))
+    }
+
+    ngOnInit(): void {
+        this.numberOfActivities = this.activities.length;
     }
 
     ngDoCheck(): void {
@@ -62,8 +71,19 @@ export class ActivityListComponent implements OnChanges, DoCheck {
         }
     }
 
-    ngOnChanges(): void {
-        this.categorizeActivitiesByDates(this.activities);
+    ngOnDestroy(): void {
+        this.subs.unsubscribe()
+    }
+
+    async ngOnChanges() {
+        const filteredActivities = this.applyFilters(
+            this.searchQuery$$.getValue(),
+            this.typeQuery$$.getValue()
+        )
+
+        this.activitiesByDates$$.next(
+            this.categorizeActivitiesByDates(filteredActivities)
+        );
     }
 
     async downloadDoc(activity: Activity, doc: UploadedFile) {
@@ -85,8 +105,8 @@ export class ActivityListComponent implements OnChanges, DoCheck {
         this.renderer.setStyle(deleteBtn, 'display', 'none');
     }
 
-    categorizeActivitiesByDates(activities: Activity[]) {
-        this.activitiesByDates = [];
+    categorizeActivitiesByDates(activities: Activity[]): DayActivities[] {
+        const activitiesByDates = [];
 
         let currentDate: Date | undefined = undefined;
         let activitiesByDate = {
@@ -98,7 +118,7 @@ export class ActivityListComponent implements OnChanges, DoCheck {
             if (!currentDate) {
                 currentDate = activity.date?.toDate()!;
                 activitiesByDate.date = currentDate;
-                this.activitiesByDates.push(activitiesByDate);
+                activitiesByDates.push(activitiesByDate);
 
             } else if (activity.date?.toDate().getDate() != currentDate!.getDate()) {
                 currentDate = activity.date?.toDate();
@@ -107,33 +127,13 @@ export class ActivityListComponent implements OnChanges, DoCheck {
                 activitiesByDate.date = currentDate;
                 activitiesByDate.activities = [];
 
-                this.activitiesByDates.push(activitiesByDate);
+                activitiesByDates.push(activitiesByDate);
             }
 
             activitiesByDate.activities!.push(activity);
         }
 
-        this.numberOfActivities = this.activities.length;
-    }
-
-    async removeActivity(activityToRemove: Activity) {
-        const activities = this.activitiesByDates.find(day => day.date?.getDate() == activityToRemove.date?.toDate().getDate())?.activities;
-        if (!activities?.length) {
-            return;
-        }
-
-        const index = activities?.findIndex(activities => activities.id === activityToRemove.id);
-        activities.splice(index, 1);
-
-        await this.activityList.removeActivity(activityToRemove);
-    }
-
-    filterActivitiesByPropName(name: string) {
-        const filteredActivities = this.activities.filter(activity =>
-            activity.propertyName?.toLowerCase().indexOf(name.toLowerCase().trim()) !== -1
-        );
-
-        this.categorizeActivitiesByDates(filteredActivities);
+        return activitiesByDates;
     }
 
     async showDetails(propertyId: string) {
@@ -153,4 +153,19 @@ export class ActivityListComponent implements OnChanges, DoCheck {
         this.bottomSheet.open(propertyDetailsComponent, config);
     }
 
+    applyFilters(propName: string, typeQuery: ActivityType | ''): Activity[] {
+        let filteredActivities = this.activities;
+
+        if (propName) {
+            filteredActivities = this.activities.filter(activity =>
+                activity.propertyName?.toLowerCase().indexOf(propName.toLowerCase().trim()) !== -1
+            );
+        }
+
+        if (typeQuery) {
+            filteredActivities = filteredActivities.filter(activity => activity.type === typeQuery);
+        }
+
+        return filteredActivities;
+    }
 }

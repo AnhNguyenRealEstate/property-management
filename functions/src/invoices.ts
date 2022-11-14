@@ -24,53 +24,65 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
 
 exports.emailInvoicesToCollect = functions.region('asia-southeast2')
     .pubsub.schedule('every monday 08:30').timeZone('Asia/Ho_Chi_Minh')
-    .onRun(async () => {
+    .onRun(() => {
+        emailInvoicesToCollect();
+    });
 
-        const monday = new Date();
-        const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
+async function prepareEmailInfo() {
+    const invoicesMetadata = (await admin.firestore().collection('app-metadata')
+        .doc('invoices').get()).data();
+    const recipients: string[] = invoicesMetadata ? invoicesMetadata['invoicesToCollectEmailRecipients'] : [];
 
-        const mondayTimestamp = Timestamp.fromDate(monday);
-        const endOfWeekTimestamp = Timestamp.fromDate(endOfWeek);
+    const monday = new Date();
+    const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
 
-        const snap = await admin.firestore().collectionGroup('invoices')
-            .where('beginDate', '>=', mondayTimestamp)
-            .where('beginDate', '<=', endOfWeekTimestamp)
-            .get();
-        const invoicesToCollect = snap.docs.map(doc => doc.data());
+    const mondayTimestamp = Timestamp.fromDate(monday);
+    const endOfWeekTimestamp = Timestamp.fromDate(endOfWeek);
 
-        const invoicesAsHtml: string[] = [];
-        invoicesToCollect.forEach((invoice, index) => {
-            const invoiceHtml = `${index + 1}. Thu ${invoice['amount']}
+    const snap = await admin.firestore().collectionGroup('invoices')
+        .where('beginDate', '>=', mondayTimestamp)
+        .where('beginDate', '<=', endOfWeekTimestamp)
+        .get();
+    const invoicesToCollect = snap.docs.map(doc => doc.data())
+        .filter(invoice => (invoice['status'] === 'unpaid') || (invoice['status'] === 'partiallyPaid'));
+
+    const invoicesAsHtml: string[] = [];
+    invoicesToCollect.forEach((invoice, index) => {
+        const invoiceHtml = `${index + 1}. Thu ${invoice['amount']}
             từ ${invoice['payer']} (${invoice['propertyName']}) cho ${invoice['payee']},
             bắt đầu từ ${format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())}.`;
-            invoicesAsHtml.push(invoiceHtml);
-        });
-
-        if (!process.env.SENDGRID_API_KEY) {
-            console.log("Cannot find SendGrid API Key");
-            return Promise.resolve();
-        }
-
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
-            "templateId": 'd-097312d35e3f497bb7976fa562306b6b',
-            "to":
-                [
-                    'nguyentrungtu1996@gmail.com',
-                    'mydungrental4u@gmail.com'
-                ],
-            "from": {
-                "name": "Quản Lý Tài Sản",
-                "email": 'it@anhnguyenre.com'
-            },
-            "dynamic_template_data": {
-                "invoicesAsHtml": invoicesAsHtml
-            }
-        }
-
-        sgMail.send(msg).then(() => {
-            console.log('Mail sent')
-        }).catch((error) => {
-            console.error(error)
-        });
+        invoicesAsHtml.push(invoiceHtml);
     });
+
+    return {
+        recipients, invoicesAsHtml
+    }
+}
+
+async function emailInvoicesToCollect() {
+    const emailInfo = await prepareEmailInfo();
+
+    if (!process.env.SENDGRID_API_KEY) {
+        console.log("Cannot find SendGrid API Key");
+        return Promise.resolve();
+    }
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+        "templateId": 'd-097312d35e3f497bb7976fa562306b6b',
+        "to": emailInfo.recipients,
+        "from": {
+            "name": "Quản Lý Tài Sản",
+            "email": 'it@anhnguyenre.com'
+        },
+        "dynamic_template_data": {
+            "invoicesAsHtml": emailInfo.invoicesAsHtml
+        }
+    }
+
+    sgMail.send(msg).then(() => {
+        console.log('Mail sent')
+    }).catch((error) => {
+        console.error(error)
+    });
+}

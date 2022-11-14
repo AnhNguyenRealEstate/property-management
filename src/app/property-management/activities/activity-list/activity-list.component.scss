@@ -7,6 +7,11 @@
 .property-name {
     color: colors.$accent-300;
     font-weight: 500;
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
 }
 
 .activity-description,
@@ -37,7 +42,7 @@
     align-items: center;
 }
 
-.quarter-circle-top-right{
+.quarter-circle-top-right {
     width: 24px;
     height: 24px;
     background: white;
@@ -47,4 +52,15 @@
     border-radius: 0 0 0 100px;
     -moz-border-radius: 0 0 0 100px;
     -webkit-border-radius: 0 0 0 100px;
+}
+
+.filter-criterion {
+    width: fit-content;
+    border: 1px solid rgba(200, 200, 200, 0.2);
+    background-color: rgba(200, 200, 200, 0.2);
+    border-radius: 16px 16px 16px 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
