@@ -128,6 +128,7 @@
         "add_files": "Thêm file",
         "upload": "Lưu",
         "payment_schedule_remove_confirmation": "Bạn có chắc bạn muốn xoá lịch thanh toán này?",
+        "invoice_remove_confirmation": "Bạn có chắc bạn muốn xoá khoản thanh toán này?",
         "document_delete_confirmation": "Bạn có chắc bạn muốn xoá: {{filename}}?",
         "delete": "Xoá",
         "cancel": "Huỷ",
@@ -228,7 +229,8 @@
         "payment_details": "Chi tiết thanh toán",
         "upload_successful": "Lịch thanh toán đã được đưa vào hệ thống ✅",
         "dismiss_msg": "Tắt",
-        "other": "Khác"
+        "other": "Khác",
+        "delete": "Xoá"
     },
     "invoices": {
         "uncollected_invoices": "Chưa thu",

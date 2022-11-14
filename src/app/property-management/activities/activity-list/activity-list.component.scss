@@ -8,7 +8,7 @@
     color: colors.$accent-300;
     font-weight: 500;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
     overflow: hidden;
     mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
@@ -63,4 +63,8 @@
     padding-right: 8px;
     padding-top: 8px;
     padding-bottom: 8px;
+}
+
+.document-name {
+    color: rgba(purple, 0.8)
 }

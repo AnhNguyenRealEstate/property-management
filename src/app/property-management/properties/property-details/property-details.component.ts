@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
@@ -228,6 +228,32 @@ export class PropertyDetailsComponent implements OnInit {
             const newDate = new Date(numbers[2], numbers[1] - 1, numbers[0]);
             invoice.dueDate = Timestamp.fromDate(newDate);
         }
+    }
+
+    async deleteInvoice(invoice: Invoice) {
+        this.dialog.open(this.confirmationDialogTpl, {
+            height: '20%',
+            width: '80%',
+            data: {
+                confirmation_msg: this.translate.instant('property_details.invoice_remove_confirmation')
+            }
+        }).afterClosed().subscribe(async (toDelete: boolean) => {
+            if (toDelete) {
+                await this.propertyDetails.deleteInvoice(invoice)
+
+                const schedule = this.schedules.find(schedule => schedule.id === invoice.scheduleId)
+                if (!schedule?.lineItems?.length) {
+                    return
+                }
+
+                const index = schedule.lineItems?.findIndex(item => item.id === invoice.id)
+                if (index !== undefined) {
+                    schedule.lineItems!.splice(index, 1)
+                    schedule.lineItems! = [...schedule.lineItems]
+                }
+            }
+        });
+
     }
 
     openActivityUpload() {

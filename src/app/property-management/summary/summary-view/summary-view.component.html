@@ -69,8 +69,8 @@
                 <div class="row pb-1" *ngFor="let prop of soonToExpireProperties; let i = index">
                     <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
                     <button mat-button (click)="showPropDetails(prop)"
-                        class="col-12 property-name text-bold d-flex justify-content-start">
-                        {{prop.name}}
+                        class="col-12 text-bold d-flex justify-content-start">
+                        <span class="property-name">{{prop.name}}</span>
                     </button>
                     <div class="col-12 ps-3" style="color: gray">
                         {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}

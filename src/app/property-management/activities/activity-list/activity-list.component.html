@@ -136,7 +136,7 @@
                                         <div *ngIf="activity.documents?.length" class="col-11 pt-1">
                                             <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
                                                 *ngFor="let doc of activity.documents">
-                                                <span>{{doc.displayName}}</span>
+                                                <span class="document-name">{{doc.displayName}}</span>
                                             </button>
                                         </div>
                                     </div>

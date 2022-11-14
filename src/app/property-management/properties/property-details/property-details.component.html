@@ -361,9 +361,13 @@
 </ng-template>
 
 <ng-template #actionsTpl let-row>
-    <button mat-raised-button *ngIf="!invoicesBeingEdited.includes(row.id)" (click)="invoicesBeingEdited.push(row.id)">
+    <button class="me-1" mat-raised-button *ngIf="!invoicesBeingEdited.includes(row.id)" (click)="invoicesBeingEdited.push(row.id)">
         <mat-icon color="accent">edit</mat-icon> {{ 'payment_schedule.edit' | translate }}
     </button>
+    <button mat-raised-button *ngIf="!invoicesBeingEdited.includes(row.id)" (click)="deleteInvoice(row)">
+        <mat-icon>delete</mat-icon> {{ 'payment_schedule.delete' | translate }}
+    </button>
+
     <button class="me-2" mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)" (click)="updateInvoice(row)">
         <mat-icon color="accent">save</mat-icon> {{ 'payment_schedule.save' | translate }}
     </button>

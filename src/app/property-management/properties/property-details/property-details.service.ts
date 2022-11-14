@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp, docData } from '@angular/fire/firestore';
+import { doc, Firestore, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy, getDoc, updateDoc, addDoc, Timestamp, docData, deleteDoc } from '@angular/fire/firestore';
 import { deleteObject, getBlob, getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
@@ -242,6 +242,15 @@ export class PropertyDetailsService {
             {
                 isActive: false
             }
+        )
+    }
+
+    async deleteInvoice(invoice: Invoice) {
+        await deleteDoc(
+            doc(
+                this.firestore,
+                `${FirestoreCollections.paymentSchedules}/${invoice.scheduleId}/${FirestoreCollections.invoices}/${invoice.id}`
+            )
         )
     }
 }

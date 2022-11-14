@@ -8,6 +8,10 @@
 .property-name {
     font-size: 0.8rem;
     color: colors.$accent;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
 }
 
 .time-to-expiry {

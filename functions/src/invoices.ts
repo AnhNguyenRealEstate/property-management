@@ -24,14 +24,22 @@ exports.postProcessCreation = functions.region('asia-southeast2').firestore
 
 exports.emailInvoicesToCollect = functions.region('asia-southeast2')
     .pubsub.schedule('every monday 08:30').timeZone('Asia/Ho_Chi_Minh')
-    .onRun(() => {
-        emailInvoicesToCollect();
+    .onRun(async () => {
+        await emailInvoicesToCollect();
     });
 
 async function prepareEmailInfo() {
-    const invoicesMetadata = (await admin.firestore().collection('app-metadata')
-        .doc('invoices').get()).data();
-    const recipients: string[] = invoicesMetadata ? invoicesMetadata['invoicesToCollectEmailRecipients'] : [];
+    const appMetadataSnap = await admin.firestore().collection('app-metadata').doc('invoices').get();
+    if (!appMetadataSnap.exists) {
+        throw new Error("No metadata!");
+    }
+
+    const invoicesMetadata = appMetadataSnap.data();
+    const recipients: string[] = invoicesMetadata ? invoicesMetadata['emailList'] as string[] : [];
+
+    if (!recipients?.length) {
+        throw new Error("Recipient list is empty!");
+    }
 
     const monday = new Date();
     const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
@@ -55,12 +63,17 @@ async function prepareEmailInfo() {
     });
 
     return {
-        recipients, invoicesAsHtml
+        recipients: recipients,
+        invoicesAsHtml: invoicesAsHtml
     }
 }
 
 async function emailInvoicesToCollect() {
     const emailInfo = await prepareEmailInfo();
+
+    if (!emailInfo.invoicesAsHtml.length) {
+        return;
+    }
 
     if (!process.env.SENDGRID_API_KEY) {
         console.log("Cannot find SendGrid API Key");

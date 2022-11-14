@@ -225,7 +225,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
                 propertyName: this.property.name,
                 date: Timestamp.now(),
                 type: 'newContract',
-                description: `Hợp đồng thuê mới. Bên thuê: ${this.property.tenantName}`
+                description: `Hợp đồng thuê mới. Bên thuê: ${this.property.tenantName}`,
+                documents: this.property.documents
             } as Activity
         )
 
