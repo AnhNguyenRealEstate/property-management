@@ -95,5 +95,8 @@ export class InvoiceListComponent {
             }
         );
     }
-
-}
+    
+    dateToTimestamp(date: Date): Timestamp {
+        return Timestamp.fromDate(date)
+    }
+}  
