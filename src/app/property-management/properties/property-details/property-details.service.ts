@@ -243,6 +243,18 @@ export class PropertyDetailsService {
         await updateDoc(docRef, {
             documents: property.documents
         });
+
+        await addDoc(
+            collection(this.firestore, `${FirestoreCollections.underManagement}/${property.id}/${FirestoreCollections.activities}`),
+            {
+                propertyId: property.id,
+                propertyName: property.name,
+                date: Timestamp.now(),
+                type: 'generic',
+                description: `Đính kèm file`,
+                documents: uploadedFiles
+            } as Activity
+        )
     }
 
     async deactivateSchedule(schedule: PaymentSchedule) {

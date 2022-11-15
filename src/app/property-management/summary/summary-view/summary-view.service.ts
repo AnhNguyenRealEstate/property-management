@@ -7,6 +7,7 @@ import { Property } from '../../properties/property.data';
 @Injectable({ providedIn: 'root' })
 export class SummaryViewService {
     private monthsTilExpiry = 6;
+    private activityLimit = 8;
 
     constructor(
         private firestore: Firestore
@@ -37,7 +38,7 @@ export class SummaryViewService {
             query(
                 collectionGroup(this.firestore, FirestoreCollections.activities),
                 orderBy('date', 'desc'),
-                limit(8)
+                limit(this.activityLimit)
             )
         );
 

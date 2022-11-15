@@ -116,7 +116,8 @@
         </mat-card-title>
         <mat-card-content>
             <mat-card-content>
-                <div class="d-sm-none pt-3 ps-2">
+                <activity-list [showViewMore]="false" [activities]="newestActivities"></activity-list>
+                <!-- <div class="d-sm-none pt-3 ps-2">
                     <div class="row pb-1" *ngFor="let activity of newestActivities; let i = index">
                         <mat-divider inset="true" *ngIf="i > 0"></mat-divider>
                         <button mat-button (click)="showPropDetailsFromId(activity.propertyId)"
@@ -142,7 +143,7 @@
                         <div class="col-4 pt-2" style="color: gray">{{activity.description}}</div>
                         <div class="col-4 text-bold pt-2">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
                     </div>
-                </div>
+                </div> -->
             </mat-card-content>
         </mat-card-content>
     </mat-card>

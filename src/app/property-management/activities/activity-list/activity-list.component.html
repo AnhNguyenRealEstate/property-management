@@ -1,4 +1,4 @@
-<section class="p-3" style="min-width: 1200px">
+<section class="p-3">
     <mat-card>
         <mat-card-content>
             <div class="ps-2 pb-1 row">
@@ -80,9 +80,9 @@
             <mat-divider></mat-divider>
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
                 <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}}</div>
-                <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
-                    <div class="row">
-                        <div class="col-2 icon-and-time">
+                <div class="col-12 ms-3activity" *ngFor="let activity of activitiesByDate.activities">
+                    <div class="row pe-1 pb-1" style="min-height: 48px;">
+                        <div class="col-2 icon-and-time activity-line">
                             <div class="pt-2">
                                 <span>
                                     <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
@@ -102,7 +102,6 @@
                                 <span class="activity-description ps-3 pt-2">{{activity.date?.toDate() | date: 'HH:mm'
                                     }}</span>
                             </div>
-                            <div class="activity-line" style="height: 24px;"></div>
                         </div>
                         <div class="col-10">
                             <div class="row">
@@ -133,7 +132,7 @@
                                         </div>
                                         <div *ngIf="activity.documents?.length"
                                             class="ms-3 col-1 quarter-circle-top-right"></div>
-                                        <div *ngIf="activity.documents?.length" class="col-11 pt-1">
+                                        <div *ngIf="activity.documents?.length" class="col-10 pt-1">
                                             <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
                                                 *ngFor="let doc of activity.documents">
                                                 <span class="document-name">{{doc.displayName}}</span>
@@ -147,7 +146,7 @@
                 </div>
             </div>
             <div>
-                <button mat-raised-button (click)="getMoreActivities.emit()">
+                <button *ngIf="showViewMore" mat-raised-button (click)="getMoreActivities.emit()">
                     <mat-icon>expand_more</mat-icon>
                     <span>{{ 'activity_list.view_more' | translate }}</span>
                 </button>

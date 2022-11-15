@@ -25,15 +25,15 @@
     color: colors.$accent-300;
 }
 
-.activity {
-    .icon-and-time {
-        width: 13% !important;
-    }
-}
-
-.activity-line {
-    border-left: 2px solid rgba(200, 200, 200, 0.8);
-    margin-left: 9%;
+.activity-line::after {
+    background-color: #e0e3eb;
+    bottom: 0;
+    content: "";
+    display: block;
+    margin-left: 11px;
+    position: inherit;
+    width: 2px;
+    height: 70%;
 }
 
 .mat-expansion-panel-header-title {
@@ -66,5 +66,5 @@
 }
 
 .document-name {
-    color: rgba(purple, 0.8)
+    color: rgba(purple, 0.8);
 }
