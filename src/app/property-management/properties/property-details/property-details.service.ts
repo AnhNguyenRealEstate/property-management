@@ -86,7 +86,6 @@ export class PropertyDetailsService {
     }
 
     async getPaymentSchedules(scheduleIds: string[]): Promise<PaymentSchedule[]> {
-
         const schedules = await Promise.all(scheduleIds.map(async scheduleId => {
             const scheduleDocRef = doc(this.firestore, `${FirestoreCollections.paymentSchedules}/${scheduleId}`);
             const scheduleSnap = await getDoc(scheduleDocRef);
@@ -112,6 +111,16 @@ export class PropertyDetailsService {
         }));
 
         return schedules.filter(schedule => schedule.id);
+    }
+
+    async updatePaymentSchedule(schedule: PaymentSchedule) {
+        await updateDoc(
+            doc(
+                this.firestore,
+                `${FirestoreCollections.paymentSchedules}/${schedule.id}`
+            ),
+            { ...schedule }
+        )
     }
 
     async updateInvoice(invoice: Invoice) {

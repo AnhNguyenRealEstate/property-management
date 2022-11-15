@@ -47,6 +47,7 @@ export class PropertyDetailsComponent implements OnInit {
     @ViewChild('activityUploadTpl') activityUploadTpl!: TemplateRef<string>;
     @ViewChild('scheduleUploadTpl') scheduleUploadTpl!: TemplateRef<string>;
     @ViewChild('filesUploadTpl') filesUploadTpl!: TemplateRef<string>;
+    @ViewChild('paymentScheduleEditTpl') paymentScheduleEditTpl!: TemplateRef<string>;
 
     @ViewChild('descriptionTpl') descriptionTpl!: TemplateRef<string>;
     @ViewChild('amountTpl') amountTpl!: TemplateRef<string>;
@@ -382,6 +383,20 @@ export class PropertyDetailsComponent implements OnInit {
         this.uploadedFiles = [];
 
         this.fileUploadRef.close();
+    }
+
+    async editSchedule(schedule: PaymentSchedule) {
+        this.dialog.open(this.paymentScheduleEditTpl, {
+            height: 'fit-content',
+            width: '80%',
+            data: {
+                schedule: schedule
+            }
+        }).afterClosed().subscribe((toDelete: boolean) => {
+            if (toDelete) {
+                this.propertyDetails.updatePaymentSchedule(schedule)
+            }
+        });
     }
 
     async deactivateSchedule(schedule: PaymentSchedule) {

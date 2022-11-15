@@ -129,7 +129,8 @@
         "delete": "Delete",
         "cancel": "Cancel",
         "download": "Download",
-        "preview": "Preview"
+        "preview": "Preview",
+        "description": "Description"
     },
     "activity_list": {
         "search_label": "Property name...",
@@ -200,6 +201,7 @@
         "invoice_name": "Invoice name",
         "begin_date": "Begin date",
         "due_date": "Due date",
+        "end_date": "End date",
         "payment_window": "Payment window",
         "payment_date": "Payment date",
         "payout_date": "Payout date",
@@ -217,6 +219,7 @@
         "actions": "Actions",
         "save": "Save",
         "edit": "Edit",
+        "edit_schedule": "Edit schedule",
         "cancel": "Cancel",
         "doNotCollect": "Not collected",
         "deactivate": "Deactivate",

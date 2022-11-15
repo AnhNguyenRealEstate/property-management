@@ -133,7 +133,8 @@
         "delete": "Xoá",
         "cancel": "Huỷ",
         "download": "Tải về",
-        "preview": "Xem"
+        "preview": "Xem",
+        "description": "Thông tin tài sản"
     },
     "activity_list": {
         "search_label": "Tên tài sản...",
@@ -204,6 +205,7 @@
         "invoice_name": "Tên",
         "begin_date": "Ngày bắt đầu thu",
         "due_date": "Ngày hết hạn thanh toán",
+        "end_date": "Ngày kết thúc lịch",
         "payment_window": "Giai đoạn",
         "payment_date": "Ngày nhận tiền",
         "payout_date": "Ngày trả tiền cho chủ",
@@ -221,6 +223,7 @@
         "actions": "",
         "save": "Lưu",
         "edit": "Sửa",
+        "edit_schedule": "Sửa lịch",
         "cancel": "Huỷ",
         "doNotCollect": "Không thu",
         "deactivate": "Huỷ lịch",
