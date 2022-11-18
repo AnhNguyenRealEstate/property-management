@@ -47,4 +47,4 @@ export interface UserProfile {
     roles: Role[]
 }
 
-export type Role = 'owner' | 'customer-service';
+export type Role = 'owner' | 'customer-service' | 'admin';

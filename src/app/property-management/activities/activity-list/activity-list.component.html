@@ -81,7 +81,7 @@
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
                 <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}}</div>
                 <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
-                    <div class="row pe-1 pb-1" style="min-height: 48px;">
+                    <div class="row pe-1 pb-3" style="min-height: 48px;">
                         <div class="col-2 icon-and-time activity-line">
                             <div class="pt-2">
                                 <span>
@@ -147,10 +147,19 @@
                             </div>
 
                             <div class="row pb-2 activity-details-mobile d-sm-none">
-                                <div class="col-12 pt-2">
+                                <div class="col-12 pt-2 activity-metadata">
                                     <span class="ps-3">
+                                        <mat-icon class="mb-1" style="font-size: 18px; width: 18px; height:18px">access_time
+                                        </mat-icon>
+                                    </span>
+                                    <span class="ps-1">
                                         {{activity.date?.toDate() | date: 'HH:mm' }}
                                     </span>
+                                    <span *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName"
+                                        class="px-2">&bull;</span>
+                                    <span
+                                        *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">{{activity.createdBy?.displayName
+                                        || activity.createdBy?.userName}}</span>
                                 </div>
                                 <div class="col-12" *ngIf="showPropertyName">
                                     <button mat-button (click)="showDetails(activity.propertyId!)"
