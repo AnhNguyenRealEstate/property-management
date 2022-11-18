@@ -46,7 +46,12 @@
             </div>
         </mat-card-title>
         <mat-card-content>
-            <div class="chart">
+            <div class="chart d-sm-none">
+                <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins" height="300">
+                </canvas>
+            </div>
+            <div class="chart d-none d-sm-block">
                 <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
                     [plugins]="pieChartPlugins" height="500">
                 </canvas>
@@ -59,14 +64,17 @@
     <mat-card class="mat-elevation-z1">
         <mat-card-title>
             <div class="d-flex justify-content-between">
-                <div>{{'summary.contracts_expiring_soon' | translate }}</div>
-                <button mat-raised-button (click)="viewProperties()">{{ 'summary.view_all' | translate }} <mat-icon>
-                        arrow_right_alt</mat-icon></button>
+                <div>
+                    {{'summary.contracts_expiring_soon' | translate }}
+                </div>
+                <button mat-raised-button (click)="viewProperties()">{{ 'summary.view_all' | translate }}
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </button>
             </div>
         </mat-card-title>
         <mat-card-content>
             <div class="d-sm-none pt-3 ps-2">
-                <div class="row pb-1" *ngFor="let prop of soonToExpireProperties; let i = index">
+                <div class="row pb-2" *ngFor="let prop of soonToExpireProperties; let i = index">
                     <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
                     <button mat-button (click)="showPropDetails(prop)"
                         class="col-12 text-bold d-flex justify-content-start">
@@ -128,45 +136,14 @@
 </ng-template>
 
 <ng-template #recentActivities>
-    <mat-card class="mat-elevation-z1">
-        <mat-card-title>
-            <div class="d-flex justify-content-between">
-                <span> {{ 'summary.recent_activities' | translate }}</span>
-                <button mat-raised-button (click)="viewActivities()">{{ 'summary.view_all' | translate }} <mat-icon>
-                        arrow_right_alt</mat-icon></button>
-            </div>
-        </mat-card-title>
-        <mat-card-content>
-            <mat-card-content>
-                <activity-list [showViewMore]="false" [activities]="newestActivities"></activity-list>
-                <!-- <div class="d-sm-none pt-3 ps-2">
-                    <div class="row pb-1" *ngFor="let activity of newestActivities; let i = index">
-                        <mat-divider inset="true" *ngIf="i > 0"></mat-divider>
-                        <button mat-button (click)="showPropDetailsFromId(activity.propertyId)"
-                            class="col-12 property-name text-bold d-flex justify-content-start">
-                            {{activity.propertyName}}
-                        </button>
-                        <div class="col-12 ps-3" style="color: gray">{{activity.description}}</div>
-                        <div class="col-12 ps-3 text-bold">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
-                    </div>
-                </div>
-
-                <div class="d-none d-sm-block pt-3 ps-4">
-                    <div class="pb-3 row">
-                        <div class="col-4 table-header">{{ 'summary.property' | translate }}</div>
-                        <div class="col-4 table-header">{{ 'summary.description' | translate }}</div>
-                        <div class="col-4 table-header">{{ 'summary.date' | translate }}</div>
-                    </div>
-                    <div class="row pb-1" *ngFor="let activity of newestActivities">
-                        <button mat-button (click)="showPropDetailsFromId(activity.propertyId)"
-                            class="col-4 property-name text-bold d-flex justify-content-start">
-                            {{activity.propertyName}}
-                        </button>
-                        <div class="col-4 pt-2" style="color: gray">{{activity.description}}</div>
-                        <div class="col-4 text-bold pt-2">{{activity.date?.toDate() | date: 'dd/MM/yyyy'}}</div>
-                    </div>
-                </div> -->
-            </mat-card-content>
-        </mat-card-content>
-    </mat-card>
+    <div class="mat-elevation-z3" style="border-radius: 15px">
+        <div class="d-flex justify-content-between">
+            <span class="mat-card-title ps-3 pt-3">{{ 'summary.recent_activities' | translate }}</span>
+            <button class="mt-3 me-3" mat-raised-button (click)="viewActivities()">
+                <span>{{ 'summary.view_all' | translate }}</span>
+                <mat-icon>arrow_right_alt</mat-icon>
+            </button>
+        </div>
+        <activity-list [showViewMore]="false" [activities]="newestActivities"></activity-list>
+    </div>
 </ng-template>

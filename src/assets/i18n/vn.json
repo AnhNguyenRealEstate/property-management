@@ -288,7 +288,7 @@
         "recent_activities": "Hoạt động gần đây",
         "description": "Mô tả",
         "date": "Ngày",
-        "contracts_expiring_soon": "Hợp đồng thuê sắp hết hạn",
+        "contracts_expiring_soon": "Sắp hết hạn hợp đồng",
         "expiring_soon_msg": "Còn {{month}} tháng"
     },
     "contract_extension": {

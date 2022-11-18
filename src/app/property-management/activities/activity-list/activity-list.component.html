@@ -105,39 +105,42 @@
                             </div>
                         </div>
                         <div class="col-10 acitivty-details">
-                            <div class="row activity-details-desktop d-none d-sm-block">
-                                <div class="col-4" *ngIf="showPropertyName">
-                                    <button mat-button (click)="showDetails(activity.propertyId!)"
-                                        class="property-name">
-                                        <span class="pe-2">
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Apartment'">
-                                                apartment</mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Villa'">villa
-                                            </mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Townhouse'">
-                                                door_sliding</mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Commercial'">
-                                                store_front</mat-icon>
-                                        </span>
-                                        <span>{{activity.propertyName}}</span>
-                                    </button>
-                                </div>
-                                <div class="col-8 pt-2">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <span class="activity-description">{{activity.description}}</span>
-                                        </div>
-                                        <div *ngIf="activity.documents?.length"
-                                            class="ms-3 col-1 quarter-circle-top-right"></div>
-                                        <div *ngIf="activity.documents?.length" class="col-10 pt-1">
-                                            <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
-                                                *ngFor="let doc of activity.documents">
-                                                <span class="document-name">{{doc.displayName}}</span>
-                                            </button>
+                            <div class="d-none d-sm-block activity-details-desktop">
+                                <div class="row">
+                                    <div class="col-4" *ngIf="showPropertyName">
+                                        <button mat-button (click)="showDetails(activity.propertyId!)"
+                                            class="property-name">
+                                            <span class="pe-2">
+                                                <mat-icon class="property-type-icon"
+                                                    *ngIf="activity.propertyCategory === 'Apartment'">
+                                                    apartment</mat-icon>
+                                                <mat-icon class="property-type-icon"
+                                                    *ngIf="activity.propertyCategory === 'Villa'">villa
+                                                </mat-icon>
+                                                <mat-icon class="property-type-icon"
+                                                    *ngIf="activity.propertyCategory === 'Townhouse'">
+                                                    door_sliding</mat-icon>
+                                                <mat-icon class="property-type-icon"
+                                                    *ngIf="activity.propertyCategory === 'Commercial'">
+                                                    store_front</mat-icon>
+                                            </span>
+                                            <span>{{activity.propertyName}}</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-8 pt-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span class="activity-description">{{activity.description}}</span>
+                                            </div>
+                                            <div *ngIf="activity.documents?.length"
+                                                class="ms-3 col-1 quarter-circle-top-right"></div>
+                                            <div *ngIf="activity.documents?.length" class="col-10 pt-1">
+                                                <button class="mb-1" mat-stroked-button
+                                                    (click)="downloadDoc(activity, doc)"
+                                                    *ngFor="let doc of activity.documents">
+                                                    <span class="document-name">{{doc.displayName}}</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
