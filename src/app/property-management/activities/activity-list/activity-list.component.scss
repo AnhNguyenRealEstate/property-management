@@ -5,7 +5,7 @@
 }
 
 .property-name {
-    color: colors.$accent-300;
+    color: colors.$accent;
     font-weight: 500;
     display: flex;
     justify-content: flex-start;
@@ -19,10 +19,6 @@
     color: gray;
     word-wrap: break-word;
     white-space: normal;
-}
-
-.property-type-icon {
-    color: colors.$accent-300;
 }
 
 .activity-line::after {
@@ -52,6 +48,11 @@
     border-radius: 0 0 0 100px;
     -moz-border-radius: 0 0 0 100px;
     -webkit-border-radius: 0 0 0 100px;
+}
+
+.activity-document {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
 }
 
 .filter-criterion {

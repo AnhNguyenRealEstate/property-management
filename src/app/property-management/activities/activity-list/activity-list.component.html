@@ -80,7 +80,7 @@
             <mat-divider></mat-divider>
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
                 <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}}</div>
-                <div class="col-12 ms-3activity" *ngFor="let activity of activitiesByDate.activities">
+                <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
                     <div class="row pe-1 pb-1" style="min-height: 48px;">
                         <div class="col-2 icon-and-time activity-line">
                             <div class="pt-2">
@@ -99,12 +99,13 @@
                                     <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
                                     </mat-icon>
                                 </span>
-                                <span class="activity-description ps-3 pt-2">{{activity.date?.toDate() | date: 'HH:mm'
-                                    }}</span>
+                                <span class="activity-description d-none d-sm-inline ps-3 pt-2">
+                                    {{activity.date?.toDate() | date: 'HH:mm' }}
+                                </span>
                             </div>
                         </div>
-                        <div class="col-10">
-                            <div class="row">
+                        <div class="col-10 acitivty-details">
+                            <div class="row activity-details-desktop d-none d-sm-block">
                                 <div class="col-4" *ngIf="showPropertyName">
                                     <button mat-button (click)="showDetails(activity.propertyId!)"
                                         class="property-name">
@@ -133,6 +134,49 @@
                                         <div *ngIf="activity.documents?.length"
                                             class="ms-3 col-1 quarter-circle-top-right"></div>
                                         <div *ngIf="activity.documents?.length" class="col-10 pt-1">
+                                            <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
+                                                *ngFor="let doc of activity.documents">
+                                                <span class="document-name">{{doc.displayName}}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pb-2 activity-details-mobile d-sm-none">
+                                <div class="col-12 pt-2">
+                                    <span class="ps-3">
+                                        {{activity.date?.toDate() | date: 'HH:mm' }}
+                                    </span>
+                                </div>
+                                <div class="col-12" *ngIf="showPropertyName">
+                                    <button mat-button (click)="showDetails(activity.propertyId!)"
+                                        class="property-name">
+                                        <span class="pe-2">
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Apartment'">
+                                                apartment</mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Villa'">villa
+                                            </mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Townhouse'">
+                                                door_sliding</mat-icon>
+                                            <mat-icon class="property-type-icon"
+                                                *ngIf="activity.propertyCategory === 'Commercial'">
+                                                store_front</mat-icon>
+                                        </span>
+                                        <span>{{activity.propertyName}}</span>
+                                    </button>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row ps-3">
+                                        <div class="col-12">
+                                            <span class="activity-description">{{activity.description}}</span>
+                                        </div>
+                                        <div *ngIf="activity.documents?.length"
+                                            class="ms-3 col-2 quarter-circle-top-right"></div>
+                                        <div *ngIf="activity.documents?.length" class="col-8 pt-1 activity-document">
                                             <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
                                                 *ngFor="let doc of activity.documents">
                                                 <span class="document-name">{{doc.displayName}}</span>
