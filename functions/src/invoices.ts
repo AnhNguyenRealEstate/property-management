@@ -42,7 +42,7 @@ async function prepareEmailInfo() {
     }
 
     const monday = new Date();
-    const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
+    const endOfWeek = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 7);
 
     const mondayTimestamp = Timestamp.fromDate(monday);
     const endOfWeekTimestamp = Timestamp.fromDate(endOfWeek);

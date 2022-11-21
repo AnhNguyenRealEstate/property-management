@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, collectionGroup, doc, Firestore, getDoc, query, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from '../../activities/activity.data';
 import { Property } from '../../properties/property.data';
 import { Invoice } from '../invoices.data';
@@ -8,7 +9,8 @@ import { Invoice } from '../invoices.data';
 @Injectable({ providedIn: 'root' })
 export class InvoiceListService {
     constructor(
-        private firestore: Firestore
+        private firestore: Firestore,
+        private userProfile: UserProfileService
     ) { }
 
     async updateInvoice(invoice: Invoice) {
@@ -30,7 +32,8 @@ export class InvoiceListService {
                 description: `Cập nhật thông tin biên nhận`,
                 propertyId: invoice.propertyId,
                 propertyName: invoice.propertyName,
-                type: 'invoice'
+                type: 'invoice',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
     }
@@ -56,7 +59,8 @@ export class InvoiceListService {
                 description: `Đã thu ${invoice.amount} từ ${invoice.payer} cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
                 propertyName: invoice.propertyName,
-                type: 'invoice'
+                type: 'invoice',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
     }
@@ -82,7 +86,8 @@ export class InvoiceListService {
                 description: `Gửi chủ nhà tiền thuê cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
                 propertyName: invoice.propertyName,
-                type: 'invoice'
+                type: 'invoice',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
     }

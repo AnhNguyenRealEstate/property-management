@@ -7,44 +7,50 @@ import { LoginService } from '../login/login.service';
 import { FirestoreCollections } from './globals';
 
 @Injectable({ providedIn: 'root' })
-export class RolesService {
+export class UserProfileService {
 
     private roles$$ = new BehaviorSubject<Role[]>([]);
     roles$ = this.roles$$.asObservable();
 
+    profile$$ = new BehaviorSubject<UserProfile>({} as UserProfile);
+    profile$ = this.profile$$.asObservable();
+
     constructor(
-        private router: Router,
         private login: LoginService,
         private auth: Auth,
         private firestore: Firestore
     ) {
         this.login.loggedIn$.subscribe(async (loggedIn) => {
             if (loggedIn && this.auth.currentUser?.email) {
-                this.roles$$.next(await this.getRoles(this.auth.currentUser?.email));
+                await this.getProfile(this.auth.currentUser?.email);
             } else {
                 this.roles$$.next([]);
+                this.profile$$.next({} as UserProfile);
             }
         });
     }
 
-    private async getRoles(userId: string): Promise<Role[]> {
+    private async getProfile(userId: string) {
         if (!userId) {
-            return [];
+            return;
         }
 
         const userProfileDoc = await getDoc(doc(collection(this.firestore, FirestoreCollections.users), userId));
         const profile = userProfileDoc.data() as UserProfile;
 
         if (!profile) {
-            return [];
+            return;
         }
 
-        return profile.roles;
+        this.profile$$.next(profile);
+        this.roles$$.next(profile.roles);
     }
 }
 
 export interface UserProfile {
     roles: Role[]
+    userName: string
+    displayName: string
 }
 
 export type Role = 'owner' | 'customer-service' | 'admin';

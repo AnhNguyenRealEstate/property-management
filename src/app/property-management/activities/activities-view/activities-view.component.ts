@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
-import { Role, RolesService } from 'src/app/shared/roles.service';
+import { Role, UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from "../activity.data";
 import { ActivitiesViewService } from './activities-view.service';
 import { UploadedFile } from '../../property-management.data';
@@ -21,7 +21,7 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
     constructor(
         public activitiesView: ActivitiesViewService,
         private auth: Auth,
-        public roles: RolesService
+        public roles: UserProfileService
     ) { }
 
     async ngOnInit() {

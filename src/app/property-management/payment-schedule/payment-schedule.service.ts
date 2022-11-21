@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from '../activities/activity.data';
 import { Invoice } from '../invoices/invoices.data';
 
 @Injectable({ providedIn: 'root' })
 export class PaymentScheduleService {
     constructor(
-        private firestore: Firestore
+        private firestore: Firestore,
+        private userProfile: UserProfileService
     ) { }
 
     async markInvoiceAsPaid(invoice: Invoice) {
@@ -31,7 +33,8 @@ export class PaymentScheduleService {
                 date: Timestamp.fromDate(new Date()),
                 description: `Thanh toán tiền thuê cho giai đoạn ${invoice.paymentWindow}`,
                 propertyId: invoice.propertyId,
-                propertyName: invoice.propertyName
+                propertyName: invoice.propertyName,
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
     }

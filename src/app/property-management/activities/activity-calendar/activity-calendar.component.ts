@@ -4,7 +4,7 @@ import { CalendarView } from 'angular-calendar';
 import { CalendarEvent } from 'calendar-utils'
 import { isSameDay, isSameMonth } from 'date-fns';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { Role, RolesService } from 'src/app/shared/roles.service';
+import { Role, UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from "../activity.data";
 import { ActivityCalendarService } from './activity-calendar.service';
 
@@ -25,7 +25,7 @@ export class ActivitiyCalendarComponent implements OnInit, OnDestroy {
     subs: Subscription = new Subscription();
 
     constructor(
-        private roles: RolesService,
+        private roles: UserProfileService,
         private auth: Auth,
         public activityCalendar: ActivityCalendarService
     ) { }

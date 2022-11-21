@@ -3,7 +3,7 @@ import { doc, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { RolesService } from 'src/app/shared/roles.service';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { Property } from "../property.data";
 import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertyCardService } from './property-card.service';
@@ -33,7 +33,7 @@ export class PropertyCardComponent implements OnInit {
         private snackbar: MatSnackBar,
         private translate: TranslateService,
         private propertyCard: PropertyCardService,
-        public roles: RolesService
+        public roles: UserProfileService
     ) { }
 
     async ngOnInit() {

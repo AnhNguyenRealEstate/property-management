@@ -4,6 +4,7 @@ import { deleteObject, getBlob, getDownloadURL, ref, Storage, uploadBytes } from
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -17,7 +18,8 @@ export class PropertyDetailsService {
     constructor(
         private firestore: Firestore,
         private storage: Storage,
-        private login: LoginService
+        private login: LoginService,
+        private userProfile: UserProfileService
     ) { }
 
     async getDocUrl(docPath: string) {
@@ -123,13 +125,28 @@ export class PropertyDetailsService {
         )
     }
 
-    async updateInvoice(invoice: Invoice) {
+    async updateInvoice(originalInvoice: Invoice, updatedInvoice: Invoice) {
+
+        const statusChangedToUnpaid = originalInvoice.status !== 'unpaid' && updatedInvoice.status === 'unpaid'
+        const statusChangedToPaid = originalInvoice.status !== 'paid' && updatedInvoice.status === 'paid'
+        const statusChangedToPaidOut = originalInvoice.status !== 'paidOut' && updatedInvoice.status === 'paidOut'
+        const statusChangedToDNC = originalInvoice.status !== 'doNotCollect' && updatedInvoice.status === 'doNotCollect'
+        if (statusChangedToPaid) {
+            updatedInvoice.paymentDate = Timestamp.now()
+            updatedInvoice.payoutDate = undefined
+        } else if (statusChangedToPaidOut) {
+            updatedInvoice.payoutDate = Timestamp.now()
+        } else if (statusChangedToDNC || statusChangedToUnpaid) {
+            updatedInvoice.paymentDate = undefined
+            updatedInvoice.payoutDate = undefined
+        }
+
         await updateDoc(
             doc(
                 this.firestore,
-                `${FirestoreCollections.paymentSchedules}/${invoice.scheduleId}/${FirestoreCollections.invoices}/${invoice.id}`
+                `${FirestoreCollections.paymentSchedules}/${updatedInvoice.scheduleId}/${FirestoreCollections.invoices}/${updatedInvoice.id}`
             ),
-            { ...invoice }
+            { ...updatedInvoice }
         )
     }
 
@@ -252,7 +269,8 @@ export class PropertyDetailsService {
                 date: Timestamp.now(),
                 type: 'generic',
                 description: `Đính kèm file`,
-                documents: uploadedFiles
+                documents: uploadedFiles,
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
     }

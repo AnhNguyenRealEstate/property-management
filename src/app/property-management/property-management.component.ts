@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { RolesService } from '../shared/roles.service';
+import { UserProfileService } from '../shared/user-profile.service';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Property } from './properties/property.data';
@@ -19,7 +19,7 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit {
 
     constructor(
         private dialog: MatDialog,
-        public roles: RolesService,
+        public roles: UserProfileService,
         private router: Router,
         private layout: LayoutService,
         @Inject(DOCUMENT) private document: Document

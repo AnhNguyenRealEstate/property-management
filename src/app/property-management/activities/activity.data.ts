@@ -1,6 +1,7 @@
 import { Timestamp } from "@angular/fire/firestore";
+import { UserProfile } from "src/app/shared/user-profile.service";
 import { PropertyCategory } from "../properties/property.data";
-import { UploadedFile, User } from "../property-management.data";
+import { UploadedFile } from "../property-management.data";
 
 export type ActivityType = 'generic' | 'newContract' | 'contractExtension' | 'contractCancellation' | 'propertyEdit' | 'invoice';
 
@@ -15,5 +16,5 @@ export interface Activity {
     propertyCategory?: PropertyCategory
     fileStoragePath?: string //Firebase auto generated
     type?: ActivityType
-    createdBy?: User
+    createdBy?: UserProfile
 }

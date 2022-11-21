@@ -9,6 +9,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../../activities/activity.data';
 import { Owner } from '../../owners/owner.data';
@@ -55,6 +56,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         private hash: HashingService,
         private snackbar: MatSnackBar,
         private translate: TranslateService,
+        private userProfile: UserProfileService,
         @Optional() private dialogRef: MatDialogRef<PropertyUploadComponent>
     ) {
 
@@ -226,7 +228,8 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
                 date: Timestamp.now(),
                 type: 'newContract',
                 description: `Hợp đồng thuê mới. Bên thuê: ${this.property.tenantName}`,
-                documents: this.property.documents
+                documents: this.property.documents,
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
 

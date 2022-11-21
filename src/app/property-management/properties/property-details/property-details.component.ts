@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RolesService } from 'src/app/shared/roles.service';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';
@@ -71,17 +71,19 @@ export class PropertyDetailsComponent implements OnInit {
     };
     paymentScheduleCols: Columns[] = [];
 
-    invoicesBeingEdited: string[] = []
+    idsOfinvoicesBeingEdited: string[] = []
+    invoicesBeingEdited: Invoice[] = []
 
     constructor(
         private propertyDetails: PropertyDetailsService,
         private translate: TranslateService,
-        public roles: RolesService,
+        public roles: UserProfileService,
         private renderer: Renderer2,
         private snackbar: MatSnackBar,
         private datePipe: DatePipe,
         private dialog: MatDialog,
         private hash: HashingService,
+        private userProfile: UserProfileService,
         private _bottomSheetRef: MatBottomSheetRef<PropertyDetailsComponent>,
         @Optional() @Inject(MAT_BOTTOM_SHEET_DATA) private data: any
     ) {
@@ -178,22 +180,32 @@ export class PropertyDetailsComponent implements OnInit {
         return new Date((stamp as any).seconds * 1000);
     }
 
+    editInvoice(invoice: Invoice) {
+        this.idsOfinvoicesBeingEdited.push(invoice.id!)
+        this.invoicesBeingEdited.push({ ...invoice } as Invoice)
+    }
+
+    invoiceEditDone(invoice: Invoice) {
+        this.invoicesBeingEdited = this.invoicesBeingEdited.filter(_ => _.id !== invoice.id)
+        this.idsOfinvoicesBeingEdited = this.idsOfinvoicesBeingEdited.filter(id => id !== invoice.id)
+    }
+
     async updateInvoice(invoice: Invoice) {
         const DATE_PIPE_FORMAT = 'dd/MM/yyyy';
         invoice.paymentWindow = `${this.datePipe.transform(invoice.beginDate!.toDate(), DATE_PIPE_FORMAT)} - ${this.datePipe.transform(invoice.dueDate!.toDate(), DATE_PIPE_FORMAT)}`;
-        await this.propertyDetails.updateInvoice(invoice);
+        await this.propertyDetails.updateInvoice(this.invoicesBeingEdited.find(_ => _.id === invoice.id)!, invoice);
         await this.propertyDetails.addActivity(this.property,
             {
                 propertyId: this.property.id,
                 propertyName: this.property.name,
                 date: Timestamp.now(),
                 description: `Cập nhật thông tin biên nhận`,
-                type: 'invoice'
+                type: 'invoice',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity,
             []);
 
-        const index = this.invoicesBeingEdited.findIndex(invoiceId => invoiceId === invoice.id);
-        this.invoicesBeingEdited.splice(index, 1);
+        this.invoiceEditDone(invoice)
 
         this.snackbar.open(
             this.translate.instant('property_details.invoice_edit_success'),
@@ -205,8 +217,8 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     cancelUpdate(invoice: Invoice) {
-        const index = this.invoicesBeingEdited.findIndex(invoiceId => invoiceId === invoice.id);
-        this.invoicesBeingEdited.splice(index, 1);
+        invoice = Object.assign(invoice, this.invoicesBeingEdited.find(_ => _.id === invoice.id))
+        this.invoiceEditDone(invoice)
     }
 
     dateToTimestamp(date: Date): Timestamp {

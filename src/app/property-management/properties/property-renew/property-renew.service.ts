@@ -4,6 +4,7 @@ import { Firestore, addDoc, collection, updateDoc, Timestamp, doc } from '@angul
 import { uploadBytes, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
@@ -24,7 +25,8 @@ export class PropertyRenewService {
     constructor(
         private httpClient: HttpClient,
         private firestore: Firestore,
-        private storage: Storage
+        private storage: Storage,
+        private userProfile: UserProfileService
     ) { }
 
     async extractContractData(data: FormData): Promise<ContractData | undefined> {
@@ -75,7 +77,8 @@ export class PropertyRenewService {
                 description: `Hợp đồng thuê mới. Bên thuê: ${property.tenantName}`,
                 propertyId: property.id,
                 propertyName: property.name,
-                type: 'newContract'
+                type: 'newContract',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
 

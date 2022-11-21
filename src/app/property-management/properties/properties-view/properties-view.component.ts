@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { RolesService } from 'src/app/shared/roles.service';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
 import { Property, PropertyCategory } from "../property.data";
 import { PropertiesViewService } from './properties-view.service';
@@ -62,7 +62,7 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     constructor(
         private dialog: MatDialog,
         private bottomSheet: MatBottomSheet,
-        public roles: RolesService,
+        public roles: UserProfileService,
         public propertiesView: PropertiesViewService,
         public metadata: MetadataService
     ) {

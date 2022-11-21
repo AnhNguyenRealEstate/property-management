@@ -11,6 +11,7 @@ import { ContractData } from '../property-upload/property-upload.data'
 import { Property } from '../property.data'
 import { ExtensionData } from './contract-extension.data'
 import { formatDate } from '@angular/common';
+import { UserProfileService } from 'src/app/shared/user-profile.service'
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,7 @@ export class ContractExtensionService {
         private httpClient: HttpClient,
         private firestore: Firestore,
         private storage: Storage,
+        private userProfile: UserProfileService,
         @Inject(LOCALE_ID) private locale: string
     ) { }
 
@@ -70,6 +72,7 @@ export class ContractExtensionService {
                 propertyId: property.id,
                 propertyName: property.name,
                 type: 'contractExtension',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity
         )
 

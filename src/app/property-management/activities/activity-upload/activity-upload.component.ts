@@ -3,7 +3,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
+import { lastValueFrom } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
+import { UserProfileService } from 'src/app/shared/user-profile.service';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activity.data";
 
@@ -23,7 +25,8 @@ export class ActivityUploadComponent implements OnInit {
 
     constructor(
         private auth: Auth,
-        private hash: HashingService
+        private hash: HashingService,
+        private userProfile: UserProfileService
     ) { }
 
     ngOnInit() { }
@@ -93,7 +96,7 @@ export class ActivityUploadComponent implements OnInit {
             !!this.newActivityAttachments?.find(doc => doc.displayName === name);
     }
 
-    addActivity(form: NgForm) {
+    async addActivity(form: NgForm) {
         if (!this.auth.currentUser?.email) {
             return;
         }
@@ -102,7 +105,9 @@ export class ActivityUploadComponent implements OnInit {
             activity: {
                 date: Timestamp.fromDate(this.date),
                 description: this.description,
-                documents: this.newActivityAttachments
+                documents: this.newActivityAttachments,
+                type: 'generic',
+                createdBy: this.userProfile.profile$$.getValue()
             } as Activity,
             newFiles: this.newFiles
         });

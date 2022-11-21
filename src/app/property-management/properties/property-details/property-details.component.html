@@ -283,7 +283,7 @@
 </section>
 
 <ng-template #descriptionTpl let-row>
-    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editDescription">
+    <div *ngIf="!idsOfinvoicesBeingEdited.includes(row.id); else editDescription">
         {{row.description}}
     </div>
     <ng-template #editDescription>
@@ -294,7 +294,7 @@
 </ng-template>
 
 <ng-template #amountTpl let-row>
-    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editAmt">
+    <div *ngIf="!idsOfinvoicesBeingEdited.includes(row.id); else editAmt">
         {{row.amount}}
     </div>
     <ng-template #editAmt>
@@ -305,7 +305,7 @@
 </ng-template>
 
 <ng-template #periodTpl let-row>
-    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editPeriod">
+    <div *ngIf="!idsOfinvoicesBeingEdited.includes(row.id); else editPeriod">
         {{row.paymentWindow}}
     </div>
     <ng-template #editPeriod>
@@ -328,7 +328,7 @@
 </ng-template>
 
 <ng-template #statusTpl let-row>
-    <div *ngIf="!invoicesBeingEdited.includes(row.id); else editStatus">
+    <div *ngIf="!idsOfinvoicesBeingEdited.includes(row.id); else editStatus">
         <span class="pe-1">
             <mat-icon *ngIf="row.status === 'doNotCollect'" style="color: gray">
                 block
@@ -359,20 +359,20 @@
 </ng-template>
 
 <ng-template #actionsTpl let-row>
-    <button class="me-1 mat-elevation-z1" mat-raised-button *ngIf="!invoicesBeingEdited.includes(row.id)"
-        (click)="invoicesBeingEdited.push(row.id)">
+    <button class="me-1 mat-elevation-z1" mat-raised-button *ngIf="!idsOfinvoicesBeingEdited.includes(row.id)"
+        (click)="editInvoice(row)">
         <mat-icon color="accent">edit</mat-icon> {{ 'payment_schedule.edit' | translate }}
     </button>
-    <button mat-raised-button class="mat-elevation-z1" *ngIf="!invoicesBeingEdited.includes(row.id)"
+    <button mat-raised-button class="mat-elevation-z1" *ngIf="!idsOfinvoicesBeingEdited.includes(row.id)"
         (click)="deleteInvoice(row)">
         <mat-icon>delete</mat-icon> {{ 'payment_schedule.delete' | translate }}
     </button>
 
-    <button class="me-2 mat-elevation-z1" mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)"
+    <button class="me-2 mat-elevation-z1" mat-raised-button *ngIf="idsOfinvoicesBeingEdited.includes(row.id)"
         (click)="updateInvoice(row)">
         <mat-icon color="accent">save</mat-icon> {{ 'payment_schedule.save' | translate }}
     </button>
-    <button class="mat-elevation-z1" mat-raised-button *ngIf="invoicesBeingEdited.includes(row.id)"
+    <button class="mat-elevation-z1" mat-raised-button *ngIf="idsOfinvoicesBeingEdited.includes(row.id)"
         (click)="cancelUpdate(row)">
         <mat-icon>close</mat-icon> {{ 'payment_schedule.cancel' | translate }}
     </button>
