@@ -49,15 +49,9 @@
                     </ng-template>
                 </div>
                 <ng-container *ngIf="activities?.length; else noActivity">
-                    <activity-list [showPropertyName]="false" [activities]="activities!"
+                    <activity-list [showPropertyName]="false" [activities]="activities!" (getMoreActivities)="getMoreActivities()"
                         [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')">
                     </activity-list>
-                    <div *ngIf="showViewMoreActivities" class="row">
-                        <button class="d-block pt-2" mat-button (click)="getMoreActivities()" color="accent">
-                            {{ 'property_details.view_more' | translate }}
-                            <mat-icon>keyboard_double_arrow_down_icon</mat-icon>
-                        </button>
-                    </div>
                 </ng-container>
                 <ng-template #noActivity>
                     <div class="pt-3">{{ 'property_details.no_recent_activities' | translate }}</div>
