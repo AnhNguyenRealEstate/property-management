@@ -9,6 +9,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { TableModule } from 'ngx-easy-table';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
     declarations: [ActivityListComponent],
     imports: [
@@ -21,7 +22,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
         MatBottomSheetModule,
         TableModule,
         NgxDocViewerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatTooltipModule
     ],
     exports: [ActivityListComponent],
     providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },]
