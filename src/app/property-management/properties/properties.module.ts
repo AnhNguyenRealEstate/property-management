@@ -11,7 +11,6 @@ import { ActivityUploadModule } from '../activities/activity-upload/activity-upl
 import { ContractExtractionModule } from '../contract-extraction/contract-extraction.module';
 import { ContractExtensionModule } from './contract-extension/contract-extension.module';
 import { PropertiesRoutingModule } from './properties-routing.module';
-
 import { PropertiesViewComponent, PropertyFilterPipe } from './properties-view/properties-view.component';
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyDetailsModule } from './property-details/property-details.module';
@@ -19,6 +18,7 @@ import { PropertyEditModule } from './property-edit/property-edit.module';
 import { PropertyRenewModule } from './property-renew/property-renew.module';
 import { PropertyUploadModule } from './property-upload/property-upload.module';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
     imports: [
         CommonModule,
@@ -36,7 +36,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
         PropertyRenewModule,
         PropertyEditModule,
         ContractExtensionModule,
-        MatBottomSheetModule
+        MatBottomSheetModule,
+        NgxPaginationModule
     ],
     exports: [PropertiesViewComponent],
     declarations: [PropertiesViewComponent, PropertyCardComponent, PropertyFilterPipe],

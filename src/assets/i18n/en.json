@@ -1,6 +1,10 @@
 {
     "app_title": "Property Management Portal",
-    "generics.any": "Any",
+    "generics": {
+        "any": "Any",
+        "previous": "Previous",
+        "next": "Next"
+    },
     "property_category": {
         "apartment": "Apartment",
         "villa": "Villa",

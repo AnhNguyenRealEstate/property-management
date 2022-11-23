@@ -59,6 +59,12 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
 
     searchInput: string = '';
 
+    itemsPerPage: number = 8;
+    apartmentsCurrentPage: number = 1;
+    townhousesCurrentPage: number = 1;
+    villasCurrentPage: number = 1;
+    commercialsCurrentPage: number = 1;
+
     constructor(
         private dialog: MatDialog,
         private bottomSheet: MatBottomSheet,

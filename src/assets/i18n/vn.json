@@ -1,6 +1,10 @@
 {
     "app_title": "Quản Lý Tài Sản",
-    "generics.any": "Bất kỳ",
+    "generics": {
+        "any": "Bất kỳ",
+        "previous": "Trước",
+        "next": "Sau"
+    },
     "property_category": {
         "apartment": "Căn hộ",
         "villa": "Biệt thự",

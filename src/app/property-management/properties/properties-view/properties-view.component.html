@@ -17,13 +17,18 @@
             </div>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]="{category: 'Apartment'}"></ng-container>
-        <div [@propertyCardAnim]="apartments.length" class="row p-2">
-            <div *ngFor="let prop of apartments | propFilter: searchInput;"
+        <div [@propertyCardAnim]="apartments.length" class="row p-2" style="min-height: 70vh;">
+            <div *ngFor="let prop of apartments | propFilter: searchInput | paginate: {id: 'apartmentsPaginator', itemsPerPage: itemsPerPage, currentPage: apartmentsCurrentPage }"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(apartments, prop)">
                 </property-card>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <pagination-controls id="apartmentsPaginator" [previousLabel]="'generics.previous' | translate"
+                [nextLabel]="'generics.next' | translate" [autoHide]="true"
+                (pageChange)="apartmentsCurrentPage = $event"></pagination-controls>
         </div>
     </mat-tab>
 
@@ -40,12 +45,17 @@
             </div>
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Villa' }"></ng-container>
-        <div [@propertyCardAnim]="villas.length" class="row p-2">
-            <div *ngFor="let prop of villas | propFilter: searchInput;"
+        <div [@propertyCardAnim]="villas.length" class="row p-2" style="min-height: 70vh;">
+            <div *ngFor="let prop of villas | propFilter: searchInput | paginate: {id: 'villasPaginator', itemsPerPage: itemsPerPage, currentPage: villasCurrentPage }"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
                 </property-card>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <pagination-controls id="villasPaginator" [previousLabel]="'generics.previous' | translate"
+                [nextLabel]="'generics.next' | translate" [autoHide]="true" (pageChange)="villasCurrentPage = $event">
+            </pagination-controls>
         </div>
     </mat-tab>
 
@@ -63,13 +73,19 @@
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Townhouse' }">
         </ng-container>
-        <div [@propertyCardAnim]="townhouses.length" class="row p-2">
-            <div *ngFor="let prop of townhouses | propFilter: searchInput;"
+        <div [@propertyCardAnim]="townhouses.length" class="row p-2" style="min-height: 70vh;">
+            <div *ngFor="let prop of townhouses | propFilter: searchInput | paginate: { id: 'townhousesPaginator', itemsPerPage: itemsPerPage, currentPage: townhousesCurrentPage }"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
-                <property-card (click)="showDetails(prop)" [property]="prop"
+                <property-card id="townhousesPaginator" (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(townhouses, prop)">
                 </property-card>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <pagination-controls [previousLabel]="'generics.previous' | translate"
+                [nextLabel]="'generics.next' | translate" [autoHide]="true"
+                (pageChange)="townhousesCurrentPage = $event">
+            </pagination-controls>
         </div>
     </mat-tab>
 
@@ -87,13 +103,19 @@
         </ng-template>
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Commercial' }">
         </ng-container>
-        <div [@propertyCardAnim]="commercials.length" class="row p-2">
-            <div *ngFor="let prop of commercials | propFilter: searchInput;"
+        <div [@propertyCardAnim]="commercials.length" class="row p-2" style="min-height: 70vh;">
+            <div *ngFor="let prop of commercials | propFilter: searchInput | paginate: { id: 'commercialsPaginator', itemsPerPage: itemsPerPage, currentPage: commercialsCurrentPage }"
                 class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(commercials, prop)">
                 </property-card>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <pagination-controls id="commercialsPaginator" [previousLabel]="'generics.previous' | translate"
+                [nextLabel]="'generics.next' | translate" [autoHide]="true"
+                (pageChange)="commercialsCurrentPage = $event">
+            </pagination-controls>
         </div>
     </mat-tab>
 </mat-tab-group>
