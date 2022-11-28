@@ -11,7 +11,7 @@ import { ContractData } from '../property-upload/property-upload.data'
 import { Property } from '../property.data'
 import { ExtensionData } from './contract-extension.data'
 import { formatDate } from '@angular/common';
-import { UserProfileService } from 'src/app/shared/user-profile.service'
+import { UserProfileService } from 'src/app/property-management/users/users.service'
 
 @Injectable({
     providedIn: 'root'

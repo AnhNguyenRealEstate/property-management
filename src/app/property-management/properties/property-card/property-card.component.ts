@@ -3,7 +3,7 @@ import { doc, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Property } from "../property.data";
 import { PropertyEditComponent } from '../property-edit/property-edit.component';
 import { PropertyCardService } from './property-card.service';

@@ -4,7 +4,7 @@ import { deleteObject, getBlob, getDownloadURL, ref, Storage, uploadBytes } from
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';

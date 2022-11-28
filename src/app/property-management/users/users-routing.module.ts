@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SummaryViewComponent } from './summary-view/summary-view.component';
+import { UsersViewComponent } from './users-view/users-view.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: SummaryViewComponent
+        component: UsersViewComponent
     },
     {
         path: '**',
@@ -18,4 +18,4 @@ const routes: Routes = [
         RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class SummaryRoutingModule { }
+export class UsersRoutingModule { }

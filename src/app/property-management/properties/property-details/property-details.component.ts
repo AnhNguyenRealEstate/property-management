@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';
 import { UploadedFile } from '../../property-management.data';

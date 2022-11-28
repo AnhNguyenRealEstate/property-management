@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Injector, NgModule } from '@angular/core';
+import { Route, RouterModule, Routes, UrlSegment } from '@angular/router';
 import { PropertyManagementComponent } from './property-management.component';
+import { UserProfileService } from 'src/app//property-management/users/users.service'
 
 const routes: Routes = [
     {
@@ -9,7 +10,7 @@ const routes: Routes = [
         children: [
             {
                 path: 'summary',
-                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryViewModule),
+                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryModule),
                 outlet: 'property-management-outlet'
             },
             {
@@ -30,6 +31,11 @@ const routes: Routes = [
             {
                 path: 'invoices',
                 loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesViewModule),
+                outlet: 'property-management-outlet'
+            },
+            {
+                path: 'users',
+                loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule),
                 outlet: 'property-management-outlet'
             }
         ]

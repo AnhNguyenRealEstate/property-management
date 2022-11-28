@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
 import { Property, PropertyCategory } from "../property.data";
 import { PropertiesViewService } from './properties-view.service';

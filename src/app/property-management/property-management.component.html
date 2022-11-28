@@ -1,42 +1,54 @@
 <section class="container-flex">
     <div *ngIf="isDesktop">
-        <mat-drawer-container class="default-background" style="height: 100vh;">
+        <mat-drawer-container class="default-background" style="height: 100vh">
             <mat-drawer mode="side" opened autoFocus="false" style="width: 15vw">
                 <div class="row mt-4 ms-1 me-1">
-                    <!-- <ng-container *ngIf="(roles.roles$ | async )?.includes('customer-service')">
-                        <button *ngIf="(roles.roles$ | async )?.includes('customer-service')"
-                            class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewOwners()">
-                            <span class="ps-4 ps-ms-4"></span>
-                            <mat-icon color="accent">people_outline</mat-icon>
-                            <span class="ps-3 d-none d-sm-inline">{{ 'property_management.owner_list' | translate
-                                }}</span>
-                        </button>
-                        <div class="col-12 pb-1">
-                            <mat-divider inset="true"></mat-divider>
-                        </div>
-                    </ng-container> -->
-
+                    <div class="col-12 pb-1 d-flex justify-content-end text-bold menu-heading">
+                        Menu
+                    </div>
+                    <mat-divider inset="true"></mat-divider>
+                </div>
+                <div class="row mt-4 ms-1 me-1">
                     <button id="summary-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewSummary()">
                         <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>dashboard</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.summary' | translate }}</span>
                     </button>
-                    <button id="properties-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewProperties()">
+                    <button id="properties-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button
+                        (click)="viewProperties()">
                         <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>holiday_village</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.properties' | translate }}</span>
                     </button>
-                    <button id="activities-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewActivities()">
+                    <button id="activities-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button
+                        (click)="viewActivities()">
                         <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>view_list</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.activities' | translate }}</span>
                     </button>
-                    <button id="invoices-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewInvoices()">
+                    <button id="invoices-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button
+                        (click)="viewInvoices()">
                         <span class="ps-2 ps-sm-4"></span>
                         <mat-icon>request_quote</mat-icon>
                         <span class="ps-3 d-none d-sm-inline">{{ 'property_management.invoices' | translate }}</span>
                     </button>
                 </div>
+
+                <ng-container *ngIf="(roles.roles$ | async)?.includes('admin')">
+                    <div class="row mt-4 ms-1 me-1">
+                        <div class="col-12 pb-1 d-flex justify-content-end text-bold menu-heading">
+                            Admin
+                        </div>
+                        <mat-divider inset="true"></mat-divider>
+                    </div>
+                    <div class="row mt-4 ms-1 me-1">
+                        <button id="users-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewUsers()">
+                            <span class="ps-2 ps-sm-4"></span>
+                            <mat-icon>people</mat-icon>
+                            <span class="ps-3 d-none d-sm-inline">{{ 'property_management.users' | translate }}</span>
+                        </button>
+                    </div>
+                </ng-container>
             </mat-drawer>
 
             <mat-drawer-content>

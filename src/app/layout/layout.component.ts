@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../login/login.service';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
@@ -74,5 +74,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     viewInvoices() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
+    }
+
+    viewUsers() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:users)');
     }
 }

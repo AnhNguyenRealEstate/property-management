@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { LoginService } from '../login/login.service';
-import { FirestoreCollections } from './globals';
+import { LoginService } from '../../login/login.service';
+import { FirestoreCollections } from '../../shared/globals';
+import { Role, UserProfile } from './users.data';
 
 @Injectable({ providedIn: 'root' })
 export class UserProfileService {
@@ -47,10 +47,3 @@ export class UserProfileService {
     }
 }
 
-export interface UserProfile {
-    roles: Role[]
-    userName: string
-    displayName: string
-}
-
-export type Role = 'owner' | 'customer-service' | 'admin';

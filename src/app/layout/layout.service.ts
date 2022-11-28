@@ -51,6 +51,8 @@ export class LayoutService {
             this.raiseViewBtn(this.document.querySelector('[id="invoices-btn"]'))
         } else if (url.includes('property-management-outlet:summary')) {
             this.raiseViewBtn(this.document.querySelector('[id="summary-btn"]'))
+        } else if (url.includes('property-management-outlet:users')) {
+            this.raiseViewBtn(this.document.querySelector('[id="users-btn"]'))
         }
     }
 

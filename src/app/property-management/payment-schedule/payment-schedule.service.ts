@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from '../activities/activity.data';
 import { Invoice } from '../invoices/invoices.data';
 

@@ -45,7 +45,8 @@
         "properties": "Properties",
         "activities": "Activities",
         "owner_list": "Owners",
-        "invoices": "Invoices"
+        "invoices": "Invoices",
+        "users": "Users"
     },
     "property_upload": {
         "register_new": "Register a new property",
@@ -316,5 +317,21 @@
         "invoice_activities": "Invoice-related activities",
         "contract_cancellation": "Contract cancellation"
     },
-    "footer": "@ 2022 Anh Nguyen Real Estate"
+    "users_view": {
+        "edit_user": "Edit user",
+        "delete_user": "Delete user",
+        "add_user": "Add user",
+        "create_new": "Create new user",
+        "email": "Email",
+        "display_name": "Display name",
+        "save": "Save",
+        "edit_success": "Successfully updated user information!",
+        "creation_success": "Successfully created user!",
+        "dismiss": "Dismiss",
+        "user_deleted": "User deleted!",
+        "confirmation_msg": "Are you sure you want to delete {{displayName}} from the system?",
+        "delete": "Delete",
+        "cancel": "Cancel"
+    },
+    "footer": "@ {{year}} Anh Nguyen Real Estate"
 }

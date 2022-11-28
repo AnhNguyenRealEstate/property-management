@@ -1,0 +1,93 @@
+<section class="p-3" style="min-height: 70vh;">
+    <mat-accordion multi="true">
+        <mat-expansion-panel *ngFor="let user of users" (mouseenter)="showActions(editBtn, deleteBtn)"
+            (mouseleave)="hideActions(editBtn, deleteBtn)" (afterExpand)="showActions(editBtn, deleteBtn)"
+            (afterCollapse)="hideActions(editBtn,deleteBtn)">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon color="accent">person</mat-icon>
+                    <span class="ps-2">{{user.displayName}}</span>
+                </mat-panel-title>
+                <div style="display: none" #editBtn>
+                    <button color="accent" mat-button (click)="$event.stopPropagation(); editUser(user)"
+                        [matTooltip]="'users_view.edit_user' | translate">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div style="display: none" #deleteBtn>
+                    <button *ngIf="!user.roles?.includes('admin')" mat-button
+                        (click)="$event.stopPropagation();deleteUser(user)"
+                        [matTooltip]="'users_view.delete_user' | translate">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="col-12">
+                    <mat-icon color="accent">email</mat-icon>
+                    <span class="ps-2">{{user.userName}}</span>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</section>
+
+<div class="float-controls">
+    <button mat-raised-button class="mat-elevation-z4" (click)="createUser()">
+        <mat-icon color="accent">person_add</mat-icon>
+        <span class="ps-2">{{ 'users_view.add_user' | translate }}</span>
+    </button>
+</div>
+
+<ng-template #userUploadTpl let-data>
+    <form #uploadForm="ngForm">
+        <div class="row h5">{{ 'users_view.create_new' | translate }}</div>
+        <mat-divider></mat-divider>
+        <div class="row pt-2">
+            <mat-form-field class="col-12">
+                <mat-label>{{ 'users_view.display_name' | translate }}</mat-label>
+                <span matPrefix class="px-2">
+                    <mat-icon color="accent">badge</mat-icon>
+                </span>
+                <input required #displayName [(ngModel)]="data.user.displayName" name="displayName" matInput
+                    type="text">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <mat-label>{{ 'users_view.email' | translate }}</mat-label>
+                <span matPrefix class="px-2">
+                    <mat-icon color="accent">email</mat-icon>
+                </span>
+                <input required name="email" [disabled]="data?.isEdit" #email matInput type="email"
+                    [(ngModel)]="data.user.userName">
+            </mat-form-field>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button [disabled]="uploadForm.untouched || !uploadForm.valid" *ngIf="!data?.isEdit" mat-raised-button
+                [mat-dialog-close]="{ addUser: true, user: { 
+                userName: email.value, displayName: displayName.value
+            } }">
+                <mat-icon color="accent">person_add</mat-icon>
+                <span class="ps-2">{{ 'users_view.add_user' | translate }}</span>
+            </button>
+            <button [disabled]="uploadForm.untouched || !uploadForm.valid" *ngIf="data?.isEdit" mat-raised-button
+                [mat-dialog-close]="{ saveEdit: true, user: { 
+                displayName: displayName.value,
+                userName: email.value
+        } }">
+                <mat-icon color="accent">save</mat-icon>
+                <span class="ps-2">{{ 'users_view.save' | translate }}</span>
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #deleteConfirmationTpl let-data>
+    <div class="row">
+        <div class="col-12">{{ 'users_view.confirmation_msg' | translate: {displayName: data.displayName} }}</div>
+        <div class="col-12 d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">{{ 'users_view.delete' | translate
+                }}</button>
+            <button mat-button [mat-dialog-close]="false">{{ 'users_view.cancel' | translate }}</button>
+        </div>
+    </div>
+</ng-template>

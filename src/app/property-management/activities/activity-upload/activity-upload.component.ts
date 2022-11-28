@@ -5,7 +5,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { UploadedFile } from '../../property-management.data';
 import { Activity } from "../activity.data";
 

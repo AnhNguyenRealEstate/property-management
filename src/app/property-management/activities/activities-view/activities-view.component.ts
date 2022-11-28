@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
-import { Role, UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from "../activity.data";
 import { ActivitiesViewService } from './activities-view.service';
-import { UploadedFile } from '../../property-management.data';
+import { Role } from '../../users/users.data';
 
 @Component({
     selector: 'activities-view',

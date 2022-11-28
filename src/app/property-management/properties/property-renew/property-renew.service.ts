@@ -4,7 +4,7 @@ import { Firestore, addDoc, collection, updateDoc, Timestamp, doc } from '@angul
 import { uploadBytes, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../../activities/activity.data';
 import { PaymentSchedule } from '../../payment-schedule/payment-schedule.data';

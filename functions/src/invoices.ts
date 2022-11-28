@@ -54,24 +54,28 @@ async function prepareEmailInfo() {
     const invoicesToCollect = snap.docs.map(doc => doc.data())
         .filter(invoice => (invoice['status'] === 'unpaid') || (invoice['status'] === 'partiallyPaid'));
 
-    const invoicesAsHtml: string[] = [];
-    invoicesToCollect.forEach((invoice, index) => {
-        const invoiceHtml = `${index + 1}. Thu ${invoice['amount']}
-            từ ${invoice['payer']} (${invoice['propertyName']}) cho ${invoice['payee']},
-            bắt đầu từ ${format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())}.`;
-        invoicesAsHtml.push(invoiceHtml);
+    const invoices: any[] = [];
+    invoicesToCollect.forEach((invoice, _) => {
+        invoices.push(
+            {
+                payer: invoice['payer'],
+                payee: invoice['payee'],
+                amount: invoice['amount'],
+                beginDate: format.asString('dd/MM/yyyy', (invoice['beginDate'] as Timestamp).toDate())
+            }
+        );
     });
 
     return {
         recipients: recipients,
-        invoicesAsHtml: invoicesAsHtml
+        invoices: invoices
     }
 }
 
 async function emailInvoicesToCollect() {
     const emailInfo = await prepareEmailInfo();
 
-    if (!emailInfo.invoicesAsHtml.length) {
+    if (!emailInfo.invoices.length) {
         return;
     }
 
@@ -89,7 +93,7 @@ async function emailInvoicesToCollect() {
             "email": 'it@anhnguyenre.com'
         },
         "dynamic_template_data": {
-            "invoicesAsHtml": emailInfo.invoicesAsHtml
+            "invoices": emailInfo.invoices
         }
     }
 

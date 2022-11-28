@@ -19,3 +19,12 @@
 mat-drawer {
     background: white !important;
 }
+
+.mat-drawer-inner-container {
+    overflow: hidden !important;
+}
+
+.menu-heading {
+    font-size: 20px;
+    color: colors.$accent-300;
+}

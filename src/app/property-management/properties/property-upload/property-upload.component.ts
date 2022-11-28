@@ -9,7 +9,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { HashingService } from 'src/app/shared/hashing.service';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../../activities/activity.data';
 import { Owner } from '../../owners/owner.data';

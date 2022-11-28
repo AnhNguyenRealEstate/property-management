@@ -4,7 +4,8 @@ import { CalendarView } from 'angular-calendar';
 import { CalendarEvent } from 'calendar-utils'
 import { isSameDay, isSameMonth } from 'date-fns';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { Role, UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
+import { Role } from '../../users/users.data';
 import { Activity } from "../activity.data";
 import { ActivityCalendarService } from './activity-calendar.service';
 

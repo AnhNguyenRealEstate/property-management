@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { UserProfileService } from '../shared/user-profile.service';
+import { UserProfileService } from './users/users.service';
 import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
 import { Property } from './properties/property.data';
@@ -51,6 +51,10 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit {
 
     viewInvoices() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
+    }
+
+    viewUsers() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:users)');
     }
 
     async addProperty() {

@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDoc, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { UserProfileService } from 'src/app/shared/user-profile.service';
+import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from '../../activities/activity.data';
 import { Owner } from '../../owners/owner.data';
 import { UploadedFile } from '../../property-management.data';

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { SummaryViewRoutingModule } from './summary-routing.module';
+import { SummaryRoutingModule } from './summary-routing.module';
 import { MatListModule } from '@angular/material/list';
 import { NgChartsModule } from 'ng2-charts';
 import { PropertyDetailsModule } from '../properties/property-details/property-details.module';
@@ -14,7 +14,7 @@ import { ActivityListModule } from '../activities/activity-list/activity-list.mo
     imports: [
         CommonModule,
         SharedModule,
-        SummaryViewRoutingModule,
+        SummaryRoutingModule,
         TranslateModule.forChild({ extend: true }),
         MatListModule,
         NgChartsModule,
@@ -24,4 +24,4 @@ import { ActivityListModule } from '../activities/activity-list/activity-list.mo
     ],
     exports: [SummaryViewComponent]
 })
-export class SummaryViewModule { }
+export class SummaryModule { }

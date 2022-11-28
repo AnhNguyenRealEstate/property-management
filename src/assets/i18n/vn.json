@@ -45,7 +45,8 @@
         "properties": "Tài sản",
         "activities": "Hoạt động",
         "owner_list": "Chủ nhà",
-        "invoices": "Biên nhận"
+        "invoices": "Biên nhận",
+        "users": "Người dùng"
     },
     "property_upload": {
         "register_new": "Đăng ký tài sản",
@@ -320,5 +321,21 @@
         "invoice_activities": "Hoạt động thanh toán",
         "contract_cancellation": "Huỷ/thanh lý hợp đồng"
     },
-    "footer": "@ 2022 Anh Nguyen Real Estate"
+    "users_view": {
+        "edit_user": "Sửa thông tin",
+        "delete_user": "Xoá",
+        "add_user": "Thêm",
+        "create_new": "Tạo tài khoản mới",
+        "email": "Email",
+        "display_name": "Họ tên",
+        "save": "Lưu",
+        "edit_success": "Đã lưu thay đổi",
+        "creation_success": "Đã tạo tài khoản mới",
+        "dismiss": "Tắt",
+        "user_deleted": "Đã xoá người dùng!",
+        "confirmation_msg": "Bạn có chắc bạn muốn xoá người dùng {{displayName}}?",
+        "delete": "Xoá",
+        "cancel": "Huỷ"
+    },
+    "footer": "@ {{year}} Anh Nguyen Real Estate"
 }

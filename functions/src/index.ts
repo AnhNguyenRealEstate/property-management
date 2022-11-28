@@ -18,3 +18,6 @@ exports.invoices = invoices;
 
 const rentalExtension = require('./rental-extension');
 exports.rentalExtension = rentalExtension;
+
+const users = require('./users');
+exports.users = users;
