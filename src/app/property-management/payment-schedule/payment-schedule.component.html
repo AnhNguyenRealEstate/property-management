@@ -148,7 +148,7 @@
                 {{ 'payment_schedule.invoice_name' | translate }}
             </ng-container>
             <ng-container *ngIf="header === 'amount'">
-                {{ 'payment_schedule.amount' | translate }}
+                {{ 'payment_schedule.amount' | translate | titlecase}}
             </ng-container>
             <ng-container *ngIf="header === 'beginDate'">
                 {{ 'payment_schedule.begin_date' | translate }}
@@ -223,7 +223,7 @@
 
             <ng-container *ngIf="editable">
                 <ng-container
-                    *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else genericTextLineItem">
+                    *ngIf="lineItemProperty === 'amount' || lineItemProperty === 'description'; else paymentWindowTpl">
                     <div class="pt-1" #display [hidden]="!lineItem[lineItemProperty]"
                         [id]="'lineItemDisplay-' + lineItemProperty + '-' + i">
                         {{lineItem[lineItemProperty]}}
@@ -245,6 +245,52 @@
                         <mat-icon color="accent">edit</mat-icon>
                     </button>
                 </ng-container>
+
+                <ng-template #paymentWindowTpl>
+                    <ng-container *ngIf="lineItemProperty === 'paymentWindow' else genericTextLineItem">
+                        <div #display [hidden]="!lineItem[lineItemProperty]" class="pt-1"
+                            [id]="'lineItemDisplay-' + lineItemProperty + '-' + i">
+                            {{lineItem[lineItemProperty]}}
+                        </div>
+                        <div #edit [hidden]="lineItem[lineItemProperty]">
+                            <mat-form-field>
+                                <mat-label>Begin date</mat-label>
+                                <input [id]="'lineItemBeginDateInput-' + lineItemProperty + '-' + i"
+                                    [name]="'lineItemBeginDateInput-' + lineItemProperty + '-' + i" readonly matInput
+                                    type="text" [matDatepicker]="beginDatePicker"
+                                    [ngModel]="lineItem.beginDate!.toDate() | date: 'yyyy-MM-dd'"
+                                    (ngModelChange)="lineItem.beginDate = dateToTimestamp($event)"
+                                    (click)="beginDatePicker.open()" #beginDate>
+                                <mat-datepicker-toggle matSuffix [for]="beginDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #beginDatePicker></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>End date</mat-label>
+                                <input [id]="'lineItemDueDateInput-' + lineItemProperty + '-' + i"
+                                    [name]="'lineItemDueDateInput-' + lineItemProperty + '-' + i" readonly matInput
+                                    type="text" [matDatepicker]="dueDatePicker"
+                                    [ngModel]="lineItem.dueDate!.toDate() | date: 'yyyy-MM-dd'"
+                                    (ngModelChange)="lineItem.dueDate = dateToTimestamp($event)"
+                                    (click)="dueDatePicker.open()" #dueDate>
+                                <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #dueDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'"
+                            [matTooltip]="'payment_schedule.save' | translate" matTooltipPosition='right' (click)="display.hidden = false;
+                                            edit.hidden = true;
+                                            updateInvoicePaymentPeriod(lineItem, beginDate.value, dueDate.value)">
+                            <mat-icon color="accent">check</mat-icon>
+                        </button>
+                        <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
+                            [matTooltip]="'payment_schedule.edit' | translate" matTooltipPosition='right'
+                            (click)="display.hidden = true; edit.hidden = false;">
+                            <mat-icon color="accent">edit</mat-icon>
+                        </button>
+                    </ng-container>
+                </ng-template>
             </ng-container>
         </div>
     </div>

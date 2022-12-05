@@ -182,4 +182,20 @@ export class PaymentScheduleComponent implements OnInit {
         await this.paymentSchedule.markInvoiceAsPaid(invoice);
         invoice.status = 'paid';
     }
+
+    dateToTimestamp(value: string): Timestamp {
+        const dateStrings = value.split('/').map(string => Number(string))
+        return Timestamp.fromDate(new Date(dateStrings[2], dateStrings[1] - 1, dateStrings[0]))
+    }
+
+    updateInvoicePaymentPeriod(invoice: Invoice, beginDate: string, endDate: string) {
+        const beginDateTokens = beginDate.split('/').map(string => Number(string))
+        const _beginDate = new Date(beginDateTokens[2], beginDateTokens[1] - 1, beginDateTokens[0])
+
+        const dueDateTokens = endDate.split('/').map(string => Number(string))
+        const _dueDate = new Date(dueDateTokens[2], dueDateTokens[1] - 1, dueDateTokens[0])
+
+        invoice.paymentWindow =
+            `${this.datePipe.transform(_beginDate, 'dd/MM/yyyy')} - ${this.datePipe.transform(_dueDate, 'dd/MM/yyyy')}`
+    }
 }
