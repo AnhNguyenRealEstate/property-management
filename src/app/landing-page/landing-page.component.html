@@ -26,8 +26,8 @@
     <div class="features-section pt-10 pb-10">
         <mat-card>
             <mat-card-content>
-                <div class="row d-flex justify-content-center notable-features-text pt-2 pb-2">
-                    {{ 'landing_page.features_intro' | translate }}
+                <div class="row d-flex justify-content-center notable-features-text text-bold pt-2 pb-2">
+                    <span>{{ 'landing_page.features_intro' | translate | titlecase }}</span>
                 </div>
                 <div class="row pt-3 d-flex justify-content-between ms-2 me-2 ms-sm-3 me-sm-3">
                     <mat-card class="col-xs-12 col-sm-3 mb-2 mat-elevation-z3" id="feature-1">
@@ -36,9 +36,10 @@
                                 <div class="col-12 d-flex justify-content-center pt-2">
                                     <mat-icon class="feature-icon">analytics</mat-icon>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center h5 pt-2">Insightful Analytics</div>
-                                <div class="col-12 feature-descriptive pt-10">
-                                    Receive monthly reports on your properties
+                                <div class="col-12 d-flex justify-content-center h5 pt-2">{{ 'landing_page.feature_1' |
+                                    translate | titlecase }}</div>
+                                <div class="col-12 feature-descriptive pt-5">
+                                    {{ 'landing_page.feature_1_descr' | translate }}
                                 </div>
                             </div>
                         </mat-card-content>
@@ -49,9 +50,10 @@
                                 <div class="col-12 d-flex justify-content-center pt-2">
                                     <mat-icon class="feature-icon">check_circle</mat-icon>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center h5 pt-2">Quality Control</div>
-                                <div class="col-12 feature-descriptive pt-10">
-                                    Your properties always remain in top-notch conditions
+                                <div class="col-12 d-flex justify-content-center h5 pt-2">{{ 'landing_page.feature_2' |
+                                    translate | titlecase }}</div>
+                                <div class="col-12 feature-descriptive pt-5">
+                                    {{ 'landing_page.feature_2_descr' | translate }}
                                 </div>
                             </div>
                         </mat-card-content>
@@ -60,11 +62,12 @@
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center pt-2">
-                                    <mat-icon class="feature-icon">support_agent</mat-icon>
+                                    <mat-icon class="feature-icon">security</mat-icon>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center h5 pt-2">Dedicated Support</div>
-                                <div class="col-12 feature-descriptive pt-10">
-                                    Support staff handles any problem speedily, with utmost care
+                                <div class="col-12 d-flex justify-content-center h5 pt-2">{{ 'landing_page.feature_3' |
+                                    translate | titlecase }}</div>
+                                <div class="col-12 feature-descriptive pt-5">
+                                    {{ 'landing_page.feature_3_descr' | translate }}
                                 </div>
                             </div>
                         </mat-card-content>

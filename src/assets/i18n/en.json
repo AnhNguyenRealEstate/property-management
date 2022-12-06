@@ -15,7 +15,13 @@
         "intro_description": "Your properties are professionally managed by our proprietary, world-class system",
         "get_started": "Get started",
         "contact_us": "Contact us",
-        "features_intro": "We manage your properties effectively, efficiently, and give you visbility over your own assets"
+        "features_intro": "Key features",
+        "feature_1": "Make better decisions",
+        "feature_1_descr": "Receive reports on rental income, expenses, and occupancy rates",
+        "feature_2": "Stay on top",
+        "feature_2_descr": "Never miss out on what is happening to your properties",
+        "feature_3": "Keep your data safe",
+        "feature_3_descr": "Secure sensitive data with passwords and other safeguards"
     },
     "layout": {
         "listings": "Listings",

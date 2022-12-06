@@ -15,7 +15,13 @@
         "intro_description": "Hệ thống quản lý bất động sản chuyên nghiệp",
         "get_started": "Đăng nhập",
         "contact_us": "Liên hệ",
-        "features_intro": "Chuyên nghiệp và hiệu quả"
+        "features_intro": "Chuyên nghiệp và hiệu quả",
+        "feature_1": "Phân tích thông minh",
+        "feature_1_descr": "Phân tích thông minh giúp bạn quản lý tài sản một cách hiệu quả hơn",
+        "feature_2": "Cập nhật liên tục",
+        "feature_2_descr": "Không bỏ lỡ bất cứ thông tin nào về tài sản của bạn",
+        "feature_3": "Bảo vệ dữ liệu",
+        "feature_3_descr": "Bảo vệ dữ liệu nhạy cảm bằng mật khẩu"
     },
     "layout": {
         "listings": "Sản phẩm",
