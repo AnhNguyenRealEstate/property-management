@@ -1,15 +1,14 @@
-import { Component, HostListener, OnDestroy, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
-import { Property, PropertyCategory } from "../property.data";
+import { Property } from "../property.data";
 import { PropertiesViewService } from './properties-view.service';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 import { ContractType } from '../property-upload/property-upload.data';
-import { MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 
 @Pipe({
@@ -21,7 +20,11 @@ export class PropertyFilterPipe implements PipeTransform {
             return value;
         }
 
-        return value.filter(property => property.name?.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+        return value.filter(property => {
+            return property.name?.toLowerCase().indexOf(query.toLowerCase()) !== -1
+                || property.owner?.contactName?.toLowerCase().indexOf(query.toLowerCase()) !== -1
+                || property.tenantName?.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        })
     }
 }
 @Component({

@@ -186,7 +186,7 @@
         "cancel": "Cancel"
     },
     "properties_view": {
-        "search_placeholder": "Property name..."
+        "search_placeholder": "Property name, owner name, tenant name..."
     },
     "owner_upload": {
         "register_new": "Register a new owner",

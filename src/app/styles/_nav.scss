@@ -9,6 +9,12 @@
     }
 }
 
+.view-nav-btn.mat-button:hover {
+    .mat-icon {
+        transform: scale(1.15);
+    }
+}
+
 .active-nav-btn {
     @media only screen and (max-width: 600px) {
         border-radius: 50px 50px 50px 50px !important;
