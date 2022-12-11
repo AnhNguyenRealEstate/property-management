@@ -9,9 +9,15 @@
     }
 }
 
-.view-nav-btn.mat-button:hover {
+button:hover,
+.mat-button:hover,
+.mat-tab-label:hover {
     .mat-icon {
         transform: scale(1.15);
+    }
+
+    span {
+        font-weight: 500;
     }
 }
 
