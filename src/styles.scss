@@ -3,9 +3,9 @@
 @use "app/styles/colors";
 @use "app/styles/base";
 @use "app/styles/nav";
-@import "~/node_modules/placeholder-loading/src/scss/placeholder-loading";
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
-@import "~/node_modules/ngx-easy-table/style.scss";
+@use "../node_modules/placeholder-loading/dist/css//placeholder-loading.css";
+@use "../node_modules/angular-calendar/css/angular-calendar.css";
+@use "../node_modules/ngx-easy-table/style.scss";
 
 html,
 body {
