@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { ResetPasswordService } from './reset-password.service';
 
 @Component({

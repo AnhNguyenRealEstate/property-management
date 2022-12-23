@@ -9,7 +9,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { TableModule } from 'ngx-easy-table';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 @NgModule({
     declarations: [ActivityListComponent],
     imports: [

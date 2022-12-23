@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { OwnerUploadComponent } from '../owner-upload/owner-upload.component';
 import { Owner } from "../owner.data";
 import { OwnersViewService } from './owners-view.service';
