@@ -1,4 +1,4 @@
-<mat-toolbar class="navbar mat-elevation-z3">
+<mat-toolbar class="navbar mat-elevation-z3 d-flex">
     <a class="navbar-brand" (click)="viewSummary()">
         <span class="home-icon-wrapper">
             <img width="22rem" height="22rem" src="/assets/images/logo.png">
@@ -7,20 +7,26 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <div class="language-toggle ms-2 me-4">
-            <mat-icon>language</mat-icon>
-            <span class="pe-1"></span>
-            <mat-form-field color="accent">
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
-                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
-                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="d-flex justify-content-start">
+            <a style="width: 100%" mat-button [matMenuTriggerFor]="languageMenu" (click)="$event.stopPropagation()">
+                <mat-icon matPrefix>language</mat-icon>
+                <span *ngIf="lang === 'en'">{{ 'layout.english' | translate }}</span>
+                <span *ngIf="lang === 'vn'">{{ 'layout.vietnamese' | translate }}</span>
+            </a>
+            <mat-menu #languageMenu="matMenu">
+                <a mat-menu-item (click)="useLanguage('en')">
+                    <span class="ms-2" [class.text-bold]="lang === 'en'">{{
+                        'layout.english' | translate }}</span>
+                </a>
+                <a mat-menu-item (click)="useLanguage('vn')">
+                    <span class="ms-2" [class.text-bold]="lang === 'vn'">{{ 'layout.vietnamese' | translate }}</span>
+                </a>
+            </mat-menu>
         </div>
 
         <ng-container *ngIf="loggedIn">
             <a mat-button [matMenuTriggerFor]="menu" [matTooltip]="auth.currentUser?.email || ' '">
-                <mat-icon>account_circle</mat-icon>
+                <mat-icon style="font-size: 24px; width: 24px; height: 24px;">account_circle</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">
                 <a mat-menu-item (click)="resetPwd()">
@@ -44,50 +50,61 @@
 
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav" (click)="sidenav.toggle()">
-        <div class="ps-4 language-toggle-mobile">
-            <mat-icon>language</mat-icon>
-            <mat-form-field class="ps-3" color="accent" (click)="$event.stopPropagation()">
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
-                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
-                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="d-flex justify-content-start pt-2">
+            <a class="ps-5" style="width: 100%" mat-button [matMenuTriggerFor]="languageMenu"
+                (click)="$event.stopPropagation()">
+                <mat-icon matPrefix>language</mat-icon>
+                <span *ngIf="lang === 'en'" class="ms-2">{{ 'layout.english' | translate }}</span>
+                <span *ngIf="lang === 'vn'" class="ms-2">{{ 'layout.vietnamese' | translate }}</span>
+            </a>
+            <mat-menu #languageMenu="matMenu">
+                <a mat-menu-item (click)="useLanguage('en')">
+                    <span class="ms-2" [class.text-bold]="lang === 'en'">{{ 'layout.english' | translate }}</span>
+                </a>
+                <a mat-menu-item (click)="useLanguage('vn')">
+                    <span class="ms-2" [class.text-bold]="lang === 'vn'">{{ 'layout.vietnamese' | translate }}</span>
+                </a>
+            </mat-menu>
         </div>
 
-        <mat-divider inset="true"></mat-divider>
+        <mat-divider class="py-1" inset="true"></mat-divider>
 
-        <a *ngIf="!loggedIn" mat-button [routerLink]="'/login'">
+        <a class="d-flex justify-content-start ps-5" *ngIf="!loggedIn" mat-button [routerLink]="'/login'">
             <mat-icon>login</mat-icon>
-            <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>
+            <span class="ms-2"> {{ 'layout.sign_in' | translate }}</span>
         </a>
 
         <ng-container *ngIf="loggedIn">
-            <a id="summary-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewSummary()">
+            <a id="summary-btn" class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" mat-button
+                (click)="viewSummary()">
                 <mat-icon>dashboard</mat-icon>
-                <span class="ps-3">{{ 'property_management.summary' | translate }}</span>
+                <span class="ms-2">{{ 'property_management.summary' | translate }}</span>
             </a>
-            <a id="properties-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewProperties()">
+            <a id="properties-btn" class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" mat-button
+                (click)="viewProperties()">
                 <mat-icon>holiday_village</mat-icon>
-                <span class="ps-3">{{ 'property_management.properties' | translate }}</span>
+                <span class="ms-2">{{ 'property_management.properties' | translate }}</span>
             </a>
-            <a id="activities-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewActivities()">
+            <a id="activities-btn" class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" mat-button
+                (click)="viewActivities()">
                 <mat-icon>view_list</mat-icon>
-                <span class="ps-3">{{ 'property_management.activities' | translate }}</span>
+                <span class="ms-2">{{ 'property_management.activities' | translate }}</span>
             </a>
-            <a id="invoices-btn" class="col-12 pb-1 d-flex view-nav-btn" mat-button (click)="viewInvoices()">
+            <a id="invoices-btn" class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" mat-button
+                (click)="viewInvoices()">
                 <mat-icon>request_quote</mat-icon>
-                <span class="ps-3">{{ 'property_management.invoices' | translate }}</span>
+                <span class="ms-2">{{ 'property_management.invoices' | translate }}</span>
             </a>
 
             <mat-divider inset="true"></mat-divider>
 
-            <a mat-button class="view-nav-btn" (click)="resetPwd()">
+            <a mat-button class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" (click)="resetPwd()">
                 <mat-icon>lock_reset</mat-icon>
-                <span class="ps-3">{{ 'layout.reset_pwd' | translate }}</span>
+                <span class="ms-2">{{ 'layout.reset_pwd' | translate }}</span>
             </a>
-            <a mat-button class="view-nav-btn" (click)="logout()">
+            <a mat-button class="ps-5 pb-1 d-flex justfiy-content-start view-nav-btn" (click)="logout()">
                 <mat-icon>logout</mat-icon>
-                <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
+                <span class="ms-2">{{ 'layout.sign_out' | translate }}</span>
             </a>
         </ng-container>
     </mat-sidenav>

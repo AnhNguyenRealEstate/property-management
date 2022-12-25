@@ -2,9 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatLegacyButton as MatButton } from '@angular/material/legacy-button';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatButton } from '@angular/material/button';
 import { MatStepper } from '@angular/material/stepper';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Subscription } from 'rxjs';
@@ -18,6 +16,8 @@ import { UploadedFile } from '../../property-management.data';
 import { Property } from '../property.data';
 import { ContractType, ContractData } from './property-upload.data';
 import { PropertyUploadService } from './property-upload.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'property-upload',

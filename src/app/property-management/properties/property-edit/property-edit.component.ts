@@ -1,13 +1,9 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, Inject, OnInit, Optional, ViewChild } from '@angular/core';
-import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
-import { Form, NgForm } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { Timestamp } from '@angular/fire/firestore';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { HashingService } from 'src/app/shared/hashing.service';
-import { Activity } from '../../activities/activity.data';
 import { Owner } from '../../owners/owner.data';
 import { UploadedFile } from '../../property-management.data';
 import { Property } from "../property.data";

@@ -48,6 +48,14 @@ mat-card {
 
 button {
     border-radius: 35px !important;
+    line-height: 1rem !important;
+    min-height: fit-content !important;
+}
+
+span,
+input,
+label {
+    letter-spacing: normal !important;
 }
 
 .mat-bottom-sheet-container {

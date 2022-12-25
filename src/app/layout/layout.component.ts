@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -45,9 +45,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    useLanguage(event: any) {
-        this.translate.use(this.lang);
-        localStorage.setItem('lang', this.lang);
+    useLanguage(lang: string) {
+        this.lang = lang;
+        this.translate.use(lang);
+        localStorage.setItem('lang', lang);
     }
 
     logout() {

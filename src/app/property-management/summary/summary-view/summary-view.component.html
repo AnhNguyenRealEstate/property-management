@@ -36,7 +36,11 @@
     <mat-card class="mat-elevation-z1">
         <mat-card-title>
             <div class="row">
-                <div class="col-6">{{ 'summary.overview' | translate }}</div>
+                <div class="col-6">
+                    <span class="ps-3 pt-3">
+                        {{ 'summary.overview' | translate }}
+                    </span>
+                </div>
                 <mat-form-field class="col-6" style="font-size: 14px">
                     <mat-label>{{ 'summary.view_by' | translate }}</mat-label>
                     <mat-select value="category" (selectionChange)="onChartViewChange($event.value)">
@@ -63,7 +67,7 @@
 <ng-template #soonToExpireProps>
     <mat-card class="mat-elevation-z1">
         <mat-card-title>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between ps-3 pe-3 pt-3">
                 <div>
                     {{'summary.contracts_expiring_soon' | translate }}
                 </div>
@@ -108,17 +112,17 @@
                 <div class="row pb-1" *ngFor="let prop of soonToExpireProperties">
                     <button mat-button (click)="showPropDetails(prop)"
                         class="col-3 property-name text-bold d-flex justify-content-start">
-                        <span class="pe-2">
-                            <mat-icon class="property-type-icon" *ngIf="prop.category === 'Apartment'">
-                                apartment</mat-icon>
-                            <mat-icon class="property-type-icon" *ngIf="prop.category === 'Villa'">villa
-                            </mat-icon>
-                            <mat-icon class="property-type-icon" *ngIf="prop.category === 'Townhouse'">
-                                door_sliding</mat-icon>
-                            <mat-icon class="property-type-icon" *ngIf="prop.category === 'Commercial'">
-                                store_front</mat-icon>
+                        <mat-icon class="property-type-icon" *ngIf="prop.category === 'Apartment'">
+                            apartment</mat-icon>
+                        <mat-icon class="property-type-icon" *ngIf="prop.category === 'Villa'">villa
+                        </mat-icon>
+                        <mat-icon class="property-type-icon" *ngIf="prop.category === 'Townhouse'">
+                            door_sliding</mat-icon>
+                        <mat-icon class="property-type-icon" *ngIf="prop.category === 'Commercial'">
+                            store_front</mat-icon>
+                        <span>
+                            {{prop.name}}
                         </span>
-                        <span>{{prop.name}}</span>
                     </button>
                     <div class="col-3 pt-2" style="color: gray">
                         {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
@@ -138,7 +142,7 @@
 <ng-template #recentActivities>
     <div class="mat-elevation-z3" style="border-radius: 15px">
         <div class="d-flex justify-content-between">
-            <span class="mat-card-title ps-3 pt-3">{{ 'summary.recent_activities' | translate }}</span>
+            <span matCardTitle class="ps-3 pt-3">{{ 'summary.recent_activities' | translate }}</span>
             <button class="mt-3 me-3" mat-raised-button (click)="viewActivities()">
                 <span>{{ 'summary.view_all' | translate }}</span>
                 <mat-icon>arrow_right_alt</mat-icon>

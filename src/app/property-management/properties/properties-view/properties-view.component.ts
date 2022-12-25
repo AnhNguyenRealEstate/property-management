@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Subscription } from 'rxjs';
 import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
@@ -10,6 +9,7 @@ import { trigger, transition, query, style, animate, stagger } from '@angular/an
 import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.service';
 import { ContractType } from '../property-upload/property-upload.data';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Pipe({
     name: 'propFilter'

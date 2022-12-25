@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { doc, Timestamp, updateDoc } from '@angular/fire/firestore';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Property } from "../property.data";
@@ -10,6 +8,8 @@ import { PropertyCardService } from './property-card.service';
 import { Activity } from '../../activities/activity.data';
 import { ContractExtensionComponent } from '../contract-extension/contract-extension.component';
 import { PropertyRenewComponent } from '../property-renew/property-renew.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'property-card',

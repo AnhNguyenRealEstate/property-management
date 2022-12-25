@@ -11,6 +11,7 @@
 
 .navbar {
     background: white !important;
+    padding: 4px 16px !important;
 }
 
 .sidenav-container {
@@ -20,34 +21,27 @@
 .sidenav {
     min-width: 240px;
     a {
-        display: block;
-        padding: 6px 24px;
-        width: 100%;
-        text-align: left;
+        padding: 4px 24px;
+        display: flex;
+        justify-content: start;
+    }
+}
+
+.lang-selected {
+    ::before {
+        content: '>'
     }
 }
 
 .menu-button {
-    margin-right: 24px;
-    min-width: 0;
-    padding: 0;
+    padding: 0 !important;
     line-height: normal;
+    border-radius: 0 !important;
 }
 
 mat-sidenav-container,
 mat-sidenav-content {
     overflow: initial !important; //allowing position sticky on criteria panel
-}
-
-.language-toggle {
-    font-size: 10px;
-    width: 80px;
-}
-
-.language-toggle-mobile {
-    mat-form-field {
-        width: 30vw !important;
-    }
 }
 
 .mat-toolbar {

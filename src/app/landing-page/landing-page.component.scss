@@ -22,9 +22,10 @@
     line-height: 2rem;
 }
 
-.get-started-btn {
-    padding: 14px 28px;
-    font-size: 18px;
+.get-started-btn, .contact-us-btn {
+    padding: 14px 28px !important;
+    font-size: 18px !important;
+    height: 48px !important;
 }
 
 .features-section {

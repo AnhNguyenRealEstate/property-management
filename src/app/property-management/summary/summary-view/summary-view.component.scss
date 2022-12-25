@@ -8,8 +8,8 @@
 .property-name {
     font-size: 0.8rem;
     color: colors.$accent;
-    overflow: hidden;
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0));
+    overflow: hidden !important;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0)) !important;
 }
 
 .property-name-mobile {

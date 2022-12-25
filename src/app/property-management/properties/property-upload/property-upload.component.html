@@ -113,7 +113,7 @@
 
             <div class="row pb-2">
                 <div class="col-12">
-                    <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
+                    <label class="pt-1 pb-1 text-bold">{{ 'property_upload.description' | translate }}</label>
                     <div class="mat-form-field-wrapper">
                         <app-editor [text]="propertyDescription"
                             (textChange)="propertyDescription = $event; secondFormGroup.markAsTouched()">

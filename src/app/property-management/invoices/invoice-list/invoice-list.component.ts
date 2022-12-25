@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Invoice } from '../invoices.data';
 import { InvoiceListService } from './invoice-list.service';
 import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: 'invoice-list',
     templateUrl: 'invoice-list.component.html',

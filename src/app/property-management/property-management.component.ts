@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { UserProfileService } from './users/users.service';
 import { LoginService } from '../login/login.service';
@@ -7,6 +6,7 @@ import { DOCUMENT } from '@angular/common';
 import { Property } from './properties/property.data';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { LayoutService } from '../layout/layout.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
     selector: 'property-management',

@@ -5,7 +5,7 @@
                 <div class="row pb-3">
                     <mat-form-field [class.col-5]="payerSelect.value !== 'other'"
                         [class.col-3]="payerSelect.value === 'other'">
-                        <span matPrefix class="pe-3">{{ 'payment_schedule.payer' | translate }}:</span>
+                        <mat-label>{{ 'payment_schedule.payer' | translate }}</mat-label>
                         <mat-select [placeholder]="'payment_schedule.payer' | translate" name="payerSelect" required
                             #payerSelect [(value)]="selectedPayer" (selectionChange)="customPayer = ''">
                             <mat-option [value]="payer">{{payer}}</mat-option>
@@ -15,9 +15,6 @@
                         </mat-select>
                         <span *ngIf="payerSelect.value === 'other'" matSuffix>
                             :
-                        </span>
-                        <span *ngIf="payerSelect.value !== 'other'" matSuffix>
-                            .
                         </span>
                     </mat-form-field>
                     <mat-form-field *ngIf="payerSelect.value === 'other'" class="col-2">
@@ -35,7 +32,7 @@
                     </div>
                     <mat-form-field [class.col-5]="payeeSelect.value !== 'other'"
                         [class.col-3]="payeeSelect.value === 'other'">
-                        <span matPrefix class="pe-3">{{ 'payment_schedule.payee' | translate }}:</span>
+                        <mat-label>{{ 'payment_schedule.payee' | translate }}</mat-label>
                         <mat-select [placeholder]="'payment_schedule.payee' | translate" name="payeeSelect" required
                             #payeeSelect [(value)]="selectedPayee" (selectionChange)="customPayee = ''">
                             <mat-option [value]="payer">{{payer}}</mat-option>
@@ -45,9 +42,6 @@
                         </mat-select>
                         <span *ngIf="payeeSelect.value === 'other'" matSuffix>
                             :
-                        </span>
-                        <span *ngIf="payeeSelect.value !== 'other'" matSuffix>
-                            .
                         </span>
                     </mat-form-field>
                     <mat-form-field *ngIf="payeeSelect.value === 'other'" class="col-2">
@@ -62,13 +56,13 @@
                         <input #amount matInput name="amount" type="text" required
                             [placeholder]="'payment_schedule.amount' | translate" [value]="">
                     </mat-form-field>
-                    <mat-form-field class="col-4 ms-0 ps-0 me-0 pe-0">
+                    <mat-form-field class="col-2 ms-0 ps-0 me-0 pe-0">
                         <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.every' | translate }}</span>
                         <input #howOften matInput name="howOften" type="number" required
                             [placeholder]="'payment_schedule.frequency' | translate" value="2">
                         <span matSuffix class="ps-2">{{ 'payment_schedule.month' | translate }},</span>
                     </mat-form-field>
-                    <mat-form-field class="col-4 ms-0 ps-0">
+                    <mat-form-field class="col-6 ms-0 ps-0">
                         <span matPrefix class="ps-2 pe-3">{{ 'payment_schedule.with_in' | translate }}</span>
                         <input #howUrgent matInput name="howUrgent" type="number" required
                             [placeholder]="'payment_schedule.days' | translate" value="5">
@@ -113,7 +107,7 @@
         </div>
 
         <div class="table" *ngIf="schedule?.lineItems?.length">
-            <div style="position: absolute; right: 25px">
+            <div class="d-flex justify-content-center" style="position: absolute; right: 25px">
                 <button *ngIf="editable" mat-mini-fab (click)="removeSchedule()" color="default"
                     [matTooltip]="'payment_schedule.remove_sched' | translate">
                     <mat-icon color="accent">remove</mat-icon>
