@@ -152,7 +152,7 @@
                         <mat-icon color="accent">add</mat-icon> {{ 'property_details.add_files' | translate }}
                     </button>
                     <ng-template #filesUploadTpl>
-                        <form #uploadForm="ngForm">
+                        <form class="p-2" #uploadForm="ngForm">
                             <input name="uploadedFiles" #filesInput multiple hidden="true" type="file"
                                 onclick="this.value=null"
                                 (change)="onFileUpload($event); uploadForm.form.markAsTouched();" />
