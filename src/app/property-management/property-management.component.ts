@@ -1,12 +1,9 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileService } from './users/users.service';
-import { LoginService } from '../login/login.service';
 import { DOCUMENT } from '@angular/common';
-import { Property } from './properties/property.data';
-import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { LayoutService } from '../layout/layout.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'property-management',
@@ -59,19 +56,5 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
 
     viewUsers() {
         this.router.navigateByUrl('/property-management/(property-management-outlet:users)');
-    }
-
-    async addProperty() {
-        const config = {
-            height: '95%',
-            width: '100%',
-            autoFocus: false,
-            data: {
-                property: {} as Property,
-                isEditMode: false
-            }
-        } as MatDialogConfig;
-
-        this.dialog.open(PropertyEditComponent, config);
     }
 }
