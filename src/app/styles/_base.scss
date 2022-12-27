@@ -41,3 +41,23 @@ mat-icon {
 mat-form-field {
     width: 100%;
 }
+
+mat-card {
+    border-radius: 15px !important;
+}
+
+mat-spinner {
+    margin: 0 auto;
+}
+
+button {
+    border-radius: 35px !important;
+    line-height: 1rem !important;
+    min-height: fit-content !important;
+}
+
+span,
+input,
+label {
+    letter-spacing: normal !important;
+}

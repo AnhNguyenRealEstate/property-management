@@ -4,7 +4,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SummaryRoutingModule } from './summary-routing.module';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
 import { NgChartsModule } from 'ng2-charts';
 import { PropertyDetailsModule } from '../properties/property-details/property-details.module';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -16,7 +15,6 @@ import { ActivityListModule } from '../activities/activity-list/activity-list.mo
         SharedModule,
         SummaryRoutingModule,
         TranslateModule.forChild({ extend: true }),
-        MatListModule,
         NgChartsModule,
         MatBottomSheetModule,
         PropertyDetailsModule,

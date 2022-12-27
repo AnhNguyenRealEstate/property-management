@@ -3,26 +3,12 @@
 @use "app/styles/colors";
 @use "app/styles/base";
 @use "app/styles/nav";
-@use "../node_modules/placeholder-loading/dist/css//placeholder-loading.css";
 @use "../node_modules/angular-calendar/css/angular-calendar.css";
 @use "../node_modules/ngx-easy-table/style.scss";
 
 html,
 body {
     overflow-x: hidden;
-}
-
-body {
-    position: relative;
-}
-
-// Only works if it is put here.
-.price-input-group .mat-form-field-infix {
-    display: inherit !important;
-}
-
-mat-spinner {
-    margin: 0 auto;
 }
 
 .cdk-global-scrollblock {
@@ -40,22 +26,6 @@ mat-spinner {
 
 #table {
     font-family: Roboto, "Helvetica Neue", sans-serif !important;
-}
-
-mat-card {
-    border-radius: 15px !important;
-}
-
-button {
-    border-radius: 35px !important;
-    line-height: 1rem !important;
-    min-height: fit-content !important;
-}
-
-span,
-input,
-label {
-    letter-spacing: normal !important;
 }
 
 .mat-bottom-sheet-container {

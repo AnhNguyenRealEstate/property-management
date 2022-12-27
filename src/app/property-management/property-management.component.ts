@@ -14,7 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
     styleUrls: ['./property-management.component.scss']
 })
 
-export class PropertyManagementComponent implements OnInit, AfterViewInit {
+export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDestroy {
     isDesktop: boolean = true;
 
     constructor(
@@ -31,6 +31,10 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit {
         const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
         this.isDesktop = width > mobileDevicesWidth;
+    }
+
+    ngOnDestroy(): void {
+        this.layout.ngOnDestroy();
     }
 
     ngAfterViewInit(): void {

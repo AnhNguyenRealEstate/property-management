@@ -9,8 +9,7 @@ import { SessionTimeoutService } from './session-timeout/session-timeout.service
 
 @Component({
     selector: 'app-root',
-    template: `<app-layout></app-layout>`,
-    styleUrls: ['./app.component.scss']
+    template: `<app-layout></app-layout>`
 })
 export class AppComponent implements OnInit {
 

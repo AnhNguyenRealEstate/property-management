@@ -121,7 +121,7 @@ export class SummaryViewComponent implements OnInit {
 
     showPropDetails(property: Property) {
         const config = {
-            autoFocus: false,
+            autoFocus:  false,
             disableClose: false,
             data: {
                 property: property
