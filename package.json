@@ -39,7 +39,7 @@
     "bootstrap": "^5.2.3",
     "calendar-utils": "0.10.4",
     "chartjs-plugin-datalabels": "^2.1.0",
-    "date-fns": "2.29.2",
+    "date-fns": "2.29.3",
     "ng2-charts": "^4.1.1",
     "ngx-doc-viewer": "^14.0.0",
     "ngx-easy-table": "^15.3.0",
