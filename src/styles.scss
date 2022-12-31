@@ -10,12 +10,12 @@ body {
     overflow-x: hidden;
 }
 
-.cdk-global-scrollblock {
-    // https://github.com/angular/components/issues/7390#issuecomment-486947151
-    position: static !important;
-    width: initial !important;
-    overflow-y: inherit !important;
-}
+// .cdk-global-scrollblock {
+//     // https://github.com/angular/components/issues/7390#issuecomment-486947151
+//     position: static !important;
+//     width: initial !important;
+//     overflow-y: inherit !important;
+// }
 
 .default-background {
     background-color: white;

@@ -27,21 +27,10 @@
     }
 }
 
-.lang-selected {
-    ::before {
-        content: '>'
-    }
-}
-
 .menu-button {
     padding: 0 !important;
     line-height: normal;
     border-radius: 0 !important;
-}
-
-mat-sidenav-container,
-mat-sidenav-content {
-    overflow: initial !important; //allowing position sticky on criteria panel
 }
 
 .mat-toolbar {

@@ -50,7 +50,7 @@
 
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav" (click)="sidenav.toggle()">
-        <div class="d-flex justify-content-start pt-2">
+        <div class="d-flex justify-content-start mt-2">
             <a class="ps-5" style="width: 100%" mat-button [matMenuTriggerFor]="languageMenu"
                 (click)="$event.stopPropagation()">
                 <mat-icon matPrefix>language</mat-icon>
@@ -67,7 +67,7 @@
             </mat-menu>
         </div>
 
-        <mat-divider class="py-1" inset="true"></mat-divider>
+        <mat-divider class="my-1" inset="true"></mat-divider>
 
         <a class="d-flex justify-content-start ps-5" *ngIf="!loggedIn" mat-button [routerLink]="'/login'">
             <mat-icon>login</mat-icon>

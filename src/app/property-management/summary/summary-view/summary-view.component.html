@@ -79,23 +79,27 @@
         <mat-card-content>
             <div class="d-sm-none pt-3 ps-2">
                 <div class="row pb-2" *ngFor="let prop of soonToExpireProperties; let i = index">
-                    <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
-                    <button mat-button (click)="showPropDetails(prop)"
-                        class="col-12 text-bold d-flex justify-content-start">
-                        <span class="property-name-mobile">
-                            <span class="pe-2">
-                                <mat-icon class="property-type-icon" *ngIf="prop.category === 'Apartment'">
-                                    apartment</mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="prop.category === 'Villa'">villa
-                                </mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="prop.category === 'Townhouse'">
-                                    door_sliding</mat-icon>
-                                <mat-icon class="property-type-icon" *ngIf="prop.category === 'Commercial'">
-                                    store_front</mat-icon>
+                    <div class="col-12">
+                        <mat-divider *ngIf="i != 0" inset="true"></mat-divider>
+                    </div>
+                    <div class="col-12">
+                        <button mat-button (click)="showPropDetails(prop)"
+                            class="text-bold d-flex justify-content-start">
+                            <span class="property-name-mobile">
+                                <span class="pe-2">
+                                    <mat-icon class="property-type-icon" *ngIf="prop.category === 'Apartment'">
+                                        apartment</mat-icon>
+                                    <mat-icon class="property-type-icon" *ngIf="prop.category === 'Villa'">villa
+                                    </mat-icon>
+                                    <mat-icon class="property-type-icon" *ngIf="prop.category === 'Townhouse'">
+                                        door_sliding</mat-icon>
+                                    <mat-icon class="property-type-icon" *ngIf="prop.category === 'Commercial'">
+                                        store_front</mat-icon>
+                                </span>
+                                <span>{{prop.name}}</span>
                             </span>
-                            <span>{{prop.name}}</span>
-                        </span>
-                    </button>
+                        </button>
+                    </div>
                     <div class="col-12 ps-3" style="color: gray">
                         {{'summary.expiring_soon_msg' | translate:{ month: calculateExpiry(prop) } }}
                     </div>
