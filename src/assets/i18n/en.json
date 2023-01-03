@@ -296,7 +296,9 @@
         "description": "Description",
         "date": "Date",
         "contracts_expiring_soon": "Contract expiry",
-        "expiring_soon_msg": "{{month}} month(s) remaining"
+        "expiring_soon_msg": "{{month}} month(s) remaining",
+        "invoices_this_week": "Invoices this week",
+        "no_invoices": "No invoices to show"
     },
     "contract_extension": {
         "upload_contract": "Upload contract",

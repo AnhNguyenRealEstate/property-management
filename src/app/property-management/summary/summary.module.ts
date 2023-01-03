@@ -8,6 +8,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { PropertyDetailsModule } from '../properties/property-details/property-details.module';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { ActivityListModule } from '../activities/activity-list/activity-list.module';
+import { InvoiceListModule } from '../invoices/invoice-list/invoice-list.module';
 @NgModule({
     declarations: [SummaryViewComponent],
     imports: [
@@ -18,7 +19,8 @@ import { ActivityListModule } from '../activities/activity-list/activity-list.mo
         NgChartsModule,
         MatBottomSheetModule,
         PropertyDetailsModule,
-        ActivityListModule
+        ActivityListModule,
+        InvoiceListModule
     ],
     exports: [SummaryViewComponent]
 })

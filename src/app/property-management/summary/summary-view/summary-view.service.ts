@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionGroup, doc, Firestore, getDoc, getDocs, limit, orderBy, query, where } from '@angular/fire/firestore';
+import { collection, collectionGroup, doc, Firestore, getDoc, getDocs, limit, orderBy, query, Timestamp, where } from '@angular/fire/firestore';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../../activities/activity.data';
+import { Invoice } from '../../invoices/invoices.data';
 import { Property } from '../../properties/property.data';
 
 @Injectable({ providedIn: 'root' })
@@ -43,5 +44,31 @@ export class SummaryViewService {
         );
 
         return snap.docs.map(doc => doc.data() as Activity);
+    }
+
+    async getInvoicesThisWeek(): Promise<Invoice[]> {
+
+        // https://stackoverflow.com/a/4156516/11936773
+        function getMonday(d: Date) {
+            d = new Date(d)
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1) // adjust when day is sunday
+            return new Date(d.setDate(diff))
+        }
+
+        const startOfWeek = getMonday(new Date())
+        const endOfWeek = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDate() + 7)
+
+        const snap = await getDocs(
+            query(
+                collectionGroup(this.firestore, FirestoreCollections.invoices),
+                orderBy('beginDate', 'desc'),
+                where('beginDate', '>=', Timestamp.fromDate(startOfWeek)),
+                where('beginDate', '<=', Timestamp.fromDate(endOfWeek)),
+                where('status', '==', 'unpaid')
+            )
+        )
+
+        return snap.docs.map(doc => doc.data() as Invoice);
     }
 }

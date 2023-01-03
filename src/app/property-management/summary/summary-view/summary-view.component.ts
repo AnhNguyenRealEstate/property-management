@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Activity } from '../../activities/activity.data';
-import { Property } from '../../properties/property.data';
-import { SummaryViewService } from './summary-view.service';
+import { Component, OnInit } from '@angular/core'
+import { Activity } from '../../activities/activity.data'
+import { Property } from '../../properties/property.data'
+import { SummaryViewService } from './summary-view.service'
 
-import DatalabelsPlugin from 'chartjs-plugin-datalabels';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { TranslateService } from '@ngx-translate/core';
-import { MetadataService } from 'src/app/shared/metadata.service';
-import { Router } from '@angular/router';
-import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels'
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js'
+import { TranslateService } from '@ngx-translate/core'
+import { MetadataService } from 'src/app/shared/metadata.service'
+import { Router } from '@angular/router'
+import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet'
+import { PropertyDetailsComponent } from '../../properties/property-details/property-details.component'
+import { Invoice } from '../../invoices/invoices.data'
 
 @Component({
     selector: 'summary-view',
@@ -20,12 +21,13 @@ import { PropertyDetailsComponent } from '../../properties/property-details/prop
 export class SummaryViewComponent implements OnInit {
 
     pieChartOptions: ChartConfiguration['options'];
-    pieChartData!: ChartData<'pie', number[], string | string[]>;
-    pieChartType!: ChartType;
-    pieChartPlugins = [DatalabelsPlugin];
+    pieChartData!: ChartData<'pie', number[], string | string[]>
+    pieChartType!: ChartType
+    pieChartPlugins = [DatalabelsPlugin]
 
-    soonToExpireProperties: Property[] = [];
-    newestActivities: Activity[] = [];
+    soonToExpireProperties: Property[] = []
+    newestActivities: Activity[] = []
+    invoicesThisWeek: Invoice[] = []
 
     constructor(
         private summaryView: SummaryViewService,
@@ -36,10 +38,11 @@ export class SummaryViewComponent implements OnInit {
     ) { }
 
     async ngOnInit() {
-        this.soonToExpireProperties = await this.summaryView.getSoonToExpireProps();
-        this.newestActivities = await this.summaryView.getRecentActivities();
+        this.soonToExpireProperties = await this.summaryView.getSoonToExpireProps()
+        this.newestActivities = await this.summaryView.getRecentActivities()
+        this.invoicesThisWeek = await this.summaryView.getInvoicesThisWeek()
 
-        this.initChart();
+        this.initChart()
     }
 
     initChart() {
@@ -55,12 +58,12 @@ export class SummaryViewComponent implements OnInit {
                     datalabels: {
                         formatter: (_, ctx) => {
                             if (ctx.chart.data.labels) {
-                                return ctx.chart.data.labels[ctx.dataIndex];
+                                return ctx.chart.data.labels[ctx.dataIndex]
                             }
                         },
                     },
                 }
-            };
+            }
 
             const labels: string[] = []
             const data: number[] = []
@@ -86,25 +89,25 @@ export class SummaryViewComponent implements OnInit {
                 datasets: [{
                     data: data
                 }]
-            };
+            }
 
-            this.pieChartType = 'pie';
-        });
+            this.pieChartType = 'pie'
+        })
     }
 
     calculateExpiry(property: Property): string {
-        const endDate = property.managementEndDate?.toDate();
-        const today = new Date();
+        const endDate = property.managementEndDate?.toDate()
+        const today = new Date()
 
         if (!endDate) {
-            return '';
+            return ''
         }
 
-        let months;
-        months = (endDate.getFullYear() - today.getFullYear()) * 12;
-        months -= today.getMonth();
-        months += endDate.getMonth();
-        return months <= 0 ? '0' : String(months);
+        let months
+        months = (endDate.getFullYear() - today.getFullYear()) * 12
+        months -= today.getMonth()
+        months += endDate.getMonth()
+        return months <= 0 ? '0' : String(months)
     }
 
     onChartViewChange(value: string) {
@@ -112,22 +115,26 @@ export class SummaryViewComponent implements OnInit {
     }
 
     viewProperties() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)')
     }
 
     viewActivities() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
+        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)')
+    }
+
+    viewInvoices() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)')
     }
 
     showPropDetails(property: Property) {
         const config = {
-            autoFocus:  false,
+            autoFocus: false,
             disableClose: false,
             data: {
                 property: property
             }
-        } as MatBottomSheetConfig;
-        this.bottomSheet.open(PropertyDetailsComponent, config);
+        } as MatBottomSheetConfig
+        this.bottomSheet.open(PropertyDetailsComponent, config)
     }
 
     async showPropDetailsFromId(propertyId?: string) {
