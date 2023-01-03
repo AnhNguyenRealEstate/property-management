@@ -14,7 +14,7 @@
             <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
         </div>
         <div class="col-12 login-background-mobile"></div>
-        <div class="col-12 mx-2">
+        <div class="col-12 mt-4 px-4">
             <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
         </div>
     </div>
@@ -24,12 +24,14 @@
 
 <ng-template #loginForm>
     <form (ngSubmit)="login()">
-        <mat-form-field color="accent" class="d-block pb-3">
+        <mat-form-field color="accent" class="d-block">
             <mat-label>{{ 'login.username' | translate }}</mat-label>
+            <mat-icon color="accent" matPrefix>email</mat-icon>
             <input matInput trim="blur" type="text" id="username" name="username" [(ngModel)]="userName">
         </mat-form-field>
         <mat-form-field color="accent" class="d-block pb-3">
             <mat-label>{{ 'login.password' | translate }}</mat-label>
+            <mat-icon color="accent" matPrefix>key</mat-icon>
             <input matInput trim="blur" id="password" name="password" [(ngModel)]="password"
                 [type]="hide ? 'password' : 'text'">
             <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"

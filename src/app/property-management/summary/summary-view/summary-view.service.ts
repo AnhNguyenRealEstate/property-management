@@ -9,6 +9,7 @@ import { Property } from '../../properties/property.data';
 export class SummaryViewService {
     private monthsTilExpiry = 6;
     private activityLimit = 8;
+    private invoicesLimit = 8;
 
     constructor(
         private firestore: Firestore
@@ -65,7 +66,8 @@ export class SummaryViewService {
                 orderBy('beginDate', 'desc'),
                 where('beginDate', '>=', Timestamp.fromDate(startOfWeek)),
                 where('beginDate', '<=', Timestamp.fromDate(endOfWeek)),
-                where('status', '==', 'unpaid')
+                where('status', '==', 'unpaid'),
+                limit(this.invoicesLimit)
             )
         )
 
