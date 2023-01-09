@@ -20,12 +20,9 @@
                     <div class="invoice-description overrun-wrap text-bold" style="color: gray">
                         <span>{{invoice.description}}</span>
                     </div>
-                    <div class="pt-2 invoice-description" style="color: gray">
-                        <span>{{invoice.beginDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
-                        <span class="px-1">
-                            <mat-icon>arrow_right_alt</mat-icon>
-                        </span>
-                        <span>{{invoice.dueDate?.toDate() | date: 'dd/MM/yyyy'}}</span>
+                    <div class="pt-2 invoice-description" style="color: black">
+                        <span class="me-1">{{ 'invoice_list.collect_on' | translate }}:</span>
+                        <span>{{invoice.beginDate?.toDate() | date: 'ccc dd/MM/yyyy'}}</span>
                     </div>
                 </div>
             </mat-panel-title>

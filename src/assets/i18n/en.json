@@ -280,7 +280,8 @@
         "edit_invoice": "Edit invoice",
         "payout_date": "Payout date",
         "amount": "Amount",
-        "search_placeholder": "Property name, payer, payee..."
+        "search_placeholder": "Property name, payer, payee...",
+        "collect_on": "Collect on"
     },
     "summary": {
         "overview": "Overview",

@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        if (environment.production) {
-            this.timeoutService.setTimeout();
-        }
+        // if (environment.production) {
+        //     this.timeoutService.setTimeout();
+        // }
 
         this.appTitle = await lastValueFrom(this.translate.get('app_title'));
         this.titleService.setTitle(this.appTitle);

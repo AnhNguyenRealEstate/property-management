@@ -284,7 +284,8 @@
         "edit_invoice": "Sửa thông tin",
         "payout_date": "Ngày trả tiền cho chủ",
         "amount": "Số tiền",
-        "search_placeholder": "Tên tài sản, người trả, người nhận..."
+        "search_placeholder": "Tên tài sản, người trả, người nhận...",
+        "collect_on": "Ngày bắt đầu thu"
     },
     "summary": {
         "overview": "Tổng quan",
