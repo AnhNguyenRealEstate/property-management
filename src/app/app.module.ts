@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -83,7 +84,13 @@ const maskConfig: Partial<IConfig> = {
       }
       return auth;
     }),
-    provideAnalytics(() => getAnalytics(getApp()))
+    provideAnalytics(() => getAnalytics(getApp())),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   bootstrap: [AppComponent]
 })
