@@ -2,6 +2,7 @@
 
 .title-date {
     font-weight: 500;
+    font-size: 18px;
 }
 
 .property-name {
@@ -16,14 +17,14 @@
 
 .activity-description,
 .property-description {
-    color: gray;
+    color: rgb(103, 103, 103);
     word-wrap: break-word;
     white-space: normal;
 }
 
 .activity-metadata {
     font-size: 0.8rem;
-    color: #7851a9;
+    color: gray;
 }
 
 .activity-line::after {
@@ -72,5 +73,5 @@
 }
 
 .document-name {
-    color: rgba(purple, 0.8);
+    color: rgb(103, 103, 103);
 }

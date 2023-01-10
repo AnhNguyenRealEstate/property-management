@@ -1,13 +1,13 @@
 <section class="p-3">
     <mat-card>
         <mat-card-content>
-            <div class="row">
-                <mat-form-field class="col-12 col-sm-6">
+            <div class="row" *ngIf="showSearch">
+                <mat-form-field class="col-8">
                     <mat-label>{{ 'activity_list.search_label' | translate }}</mat-label>
                     <mat-icon matPrefix>search</mat-icon>
                     <input matInput [ngModel]="searchQuery$ | async" (ngModelChange)="searchQuery$$.next($event)">
                 </mat-form-field>
-                <div class="col-12 col-sm-6 pt-sm-2 d-flex justify-content-end">
+                <div class="col-4 pt-sm-2 d-flex justify-content-end">
                     <button mat-button [matMenuTriggerFor]="filterMenu">
                         <mat-icon>filter_alt</mat-icon>
                         <span>{{ 'activity_list.filter' | translate }}</span>
@@ -75,9 +75,11 @@
                     </mat-menu>
                 </div>
             </div>
-            <mat-divider></mat-divider>
             <div class="pt-3 ps-2 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
-                <div class="col-12 pb-2 title-date">{{activitiesByDate.date | date: "dd/MM/yyyy"}}</div>
+                <div class="col-12 ms-2 mb-2 title-date d-flex">
+                    <span class="ms-2">{{activitiesByDate.date | date: "ccc dd/MM/yyyy"}}</span>
+                    <div class="pt-2 px-2 px-sm-5" style="flex-grow: 1"><mat-divider></mat-divider></div>
+                </div>
                 <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
                     <div class="row pe-1 pb-3" style="min-height: 48px;">
                         <div class="col-2 icon-and-time activity-line">
@@ -155,7 +157,7 @@
                             </div>
 
                             <div class="row pb-2 activity-details-mobile d-sm-none">
-                                <div class="col-12 pt-2 activity-metadata">
+                                <div class="col-12 pt-2 mb-2 activity-metadata">
                                     <span class="ps-3">
                                         <mat-icon class="mb-1" style="font-size: 18px; width: 18px; height:18px">
                                             access_time
@@ -170,7 +172,7 @@
                                         *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">{{activity.createdBy?.displayName
                                         || activity.createdBy?.userName}}</span>
                                 </div>
-                                <div class="col-12" *ngIf="showPropertyName">
+                                <div class="col-12 mb-2" *ngIf="showPropertyName">
                                     <button mat-button (click)="showDetails(activity.propertyId!)"
                                         class="property-name">
                                         <mat-icon class="property-type-icon"
@@ -188,19 +190,15 @@
                                         <span>{{activity.propertyName}}</span>
                                     </button>
                                 </div>
+                                <div class="col-12 mb-4">
+                                    <span class="activity-description">{{activity.description}}</span>
+                                </div>
                                 <div class="col-12">
-                                    <div class="row ps-3">
-                                        <div class="col-12">
-                                            <span class="activity-description">{{activity.description}}</span>
-                                        </div>
-                                        <div *ngIf="activity.documents?.length"
-                                            class="ms-3 col-2 quarter-circle-top-right"></div>
-                                        <div *ngIf="activity.documents?.length" class="col-8 pt-1 activity-document">
-                                            <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
-                                                *ngFor="let doc of activity.documents">
-                                                <span class="document-name">{{doc.displayName}}</span>
-                                            </button>
-                                        </div>
+                                    <div *ngIf="activity.documents?.length" class="activity-document">
+                                        <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
+                                            *ngFor="let doc of activity.documents">
+                                            <span class="document-name">{{doc.displayName}}</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -208,6 +206,7 @@
                     </div>
                 </div>
             </div>
+
             <div>
                 <button *ngIf="showViewMore" mat-raised-button (click)="getMoreActivities.emit()">
                     <mat-icon>expand_more</mat-icon>

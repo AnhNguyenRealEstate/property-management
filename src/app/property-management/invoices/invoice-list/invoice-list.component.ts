@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InvoiceListComponent {
     @Input() invoices: Invoice[] = [];
+    @Input() showSearch: boolean = true;
     @Input() canEditInvoices: boolean = false;
 
     @Output() paymentReceived: EventEmitter<Invoice> = new EventEmitter();

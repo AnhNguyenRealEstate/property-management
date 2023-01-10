@@ -25,6 +25,7 @@ export class ActivityListComponent implements OnInit, OnChanges, DoCheck, OnDest
     @Input() activities: Activity[] = [];
     @Input() showPropertyName: boolean = true;
     @Input() showViewMore: boolean = true;
+    @Input() showSearch: boolean = true;
 
     @Output() getMoreActivities: EventEmitter<void> = new EventEmitter();
 

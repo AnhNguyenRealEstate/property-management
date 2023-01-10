@@ -1,20 +1,20 @@
 <section class="d-sm-none px-2 py-4">
-    <div class="row pb-2">
+    <div class="row mb-4">
         <div class="col-12">
             <ng-container [ngTemplateOutlet]="propertyComposition"></ng-container>
         </div>
     </div>
-    <div class="row pb-2">
+    <div class="row mb-4">
         <div class="col-12">
             <ng-container [ngTemplateOutlet]="soonToExpireProps"></ng-container>
         </div>
     </div>
-    <div class="row pb-2">
+    <div class="row mb-4">
         <div class="col-12">
             <ng-container [ngTemplateOutlet]="invoicesThisWeekTpl"></ng-container>
         </div>
     </div>
-    <div class="row pb-2">
+    <div class="row mb-4">
         <div class="col-12">
             <ng-container [ngTemplateOutlet]="recentActivities"></ng-container>
         </div>
@@ -44,7 +44,7 @@
 </section>
 
 <ng-template #propertyComposition>
-    <mat-card class="mat-elevation-z1">
+    <mat-card>
         <mat-card-title>
             <div class="row">
                 <div class="col-6">
@@ -76,7 +76,7 @@
 </ng-template>
 
 <ng-template #soonToExpireProps>
-    <mat-card class="mat-elevation-z1">
+    <mat-card>
         <mat-card-title>
             <div class="d-flex justify-content-between ps-3 pe-3 pt-3">
                 <div>
@@ -163,7 +163,7 @@
                 <mat-icon>arrow_right_alt</mat-icon>
             </button>
         </div>
-        <activity-list [showViewMore]="false" [activities]="newestActivities"></activity-list>
+        <activity-list [showViewMore]="false" [showSearch]="false" [activities]="newestActivities"></activity-list>
     </div>
 </ng-template>
 
@@ -177,7 +177,7 @@
             </button>
         </div>
         <div *ngIf="invoicesThisWeek.length; else noInvoices">
-            <invoice-list [invoices]="invoicesThisWeek" [canEditInvoices]="true"></invoice-list>
+            <invoice-list [invoices]="invoicesThisWeek" [canEditInvoices]="true" [showSearch]="false"></invoice-list>
         </div>
         <ng-template #noInvoices>
             <span>{{ 'summary.no_invoices' | translate }}</span>

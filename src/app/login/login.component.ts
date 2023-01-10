@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, browserSessionPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, browserLocalPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from './login.service';
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.successful = true;
         this.inProgress = true;
 
-        await this.auth.setPersistence(browserSessionPersistence);
+        await this.auth.setPersistence(browserLocalPersistence);
         await signInWithEmailAndPassword(this.auth, this.userName, this.password).catch(error => {
             this.successful = false;
             this.inProgress = false;
