@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       title: 'layout.property_management',
-      authGuardPipe: () => redirectUnauthorizedTo(['/'])
+      authGuardPipe: () => redirectUnauthorizedTo('/')
     }
   },
   { path: '**', redirectTo: '/' }

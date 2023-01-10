@@ -53,7 +53,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     logout() {
         this.auth.signOut().then(() => {
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('/login');
         });
     }
 

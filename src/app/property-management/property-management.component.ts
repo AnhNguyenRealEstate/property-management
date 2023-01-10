@@ -15,7 +15,6 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
     isDesktop: boolean = true;
 
     constructor(
-        private dialog: MatDialog,
         public roles: UserProfileService,
         private router: Router,
         private layout: LayoutService,
