@@ -1,9 +1,9 @@
 <mat-toolbar class="navbar mat-elevation-z3 d-flex">
-    <a class="navbar-brand">
+    <a class="navbar-brand" (click)="viewSummary()">
         <span class="home-icon-wrapper">
             <img width="22rem" height="22rem" src="/assets/images/logo.png">
         </span>
-        <span class="company-name ps-2">Anh Nguyen Real Estate</span>
+        <span class="company-name ps-2">{{'app_title' | translate}}</span>
     </a>
 
     <div class="d-none d-md-flex">
