@@ -1,15 +1,13 @@
-.login-background {
-    background-image: url("/assets/images/login-background.jpg");
-    background-size: cover;
-    background-position: 0% 50%;
-    height: 90vh;
-}
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-.login-background-mobile {
-    background-image: url("/assets/images/login-background-mobile.png");
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    width: 80vw;
-    margin-left: 10vw;
+    .login-background {
+        background-image: url("/assets/images/login-background.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 50vh;
+    }
 }

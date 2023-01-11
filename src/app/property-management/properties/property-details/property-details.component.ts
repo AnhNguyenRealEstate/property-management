@@ -194,16 +194,33 @@ export class PropertyDetailsComponent implements OnInit {
         const DATE_PIPE_FORMAT = 'dd/MM/yyyy';
         invoice.paymentWindow = `${this.datePipe.transform(invoice.beginDate!.toDate(), DATE_PIPE_FORMAT)} - ${this.datePipe.transform(invoice.dueDate!.toDate(), DATE_PIPE_FORMAT)}`;
         await this.propertyDetails.updateInvoice(this.invoicesBeingEdited.find(_ => _.id === invoice.id)!, invoice);
+
+        let activityDescription = `Biên nhận giai đoạn ${invoice.paymentWindow}: `
+        switch (invoice.status) {
+            case 'partiallyPaid':
+            case 'doNotCollect':
+            case 'unpaid':
+                activityDescription += `${this.translate.instant(`payment_schedule.${invoice.status}`)}.`
+                break;
+            case 'paid':
+                activityDescription += `đã thu ${invoice.amount} từ ${invoice.payer}.`
+                break;
+            case 'paidOut':
+                activityDescription += `đã chuyển ${invoice.amount} cho ${invoice.payee}.`
+                break;
+        }
+
         await this.propertyDetails.addActivity(this.property,
             {
                 propertyId: this.property.id,
                 propertyName: this.property.name,
                 date: Timestamp.now(),
-                description: `Cập nhật thông tin biên nhận`,
+                description: activityDescription.trim(),
                 type: 'invoice',
                 createdBy: this.userProfile.profile$$.getValue()
             } as Activity,
-            []);
+            []
+        )
 
         this.invoiceEditDone(invoice)
 

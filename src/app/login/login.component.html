@@ -1,49 +1,33 @@
-<section class="container-flex ms-2 me-2">
-    <div class="row d-none d-sm-flex">
-        <div class="col-6 login-background"></div>
-        <div class="col-6">
-            <h1 class="pt-20">{{ 'login.page_title' | translate }}</h1>
-            <div class="me-5">
-                <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
-            </div>
-        </div>
-    </div>
-
-    <div class="row d-sm-none">
-        <div class="col-12">
-            <h1 class="pt-3 d-flex justify-content-center">{{ 'app_title' | translate }}</h1>
-        </div>
-        <div class="col-12 login-background-mobile"></div>
-        <div class="col-12 mt-4 px-4">
-            <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
-        </div>
-    </div>
-</section>
-
-<app-footer></app-footer>
+<div class="login-page">
+    <div class="login-background"></div>
+    <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
+    <app-footer></app-footer>
+</div>
 
 <ng-template #loginForm>
-    <form (ngSubmit)="login()">
-        <mat-form-field color="accent" class="d-block">
-            <mat-label>{{ 'login.username' | translate }}</mat-label>
-            <mat-icon color="accent" matPrefix>email</mat-icon>
-            <input matInput trim="blur" type="text" id="username" name="username" [(ngModel)]="userName">
-        </mat-form-field>
-        <mat-form-field color="accent" class="d-block pb-3">
-            <mat-label>{{ 'login.password' | translate }}</mat-label>
-            <mat-icon color="accent" matPrefix>key</mat-icon>
-            <input matInput trim="blur" id="password" name="password" [(ngModel)]="password"
-                [type]="hide ? 'password' : 'text'">
-            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-        <div class="pb-4 d-flex justify-content-center">
-            <button type="submit" class="login-button" mat-flat-button color="accent">
-                <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
-                <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>
-            </button>
+    <form (ngSubmit)="login()" class="mx-2 d-flex justify-content-center">
+        <div>
+            <mat-form-field color="accent">
+                <mat-label>{{ 'login.username' | translate }}</mat-label>
+                <mat-icon color="accent" matPrefix>account_circle</mat-icon>
+                <input matInput trim="blur" type="text" id="username" name="username" [(ngModel)]="userName">
+            </mat-form-field>
+            <mat-form-field color="accent" class="mb-3">
+                <mat-label>{{ 'login.password' | translate }}</mat-label>
+                <mat-icon color="accent" matPrefix>key</mat-icon>
+                <input matInput trim="blur" id="password" name="password" [(ngModel)]="password"
+                    [type]="hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <div class="mb-4 d-flex justify-content-center">
+                <button type="submit" class="login-button" mat-flat-button color="accent">
+                    <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
+                    <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>
+                </button>
+            </div>
         </div>
     </form>
 </ng-template>
