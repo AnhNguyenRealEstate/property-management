@@ -23,3 +23,34 @@
         }
     }
 }
+
+::ng-deep mat-tab-group[id="invoices-view-tabs"] {
+    @media only screen and (max-width: 768px) {
+        mat-tab-header {
+            top: auto !important;
+            right: 4px !important;
+            bottom: 0px !important;
+            left: 4px !important;
+            position: fixed !important;
+            z-index: 2;
+            height: 9vh;
+
+            button.mat-mdc-tab-header-pagination {
+                display: none !important;
+            }
+
+            .mat-mdc-tab-label-container {
+                background: whitesmoke;
+                .mdc-tab {
+                    width: 25vw !important;
+                    height: 56px;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        mat-tab-body {
+            margin-bottom: 56px;
+        }
+    }
+}
