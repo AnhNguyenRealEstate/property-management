@@ -1,4 +1,4 @@
-<mat-card class="pe-4" [class.no-longer-managed]="propertyNoLongerManaged">
+<mat-card [class.no-longer-managed]="propertyNoLongerManaged">
     <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
         <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
@@ -31,34 +31,35 @@
 
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-3">
             <div class="col-5">
-                <div class="content-label">
+                <div class="content-label d-flex justify-content-center">
                     <mat-icon style="color: green;">event_available</mat-icon>
                     <span class="ps-1"> {{ 'property_card.start_date' | translate }}</span>
                 </div>
-                <div class="text-bold" id="mgmtStartDate">
+                <div class="text-bold d-flex justify-content-center" id="mgmtStartDate">
                     {{property.managementStartDate.toDate() | date:'dd/MM/yyyy' }}
                 </div>
             </div>
-            <div class="col-2 pt-1 px-0">
+            <div class="col-2 pt-1 px-0 d-flex justify-content-center">
                 <mat-icon style="font-size: 2rem; width: fit-content; height: fit-content">arrow_right_alt</mat-icon>
             </div>
             <div class="col-5">
-                <div class="content-label">
+                <div class="content-label d-flex justify-content-center">
                     <mat-icon style="color: red;">event_busy</mat-icon>
                     <span class="ps-1">{{ 'property_card.end_date' | translate }}</span>
                 </div>
-                <div class="text-bold" id="mgmtEndDate">{{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}
+                <div class="text-bold d-flex justify-content-center" id="mgmtEndDate">
+                    {{property.managementEndDate.toDate() | date:'dd/MM/yyyy' }}
                 </div>
             </div>
         </div>
 
-        <div class="row pb-2">
+        <div class="row mb-2">
             <div class="col-12">
-                <div class="pb-1 content-label">
+                <div class="mb-1 content-label">
                     <mat-icon color="primary">timelapse</mat-icon>
                     <span class="ps-1">{{ 'property_card.contract_progress' | translate }}</span>
                 </div>
-                <div>
+                <div class="d-flex">
                     <mat-progress-bar [value]="contractProgress"></mat-progress-bar>
                 </div>
             </div>

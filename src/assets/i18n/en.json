@@ -141,7 +141,9 @@
         "cancel": "Cancel",
         "download": "Download",
         "preview": "Preview",
-        "description": "Description"
+        "description": "Description",
+        "owner": "Owner",
+        "tenant": "Tenant"
     },
     "activity_list": {
         "search_label": "Property name...",
