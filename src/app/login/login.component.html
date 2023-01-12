@@ -1,11 +1,11 @@
 <div class="login-page">
-    <div class="login-background"></div>
+    <div class="login-background mt-5"></div>
     <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
     <app-footer></app-footer>
 </div>
 
 <ng-template #loginForm>
-    <form (ngSubmit)="login()" class="mx-2 d-flex justify-content-center">
+    <form (ngSubmit)="login()" class="mx-2 mb-5 d-flex justify-content-center">
         <div>
             <mat-form-field color="accent">
                 <mat-label>{{ 'login.username' | translate }}</mat-label>
@@ -22,7 +22,7 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <div class="mb-4 d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
                 <button type="submit" class="login-button" mat-flat-button color="accent">
                     <span *ngIf="!inProgress">{{ 'login.login' | translate }}</span>
                     <mat-spinner *ngIf="inProgress" [diameter]="35"></mat-spinner>

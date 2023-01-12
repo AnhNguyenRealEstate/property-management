@@ -4,10 +4,12 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'any' })
 export class TabSwipeService {
-    private scrollDistanceX = 256; // one third screen width
+    private scrollDistanceX = window.innerWidth / 3; // one third screen width
     constructor(
         @Inject(DOCUMENT) private document: Document
-    ) { }
+    ) {
+
+    }
 
     initSwipeDetection(tabIndex: BehaviorSubject<number>, tabCount: number) {
         let touchStartX = 0
