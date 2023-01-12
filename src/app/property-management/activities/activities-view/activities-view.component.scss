@@ -8,7 +8,7 @@
             left: 4px !important;
             position: fixed !important;
             z-index: 2;
-            height: 9vh;
+            height: var(--nav-tabs-height);
             border-top: 1px solid rgb(172, 178, 185);
 
             button.mat-mdc-tab-header-pagination {
