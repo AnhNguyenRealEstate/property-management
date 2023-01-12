@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'any' })
 export class TabSwipeService {
-    private scrollDistanceX = 50;
+    private scrollDistanceX = 256; // one third screen width
     constructor(
         @Inject(DOCUMENT) private document: Document
     ) { }
