@@ -1,5 +1,5 @@
-<mat-tab-group [selectedIndex]="tabIndex$ | async" id="activities-view-tabs" color="accent" class="mx-sm-2 mt-2 my-sm-4"
-    style="min-height: 90vh;">
+<mat-tab-group #tabGroup id="activities-view-tabs" color="accent" class="mx-sm-2 mt-2 my-sm-4" style="min-height: 90vh;"
+    appMatTabSwipe [tabGroup]="tabGroup" [tabCount]="2">
     <mat-tab>
         <ng-template matTabLabel>
             <div>

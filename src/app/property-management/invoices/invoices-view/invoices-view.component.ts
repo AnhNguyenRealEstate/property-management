@@ -7,8 +7,6 @@ import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/materi
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Platform } from '@angular/cdk/platform';
 import { Invoice } from '../invoices.data';
-import { TabSwipeService } from 'src/app/shared/tab-swipe.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 // https://www.beyondjava.net/angular-material-monthpicker
 export class MonthpickerDateAdapter extends NativeDateAdapter {
@@ -94,14 +92,9 @@ export class InvoicesViewComponent implements OnInit {
 
     uncollectedInvoicesCols: Columns[] = [];
 
-    tabIndex: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-    tabIndex$: Observable<number> = this.tabIndex.asObservable()
-    tabCount: number = 3
-
     constructor(
         private invoicesView: InvoicesViewService,
-        private translate: TranslateService,
-        private tabSwipe: TabSwipeService
+        private translate: TranslateService
     ) { }
 
     async ngOnInit() {
@@ -124,8 +117,6 @@ export class InvoicesViewComponent implements OnInit {
             { key: 'beginDate', title: this.translate.instant('payment_schedule.begin_date'), cellTemplate: this.beginDateTpl, width: '10%' },
             { key: 'description', title: this.translate.instant('payment_schedule.invoice_description'), width: '30%' },
         ]
-
-        this.tabSwipe.initSwipeDetection(this.tabIndex, this.tabCount)
     }
 
     async getUnpaidInvoices(option?: 'all' | 'currentMonth') {

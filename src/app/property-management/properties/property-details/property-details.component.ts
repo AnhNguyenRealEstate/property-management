@@ -16,7 +16,6 @@ import { MatButton } from '@angular/material/button';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TabSwipeService } from 'src/app/shared/tab-swipe.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
@@ -90,7 +89,6 @@ export class PropertyDetailsComponent implements OnInit {
         private dialog: MatDialog,
         private hash: HashingService,
         private userProfile: UserProfileService,
-        private tabSwipe: TabSwipeService,
         private _bottomSheetRef: MatBottomSheetRef<PropertyDetailsComponent>,
         @Optional() @Inject(MAT_BOTTOM_SHEET_DATA) private data: any
     ) {
@@ -113,8 +111,6 @@ export class PropertyDetailsComponent implements OnInit {
         this.propertyDocuments = this.property.documents?.sort((a, b) =>
             b.date?.toMillis()! - a.date?.toMillis()!
         )
-        
-        this.tabSwipe.initSwipeDetection(this.tabIndex, this.tabCount)
     }
 
     async getActivities() {

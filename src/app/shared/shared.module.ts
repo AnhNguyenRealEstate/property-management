@@ -20,9 +20,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AutoFocusDirective } from './auto-focus-on-error.directive';
+import { MatTabSwipeDirective } from './mat-tab-swipe.directive';
 
 @NgModule({
-    declarations: [AutoFocusDirective],
+    declarations: [AutoFocusDirective, MatTabSwipeDirective],
     exports: [
         FormsModule,
         MatIconModule,
@@ -44,7 +45,8 @@ import { AutoFocusDirective } from './auto-focus-on-error.directive';
         MatDatepickerModule,
         MatProgressSpinnerModule,
         DragDropModule,
-        AutoFocusDirective
+        AutoFocusDirective,
+        MatTabSwipeDirective
     ],
     providers: [
         CurrencyPipe,

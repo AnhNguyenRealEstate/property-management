@@ -2,8 +2,8 @@
     <mat-spinner color="primary" [diameter]="35"></mat-spinner>
 </div>
 
-<mat-tab-group id="prop-view-tabs" class="mt-2 my-sm-4 mx-2" color="accent" [selectedIndex]="propTabIndex$ | async"
-    (selectedIndexChange)="onTabChange($event)" style="min-height: 90vh">
+<mat-tab-group id="prop-view-tabs" #tabGroup class="mt-2 my-sm-4 mx-2" color="accent" appMatTabSwipe
+    [tabGroup]="tabGroup" [tabCount]="4" (selectedIndexChange)="onTabChange($event)" style="min-height: 90vh">
     <mat-tab>
         <ng-template matTabLabel>
             <div>
@@ -19,7 +19,7 @@
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]="{category: 'Apartment'}"></ng-container>
         <div [@propertyCardAnim]="apartments.length" class="row p-2" style="min-height: 70vh;">
             <div *ngFor="let prop of apartments | propFilter: searchInput | paginate: {id: 'apartmentsPaginator', itemsPerPage: itemsPerPage, currentPage: apartmentsCurrentPage }"
-                class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                class="col-12 col-sm-4 col-xl-3 my-2 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(apartments, prop)">
                 </property-card>
@@ -47,7 +47,7 @@
         <ng-container [ngTemplateOutlet]="searchBar" [ngTemplateOutletContext]=" {category: 'Villa' }"></ng-container>
         <div [@propertyCardAnim]="villas.length" class="row p-2" style="min-height: 70vh;">
             <div *ngFor="let prop of villas | propFilter: searchInput | paginate: {id: 'villasPaginator', itemsPerPage: itemsPerPage, currentPage: villasCurrentPage }"
-                class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                class="col-12 col-sm-4 col-xl-3 my-2 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(villas, prop)">
                 </property-card>
             </div>
@@ -75,7 +75,7 @@
         </ng-container>
         <div [@propertyCardAnim]="townhouses.length" class="row p-2" style="min-height: 70vh;">
             <div *ngFor="let prop of townhouses | propFilter: searchInput | paginate: { id: 'townhousesPaginator', itemsPerPage: itemsPerPage, currentPage: townhousesCurrentPage }"
-                class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                class="col-12 col-sm-4 col-xl-3 my-2 property-card-wrapper">
                 <property-card id="townhousesPaginator" (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(townhouses, prop)">
                 </property-card>
@@ -105,7 +105,7 @@
         </ng-container>
         <div [@propertyCardAnim]="commercials.length" class="row p-2" style="min-height: 70vh;">
             <div *ngFor="let prop of commercials | propFilter: searchInput | paginate: { id: 'commercialsPaginator', itemsPerPage: itemsPerPage, currentPage: commercialsCurrentPage }"
-                class="col-sm-4 col-xl-3 my-1 property-card-wrapper">
+                class="col-12 col-sm-4 col-xl-3 my-2 property-card-wrapper">
                 <property-card (click)="showDetails(prop)" [property]="prop"
                     (delete)="propertyRemoved(commercials, prop)">
                 </property-card>
