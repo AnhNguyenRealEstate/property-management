@@ -1,4 +1,5 @@
-<mat-tab-group id="activities-view-tabs" color="accent" class="mx-sm-2 mt-2 my-sm-4" style="min-height: 90vh;">
+<mat-tab-group [selectedIndex]="tabIndex$ | async" id="activities-view-tabs" color="accent" class="mx-sm-2 mt-2 my-sm-4"
+    style="min-height: 90vh;">
     <mat-tab>
         <ng-template matTabLabel>
             <div>
@@ -10,8 +11,11 @@
                 </div>
             </div>
         </ng-template>
-        <activity-list [activities]="activities" (getMoreActivities)="getMoreActivities()"
-            [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"></activity-list>
+
+        <ng-template matTabContent>
+            <activity-list [activities]="activities" (getMoreActivities)="getMoreActivities()"
+                [canDeleteActivities]="!!(roles.roles$ | async)?.includes('customer-service')"></activity-list>
+        </ng-template>
     </mat-tab>
     <mat-tab>
         <ng-template matTabLabel>
@@ -24,6 +28,8 @@
                 </div>
             </div>
         </ng-template>
-        <activity-calendar></activity-calendar>
+        <ng-template matTabContent>
+            <activity-calendar></activity-calendar>
+        </ng-template>
     </mat-tab>
 </mat-tab-group>

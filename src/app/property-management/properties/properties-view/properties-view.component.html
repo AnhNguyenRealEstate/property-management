@@ -2,7 +2,7 @@
     <mat-spinner color="primary" [diameter]="35"></mat-spinner>
 </div>
 
-<mat-tab-group id="prop-view-tabs" class="mt-2 my-sm-4 mx-2" color="accent" [selectedIndex]="0"
+<mat-tab-group id="prop-view-tabs" class="mt-2 my-sm-4 mx-2" color="accent" [selectedIndex]="propTabIndex$ | async"
     (selectedIndexChange)="onTabChange($event)" style="min-height: 90vh">
     <mat-tab>
         <ng-template matTabLabel>
@@ -130,7 +130,7 @@
 <ng-template #searchBar let-category="category">
     <div class="pt-2 row d-flex justify-content-center">
         <div class="col-11 py-0 search-bar">
-            <mat-form-field color="accent" class="px-3">
+            <mat-form-field class="px-3">
                 <span matPrefix class="px-3" style="font-size: 1rem">
                     <mat-icon>search</mat-icon>
                 </span>

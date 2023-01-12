@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { Activity } from "../activity.data";
 import { ActivitiesViewService } from './activities-view.service';
 import { Role } from '../../users/users.data';
+import { TabSwipeService } from 'src/app/shared/tab-swipe.service';
 
 @Component({
     selector: 'activities-view',
@@ -18,10 +19,15 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
     view: 'list' | 'calendar' = 'calendar';
     currentRoles: Role[] = [];
 
+    tabIndex: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+    tabIndex$: Observable<number> = this.tabIndex.asObservable()
+    tabCount: number = 2
+
     constructor(
         public activitiesView: ActivitiesViewService,
         private auth: Auth,
-        public roles: UserProfileService
+        public roles: UserProfileService,
+        private tabSwipe: TabSwipeService
     ) { }
 
     async ngOnInit() {
@@ -34,6 +40,8 @@ export class ActivitiesViewComponent implements OnInit, OnDestroy {
                 const snapshot = await this.activitiesView.getActivities(this.auth.currentUser.email);
                 this.activities = snapshot.docs.map(doc => doc.data() as Activity);
             }
+
+            this.tabSwipe.initSwipeDetection(this.tabIndex, this.tabCount)
         }));
     }
 

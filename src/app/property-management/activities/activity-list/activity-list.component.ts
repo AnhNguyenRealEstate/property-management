@@ -70,6 +70,7 @@ export class ActivityListComponent implements OnInit, OnChanges, DoCheck, OnDest
     ngDoCheck(): void {
         if (this.activities.length !== this.numberOfActivities) {
             this.ngOnChanges();
+            this.numberOfActivities = this.activities.length;
         }
     }
 

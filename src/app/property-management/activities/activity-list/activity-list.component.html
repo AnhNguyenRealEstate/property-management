@@ -1,178 +1,112 @@
-<section>
-    <mat-card>
-        <mat-card-content>
-            <div class="row" *ngIf="showSearch">
-                <mat-form-field class="col-12 col-sm-8">
-                    <mat-label>{{ 'activity_list.search_label' | translate }}</mat-label>
-                    <mat-icon matPrefix>search</mat-icon>
-                    <input matInput [ngModel]="searchQuery$ | async" (ngModelChange)="searchQuery$$.next($event)">
-                </mat-form-field>
-                <div class="col-12 col-sm-4 pt-sm-2 d-flex justify-content-end">
-                    <button mat-button [matMenuTriggerFor]="filterMenu">
-                        <mat-icon>filter_alt</mat-icon>
-                        <span>{{ 'activity_list.filter' | translate }}</span>
-                        <div class="ms-3 d-inline filter-criterion" *ngIf="typeQuery$ | async">
-                            <mat-icon color="primary" *ngIf="(typeQuery$ | async) === 'generic'">history_edu</mat-icon>
-                            <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'newContract'">note_add
-                            </mat-icon>
-                            <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'contractExtension'">
-                                more_time
-                            </mat-icon>
-                            <mat-icon color="warn" *ngIf="(typeQuery$ | async) === 'contractCancellation'">
-                                cancel_presentation_icon</mat-icon>
-                            <mat-icon color="primary" *ngIf="(typeQuery$ | async) === 'propertyEdit'">edit
-                            </mat-icon>
-                            <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'invoice'">request_quote
-                            </mat-icon>
+<mat-card>
+    <mat-card-content>
+        <div class="row" *ngIf="showSearch">
+            <mat-form-field class="col-12 col-sm-8">
+                <mat-label>{{ 'activity_list.search_label' | translate }}</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput [ngModel]="searchQuery$ | async" (ngModelChange)="searchQuery$$.next($event)">
+            </mat-form-field>
+            <div class="col-12 col-sm-4 pt-sm-2 d-flex justify-content-end">
+                <button mat-button [matMenuTriggerFor]="filterMenu">
+                    <mat-icon>filter_alt</mat-icon>
+                    <span>{{ 'activity_list.filter' | translate }}</span>
+                    <div class="ms-3 d-inline filter-criterion" *ngIf="typeQuery$ | async">
+                        <mat-icon color="primary" *ngIf="(typeQuery$ | async) === 'generic'">history_edu</mat-icon>
+                        <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'newContract'">note_add
+                        </mat-icon>
+                        <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'contractExtension'">
+                            more_time
+                        </mat-icon>
+                        <mat-icon color="warn" *ngIf="(typeQuery$ | async) === 'contractCancellation'">
+                            cancel_presentation_icon</mat-icon>
+                        <mat-icon color="primary" *ngIf="(typeQuery$ | async) === 'propertyEdit'">edit
+                        </mat-icon>
+                        <mat-icon style="color: green" *ngIf="(typeQuery$ | async) === 'invoice'">request_quote
+                        </mat-icon>
 
-                            <div class="d-inline text-normal ps-1">
-                                <span *ngIf="(typeQuery$ | async) === 'generic'">{{
-                                    'activity_type.all' | translate }}</span>
-                                <span *ngIf="(typeQuery$ | async) === 'propertyEdit'">{{
-                                    'activity_type.edit' | translate }}</span>
-                                <span *ngIf="(typeQuery$ | async) === 'newContract'">{{
-                                    'activity_type.new_contract' | translate }}</span>
-                                <span *ngIf="(typeQuery$ | async) === 'contractExtension'">{{
-                                    'activity_type.contract_ext' | translate }}</span>
-                                <span *ngIf="(typeQuery$ | async) === 'contractCancellation'">{{
-                                    'activity_type.contract_cancellation' | translate }}</span>
-                                <span *ngIf="(typeQuery$ | async) === 'invoice'">{{
-                                    'activity_type.invoice_activities' | translate }}</span>
-                            </div>
+                        <div class="d-inline text-normal ps-1">
+                            <span *ngIf="(typeQuery$ | async) === 'generic'">{{
+                                'activity_type.all' | translate }}</span>
+                            <span *ngIf="(typeQuery$ | async) === 'propertyEdit'">{{
+                                'activity_type.edit' | translate }}</span>
+                            <span *ngIf="(typeQuery$ | async) === 'newContract'">{{
+                                'activity_type.new_contract' | translate }}</span>
+                            <span *ngIf="(typeQuery$ | async) === 'contractExtension'">{{
+                                'activity_type.contract_ext' | translate }}</span>
+                            <span *ngIf="(typeQuery$ | async) === 'contractCancellation'">{{
+                                'activity_type.contract_cancellation' | translate }}</span>
+                            <span *ngIf="(typeQuery$ | async) === 'invoice'">{{
+                                'activity_type.invoice_activities' | translate }}</span>
                         </div>
+                    </div>
+                </button>
+                <mat-menu #filterMenu="matMenu">
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('')">
+                        <mat-icon color="primary">history_edu</mat-icon>
+                        {{ 'activity_type.all' | translate }}
                     </button>
-                    <mat-menu #filterMenu="matMenu">
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('')">
-                            <mat-icon color="primary">history_edu</mat-icon>
-                            {{ 'activity_type.all' | translate }}
-                        </button>
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('propertyEdit')">
-                            <mat-icon color="primary">edit</mat-icon>
-                            {{ 'activity_type.edit' | translate }}
-                        </button>
-                        <mat-divider inset="true"></mat-divider>
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('newContract')">
-                            <mat-icon style="color: green">note_add</mat-icon>
-                            {{ 'activity_type.new_contract' | translate }}
-                        </button>
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('contractExtension')">
-                            <mat-icon style="color: green">
-                                more_time
-                            </mat-icon>
-                            {{ 'activity_type.contract_ext' | translate }}
-                        </button>
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('contractCancellation')">
-                            <mat-icon color="warn">
-                                cancel_presentation_icon
-                            </mat-icon>
-                            {{ 'activity_type.contract_cancellation' | translate }}
-                        </button>
-                        <mat-divider inset="true"></mat-divider>
-                        <button mat-menu-item class="py-2" (click)="typeQuery$$.next('invoice')">
-                            <mat-icon style="color: green">request_quote</mat-icon>
-                            {{ 'activity_type.invoice_activities' | translate }}
-                        </button>
-                    </mat-menu>
-                </div>
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('propertyEdit')">
+                        <mat-icon color="primary">edit</mat-icon>
+                        {{ 'activity_type.edit' | translate }}
+                    </button>
+                    <mat-divider inset="true"></mat-divider>
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('newContract')">
+                        <mat-icon style="color: green">note_add</mat-icon>
+                        {{ 'activity_type.new_contract' | translate }}
+                    </button>
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('contractExtension')">
+                        <mat-icon style="color: green">
+                            more_time
+                        </mat-icon>
+                        {{ 'activity_type.contract_ext' | translate }}
+                    </button>
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('contractCancellation')">
+                        <mat-icon color="warn">
+                            cancel_presentation_icon
+                        </mat-icon>
+                        {{ 'activity_type.contract_cancellation' | translate }}
+                    </button>
+                    <mat-divider inset="true"></mat-divider>
+                    <button mat-menu-item class="py-2" (click)="typeQuery$$.next('invoice')">
+                        <mat-icon style="color: green">request_quote</mat-icon>
+                        {{ 'activity_type.invoice_activities' | translate }}
+                    </button>
+                </mat-menu>
             </div>
-            <div class="pt-3 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
-                <div class="col-12 mb-2 title-date d-flex">
-                    <span class="ms-2">{{activitiesByDate.date | date: "ccc - dd/MM/yyyy"}}</span>
-                    <div class="pt-2 px-2 px-sm-4" style="flex-grow: 1"><mat-divider></mat-divider></div>
-                </div>
-                <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
-                    <div class="row pe-1 pb-3" style="min-height: 48px;">
-                        <div class="col-2 icon-and-time activity-line">
-                            <div class="pt-2">
-                                <span>
-                                    <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
-                                    <mat-icon color="primary" *ngIf="activity.type === 'generic'">history_edu</mat-icon>
-                                    <mat-icon style="color: green" *ngIf="activity.type === 'newContract'">note_add
-                                    </mat-icon>
-                                    <mat-icon style="color: green" *ngIf="activity.type === 'contractExtension'">
-                                        more_time
-                                    </mat-icon>
-                                    <mat-icon color="warn" *ngIf="activity.type === 'contractCancellation'">
-                                        cancel_presentation_icon</mat-icon>
-                                    <mat-icon color="primary" *ngIf="activity.type === 'propertyEdit'">edit
-                                    </mat-icon>
-                                    <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
-                                    </mat-icon>
-                                </span>
-                                <span class="activity-description d-none d-sm-inline ps-3 pt-2">
-                                    {{activity.date?.toDate() | date: 'HH:mm' }}
-                                </span>
-                            </div>
+        </div>
+        <div class="pt-3 row" *ngFor="let activitiesByDate of (activitiesByDates$ | async)">
+            <div class="col-12 mb-2 title-date d-flex">
+                <span class="ms-2">{{activitiesByDate.date | date: "ccc - dd/MM/yyyy"}}</span>
+                <div class="pt-2 px-2 px-sm-4" style="flex-grow: 1"><mat-divider></mat-divider></div>
+            </div>
+            <div class="col-12 ms-3 activity" *ngFor="let activity of activitiesByDate.activities">
+                <div class="row pe-1 pb-3" style="min-height: 48px;">
+                    <div class="col-2 icon-and-time activity-line">
+                        <div class="pt-2">
+                            <span>
+                                <mat-icon color="primary" *ngIf="!activity.type">history_edu</mat-icon>
+                                <mat-icon color="primary" *ngIf="activity.type === 'generic'">history_edu</mat-icon>
+                                <mat-icon style="color: green" *ngIf="activity.type === 'newContract'">note_add
+                                </mat-icon>
+                                <mat-icon style="color: green" *ngIf="activity.type === 'contractExtension'">
+                                    more_time
+                                </mat-icon>
+                                <mat-icon color="warn" *ngIf="activity.type === 'contractCancellation'">
+                                    cancel_presentation_icon</mat-icon>
+                                <mat-icon color="primary" *ngIf="activity.type === 'propertyEdit'">edit
+                                </mat-icon>
+                                <mat-icon style="color: green" *ngIf="activity.type === 'invoice'">request_quote
+                                </mat-icon>
+                            </span>
+                            <span class="activity-description d-none d-sm-inline ps-3 pt-2">
+                                {{activity.date?.toDate() | date: 'HH:mm' }}
+                            </span>
                         </div>
-                        <div class="col-10 acitivty-details">
-                            <div class="d-none d-sm-block activity-details-desktop">
-                                <div class="row">
-                                    <div class="col-4" *ngIf="showPropertyName">
-                                        <button mat-button (click)="showDetails(activity.propertyId!)"
-                                            class="property-name">
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Apartment'">
-                                                apartment</mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Villa'">villa
-                                            </mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Townhouse'">
-                                                door_sliding</mat-icon>
-                                            <mat-icon class="property-type-icon"
-                                                *ngIf="activity.propertyCategory === 'Commercial'">
-                                                store_front</mat-icon>
-                                            <span>{{activity.propertyName}}</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-8 pt-2">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <span class="activity-description">{{activity.description}}</span>
-                                            </div>
-                                            <div *ngIf="activity.documents?.length"
-                                                class="ms-3 col-1 quarter-circle-top-right"></div>
-                                            <div *ngIf="activity.documents?.length"
-                                                class="col-10 pt-1 activity-document">
-                                                <button class="mb-1" mat-stroked-button
-                                                    (click)="downloadDoc(activity, doc)"
-                                                    *ngFor="let doc of activity.documents">
-                                                    <span class="document-name">{{doc.displayName}}</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="pt-1 row activity-metadata"
-                                            *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">
-                                            <div class="col-12">
-                                                <mat-icon matChipAvatar class="mb-1"
-                                                    style="font-size: 18px; width: 18px; height:18px">person
-                                                </mat-icon>
-                                                <span class="ps-1">{{activity.createdBy?.displayName
-                                                    || activity.createdBy?.userName}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row pb-2 activity-details-mobile d-sm-none">
-                                <div class="col-12 pt-2 mb-2 activity-metadata">
-                                    <span>
-                                        <mat-icon class="mb-1" style="font-size: 18px; width: 18px; height:18px">
-                                            access_time
-                                        </mat-icon>
-                                    </span>
-                                    <span class="ps-1">
-                                        {{activity.date?.toDate() | date: 'HH:mm' }}
-                                    </span>
-                                    <span *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName"
-                                        class="px-2">&bull;</span>
-                                    <span
-                                        *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">{{activity.createdBy?.displayName
-                                        || activity.createdBy?.userName}}</span>
-                                </div>
-                                <div class="col-12 mb-2" *ngIf="showPropertyName">
+                    </div>
+                    <div class="col-10 acitivty-details">
+                        <div class="d-none d-sm-block activity-details-desktop">
+                            <div class="row">
+                                <div class="col-4" *ngIf="showPropertyName">
                                     <button mat-button (click)="showDetails(activity.propertyId!)"
                                         class="property-name">
                                         <mat-icon class="property-type-icon"
@@ -190,29 +124,90 @@
                                         <span>{{activity.propertyName}}</span>
                                     </button>
                                 </div>
-                                <div class="col-12 mb-4">
-                                    <span class="activity-description">{{activity.description}}</span>
-                                </div>
-                                <div class="col-12">
-                                    <div *ngIf="activity.documents?.length" class="activity-document">
-                                        <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
-                                            *ngFor="let doc of activity.documents">
-                                            <span class="document-name">{{doc.displayName}}</span>
-                                        </button>
+                                <div class="col-8 pt-2">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="activity-description">{{activity.description}}</span>
+                                        </div>
+                                        <div *ngIf="activity.documents?.length"
+                                            class="ms-3 col-1 quarter-circle-top-right"></div>
+                                        <div *ngIf="activity.documents?.length" class="col-10 pt-1 activity-document">
+                                            <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
+                                                *ngFor="let doc of activity.documents">
+                                                <span class="document-name">{{doc.displayName}}</span>
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="pt-1 row activity-metadata"
+                                        *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">
+                                        <div class="col-12">
+                                            <mat-icon matChipAvatar class="mb-1"
+                                                style="font-size: 18px; width: 18px; height:18px">person
+                                            </mat-icon>
+                                            <span class="ps-1">{{activity.createdBy?.displayName
+                                                || activity.createdBy?.userName}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 activity-details-mobile d-sm-none">
+                            <div class="col-12 pt-2 mb-2 activity-metadata">
+                                <span>
+                                    <mat-icon class="mb-1" style="font-size: 18px; width: 18px; height:18px">
+                                        access_time
+                                    </mat-icon>
+                                </span>
+                                <span class="ps-1">
+                                    {{activity.date?.toDate() | date: 'HH:mm' }}
+                                </span>
+                                <span *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName"
+                                    class="px-2">&bull;</span>
+                                <span
+                                    *ngIf="activity.createdBy?.displayName || activity.createdBy?.userName">{{activity.createdBy?.displayName
+                                    || activity.createdBy?.userName}}</span>
+                            </div>
+                            <div class="col-12 mb-2" *ngIf="showPropertyName">
+                                <button mat-button (click)="showDetails(activity.propertyId!)" class="property-name">
+                                    <mat-icon class="property-type-icon"
+                                        *ngIf="activity.propertyCategory === 'Apartment'">
+                                        apartment</mat-icon>
+                                    <mat-icon class="property-type-icon"
+                                        *ngIf="activity.propertyCategory === 'Villa'">villa
+                                    </mat-icon>
+                                    <mat-icon class="property-type-icon"
+                                        *ngIf="activity.propertyCategory === 'Townhouse'">
+                                        door_sliding</mat-icon>
+                                    <mat-icon class="property-type-icon"
+                                        *ngIf="activity.propertyCategory === 'Commercial'">
+                                        store_front</mat-icon>
+                                    <span>{{activity.propertyName}}</span>
+                                </button>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <span class="activity-description">{{activity.description}}</span>
+                            </div>
+                            <div class="col-12">
+                                <div *ngIf="activity.documents?.length" class="activity-document">
+                                    <button class="mb-1" mat-stroked-button (click)="downloadDoc(activity, doc)"
+                                        *ngFor="let doc of activity.documents">
+                                        <span class="document-name">{{doc.displayName}}</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div>
-                <button *ngIf="showViewMore" mat-raised-button (click)="getMoreActivities.emit()">
-                    <mat-icon>expand_more</mat-icon>
-                    <span>{{ 'activity_list.view_more' | translate }}</span>
-                </button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</section>
+        <div>
+            <button *ngIf="showViewMore" mat-raised-button (click)="getMoreActivities.emit()">
+                <mat-icon>expand_more</mat-icon>
+                <span>{{ 'activity_list.view_more' | translate }}</span>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>

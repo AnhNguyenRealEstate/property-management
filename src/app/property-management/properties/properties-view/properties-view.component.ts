@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit, Pipe, PipeTransform, TemplateRef, ViewChild } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserProfileService } from 'src/app/property-management/users/users.service';
 import { PropertyDetailsComponent } from '../property-details/property-details.component';
 import { Property } from "../property.data";
@@ -10,6 +10,7 @@ import { MetadataService, PropertiesMetadata } from 'src/app/shared/metadata.ser
 import { ContractType } from '../property-upload/property-upload.data';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { TabSwipeService } from 'src/app/shared/tab-swipe.service';
 
 @Pipe({
     name: 'propFilter'
@@ -68,12 +69,17 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     villasCurrentPage: number = 1;
     commercialsCurrentPage: number = 1;
 
+    propTabIndex: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+    propTabIndex$: Observable<number> = this.propTabIndex.asObservable()
+    tabCount: number = 4
+
     constructor(
         private dialog: MatDialog,
         private bottomSheet: MatBottomSheet,
         public roles: UserProfileService,
         public propertiesView: PropertiesViewService,
-        public metadata: MetadataService
+        public metadata: MetadataService,
+        private tabSwipe: TabSwipeService
     ) {
     }
 
@@ -87,6 +93,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
         this.subs.add(this.metadata.propertiesMetadata$.subscribe(data => {
             this.propertiesMetadata = data;
         }));
+
+        this.tabSwipe.initSwipeDetection(this.propTabIndex, this.tabCount)
     }
 
     ngOnDestroy() {
@@ -149,6 +157,8 @@ export class PropertiesViewComponent implements OnInit, OnDestroy {
     }
 
     async onTabChange($event: number) {
+        this.propTabIndex.next($event)
+
         switch ($event) {
             case 0:
                 this.apartments = await this.propertiesView.getProperties('Apartment');
