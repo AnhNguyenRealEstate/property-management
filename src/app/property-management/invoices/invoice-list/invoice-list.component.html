@@ -13,58 +13,52 @@
         (afterCollapse)="hideActions(editBtn, paymentReceivedBtn, payoutSentBtn)">
         <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
             <mat-panel-title class="py-2">
-                <div class="invoice-title">
-                    <div class="text-bold">
+                <div class="d-flex" style="flex-direction: column;">
+                    <div class="text-bold invoice-title pt-2 pt-sm-0 mb-2">
                         <span>{{invoice.propertyName}}</span>
                     </div>
-                    <div class="invoice-description overrun-wrap text-bold" style="color: gray">
-                        <span>{{invoice.description}}</span>
+                    <div class="d-sm-none d-flex justify-content-center my-3 px-3">
+                        <ng-container [ngTemplateOutlet]="paymentInfo" [ngTemplateOutletContext]="{invoice: invoice}">
+                        </ng-container>
                     </div>
-                    <div class="pt-2 invoice-description" style="color: black">
+                    <div class="invoice-description pb-2 pb-sm-0">
                         <span class="me-1">{{ 'invoice_list.collect_on' | translate }}:</span>
                         <span>{{invoice.beginDate?.toDate() | date: 'ccc - dd/MM/yyyy'}}</span>
                     </div>
                 </div>
             </mat-panel-title>
             <mat-panel-description class="d-none d-sm-block">
-                <div class="pt-4 row invoice-description" style="width: 80%;">
-                    <div class="col-4 d-flex justify-content-center">{{invoice.payer}}</div>
-                    <div class="col-4 px-1">
-                        <div class="d-flex justify-content-center">
-                            <span class="text-bold" style="color: black;">{{invoice.amount}}</span>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <mat-icon class="payments-icon" color="primary">payments</mat-icon>
-                            <mat-icon class="arrow-icon" color="primary">trending_flat</mat-icon>
-                        </div>
-                    </div>
-                    <div class="col-4 d-flex justify-content-center">{{invoice.payee}}</div>
+                <div class="pt-3 px-5">
+                    <ng-container [ngTemplateOutlet]="paymentInfo"
+                        [ngTemplateOutletContext]="{invoice: invoice}"></ng-container>
                 </div>
             </mat-panel-description>
-            <div class="pt-3" style="display: none" #editBtn>
-                <button *ngIf="canEditInvoices && !invoicesBeingEdited.includes(invoice.id!)" mat-button
-                    (click)="$event.stopPropagation(); editInvoice(invoicePanel, invoice);"
-                    [matTooltip]="'invoice_list.edit_invoice' | translate">
-                    <mat-icon>edit</mat-icon>
-                </button>
-            </div>
-            <div class="pt-3" style="display: none" #paymentReceivedBtn>
-                <button *ngIf="canEditInvoices 
+            <div class="invoice-actions-group">
+                <div style="display: none" #editBtn>
+                    <button *ngIf="canEditInvoices && !invoicesBeingEdited.includes(invoice.id!)" mat-icon-button
+                        (click)="$event.stopPropagation(); editInvoice(invoicePanel, invoice);"
+                        [matTooltip]="'invoice_list.edit_invoice' | translate">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div style="display: none" #paymentReceivedBtn>
+                    <button *ngIf="canEditInvoices 
                     && invoice.status === 'unpaid' 
-                    && !invoicesBeingEdited.includes(invoice.id!)" mat-button
-                    [matTooltip]="'invoice_list.payment_received' | translate"
-                    (click)="$event.stopPropagation(); invoicePaymentReceived(invoice)">
-                    <mat-icon color="accent">check</mat-icon>
-                </button>
-            </div>
-            <div class="pt-3" style="display: none" #payoutSentBtn>
-                <button *ngIf="canEditInvoices 
+                    && !invoicesBeingEdited.includes(invoice.id!)" mat-icon-button
+                        [matTooltip]="'invoice_list.payment_received' | translate"
+                        (click)="$event.stopPropagation(); invoicePaymentReceived(invoice)">
+                        <mat-icon color="accent">check</mat-icon>
+                    </button>
+                </div>
+                <div style="display: none" #payoutSentBtn>
+                    <button *ngIf="canEditInvoices 
                     && invoice.status === 'paid'
-                    && !invoicesBeingEdited.includes(invoice.id!)" mat-button
-                    [matTooltip]="'invoice_list.paid_out' | translate"
-                    (click)="$event.stopPropagation(); invoicePaidOut(invoice)">
-                    <mat-icon color="accent">check</mat-icon>
-                </button>
+                    && !invoicesBeingEdited.includes(invoice.id!)" mat-icon-button
+                        [matTooltip]="'invoice_list.paid_out' | translate"
+                        (click)="$event.stopPropagation(); invoicePaidOut(invoice)">
+                        <mat-icon color="accent">check</mat-icon>
+                    </button>
+                </div>
             </div>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
@@ -161,5 +155,21 @@
             <mat-label>{{ 'invoice_list.description' | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="invoice.description">
         </mat-form-field>
+    </div>
+</ng-template>
+
+<ng-template #paymentInfo let-invoice="invoice">
+    <div class="row">
+        <div class="col-4 d-flex justify-content-center" style="font-weight: normal">{{invoice.payer}}</div>
+        <div class="col-4 px-1">
+            <div class="d-flex justify-content-center">
+                <span class="text-bold" style="color: black;">{{invoice.amount}}</span>
+            </div>
+            <div class="d-flex justify-content-center" style="align-items: center">
+                <mat-icon class="payments-icon" color="primary">payments</mat-icon>
+                <mat-icon class="arrow-icon" color="primary">trending_flat</mat-icon>
+            </div>
+        </div>
+        <div class="col-4 d-flex justify-content-center" style="font-weight: normal">{{invoice.payee}}</div>
     </div>
 </ng-template>

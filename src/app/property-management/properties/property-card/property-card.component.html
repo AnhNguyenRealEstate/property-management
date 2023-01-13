@@ -12,24 +12,7 @@
         </div>
     </mat-card-title>
     <mat-card-content class="mb-0">
-        <div class="owner-info" *ngIf="property.owner">
-            <div *ngIf="property.owner.contactName" class="overrun-wrap">
-                <mat-icon [matTooltip]="'property_card.owner' | translate" style="font-size: 1.2rem; color:gray">key
-                </mat-icon>
-                <span class="ps-1">{{property.owner.contactName}}</span>
-            </div>
-            <div *ngIf="property.owner.contactInfo" class="overrun-wrap">{{property.owner.contactInfo}}</div>
-        </div>
-
-        <div class="pb-3 tenant-info" *ngIf="property.owner">
-            <div *ngIf="property.tenantName" class="overrun-wrap">
-                <mat-icon [matTooltip]="'property_card.tenant' | translate" style="font-size: 1.2rem; color:gray">
-                    description</mat-icon>
-                <span class="ps-1">{{property.tenantName}}</span>
-            </div>
-        </div>
-
-        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-3">
+        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row mt-4 mb-4">
             <div class="col-5">
                 <div class="content-label d-flex justify-content-center">
                     <mat-icon style="color: green;">event_available</mat-icon>

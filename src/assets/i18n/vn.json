@@ -302,7 +302,7 @@
         "recent_activities": "Hoạt động gần đây",
         "description": "Mô tả",
         "date": "Ngày",
-        "contracts_expiring_soon": "Sắp hết hạn hợp đồng",
+        "contracts_expiring_soon": "Hợp đồng sắp kết thúc",
         "expiring_soon_msg": "Còn {{month}} tháng",
         "invoices_this_week": "Khoản thu trong tuần",
         "no_invoices": "Không có khoản thu trong tuần"

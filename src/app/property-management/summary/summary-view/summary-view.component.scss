@@ -1,15 +1,15 @@
 @use "src/app/styles/colors" as colors;
 
 .table-header {
-    color: rgb(161, 161, 161);
+    color: gray;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .property-name {
     font-size: 0.8rem;
     color: colors.$accent;
-    overflow: hidden !important;
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0)) !important;
 }
 
 .property-name-mobile {

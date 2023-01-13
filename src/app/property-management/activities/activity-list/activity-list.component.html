@@ -109,18 +109,6 @@
                                 <div class="col-4" *ngIf="showPropertyName">
                                     <button mat-button (click)="showDetails(activity.propertyId!)"
                                         class="property-name">
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Apartment'">
-                                            apartment</mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Villa'">villa
-                                        </mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Townhouse'">
-                                            door_sliding</mat-icon>
-                                        <mat-icon class="property-type-icon"
-                                            *ngIf="activity.propertyCategory === 'Commercial'">
-                                            store_front</mat-icon>
                                         <span>{{activity.propertyName}}</span>
                                     </button>
                                 </div>
@@ -171,18 +159,6 @@
                             </div>
                             <div class="col-12 mb-2" *ngIf="showPropertyName">
                                 <button mat-button (click)="showDetails(activity.propertyId!)" class="property-name">
-                                    <mat-icon class="property-type-icon"
-                                        *ngIf="activity.propertyCategory === 'Apartment'">
-                                        apartment</mat-icon>
-                                    <mat-icon class="property-type-icon"
-                                        *ngIf="activity.propertyCategory === 'Villa'">villa
-                                    </mat-icon>
-                                    <mat-icon class="property-type-icon"
-                                        *ngIf="activity.propertyCategory === 'Townhouse'">
-                                        door_sliding</mat-icon>
-                                    <mat-icon class="property-type-icon"
-                                        *ngIf="activity.propertyCategory === 'Commercial'">
-                                        store_front</mat-icon>
                                     <span>{{activity.propertyName}}</span>
                                 </button>
                             </div>
