@@ -43,15 +43,15 @@ export class LayoutService {
     }
 
     private highlightSideNavBtn(url: string) {
-        if (url.includes('property-management-outlet:properties')) {
+        if (url.includes('/properties')) {
             this.raiseViewBtn(this.document.querySelector('[id="properties-btn"]'))
-        } else if (url.includes('property-management-outlet:activities')) {
+        } else if (url.includes('/activities')) {
             this.raiseViewBtn(this.document.querySelector('[id="activities-btn"]'))
-        } else if (url.includes('property-management-outlet:invoices')) {
+        } else if (url.includes('/invoices')) {
             this.raiseViewBtn(this.document.querySelector('[id="invoices-btn"]'))
-        } else if (url.includes('property-management-outlet:summary')) {
+        } else if (url.includes('/summary')) {
             this.raiseViewBtn(this.document.querySelector('[id="summary-btn"]'))
-        } else if (url.includes('property-management-outlet:users')) {
+        } else if (url.includes('/users')) {
             this.raiseViewBtn(this.document.querySelector('[id="users-btn"]'))
         }
     }

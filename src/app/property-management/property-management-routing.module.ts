@@ -9,38 +9,37 @@ const routes: Routes = [
         component: PropertyManagementComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'summary',
+                pathMatch: 'full'
+            },
+            {
                 path: 'summary',
-                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./summary/summary.module').then(mod => mod.SummaryModule)
             },
             {
                 path: 'owners',
-                loadChildren: () => import('./owners/owners.module').then(mod => mod.OwnersViewModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./owners/owners.module').then(mod => mod.OwnersViewModule)
             },
             {
                 path: 'properties',
-                loadChildren: () => import('./properties/properties.module').then(mod => mod.PropertiesViewModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./properties/properties.module').then(mod => mod.PropertiesViewModule)
             },
             {
                 path: 'activities',
-                loadChildren: () => import('./activities/activities.module').then(mod => mod.ActivitiesModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./activities/activities.module').then(mod => mod.ActivitiesModule)
             },
             {
                 path: 'invoices',
-                loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesViewModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesViewModule)
             },
             {
                 path: 'users',
-                loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule),
-                outlet: 'property-management-outlet'
+                loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
             }
         ]
     },
-    { path: '**', redirectTo: '/property-management' }
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

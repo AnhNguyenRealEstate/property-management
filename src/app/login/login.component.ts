@@ -11,7 +11,7 @@ import { LoginService } from './login.service';
 })
 
 export class LoginComponent implements OnInit {
-    summaryPage = '/property-management/(property-management-outlet:summary)';
+    summaryPage = '/property-management/summary';
 
     userName: string = '';
     password: string = '';

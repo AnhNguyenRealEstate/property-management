@@ -49,13 +49,13 @@
             </mat-drawer>
 
             <mat-drawer-content>
-                <router-outlet name="property-management-outlet"></router-outlet>
+                <router-outlet></router-outlet>
             </mat-drawer-content>
 
         </mat-drawer-container>
     </div>
 
     <div *ngIf="!isDesktop" class="default-background">
-        <router-outlet name="property-management-outlet"></router-outlet>
+        <router-outlet></router-outlet>
     </div>
 </section>

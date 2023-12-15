@@ -115,15 +115,15 @@ export class SummaryViewComponent implements OnInit {
     }
 
     viewProperties() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)')
+        this.router.navigateByUrl('/property-management/properties')
     }
 
     viewActivities() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)')
+        this.router.navigateByUrl('/property-management/activities')
     }
 
     viewInvoices() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)')
+        this.router.navigateByUrl('/property-management/invoices')
     }
 
     showPropDetails(property: Property) {

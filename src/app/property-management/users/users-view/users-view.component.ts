@@ -33,7 +33,7 @@ export class UsersViewComponent implements OnInit {
     async ngOnInit() {
         this.userProfile.roles$.subscribe(roles => {
             if (!roles.includes('admin')) {
-                this.router.navigateByUrl('/property-management/(property-management-outlet:summary)')
+                this.router.navigateByUrl('/property-management/summary')
             }
         })
 

@@ -38,22 +38,22 @@ export class PropertyManagementComponent implements OnInit, AfterViewInit, OnDes
     }
 
     viewSummary() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:summary)');
+        this.router.navigateByUrl('/property-management/summary');
     }
 
     viewProperties() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties)');
+        this.router.navigateByUrl('/property-management/properties');
     }
 
     viewActivities() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
+        this.router.navigateByUrl('/property-management/activities');
     }
 
     viewInvoices() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:invoices)');
+        this.router.navigateByUrl('/property-management/invoices');
     }
 
     viewUsers() {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:users)');
+        this.router.navigateByUrl('/property-management/users');
     }
 }

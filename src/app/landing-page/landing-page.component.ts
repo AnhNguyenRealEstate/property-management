@@ -32,7 +32,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subs.add(this.login.loggedIn$.subscribe(loggedIn => {
             if (loggedIn) {
-                this.router.navigateByUrl('/property-management')
+                this.router.navigateByUrl('/property-management/summary')
             }
         }));
     }
