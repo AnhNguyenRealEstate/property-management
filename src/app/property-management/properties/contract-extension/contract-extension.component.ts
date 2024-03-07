@@ -128,6 +128,8 @@ export class ContractExtensionComponent implements OnInit {
             const endDate = new Date(year, month, date)
             this.contractInfoFormGroup.get('endDate')?.setValue(endDate)
         }
+
+        this.property.tenantName = contractData.TENANT_NAME
     }
 
     resetForms() {
