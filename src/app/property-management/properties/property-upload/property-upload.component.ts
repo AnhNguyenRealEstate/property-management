@@ -119,6 +119,7 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         this.secondFormGroup.get('ownerName')?.setValue(contractData.LANDLORD_NAME);
         this.secondFormGroup.get('tenantName')?.setValue(contractData.TENANT_NAME);
         this.secondFormGroup.get('propertyAddress')?.setValue(contractData.PROPERTY_ADDR);
+        this.secondFormGroup.get('propertyCategory')?.setValue(contractData.PROPERTY_CATEGORY);
 
         const startDateResult = contractData.START_DATE?.match(/[0-9]+/gm);
         if (startDateResult && startDateResult.length >= 3) {
