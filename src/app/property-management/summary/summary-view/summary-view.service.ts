@@ -23,7 +23,14 @@ export class SummaryViewService {
         const today = new Date();
         const limit = new Date(today.getFullYear(), today.getMonth() + this.monthsTilExpiry, today.getDate());
 
-        const snap = await getDocs(
+        const alreadyExtendedSnap = await getDocs(collection(
+            this.firestore,
+            FirestoreCollections.rentalExtension
+        ))
+
+        const alreadyExtendedIds = alreadyExtendedSnap.docs.map(doc => doc.id)
+
+        const expiringSoonSnap = await getDocs(
             query(
                 collection(this.firestore, FirestoreCollections.underManagement),
                 where('managementEndDate', '>=', today),
@@ -32,7 +39,9 @@ export class SummaryViewService {
             )
         );
 
-        return snap.docs.map(doc => doc.data() as Property);
+        return expiringSoonSnap.docs
+            .map(doc => doc.data() as Property)
+            .filter(prop => prop.id && !alreadyExtendedIds.includes(prop.id));
     }
 
     async getRecentActivities(): Promise<Activity[]> {

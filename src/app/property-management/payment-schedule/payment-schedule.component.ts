@@ -115,6 +115,11 @@ export class PaymentScheduleComponent implements OnInit {
 
         let currentDate = scheduleBegin;
         let paymentCount = 1;
+
+        if (!currentDate || !scheduleEnd) {
+            return
+        }
+
         while (currentDate.getTime() < scheduleEnd.getTime()) {
             const beginDate: Date = currentDate;
             const dueDate: Date = calculateDueDate(beginDate);
