@@ -4,6 +4,7 @@ import { FirestoreCollections } from 'src/app/shared/globals';
 import { Activity } from '../../activities/activity.data';
 import { Invoice } from '../../invoices/invoices.data';
 import { Property } from '../../properties/property.data';
+import { ExtensionData } from '../../properties/contract-extension/contract-extension.data';
 
 @Injectable({ providedIn: 'root' })
 export class SummaryViewService {
@@ -28,7 +29,7 @@ export class SummaryViewService {
             FirestoreCollections.rentalExtension
         ))
 
-        const alreadyExtendedIds = alreadyExtendedSnap.docs.map(doc => doc.id)
+        const alreadyExtendedIds = alreadyExtendedSnap.docs.map(doc => (doc.data() as ExtensionData).propertyId)
 
         const expiringSoonSnap = await getDocs(
             query(
@@ -41,7 +42,7 @@ export class SummaryViewService {
 
         return expiringSoonSnap.docs
             .map(doc => doc.data() as Property)
-            .filter(prop => prop.id && !alreadyExtendedIds.includes(prop.id));
+            .filter(prop => prop.id && !alreadyExtendedIds.includes(prop.id))
     }
 
     async getRecentActivities(): Promise<Activity[]> {

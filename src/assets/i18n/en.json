@@ -288,7 +288,7 @@
     "summary": {
         "overview": "Overview",
         "view_by": "View by",
-        "category": "Category",
+        "active_contracts": "Active contracts",
         "status": "Status",
         "view_all": "View all",
         "property": "Property",
