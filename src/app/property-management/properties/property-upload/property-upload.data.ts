@@ -16,4 +16,12 @@ export interface ContractData {
     'START_DATE': string,
     'END_DATE': string,
     'RENTAL_PRICE': string
+    'DEPOSIT_INFO': string,
+    'PAYMENT_SCHEDULES': PaymentScheduleData[]
+}
+
+export interface PaymentScheduleData {
+    'AMOUNT': string
+    'CURRENCY': string
+    'EVERY_HOW_MANY_MONTHS': string
 }
