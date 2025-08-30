@@ -45,8 +45,8 @@ export class PropertyEditComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.managementStartDate = this.property.managementStartDate?.toDate();
-        this.managementEndDate = this.property.managementEndDate?.toDate();
+        this.managementStartDate = this.property.managementStartDate ? this.property.managementStartDate.toDate() : undefined;
+        this.managementEndDate = this.property.managementEndDate ? this.property.managementEndDate.toDate() : undefined;
     }
 
     async edit() {

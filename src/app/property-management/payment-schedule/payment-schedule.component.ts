@@ -8,7 +8,9 @@ import { PaymentScheduleService } from './payment-schedule.service';
 
 export interface DefaultInputValues {
     startDate?: Date,
-    endDate?: Date
+    endDate?: Date,
+    amount?: string,
+    collectionInterval?: number
 }
 @Component({
     selector: 'payment-schedule',

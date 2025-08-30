@@ -109,12 +109,14 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
         data.append('contract', this.contract);
         this.contractData = await this.upload.extractContractData(data);
         if (this.contractData) {
+            console.log('contractData', this.contractData);
             this.bindExtractionResult(this.contractData);
             this.stepper.next();
         }
     }
 
     bindExtractionResult(contractData: ContractData) {
+
         this.secondFormGroup.get('propertyName')?.setValue(contractData.PROPERTY_NAME);
         this.secondFormGroup.get('ownerName')?.setValue(contractData.LANDLORD_NAME);
         this.secondFormGroup.get('tenantName')?.setValue(contractData.TENANT_NAME);
@@ -127,8 +129,12 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             const month = Number(startDateResult[1]) - 1;
             const date = Number(startDateResult[0]);
 
-            const startDate = new Date(year, month, date);
-            this.secondFormGroup.get('startDate')?.setValue(startDate);
+            if (!isNaN(year) && !isNaN(month) && !isNaN(date)) {
+                const startDate = new Date(year, month, date);
+                if (!isNaN(startDate.getTime())) {
+                    this.secondFormGroup.get('startDate')?.setValue(startDate);
+                }
+            }
         }
 
         const endDateResult = contractData.END_DATE?.match(/[0-9]+/gm);
@@ -137,8 +143,12 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
             const month = Number(endDateResult[1]) - 1;
             const date = Number(endDateResult[0]);
 
-            const endDate = new Date(year, month, date);
-            this.secondFormGroup.get('endDate')?.setValue(endDate);
+            if (!isNaN(year) && !isNaN(month) && !isNaN(date)) {
+                const endDate = new Date(year, month, date);
+                if (!isNaN(endDate.getTime())) {
+                    this.secondFormGroup.get('endDate')?.setValue(endDate);
+                }
+            }
         }
 
         this.propertyDescription =
@@ -211,6 +221,9 @@ export class PropertyUploadComponent implements OnInit, OnDestroy {
     }
 
     dateToTimestamp(date: Date): Timestamp {
+        if (!date) {
+            return new Timestamp(0, 0);
+        }
         return Timestamp.fromDate(date);
     }
 
